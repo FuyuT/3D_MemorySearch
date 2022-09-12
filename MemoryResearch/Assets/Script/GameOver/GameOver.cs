@@ -47,7 +47,7 @@ public class GameOver : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown("light"))
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             select += 1;
         }
