@@ -9,18 +9,18 @@ public class GameOver : MonoBehaviour
     [SerializeField]
     GameObject GameOverPanel;
 
+    //ゲームオーバーアイテム
+    [SerializeField]
+    GameObject GameOverItem;
+
     //パネルの表示用
     bool show;
 
     //パネルでキー入力でのカーソル
     int select;
 
-    private float alpha;           //パネルのalpha値取得変数
-
-    private bool fadeout;          //フェードアウトのフラグ変数
-
-    Image fadealpha;               //フェードパネルのイメージ取得変数
-
+    //Outスクリプト
+    Out script;                   
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +28,9 @@ public class GameOver : MonoBehaviour
         select = 0;
         show = false;
 
-      GameOverPanel.SetActive(false);
+        script = GameOverPanel.GetComponent<Out>();
 
-        fadealpha = GameOverPanel.GetComponent<Image>();
-        alpha = fadealpha.color.a;
-        fadeout = false;
+       GameOverItem.SetActive(false);
     }
 
     // Update is called once per frame
@@ -43,60 +41,64 @@ public class GameOver : MonoBehaviour
         {
             if (Input.GetKey("f1"))
             {
-                OnGameOver();
+                script.IsFadeOut = true;
+                GameOverItem.SetActive(true);
+                show = true;
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (show)
         {
-            select += 1;
-        }
-        else if(Input.GetKeyDown("left"))
-        {
-            select -= 1;
-        }
-
-        if (select > 1)
-        {
-            select = 0;
-        }
-        else if (select < 0)
-        {
-            select = 1;
-        }
-
-        if (select == 0)
-        {
-            if (Input.GetKeyDown("z"))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
-                SelectTitleButton();
+                select += 1;
             }
-        }
-
-        if (select == 1)
-        {
-            if (Input.GetKeyDown("z"))
+            else if (Input.GetKeyDown("left"))
             {
-                SelectRetry();
+                select -= 1;
+            }
+
+            if (select > 1)
+            {
+                select = 0;
+            }
+            else if (select < 0)
+            {
+                select = 1;
+            }
+
+            if (select == 0)
+            {
+                if (Input.GetKeyDown("z"))
+                {
+                    SelectTitleButton();
+                }
+            }
+
+            if (select == 1)
+            {
+                if (Input.GetKeyDown("z"))
+                {
+                    SelectRetry();
+                }
             }
         }
     }
 
+    ////ゲームオーバー表示の関数
+    //public void OnGameOver()
+    //{
+    //    fadeout = true;
 
-    //ゲームオーバー表示の関数
-    public void OnGameOver()
-    {
-        fadeout = true;
-
-        alpha += 0.01f;
-        fadealpha.color = new Color(0, 0, 0, alpha);
-        if (alpha >= 1)
-        {
-            GameOverPanel.SetActive(true);
-            show = true;
-            fadeout = false;
-        }
-    }
+    //    alpha += 0.01f;
+    //    fadealpha.color = new Color(0, 0, 0, alpha);
+    //    if (alpha >= 1)
+    //    {
+    //        GameOverPanel.SetActive(true);
+    //        show = true;
+    //        fadeout = false;
+    //    }
+    //}
 
     //タイトル画面に戻る関数
     public void SelectTitleButton()
@@ -111,6 +113,5 @@ public class GameOver : MonoBehaviour
         //MenuPanel.SetActive(false);
         FadeManager.Instance.LoadScene("SampleScene", 1.0f);
     }
-
 
 }
