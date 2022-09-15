@@ -8,8 +8,8 @@ public class Out : MonoBehaviour
     Image FadePanel;
    
     public bool IsFadeOut = false;
-    float Speed = 0.02f;
-    float Red, Green, Blue, Alpha;
+    float  Speed = 0.02f;
+    float  Red, Green, Blue, Alpha;
 
 
     // Start is called before the first frame update
