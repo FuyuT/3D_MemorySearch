@@ -29,6 +29,8 @@ public class TitleGame : MonoBehaviour
     //項目パネルが表示してから操作できるまで用の時間
     float  ShowTime;
 
+    PanelofIn InScript;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,8 @@ public class TitleGame : MonoBehaviour
         Select = 0;
 
         ShowTime = 4;
+
+        InScript = SelectPanel.GetComponent<PanelofIn>();
 
         //各パネルのスタート時の表示状況//
         TitlePanel.SetActive(true);
@@ -51,14 +55,16 @@ public class TitleGame : MonoBehaviour
         {
             TitlePanel.SetActive(false);
             SelectPanel.SetActive(true);
-
-            ShowTime -= Time.deltaTime;
+           // InScript.IsFadeIn = true;
+         
            
         }
 
       
         if (Show)
         {
+            ShowTime -= Time.deltaTime;
+
             if (ShowTime >= 0)
             {
  
