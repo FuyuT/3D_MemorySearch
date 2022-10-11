@@ -11,14 +11,13 @@ public class StateIdle : State
 {
     protected override void OnEnter(State prevState)
     {
-        Debug.Log("‘Ò‹@ó‘Ô‚ÖˆÚs");
     }
     protected override void OnUpdate()
     {
-        NextStateUpdate();
+        SelectNextState();
     }
 
-    protected override void NextStateUpdate()
+    protected override void SelectNextState()
     {
         //ˆÚ“®
         if (Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("right") || Input.GetKey("left"))

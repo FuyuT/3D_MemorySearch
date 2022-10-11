@@ -49,10 +49,10 @@ public class StateMove : State
             stateMachine.Dispatch((int)Player.Event.Idle);
         }
 
-        NextStateUpdate();
+        SelectNextState();
     }
 
-    protected override void NextStateUpdate()
+    protected override void SelectNextState()
     {
         //ƒ_ƒbƒVƒ…Œn
         if (Input.GetKey(KeyCode.Z))

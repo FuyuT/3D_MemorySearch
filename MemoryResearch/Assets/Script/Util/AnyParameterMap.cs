@@ -5,7 +5,7 @@ using UnityEngine;
 using Map = System.Collections.Generic.Dictionary<string, object>;
 
 /**
- * @brief       パラメーター保存
+ * @brief       パラメータ保存
  */
 public class AnyParameterMap
 {
@@ -18,7 +18,7 @@ public class AnyParameterMap
     }
 
 	/**
-	 * @brief		パラメーターの追加
+	 * @brief		パラメータの追加
 	 *              登録できなかった場合はfalse
 	 * @param[in]	key			キー
 	 * @param[in]	value		値
@@ -37,10 +37,10 @@ public class AnyParameterMap
     }
 
 	/**
-	 * @brief		パラメーターの取得
+	 * @brief		パラメータの取得
 	 * 　			存在しない場合はnullを返す
 	 * @param[in]	key			キー
-	 * @return		取得したパラメーター
+	 * @return		取得したパラメータ(object)
 	 */
 	public object Get(string key)
 	{
@@ -52,7 +52,37 @@ public class AnyParameterMap
 	}
 
 	/**
-	 * @brief		パラメーターの設定
+	 * @brief		パラメータの取得（ジェネリック版）
+	 * 　			存在しない場合はnullを返す
+	 * @param[in]	key			キー
+	 * @return		取得したパラメータ(object)
+	 */
+	public Type Get<Type>(string key)
+	{
+		Type returnValue = default(Type);
+
+		if (!parameters.ContainsKey(key))
+        {
+			Debug.LogError("キーに該当するパラメータが存在しません");
+			//todo:キーに該当するパラメータが見つからなかった場合の返り値を変更する(現在は指定した型のdefault値を返す）
+			return returnValue;
+        }
+
+		try
+        {
+			returnValue = (Type)parameters[key];
+        }
+		catch
+        {
+			Debug.LogError("パラメータ取得時に指定した型に変換できませんでした。");
+        }
+
+		return returnValue;
+	}
+
+
+	/**
+	 * @brief		パラメータの設定
 	 *              設定できたらtrue、できなければfalse
 	 * @param[in]	key			キー
 	 * @param[in]	value		値
@@ -67,6 +97,4 @@ public class AnyParameterMap
 		parameters[key] = value;
 		return true;
 	}
-
-
 }

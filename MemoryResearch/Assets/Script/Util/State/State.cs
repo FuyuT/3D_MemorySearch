@@ -53,7 +53,7 @@ public abstract class State<TOwner>
     /// 次のステートへ遷移する処理を書く関数
     /// 中身を記述してOnUpdate中に好きなタイミングで呼び出してください
     /// </summary>
-    protected virtual void NextStateUpdate() { }
+    protected virtual void SelectNextState() { }
 
     /// <summary>
     /// ステート終了

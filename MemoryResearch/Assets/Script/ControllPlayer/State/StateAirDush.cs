@@ -14,7 +14,7 @@ public class StateAirDush : State
     {
         Debug.Log("空中ダッシュ状態へ移行");
 
-        Owner.isGravity = false;
+        Owner.isJump = false;
 
         Owner.dushVec = Vector3.zero;
 
@@ -62,10 +62,10 @@ public class StateAirDush : State
             Owner.moveVec += Owner.dushVec;
         }
 
-        NextStateUpdate();
+        SelectNextState();
     }
 
-    protected override void NextStateUpdate()
+    protected override void SelectNextState()
     {
         //移動が終了していたら待機へ
         if (Owner.nowDushTime < 0)
@@ -77,7 +77,7 @@ public class StateAirDush : State
 
     protected override void OnExit(State nextState)
     {
-        Owner.isGravity = true;
+        Owner.isJump = true;
     }
 
 }

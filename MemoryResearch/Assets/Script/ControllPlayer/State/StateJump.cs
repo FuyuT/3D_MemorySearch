@@ -5,31 +5,25 @@ using UnityEngine;
 using State = State<Player>;
 
 /// <summary>
-/// ダブルジャンプ
+/// ジャンプ
 /// </summary>
-public class StateDoubleJump : State
+public class StateJump : State
 {
+    bool IsAcceleration;
+
     protected override void OnEnter(State prevState)
     {
-        Debug.Log("ダブルジャンプ状態へ移行");
+        IsAcceleration = true;
 
-        Owner.isGravity = false;
+        Owner.isJump = true;
+        Debug.Log("ジャンプ状態へ移行");
 
         Owner.isFloating = true;
-        //y軸の速度を0にする
-        Owner.moveVec = new Vector3(Owner.moveVec.x, 0, Owner.moveVec.z);
         //初速を設定
         Owner.nowJumpSpeed = Owner.JumpStartSpeed;
     }
     protected override void OnUpdate()
     {
-        //着地したら待機状態へ
-        if (!Owner.isFloating)
-        {
-            stateMachine.Dispatch((int)Player.Event.Idle);
-            return;
-        }
-
         //キー入力での移動
         if (Input.GetKey("up"))
         {
@@ -52,25 +46,50 @@ public class StateDoubleJump : State
         //ジャンプ処理
         Vector3 moveAdd = Owner.moveVec;
 
-        Owner.nowJumpSpeed -= Owner.Gravity;
-        moveAdd.y += Owner.nowJumpSpeed + Owner.JumpAcceleration;
+        Owner.nowJumpSpeed -= Owner.JumpDecreaseValue;
+        Owner.moveVec += Owner.transform.forward;
+
+        //キー入力されていたら、ジャンプ速度を加速させる（飛距離を延ばす）
+        if (Input.GetKey("up") && IsAcceleration)
+        {
+            Owner.nowJumpSpeed += Owner.JumpAcceleration;
+        }
+        else
+        {
+            IsAcceleration = false;
+        }
+
+        moveAdd.y += Owner.nowJumpSpeed;
 
         Owner.moveVec += moveAdd;
 
-        NextStateUpdate();
+        SelectNextState();
     }
 
-    protected override void NextStateUpdate()
+    protected override void SelectNextState()
     {
+        //ダブルジャンプ
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            stateMachine.Dispatch((int)Player.Event.Double_Jump);
+        }
+        
         //空中ダッシュ
         if (Input.GetKey(KeyCode.Z))
         {
             stateMachine.Dispatch((int)Player.Event.Air_Dush);
         }
+
+        //着地したら待機状態へ
+        if (!Owner.isJump)
+        {
+            stateMachine.Dispatch((int)Player.Event.Idle);
+        }
+
     }
 
     protected override void OnExit(State nextState)
     {
-        Owner.isGravity = true;
+        Owner.moveVec.y = 0;
     }
 }

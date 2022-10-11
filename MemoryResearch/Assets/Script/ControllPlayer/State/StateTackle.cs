@@ -16,6 +16,7 @@ public class StateTackle : State
 
         Owner.dushVec = Vector3.zero;
 
+        //入力によって進行方向を変更
         if (Input.GetKey("up"))
         {
             Owner.dushVec += Owner.transform.forward;
@@ -33,10 +34,10 @@ public class StateTackle : State
             Owner.dushVec -= Owner.transform.right;
         }
 
-        //ダッシュベクトルが0なら
+        //入力がない場合
         if (Owner.dushVec == Vector3.zero)
         {
-            //キャラの前方ベクトルを取得
+            //キャラの前方ベクトルを進行方向に設定
             Owner.dushVec = Owner.transform.forward;
         }
 
@@ -61,10 +62,10 @@ public class StateTackle : State
             Owner.moveVec += Owner.dushVec;
         }
 
-        NextStateUpdate();
+        SelectNextState();
     }
 
-    protected override void NextStateUpdate()
+    protected override void SelectNextState()
     {
         //移動が終了していたら待機へ
         if (Owner.nowDushTime < 0)

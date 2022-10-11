@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
 
     [Space]
     [Header("重力")]
-    [SerializeField] public float Gravity;
+    [SerializeField] public float JumpDecreaseValue;
 
     [Space]
     [Header("ダッシュ")]
@@ -33,6 +33,10 @@ public class Player : MonoBehaviour
     [SerializeField] public float DushAcceleration;
     [Header("移動時間")]
     [SerializeField] public float DushTime;
+
+    //アクター
+    IActor actor;
+    public static IReaderActor readActor = new Actor();
     /// <summary>
     /// ステートenum
     /// </summary>
@@ -54,14 +58,22 @@ public class Player : MonoBehaviour
     public float nowJumpSpeed;
     public float jumpAcceleration;
     public bool isFloating;
-    public bool isGravity;
+    public bool isJump;
 
-    public Vector3 moveVec { get; set; }
+    public Vector3 moveVec;
 
     public Vector3 dushVec;
     public float nowDushTime;
 
     StateMachine<Player> stateMachine;
+
+    /// <summary>
+    /// コンストラクタ
+    /// </summary>
+    Player()
+    {
+        actor = new Actor();
+    }
 
     /// <summary>
     /// MainStart
@@ -77,7 +89,7 @@ public class Player : MonoBehaviour
     private void Init()
     {
         isFloating = false;
-        isGravity = false;
+        isJump = false;
         nowJumpSpeed = 0.0f;
         dushVec = Vector3.zero;
         nowDushTime = 0;
@@ -99,7 +111,7 @@ public class Player : MonoBehaviour
         stateMachine.AddAnyTransition<StateTackle>((int)Event.Attack_Tackle);
 
         //ジャンプボタンでジャンプ
-        stateMachine.AddAnyTransition<StateJump>((int)Event.Jump);
+        stateMachine.AddAnyTransition<StateDoubleJump>((int)Event.Jump);
         stateMachine.AddAnyTransition<StateDoubleJump>((int)Event.Double_Jump);
 
         //エアダッシュ
@@ -110,7 +122,6 @@ public class Player : MonoBehaviour
 
         //ステートマシンの開始　初期ステートは引数で指定
         stateMachine.Start(stateMachine.GetOrAddState<StateIdle>());
-        
     }
 
     /// <summary>
@@ -123,23 +134,28 @@ public class Player : MonoBehaviour
 
         //位置更新
         //浮遊していたら重力を計算に追加
-        if(isFloating && isGravity)
+        if(isFloating)
         {
-            moveVec -= new Vector3(0, Weight + Gravity, 0);
+            if(!isJump)
+            {
+                //moveVec -= new Vector3(0, Weight + Gravity, 0);
+            }
         }
         transform.position += moveVec * Time.deltaTime;
         moveVec = Vector3.zero;
+
+        actor.TransformUpdate();
     }
 
     private void OnCollisionEnter(Collision collision)
     {
+        //地面
         if (collision.gameObject.tag == "Ground")
         {
-            if (nowJumpSpeed < 0)
+            if (isFloating)
             {
-                Debug.Log("着地した");
                 isFloating = false;
-                isGravity = false;
+                isJump = false;
                 nowJumpSpeed = 0.0f;
             }
         }
@@ -147,13 +163,13 @@ public class Player : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
+        //地面
         if (collision.gameObject.tag == "Ground")
         {
             if (nowJumpSpeed < 0)
             {
-                Debug.Log("地面と接している");
                 isFloating = false;
-                isGravity = false;
+                isJump = false;
                 nowJumpSpeed = 0.0f;
             }
         }
@@ -161,9 +177,9 @@ public class Player : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
+        //地面
         if (collision.gameObject.tag == "Ground")
         {
-            Debug.Log("落下している");
             //浮遊状態へ
             isFloating = true;
         }

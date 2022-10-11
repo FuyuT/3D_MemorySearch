@@ -1,0 +1,32 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+using State = State<Enemy>;
+
+public class StateEnemyAttack : State
+{
+    protected override void OnEnter(State prevState)
+    {
+        //æ“¾‚Å‚«‚éƒƒ‚ƒŠ‚ğİ’è
+        Owner.parameter.Set("Šƒƒ‚ƒŠ", (int)Player.Event.Attack_Punch);
+    }
+
+    protected override void OnUpdate()
+    {
+        //UŒ‚
+        Debug.Log("“G:UŒ‚ó‘Ô");
+        SelectNextState();
+    }
+
+    protected override void SelectNextState()
+    {
+        //todo:“GUŒ‚‚ªI‚í‚Á‚½‚çˆÚ“®‚Ö
+        stateMachine.Dispatch((int)Enemy.Event.Move);
+    }
+
+    protected override void OnExit(State nextState)
+    {
+        Owner.parameter.Set("UŒ‚‰Â”\”»’è", false);
+    }
+}
