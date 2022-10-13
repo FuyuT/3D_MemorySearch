@@ -20,28 +20,37 @@ public class TitleGame : MonoBehaviour
     [SerializeField]
     GameObject OptionPanel;
 
+    [SerializeField]
+    Button StartButton;
 
-    bool Show;
+     bool Show;
 
     //項目選択の数値
     int  Select;
 
     //項目パネルが表示してから操作できるまで用の時間
-    float  ShowTime;
+    public float  ShowTime;
+
+    PanelofIn InScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        Show = true;
+        Show = false;
 
         Select = 0;
 
-        ShowTime = 4;
+        InScript = SelectPanel.GetComponent<PanelofIn>();
 
         //各パネルのスタート時の表示状況//
         TitlePanel.SetActive(true);
         SelectPanel.SetActive(false);
         OptionPanel.SetActive(false);
+
+      
+          
+        //ボタンが選択された状態になる
+        StartButton.Select();
     }
 
     // Update is called once per frame
@@ -51,24 +60,30 @@ public class TitleGame : MonoBehaviour
         {
             TitlePanel.SetActive(false);
             SelectPanel.SetActive(true);
+            // InScript.IsFadeIn = true;
+            Show = true;
 
-            ShowTime -= Time.deltaTime;
-           
+            StartButton.Select();
+
         }
 
-      
-        if (Show)
+        if(Show)
         {
-            if (ShowTime >= 0)
+            ShowTime -= Time.deltaTime;
+        }
+      
+            if (ShowTime <= 0)
             {
  
                 if (Input.GetKeyDown("down"))
                 {
                     Select += 1;
+                    Debug.Log("a");
                 }
                 else if (Input.GetKeyDown("up"))
                 {
                     Select -= 1;
+                    Debug.Log("b");
                 }
 
                 if (Select > 2)
@@ -80,10 +95,8 @@ public class TitleGame : MonoBehaviour
                     Select = 2;
                 }
 
-                if (CustomInput.Interval_InputKeydown(KeyCode.Return, 3))
+                if (CustomInput.Interval_InputKeydown(KeyCode.Return, 2))
                 {
-
-
                     if (Select == 0)
                     {
                         
@@ -106,8 +119,6 @@ public class TitleGame : MonoBehaviour
                     }
                 }
             }
-        }
-
     }
 
     //項目新しく始めるを選んだ場合
@@ -125,7 +136,7 @@ public class TitleGame : MonoBehaviour
    //項目オプションを選んだ場合
    public void SelectOption()
    {
-       SelectPanel.SetActive(false);
-       OptionPanel.SetActive(true);
+      // SelectPanel.SetActive(false);
+       //OptionPanel.SetActive(true);
    }
 }

@@ -11,7 +11,7 @@ public class GameOver : MonoBehaviour
 
     //ゲームオーバーアイテム
     [SerializeField]
-    GameObject GameOverItem;
+    GameObject GameOverItemPabel;
 
     //パネルの表示用
     bool show;
@@ -20,7 +20,9 @@ public class GameOver : MonoBehaviour
     int select;
 
     //Outスクリプト
-    Out script;                   
+    PanelOut OutScript;
+
+    PanelIn  InScript;
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +30,13 @@ public class GameOver : MonoBehaviour
         select = 0;
         show = false;
 
-        script = GameOverPanel.GetComponent<Out>();
+        OutScript = GameOverPanel.GetComponent<PanelOut>();
 
-       GameOverItem.SetActive(false);
+        InScript = GameOverItemPabel.GetComponent<PanelIn>();
+
+        GameOverPanel.SetActive(false);
+
+        GameOverItemPabel.SetActive(false);
     }
 
     // Update is called once per frame
@@ -41,8 +47,14 @@ public class GameOver : MonoBehaviour
         {
             if (Input.GetKey("f1"))
             {
-                script.IsFadeOut = true;
-                GameOverItem.SetActive(true);
+                OutScript.IsFadeOut = true;
+
+                InScript.IsFadeIn = true;
+
+                GameOverPanel.SetActive(true);
+
+                GameOverItemPabel.SetActive(true);
+
                 show = true;
             }
         }
