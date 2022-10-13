@@ -9,6 +9,11 @@ TagManager:
   - BeltConveyor
   - floor
   - Invisible
+  - FPS
+  - SoundManager
+  - Enemy
+  - Collide
+  - Ground
   layers:
   - Default
   - TransparentFX
