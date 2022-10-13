@@ -7,6 +7,9 @@ public class Elevator : MonoBehaviour
     // Start is called before the first frame update
 
     private Vector3 pos;
+
+    public Vector3  Move;
+
     public bool is2ndFloor;
 
     void Start()
@@ -22,7 +25,7 @@ public class Elevator : MonoBehaviour
 
     IEnumerator MoveUpStart()
     {
-        while (pos.y < 3.0f)
+        while (pos.y < Move.y)
         {
             pos = transform.position;
             transform.Translate(0, 0.02f, 0);

@@ -5,7 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - Chapter
-  - Ground
+  - USB
+  - BeltConveyor
+  - floor
+  - Invisible
+  - FPS
+  - SoundManager
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -13,7 +19,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Block
   - 
   - 
   - 
