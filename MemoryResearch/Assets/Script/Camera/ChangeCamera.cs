@@ -5,19 +5,16 @@ using UnityEngine;
 public class ChangeCamera : MonoBehaviour
 {
 
-    //メインカメラ格納用
-    [SerializeField] GameObject MainCamera;
-
-    //FPSカメラ格納用 
-    [SerializeField] GameObject ChapterCamera;
-
-    //カメラ変更フラグ      
-    public bool ChangFlg;
+    private GameObject MainCamera;      //メインカメラ格納用
+    private GameObject ChapterCamera;   //FPSカメラ格納用 
+    bool               ChangFlg;        //カメラ変更フラグ       
 
     // Start is called before the first frame update
     void Start()
     {
-        ChangFlg =false;
+        MainCamera    = GameObject.Find("Main Camera");
+        ChapterCamera = GameObject.Find("ChapterCamera");
+        ChangFlg      =false;
 
         //サブカメラを非アクティブにする
         ChapterCamera.SetActive(false);
@@ -26,7 +23,7 @@ public class ChangeCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //スペースキーが押すたびに、カメラを切り替える
+        ////スペースキーが押すたびに、カメラを切り替える
         if (Input.GetKeyDown("space"))
         {
             if (MainCamera.activeSelf)
@@ -34,14 +31,13 @@ public class ChangeCamera : MonoBehaviour
                 //サブカメラをアクティブに設定
                 MainCamera.SetActive(false);
                 ChapterCamera.SetActive(true);
-                ChangFlg = true;
+
             }
             else
             {
                 //メインカメラをアクティブに設定
                 ChapterCamera.SetActive(false);
                 MainCamera.SetActive(true);
-                ChangFlg = false;
             }
         }
 
