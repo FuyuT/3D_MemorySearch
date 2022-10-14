@@ -398,6 +398,8 @@ GameObject:
   - component: {fileID: 138013370}
   - component: {fileID: 138013369}
   - component: {fileID: 138013368}
+  - component: {fileID: 138013373}
+  - component: {fileID: 138013372}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Enemy
@@ -437,7 +439,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a49b68f915237af47a5249b0ac0140cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -481,6 +483,55 @@ Transform:
   m_Father: {fileID: 556288993}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &138013372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138013367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc08b099ae74944cb5da6ac90c6c8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerTransform: {fileID: 876664088}
+  moveVec: {x: 0, y: 0, z: 0}
+  nowJumpDelayTime: 0
+  nowJumpSpeed: 0
+  jumpAcceleration: 0
+  situation: 0
+  RotateSpeed: 10
+  MoveSpeed: 3
+  JumpDelayTime: 1
+  JumpToTargetPower: 8
+  JumpStartSpeed: 14
+  JumpAcceleration: 0.5
+  Weight: 5
+  Gravity: 0.03
+  DushDelayTime: 5
+  DushStartSpeed: 4
+  DushAcceleration: 0.05
+  DushTime: 0.3
+  dushVec: {x: 0, y: 0, z: 0}
+  nowDushTime: 0
+  nowDushDelayTime: 0
+--- !u!54 &138013373
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 138013367}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!4 &178369965 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3264331334410100965, guid: d363f8a84df754a4581cdb722432d6d7, type: 3}
@@ -2424,10 +2475,10 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &876664085
 BoxCollider:
@@ -2461,7 +2512,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: cb3abb90f432e864ea4545f99978c627, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2521,7 +2572,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChapterCamera: {fileID: 334369998}
-  MoveSpeed: 5
+  MemoryMax: 5
+  RotateSpeed: 10
+  MoveSpeed: 8
   RunSpeed: 12
   JumpStartSpeed: 13
   JumpAcceleration: 0.015
@@ -3426,6 +3479,8 @@ GameObject:
   - component: {fileID: 1108536972}
   - component: {fileID: 1108536971}
   - component: {fileID: 1108536970}
+  - component: {fileID: 1108536975}
+  - component: {fileID: 1108536974}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Enemy
@@ -3465,7 +3520,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a49b68f915237af47a5249b0ac0140cc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3509,6 +3564,55 @@ Transform:
   m_Father: {fileID: 556288993}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1108536974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108536969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbc08b099ae74944cb5da6ac90c6c8e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerTransform: {fileID: 876664088}
+  moveVec: {x: 0, y: 0, z: 0}
+  nowJumpDelayTime: 0
+  nowJumpSpeed: 0
+  jumpAcceleration: 0
+  situation: 0
+  RotateSpeed: 10
+  MoveSpeed: 3
+  JumpDelayTime: 1
+  JumpToTargetPower: 8
+  JumpStartSpeed: 14
+  JumpAcceleration: 0.5
+  Weight: 5
+  Gravity: 0.03
+  DushDelayTime: 5
+  DushStartSpeed: 4
+  DushAcceleration: 0.05
+  DushTime: 0.3
+  dushVec: {x: 0, y: 0, z: 0}
+  nowDushTime: 0
+  nowDushDelayTime: 0
+--- !u!54 &1108536975
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108536969}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1113413884
 GameObject:
   m_ObjectHideFlags: 0

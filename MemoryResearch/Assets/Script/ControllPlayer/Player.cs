@@ -6,10 +6,19 @@ using State = State<Player>;
 
 public class Player : MonoBehaviour
 {
-    [Header("カメラコントロール")]
-    [SerializeField]
-    GameObject ChapterCamera;
+    [Header("チャプターカメラ")]
+    [SerializeField] GameObject ChapterCamera;
 
+    [Space]
+    [Header("ステート所持可能メモリ数")]
+    [SerializeField] int MemoryMax;
+
+    [Space]
+    [Header("回転")]
+    [Header("回転速度(一秒で変わる量)")]
+    [SerializeField] float RotateSpeed;
+
+    [Space]
     [Header("移動")]
     [Header("歩く時の速度")]
     [SerializeField] public float MoveSpeed;
@@ -46,6 +55,7 @@ public class Player : MonoBehaviour
     /// </summary>
     public enum Event
     {
+        None,
         Idle,
         //移動
         Move,
@@ -80,6 +90,58 @@ public class Player : MonoBehaviour
 
     StateMachine<Player> stateMachine;
 
+    public int[] possessionMemory { get; private set; }
+
+    /// <summary>
+    /// メモリを所持しているか確認する
+    /// 所持していればtrue、いなければfalse
+    /// </summary>
+    public bool CheckPossesionMemory(int memory)
+    {
+        for (int n = 0; n < MemoryMax; n++)
+        {
+            if(memory == possessionMemory[n])
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+    //todo:重複している強化メモリを先に検索する
+    /// <summary>
+    /// 空いている配列番号を確認する
+    /// 空いている配列番号を返す
+    /// 無い場合、すでにある場合は-1を返す
+    /// </summary>
+    public int GetMemoryArrayNullValue()
+    {
+        for (int n = 0; n < MemoryMax; n++)
+        {
+            if (possessionMemory[n] == 0)
+            {
+                return n;
+            }
+        }
+
+        return -1;
+    }
+
+
+    /// <summary>
+    /// メモリを設定する
+    /// </summary>
+    public void SetPossesionMemory(int memory, int arrayValue)
+    {
+        if (memory == (int)Event.Jump)
+        {
+            Debug.Log("ジャンプ登録");
+        }
+        possessionMemory[arrayValue] = memory;
+    }
+
     /// <summary>
     /// コンストラクタ
     /// </summary>
@@ -105,6 +167,12 @@ public class Player : MonoBehaviour
         nowJumpSpeed = 0.0f;
         dushVec = Vector3.zero;
         nowDushTime = 0;
+
+        possessionMemory = new int[MemoryMax];
+        for(int n = 0; n < MemoryMax; n++)
+        {
+            possessionMemory[n] = 0;
+        }
 
         StateMachineInit();
     }
@@ -170,7 +238,8 @@ public class Player : MonoBehaviour
             temp.y = 0;
             if (temp != Vector3.zero)
             {
-                transform.rotation = Quaternion.LookRotation(temp);
+                var quaternion = Quaternion.LookRotation(temp);
+                transform.rotation = Quaternion.Slerp(this.transform.rotation, quaternion, RotateSpeed * Time.deltaTime);
             }
         }
     }
@@ -188,6 +257,7 @@ public class Player : MonoBehaviour
             case (int)Situation.Jump:
                 moveVec -= new Vector3(0, Weight + JumpDecreaseValue, 0);
                 transform.position += moveVec * Time.deltaTime;
+                rb.velocity = Vector3.zero;
                 break;
             //ダッシュ中は落下しない
             case (int)Situation.Dush:

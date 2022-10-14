@@ -55,6 +55,7 @@ public class Chapter2 : MonoBehaviour
         if (lockOnTarget)
         {
             lockOnTargetObject(lockOnTarget);
+            SetPossesionMemory(lockOnTarget);
         }
         else
         {
@@ -94,6 +95,25 @@ public class Chapter2 : MonoBehaviour
         {
             Debug.Log("b");
             //transform.LookAt(target.transform, Vector3.up);
+        }
+    }
+
+    /// <summary>
+    /// プレイヤーの所持しているメモリ配列に、サーチした敵から取得したメモリを格納する
+    /// </summary>
+    /// <param name="target">サーチした敵</param>
+    private void SetPossesionMemory(GameObject target)
+    {
+        //todo:処理の位置調整したい
+        //取得したメモリをプレイヤーに設定
+        int targetMemory = target.GetComponent<Enemy>().parameter.Get<int>("所持メモリ");
+        //空いている配列番号があれば登録
+        var p = player.GetComponent<Player>();
+        int arrayValue = p.GetMemoryArrayNullValue();
+        if (arrayValue != -1)
+        {
+            //todo:登録配列番号を変更
+            p.SetPossesionMemory(targetMemory, arrayValue);
         }
     }
 }
