@@ -6,9 +6,11 @@ using State = State<Player>;
 
 public class Player : MonoBehaviour
 {
-    [Header("カメラコントロール")]
-    [SerializeField]
-    GameObject ChapterCamera;
+    [Header("チャプターカメラ")]
+    [SerializeField] GameObject ChapterCamera;
+
+    [Header("回転速度(0～1)")]
+    [SerializeField] float RotateSpeed;
 
     [Header("移動")]
     [Header("歩く時の速度")]
@@ -170,7 +172,8 @@ public class Player : MonoBehaviour
             temp.y = 0;
             if (temp != Vector3.zero)
             {
-                transform.rotation = Quaternion.LookRotation(temp);
+                var quaternion = Quaternion.LookRotation(temp);
+                transform.rotation = Quaternion.Slerp(this.transform.rotation, quaternion, RotateSpeed);
             }
         }
     }

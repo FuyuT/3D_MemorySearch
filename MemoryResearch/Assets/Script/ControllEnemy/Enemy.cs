@@ -51,6 +51,9 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] IReaderActor playerReadActor = new Actor();
 
+    [Header("回転速度(0～1)")]
+    [SerializeField] float RotateSpeed;
+
     [Space]
     [Header("移動")]
     [Header("歩く時の速度")]
@@ -181,16 +184,19 @@ public class Enemy : MonoBehaviour
         //todo:現在のステートkeyを取得する関数を作成する
         if (moveVec != Vector3.zero)
         {
+            //空中にいる時は、yも回転の要素に加える
             if (moveVec.y != 0)
             {
-                transform.rotation = Quaternion.LookRotation(moveVec);
+                var quaternion = Quaternion.LookRotation(moveVec);
+                transform.rotation = Quaternion.Slerp(this.transform.rotation, quaternion, RotateSpeed);
             }
             else
             {
-                //y軸の角度は変更しない
+                //yは回転の要素に加えない
                 Vector3 temp = moveVec;
                 temp.y = 0;
-                transform.rotation = Quaternion.LookRotation(temp);
+                var quaternion = Quaternion.LookRotation(temp);
+                transform.rotation = Quaternion.Slerp(this.transform.rotation, quaternion, RotateSpeed);
             }
         }
     }
