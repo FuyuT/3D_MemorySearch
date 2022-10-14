@@ -82,6 +82,7 @@ public class StateAirDush : State
     protected override void OnExit(State nextState)
     {
         Owner.situation = (int)Player.Situation.None;
+        Owner.nowDushDelayTime = Owner.DushDelayTime;
     }
 
 }

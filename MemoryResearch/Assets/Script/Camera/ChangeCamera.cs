@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ChangeCamera : MonoBehaviour
 {
+    [SerializeField] GameObject player;
 
     //メインカメラ格納用
     [SerializeField] GameObject MainCamera;
@@ -35,6 +36,9 @@ public class ChangeCamera : MonoBehaviour
                 MainCamera.SetActive(false);
                 ChapterCamera.SetActive(true);
                 ChangFlg = true;
+
+                //プレイヤーの角度に合わせる
+                ChapterCamera.transform.rotation = player.transform.rotation;
             }
             else
             {

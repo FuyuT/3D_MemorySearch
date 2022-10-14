@@ -55,7 +55,7 @@ public class StateMove : State
     protected override void SelectNextState()
     {
         //ƒ_ƒbƒVƒ…Œn
-        if (Input.GetKey(KeyCode.Z))
+        if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))
         {
             switch (Owner.situation)
             {

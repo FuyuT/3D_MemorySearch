@@ -77,7 +77,7 @@ public class StateDoubleJump : State
     protected override void SelectNextState()
     {
         //‹ó’†ƒ_ƒbƒVƒ…
-        if (Input.GetKey(KeyCode.Z))
+        if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))
         {
             stateMachine.Dispatch((int)Player.Event.Air_Dush);
         }
