@@ -9,6 +9,8 @@ public class StateEnemyJump : State
     Vector3 JumpVec;
     protected override void OnEnter(State prevState)
     {
+        Owner.parameter.Set("所持メモリ", Player.Event.Jump);
+
         Owner.situation = (int)Enemy.Situation.Jump;
         //初速を設定
         Owner.nowJumpSpeed = Owner.JumpStartSpeed;
@@ -45,6 +47,8 @@ public class StateEnemyJump : State
 
     protected override void OnExit(State nextState)
     {
+        Owner.parameter.Set("所持メモリ", Player.Event.None);
+
         Owner.situation = (int)Enemy.Situation.Jump_End;
 
         Owner.nowJumpDelayTime = Owner.JumpDelayTime;

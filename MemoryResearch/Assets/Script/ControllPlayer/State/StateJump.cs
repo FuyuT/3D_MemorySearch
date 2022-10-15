@@ -77,13 +77,16 @@ public class StateJump : State
     protected override void SelectNextState()
     {
         //ダブルジャンプ
-        if (Input.GetKeyDown(KeyCode.C))
+        if(Owner.CheckPossesionMemory((int)Player.Event.Jump)) //メモリを持っているか確認
         {
-            stateMachine.Dispatch((int)Player.Event.Double_Jump);
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                stateMachine.Dispatch((int)Player.Event.Double_Jump);
+            }
         }
-        
+
         //空中ダッシュ
-        if (Input.GetKey(KeyCode.Z))
+        if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))
         {
             stateMachine.Dispatch((int)Player.Event.Air_Dush);
         }

@@ -12,6 +12,8 @@ public class StateTackle : State
     Vector3 accelerateionVec;
     protected override void OnEnter(State prevState)
     {
+        Owner.situation = (int)Player.Situation.Dush;
+
         //方向キーの入力値とカメラの向きから、移動方向を決定
         Vector3 inputVector = Vector3.zero;
         if (Input.GetKey("up"))
@@ -74,5 +76,9 @@ public class StateTackle : State
             stateMachine.Dispatch((int)Player.Event.Idle);
         }
     }
-
+    protected override void OnExit(State nextState)
+    {
+        Owner.situation = (int)Player.Situation.None;
+        Owner.nowDushDelayTime = Owner.DushDelayTime;
+    }
 }
