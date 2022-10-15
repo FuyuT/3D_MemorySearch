@@ -29,7 +29,7 @@ public class Lockon : MonoBehaviour
 
     public GameObject getTarget()
     {
-        return this.target;
+        return target;
     }
 
    // Start is called before the first frame update

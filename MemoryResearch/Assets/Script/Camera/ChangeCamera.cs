@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ChangeCamera : MonoBehaviour
 {
+    [SerializeField] GameObject player;
 
     //メインカメラ格納用
     [SerializeField] GameObject MainCamera;
@@ -17,7 +18,7 @@ public class ChangeCamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        ChangFlg =false;
+        ChangFlg = false;
 
         //サブカメラを非アクティブにする
         ChapterCamera.SetActive(false);
@@ -35,6 +36,9 @@ public class ChangeCamera : MonoBehaviour
                 MainCamera.SetActive(false);
                 ChapterCamera.SetActive(true);
                 ChangFlg = true;
+
+                //プレイヤーの角度に合わせる
+                ChapterCamera.transform.rotation = player.transform.rotation;
             }
             else
             {
@@ -50,6 +54,6 @@ public class ChangeCamera : MonoBehaviour
 
     void FixedUpdate()
     {
-      
+
     }
 }

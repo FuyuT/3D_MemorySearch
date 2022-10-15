@@ -12,6 +12,8 @@ TagManager:
   - FPS
   - SoundManager
   - Enemy
+  - Collide
+  - Ground
   layers:
   - Default
   - TransparentFX
