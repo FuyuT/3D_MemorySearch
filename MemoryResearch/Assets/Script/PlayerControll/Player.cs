@@ -6,7 +6,8 @@ public class Player : MonoBehaviour
 {
     public float Speed = 5.0f;
 
-  
+    [SerializeField]
+   // Camera CameraControll;
 
     // Start is called before the first frame update
     void Start()
@@ -37,5 +38,7 @@ public class Player : MonoBehaviour
             transform.position -= transform.right * Speed * Time.deltaTime;
             
         }
+
+       // transform.localRotation = CameraControll.transform.rotation;
     }
 }

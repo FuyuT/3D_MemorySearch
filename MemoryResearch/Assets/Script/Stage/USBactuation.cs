@@ -9,13 +9,15 @@ public class USBactuation : MonoBehaviour
     //プレイヤー
     private GameObject chara;
     //テキスト
-    private GameObject textOn;
+    [SerializeField]
+    GameObject textOn;
+
     //消したい壁
     public GameObject Wal;
     //表示したいオブジェクト
     public GameObject ShowObj;
 
-
+    public int n;
 
     int s;
 
@@ -23,42 +25,59 @@ public class USBactuation : MonoBehaviour
     void Start()
     {
         chara = GameObject.Find("Player");
-        textOn = GameObject.Find("ButtonText");
+      
 
-        Wal.SetActive(true);
-        ShowObj.SetActive(false);
-
-        textOn.SetActive(false);
-
+        if (Wal != null)
+        {
+            Wal.SetActive(true);
+        }
+        if (ShowObj != null)
+        {
+            ShowObj.SetActive(false);
+        }
+        if (textOn != null)
+        {
+            textOn.SetActive(false);
+        }
         s = 0;
     }
 
     // Update is called once per frame
     void Update()
-    {
-        if (s == 1)
-        {
-            if (Input.GetKeyDown("c"))
+    {  
+            if (s == 1)
             {
-                Debug.Log("a");
-                Wal.SetActive(false);
-                ShowObj.SetActive(true);
-                Destroy(this.textOn);
+                if (Input.GetKeyDown("c"))
+                {
+                   if (n == 1)
+                   {
+                       //Debug.Log("a");
+                        Wal.SetActive(false);
+                        ShowObj.SetActive(true);
+                        //Destroy(this.textOn);
+                   }
+                   else if (n == 2)
+                   {
+                        Wal.SetActive(false);
+                        ShowObj = null;
+                   }
+                   else if(n==3)
+                   {
+                    ShowObj.SetActive(true);
+                    Wal.SetActive(false);
+                   }
+                }
             }
-        }
     }
 
     //USBに近づくと表示
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             textOn.SetActive(true);
             s = 1;
         }
-
-
     }
 
     //USBから離れると非表示

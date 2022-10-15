@@ -7,6 +7,9 @@ public class Elevator : MonoBehaviour
     // Start is called before the first frame update
 
     private Vector3 pos;
+
+    public Vector3  Move;
+
     public bool is2ndFloor;
 
     void Start()
@@ -22,7 +25,7 @@ public class Elevator : MonoBehaviour
 
     IEnumerator MoveUpStart()
     {
-        while (pos.y < 3.0f)
+        while (pos.y < Move.y)
         {
             pos = transform.position;
             transform.Translate(0, 0.02f, 0);
@@ -47,5 +50,23 @@ public class Elevator : MonoBehaviour
             yield return new WaitForSeconds(0.01f);
         }
         is2ndFloor = false;
+    }
+
+    //USB‚É‹ß‚Ã‚­‚Æ•\Ž¦
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            MoveUp();
+        }
+    }
+
+    //USB‚©‚ç—£‚ê‚é‚Æ”ñ•\Ž¦
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            MoveDown();
+        }
     }
 }

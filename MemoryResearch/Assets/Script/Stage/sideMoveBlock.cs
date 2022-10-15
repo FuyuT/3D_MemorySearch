@@ -5,6 +5,8 @@ using UnityEngine;
 public class sideMoveBlock : MonoBehaviour
 {
    public float x;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,12 +21,12 @@ public class sideMoveBlock : MonoBehaviour
     }
     void Swith()
     {
-        x = 0.1f;
+        x = x;
         Invoke("Swith2", 2.0f);
     }
     void Swith2()
     {
-        x = -0.1f;
+        x =-x;
         Invoke("Swith", 2.0f);
     }
 }
