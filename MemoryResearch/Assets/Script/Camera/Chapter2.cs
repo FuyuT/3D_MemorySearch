@@ -22,17 +22,15 @@ public class Chapter2 : MonoBehaviour
    
     void Start()
     {
-
         mainCamera = Camera.main.gameObject;
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
     {
-        transform.GetComponent<RectTransform>().position = player.transform.position;
-       // transform.position = Vector3.zero;
         Debug.Log(player.transform.position+("プレイヤー"));
         Debug.Log(mainCamera.transform.position + ("カメラ"));
+        transform.position = player.transform.position;
         //if (Input.GetKeyDown(KeyCode.R))
         //{
 
