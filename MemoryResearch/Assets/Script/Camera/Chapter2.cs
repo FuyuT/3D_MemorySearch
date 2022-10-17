@@ -12,11 +12,6 @@ public class Chapter2 : MonoBehaviour
     private const float ANGLE_LIMIT_UP = 60f;
     private const float ANGLE_LIMIT_DOWN = -60f;
 
-    [SerializeField]
-    GameObject Enemy1;
-
-    [SerializeField]
-    GameObject Enemy2;
 
     //Lockonのスクリプト
     [SerializeField]
@@ -34,12 +29,14 @@ public class Chapter2 : MonoBehaviour
 
     void Update()
     {
-        transform.position = player.transform.position;
-
+        transform.GetComponent<RectTransform>().position = player.transform.position;
+       // transform.position = Vector3.zero;
+        Debug.Log(player.transform.position+("プレイヤー"));
+        Debug.Log(mainCamera.transform.position + ("カメラ"));
         //if (Input.GetKeyDown(KeyCode.R))
         //{
 
-            GameObject target = lockon.getTarget();
+        GameObject target = lockon.getTarget();
 
             if (target != null)
             {
@@ -84,17 +81,7 @@ public class Chapter2 : MonoBehaviour
     }
     private void lockOnTargetObject(GameObject target)
     {
-        if (target == Enemy1)
-        { 
-            Debug.Log("a");
-           // transform.LookAt(target.transform, Vector3.up);
-        }
-
-        if (target == Enemy2)
-        {
-            Debug.Log("b");
-            //transform.LookAt(target.transform, Vector3.up);
-        }
+      
     }
 
     /// <summary>

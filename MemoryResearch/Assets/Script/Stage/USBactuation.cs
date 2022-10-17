@@ -47,7 +47,7 @@ public class USBactuation : MonoBehaviour
     {  
             if (s == 1)
             {
-                if (Input.GetKeyDown("c"))
+                if (Input.GetKeyDown("v"))
                 {
                    if (n == 1)
                    {
