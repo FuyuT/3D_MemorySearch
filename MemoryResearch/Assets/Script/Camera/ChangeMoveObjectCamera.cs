@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using CustomInputKey;
 
 
 public class ChangeMoveObjectCamera : MonoBehaviour
@@ -37,10 +38,10 @@ public class ChangeMoveObjectCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //スペースキーが押すたびに、カメラを切り替える
+       
         if (s == 1)
         {
-            if (Input.GetKeyDown("c"))
+            if (Input.GetKeyDown("v"))
             {
                 if (MainCamera.activeSelf)
                 {
@@ -50,37 +51,33 @@ public class ChangeMoveObjectCamera : MonoBehaviour
                     ChangFlg = true;
                     
                 }
-                else
-                {
-                    //メインカメラをアクティブに設定
-                    MoveObjectCamera.SetActive(false);
-                    MainCamera.SetActive(true);
-                    ChangFlg = false;
-                }
+               
             }
         }
+
+        if (CustomInput.Interval_InputKeydown(KeyCode.V, 2))
+        {
+
+            //メインカメラをアクティブに設定
+            MoveObjectCamera.SetActive(false);
+            MainCamera.SetActive(true);
+            ChangFlg = false;
+
+        }
+
     }
 
     //装置に近づくと表示
     private void OnCollisionEnter(Collision other)
     {
-
-        if (other.gameObject.tag == "Player")
+        if (s == 0)
         {
-            ShowText.SetActive(true);
-            s = 1;
+            if (other.gameObject.tag == "Player")
+            {
+                ShowText.SetActive(true);
+                s = 1;
+            }
         }
 
-
-    }
-
-    //装置から離れると非表示
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            ShowText.SetActive(false);
-            s = 0;
-        }
     }
 }

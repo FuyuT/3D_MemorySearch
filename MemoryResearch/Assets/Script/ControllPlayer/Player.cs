@@ -6,6 +6,10 @@ using State = State<Player>;
 
 public class Player : MonoBehaviour
 {
+    [Header("神獣ギミックのカメラのスクリプト")]
+    [SerializeField] ChangeMoveObjectCamera  ChangeCamera;
+
+
     [Header("チャプターカメラ")]
     [SerializeField] GameObject ChapterCamera;
 
@@ -257,31 +261,35 @@ public class Player : MonoBehaviour
     /// </summary>
     void PositionUpdate()
     {
-        var rb = GetComponent<Rigidbody>();
-
-        switch (situation)
+        if (ChangeCamera.ChangFlg)
         {
-            //ジャンプ中はtransformで移動
-            case (int)Situation.Jump:
-                moveVec -= new Vector3(0, Weight + JumpDecreaseValue, 0);
-                transform.position += moveVec * Time.deltaTime;
-                rb.velocity = Vector3.zero;
-                break;
-            //ダッシュ中は落下しない
-            case (int)Situation.Dush:
-                moveVec.y = 0;
-                rb.velocity = moveVec;
-                break;
-
-            //それ以外はrigidBodyのvelocityで移動
-            default:
-
-                rb.velocity = moveVec + new Vector3(0, rb.velocity.y, 0);
-                break;
+            moveVec = Vector3.zero;
         }
-        moveVec = Vector3.zero;
+            var rb = GetComponent<Rigidbody>();
+
+            switch (situation)
+            {
+                //ジャンプ中はtransformで移動
+                case (int)Situation.Jump:
+                    moveVec -= new Vector3(0, Weight + JumpDecreaseValue, 0);
+                    transform.position += moveVec * Time.deltaTime;
+                    rb.velocity = Vector3.zero;
+                    break;
+                //ダッシュ中は落下しない
+                case (int)Situation.Dush:
+                    moveVec.y = 0;
+                    rb.velocity = moveVec;
+                    break;
+
+                //それ以外はrigidBodyのvelocityで移動
+                default:
+
+                    rb.velocity = moveVec + new Vector3(0, rb.velocity.y, 0);
+                    break;
+            }
+            moveVec = Vector3.zero;
+        
     }
-    
     /// <summary>
     /// ディレイ時間の更新
     /// </summary>

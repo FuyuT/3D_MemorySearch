@@ -51,15 +51,17 @@ public class ControlCamera : MonoBehaviour
     void Update()
     {
 
-        //ControlleCamera.SetActive(true);
+        
         if (Script.ChangFlg == true)
         {
             MaterialChange = true;
 
             MoveObjectSwitch = true;
 
+            ControlleCamera.SetActive(true);
+
             //左クリックした時
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
 
                 //カメラの角度を変数newAngleに格納
@@ -71,7 +73,7 @@ public class ControlCamera : MonoBehaviour
                 lastMousePosition = Input.mousePosition;
             }
             //左ドラッグしている間
-            else if (Input.GetMouseButton(0))
+            else if (Input.GetMouseButton(1))
             {
               
 
@@ -131,6 +133,10 @@ public class ControlCamera : MonoBehaviour
             {
                
             }
+        }
+        else
+        {
+            MaterialChange = false;
         }
     }
 }

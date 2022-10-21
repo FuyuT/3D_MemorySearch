@@ -16,6 +16,7 @@ public class StateMove : State
 
     protected override void OnUpdate()
     {
+
         //方向キーの入力値とカメラの向きから、移動方向を決定
         Vector3 inputVector = Vector3.zero;
         if (Input.GetKey("up"))

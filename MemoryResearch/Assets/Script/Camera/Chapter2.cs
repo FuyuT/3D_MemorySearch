@@ -28,23 +28,18 @@ public class Chapter2 : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(player.transform.position+("プレイヤー"));
-        Debug.Log(mainCamera.transform.position + ("カメラ"));
         transform.position = player.transform.position;
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-
         GameObject target = lockon.getTarget();
 
-            if (target != null)
-            {
-                lockOnTarget = target;
-            }
-            else
-            {
-                lockOnTarget = null;
-            }
-        //}
+        if (target != null)
+        {
+            lockOnTarget = target;
+        }
+        else
+        {
+            lockOnTarget = null;
+        }
+        
 
         if (lockOnTarget)
         {
@@ -53,10 +48,10 @@ public class Chapter2 : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButton(ROTATE_BUTTON))
-            {
+            //if (Input.GetMouseButton(ROTATE_BUTTON))
+            //{
                 rotateCmaeraAngle();
-            }
+           // }
         }
 
         float angle_x = 180f <= transform.eulerAngles.x ? transform.eulerAngles.x - 360 : transform.eulerAngles.x;
