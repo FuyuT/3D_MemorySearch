@@ -256,13 +256,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 42015148}
-  m_LocalRotation: {x: 0, y: 0.92387956, z: -0.38268343, w: 0}
-  m_LocalPosition: {x: -7.84, y: -12, z: 95.2}
+  m_LocalRotation: {x: -0, y: 0.9608611, z: -0.27703068, w: 0}
+  m_LocalPosition: {x: -7.84, y: -20.9, z: 92.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1606807598241892635}
   m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 45, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 32.166, y: 180, z: 0}
 --- !u!81 &42015150
 AudioListener:
   m_ObjectHideFlags: 0
@@ -897,6 +897,7 @@ MonoBehaviour:
   jumpAcceleration: 0
   situation: 0
   RotateSpeed: 10
+  HpMax: 0
   MoveSpeed: 3
   JumpDelayTime: 0.5
   JumpToTargetPower: 4
@@ -908,6 +909,7 @@ MonoBehaviour:
   DushStartSpeed: 2
   DushAcceleration: 0.05
   DushTime: 0.3
+  SearchDistance: 0
   dushVec: {x: 0, y: 0, z: 0}
   nowDushTime: 0
   nowDushDelayTime: 0
@@ -2293,6 +2295,7 @@ MonoBehaviour:
   jumpAcceleration: 0
   situation: 0
   RotateSpeed: 10
+  HpMax: 0
   MoveSpeed: 3
   JumpDelayTime: 0.5
   JumpToTargetPower: 4
@@ -2304,6 +2307,7 @@ MonoBehaviour:
   DushStartSpeed: 2
   DushAcceleration: 0.05
   DushTime: 0.3
+  SearchDistance: 0
   dushVec: {x: 0, y: 0, z: 0}
   nowDushTime: 0
   nowDushDelayTime: 0
@@ -64986,11 +64990,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9198403456963066796, guid: c7e545fe27c575148b026167f9155590, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 10.75
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 9198403456963066796, guid: c7e545fe27c575148b026167f9155590, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 103.44
+      value: -41.24
       objectReference: {fileID: 0}
     - target: {fileID: 9198403456963066796, guid: c7e545fe27c575148b026167f9155590, type: 3}
       propertyPath: m_LocalRotation.w

@@ -35,6 +35,7 @@ public class ChangeCamera : MonoBehaviour
         //スペースキーが押すたびに、カメラを切り替える
         if (Input.GetKeyDown("space"))
         {
+                Debug.Log("通った");
             if (MainCamera.activeSelf)
             {
                 //サブカメラをアクティブに設定
