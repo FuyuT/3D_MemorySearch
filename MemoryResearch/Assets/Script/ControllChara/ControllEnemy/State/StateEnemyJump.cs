@@ -9,7 +9,7 @@ public class StateEnemyJump : State
     Vector3 JumpVec;
     protected override void OnEnter(State prevState)
     {
-        Owner.parameter.Set("所持メモリ", Player.Event.Jump);
+        Owner.param.Set((int)Enemy.ParamKey.PossesionMemory, Player.Event.Jump);
 
         Owner.situation = (int)Enemy.Situation.Jump;
         //初速を設定
@@ -23,6 +23,10 @@ public class StateEnemyJump : State
 
 
         Owner.GetComponent<Rigidbody>().useGravity = false;
+
+        //攻撃力設定
+        Owner.param.Set((int)Player.ParamKey.AttackPower, 3);
+
     }
 
     protected override void OnUpdate()
@@ -47,7 +51,7 @@ public class StateEnemyJump : State
 
     protected override void OnExit(State nextState)
     {
-        Owner.parameter.Set("所持メモリ", Player.Event.None);
+        Owner.param.Set((int)Enemy.ParamKey.PossesionMemory, Player.Event.None);
 
         Owner.situation = (int)Enemy.Situation.Jump_End;
 
@@ -55,5 +59,8 @@ public class StateEnemyJump : State
         Owner.moveVec.y = 0;
 
         Owner.GetComponent<Rigidbody>().useGravity = true;
+
+        //攻撃力設定
+        Owner.param.Set((int)Player.ParamKey.AttackPower, 0);
     }
 }

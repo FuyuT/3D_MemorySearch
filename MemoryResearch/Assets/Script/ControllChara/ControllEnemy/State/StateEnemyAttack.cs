@@ -9,7 +9,7 @@ public class StateEnemyAttack : State
     protected override void OnEnter(State prevState)
     {
         //æ“¾‚Å‚«‚éƒƒ‚ƒŠ‚ğİ’è
-        Owner.parameter.Set("Šƒƒ‚ƒŠ", (int)Player.Event.Attack_Punch);
+        Owner.param.Set((int)Enemy.ParamKey.PossesionMemory, (int)Player.Event.Attack_Punch);
     }
 
     protected override void OnUpdate()
@@ -26,6 +26,5 @@ public class StateEnemyAttack : State
 
     protected override void OnExit(State nextState)
     {
-        Owner.parameter.Set("UŒ‚‰Â”\”»’è", false);
     }
 }

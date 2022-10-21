@@ -28,6 +28,8 @@ public class Chapter2 : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(player.transform.position+("プレイヤー"));
+        Debug.Log(mainCamera.transform.position + ("カメラ"));
         transform.position = player.transform.position;
         GameObject target = lockon.getTarget();
 
@@ -39,12 +41,15 @@ public class Chapter2 : MonoBehaviour
         {
             lockOnTarget = null;
         }
-        
 
         if (lockOnTarget)
         {
             lockOnTargetObject(lockOnTarget);
-            SetPossesionMemory(lockOnTarget);
+            //左クリックしたときにメモリ（アクション）を登録
+            if(Input.GetMouseButton(0))
+            {
+                SetPossesionMemory(lockOnTarget);
+            }
         }
         else
         {
@@ -85,7 +90,7 @@ public class Chapter2 : MonoBehaviour
     {
         //todo:処理の位置調整したい
         //取得したメモリをプレイヤーに設定
-        int targetMemory = target.GetComponent<Enemy>().parameter.Get<int>("所持メモリ");
+        int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
         //空いている配列番号があれば登録
         var p = player.GetComponent<Player>();
         int arrayValue = p.GetMemoryArrayNullValue();

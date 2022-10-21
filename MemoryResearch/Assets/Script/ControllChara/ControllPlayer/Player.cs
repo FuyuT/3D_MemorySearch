@@ -4,12 +4,8 @@ using UnityEngine;
 
 using State = State<Player>;
 
-public class Player : MonoBehaviour
+public class Player : CharaBase
 {
-    [Header("神獣ギミックのカメラのスクリプト")]
-    [SerializeField] ChangeMoveObjectCamera  ChangeCamera;
-
-
     [Header("チャプターカメラ")]
     [SerializeField] GameObject ChapterCamera;
 
@@ -21,6 +17,10 @@ public class Player : MonoBehaviour
     [Header("回転")]
     [Header("回転速度(一秒で変わる量)")]
     [SerializeField] float RotateSpeed;
+
+    [Space]
+    [Header("Hp")]
+    [SerializeField] public int HpMax;
 
     [Space]
     [Header("移動")]
@@ -56,8 +56,6 @@ public class Player : MonoBehaviour
     [SerializeField] public float DushTime;
 
     //アクター
-    IActor actor;
-    public static IReaderActor readActor = new Actor();
     /// <summary>
     /// ステートenum
     /// </summary>
@@ -84,6 +82,13 @@ public class Player : MonoBehaviour
         Jump_End,
         Floating,
         Dush,
+    }
+
+    public enum AttackInfo
+    {
+        Attack_Not_Possible,
+        Attack_Possible,
+        Attack_End,
     }
 
     public float nowJumpSpeed;
@@ -155,7 +160,6 @@ public class Player : MonoBehaviour
     /// </summary>
     Player()
     {
-        actor = new Actor();
     }
 
     /// <summary>
@@ -164,7 +168,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         Init();
-
     }
 
     /// <summary>
@@ -183,6 +186,12 @@ public class Player : MonoBehaviour
         {
             possessionMemory[n] = 0;
         }
+
+        CharaBaseInit();
+        Debug.Log(param);
+        param.Add((int)ParamKey.AttackPower, 0);
+        param.Add((int)ParamKey.Attack_Info, (int)AttackInfo.Attack_Not_Possible);
+        param.Add((int)Enemy.ParamKey.Hp, HpMax);
 
         StateMachineInit();
     }
@@ -230,7 +239,9 @@ public class Player : MonoBehaviour
 
         //Delayの更新
         DelayTimeUpdate();
-        Debug.Log(stateMachine.currentStateKey);
+
+        //現在のステートを表示
+        //Debug.Log(stateMachine.currentStateKey);
 
     }
 
@@ -261,35 +272,31 @@ public class Player : MonoBehaviour
     /// </summary>
     void PositionUpdate()
     {
-        if (ChangeCamera.ChangFlg)
+        var rb = GetComponent<Rigidbody>();
+
+        switch (situation)
         {
-            moveVec = Vector3.zero;
+            //ジャンプ中はtransformで移動
+            case (int)Situation.Jump:
+                moveVec -= new Vector3(0, Weight + JumpDecreaseValue, 0);
+                transform.position += moveVec * Time.deltaTime;
+                rb.velocity = Vector3.zero;
+                break;
+            //ダッシュ中は落下しない
+            case (int)Situation.Dush:
+                moveVec.y = 0;
+                rb.velocity = moveVec;
+                break;
+
+            //それ以外はrigidBodyのvelocityで移動
+            default:
+
+                rb.velocity = moveVec + new Vector3(0, rb.velocity.y, 0);
+                break;
         }
-            var rb = GetComponent<Rigidbody>();
-
-            switch (situation)
-            {
-                //ジャンプ中はtransformで移動
-                case (int)Situation.Jump:
-                    moveVec -= new Vector3(0, Weight + JumpDecreaseValue, 0);
-                    transform.position += moveVec * Time.deltaTime;
-                    rb.velocity = Vector3.zero;
-                    break;
-                //ダッシュ中は落下しない
-                case (int)Situation.Dush:
-                    moveVec.y = 0;
-                    rb.velocity = moveVec;
-                    break;
-
-                //それ以外はrigidBodyのvelocityで移動
-                default:
-
-                    rb.velocity = moveVec + new Vector3(0, rb.velocity.y, 0);
-                    break;
-            }
-            moveVec = Vector3.zero;
-        
+        moveVec = Vector3.zero;
     }
+    
     /// <summary>
     /// ディレイ時間の更新
     /// </summary>

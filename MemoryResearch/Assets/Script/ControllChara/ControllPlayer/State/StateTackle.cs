@@ -52,6 +52,9 @@ public class StateTackle : State
 
         //ŠÔ‚ğİ’è
         Owner.nowDushTime = Owner.DushTime;
+
+        //UŒ‚—Íİ’è
+        Owner.param.Set((int)Player.ParamKey.AttackPower, 10);
     }
 
     protected override void OnUpdate()
@@ -80,5 +83,8 @@ public class StateTackle : State
     {
         Owner.situation = (int)Player.Situation.None;
         Owner.nowDushDelayTime = Owner.DushDelayTime;
+
+        //UŒ‚—Íİ’è
+        Owner.param.Set((int)Player.ParamKey.AttackPower, 0);
     }
 }

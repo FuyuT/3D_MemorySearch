@@ -28,7 +28,7 @@ public class StateEnemyTackle : State
         Owner.nowDushTime = Owner.DushTime;
 
         //取得できるメモリを設定
-        Owner.parameter.Set("所持メモリ", (int)Player.Event.Attack_Tackle);
+        Owner.param.Set((int)Enemy.ParamKey.PossesionMemory, (int)Player.Event.Attack_Tackle);
     }
 
     protected override void OnUpdate()

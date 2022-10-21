@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = State<Enemy>;
 
-public class Enemy : MonoBehaviour
+public class Enemy : CharaBase
 {
     /// <summary>
     /// ƒXƒe[ƒgenum
@@ -33,11 +33,11 @@ public class Enemy : MonoBehaviour
         Dush,
     }
 
+
     StateMachine<Enemy> stateMachine;
 
     //ƒXƒR[ƒv¬‚³‚­‚·‚é
     [SerializeField] public Transform PlayerTransform;
-    public AnyParameterMap parameter;
 
     [SerializeField] public Vector3 moveVec;
 
@@ -53,6 +53,10 @@ public class Enemy : MonoBehaviour
 
     [Header("‰ñ“]‘¬“x(ˆê•b‚Å•Ï‚í‚é—Ê)")]
     [SerializeField] float RotateSpeed;
+
+    [Space]
+    [Header("Hp")]
+    [SerializeField] public int HpMax;
 
     [Space]
     [Header("ˆÚ“®")]
@@ -88,6 +92,10 @@ public class Enemy : MonoBehaviour
     [Header("ˆÚ“®ŠÔ")]
     [SerializeField] public float DushTime;
 
+    [Space]
+    [Header("õ“G‹——£")]
+    [SerializeField] public float SearchDistance;
+
     public Vector3 dushVec;
     public float nowDushTime;
     public float nowDushDelayTime;
@@ -101,8 +109,6 @@ public class Enemy : MonoBehaviour
     Enemy()
     {
         Init();
-        parameter = new AnyParameterMap();
-
     }
 
     /// <summary>
@@ -123,12 +129,16 @@ public class Enemy : MonoBehaviour
         nowJumpDelayTime = JumpDelayTime;
         nowDushDelayTime = DushDelayTime;
 
-        parameter = new AnyParameterMap();
-        parameter.Add("UŒ‚‰Â”\”»’è", false);
-        parameter.Add("Šƒƒ‚ƒŠ", (int)Player.Event.Idle);
-        parameter.Set("Šƒƒ‚ƒŠ", Player.Event.None);
+        CharaBaseInit();
+        param.Add((int)Enemy.ParamKey.PossesionMemory, Player.Event.None);
+        param.Add((int)ParamKey.AttackPower, 0);
+
+        param.Add((int)Enemy.ParamKey.Hp, HpMax);
+
 
         StateMachineInit();
+
+
     }
 
     /// <summary>
@@ -224,6 +234,7 @@ public class Enemy : MonoBehaviour
         moveVec = Vector3.zero;
     }
 
+
     private void OnCollisionEnter(Collision collision)
     {
         //’n–Ê
@@ -267,7 +278,7 @@ public class Enemy : MonoBehaviour
         //UŒ‚”ÍˆÍ
         if (collision.gameObject.tag == "Player")
         {
-            parameter.Set("UŒ‚‰Â”\”»’è", true);
+            param.Set((int)Enemy.ParamKey.PossesionMemory, true);
         }
     }
 
@@ -298,7 +309,7 @@ public class Enemy : MonoBehaviour
         //UŒ‚”ÍˆÍ
         if (collision.gameObject.tag == "Player")
         {
-            parameter.Set("UŒ‚‰Â”\”»’è", false);
+            param.Set((int)Enemy.ParamKey.PossesionMemory, false);
         }
     }
 }
