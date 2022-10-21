@@ -34,13 +34,13 @@ public class StateEnemyMove : State
 
         if (targetDistance <= Owner.SearchDistance)
         {
-            Debug.Log("プレイヤーとの距離が近い");
+            //Debug.Log("プレイヤーとの距離が近い");
             moveState = (int)MoveState.Chase;
         }
         else
         {
             //Debug.Log("ターゲット距離：" + targetDistance);
-            Debug.Log("プレイヤーとの距離が遠い");
+            //Debug.Log("プレイヤーとの距離が遠い");
             if (searchTime < 0)
             {
                 searchVec.x = Random.Range(-10, 11);

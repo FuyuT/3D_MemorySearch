@@ -9,7 +9,7 @@ public class StateEnemyJump : State
     Vector3 JumpVec;
     protected override void OnEnter(State prevState)
     {
-        Owner.param.Set((int)Enemy.ParamKey.PossesionMemory, Player.Event.Jump);
+        Owner.param.Set((int)Enemy.ParamKey.PossesionMemory, (int)Player.Event.Jump);
 
         Owner.situation = (int)Enemy.Situation.Jump;
         //初速を設定
@@ -51,7 +51,7 @@ public class StateEnemyJump : State
 
     protected override void OnExit(State nextState)
     {
-        Owner.param.Set((int)Enemy.ParamKey.PossesionMemory, Player.Event.None);
+        Owner.param.Set((int)Enemy.ParamKey.PossesionMemory, (int)Player.Event.None);
 
         Owner.situation = (int)Enemy.Situation.Jump_End;
 

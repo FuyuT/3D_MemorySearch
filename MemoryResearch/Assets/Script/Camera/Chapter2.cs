@@ -28,8 +28,8 @@ public class Chapter2 : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(player.transform.position+("プレイヤー"));
-        Debug.Log(mainCamera.transform.position + ("カメラ"));
+        //Debug.Log(player.transform.position+("プレイヤー"));
+        //Debug.Log(mainCamera.transform.position + ("カメラ"));
         transform.position = player.transform.position;
         //if (Input.GetKeyDown(KeyCode.R))
         //{
@@ -49,7 +49,12 @@ public class Chapter2 : MonoBehaviour
         if (lockOnTarget)
         {
             lockOnTargetObject(lockOnTarget);
-            SetPossesionMemory(lockOnTarget);
+
+            //左クリックしたら対象のメモリを登録
+            if (Input.GetMouseButton(0))
+            {
+                SetPossesionMemory(lockOnTarget);
+            }
         }
         else
         {
@@ -89,15 +94,25 @@ public class Chapter2 : MonoBehaviour
     private void SetPossesionMemory(GameObject target)
     {
         //todo:処理の位置調整したい
-        //取得したメモリをプレイヤーに設定
-        int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
-        //空いている配列番号があれば登録
+        //同じメモリがあるか確認（ある場合配列番号を返す）
         var p = player.GetComponent<Player>();
-        int arrayValue = p.GetMemoryArrayNullValue();
+        //同じメモリがあれば、同じ配列番号にメモリに応じた強化メモリを設定
+
+
+        //敵からメモリを取得
+        int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
+        //設定できる配列番号を取得
+        int arrayValue = p.GetMemoryArrayNullValue(targetMemory);
+
+        //配列に設定可能な場合
         if (arrayValue != -1)
         {
-            //todo:登録配列番号を変更
+            //メモリ配列に登録
             p.SetPossesionMemory(targetMemory, arrayValue);
+        }
+        else
+        {
+            //todo:メモリ配列が空いていない時の処理
         }
     }
 }

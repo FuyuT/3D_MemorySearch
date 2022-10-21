@@ -49,8 +49,6 @@ public class Enemy : CharaBase
 
     public int situation;
 
-    [SerializeField] IReaderActor playerReadActor = new Actor();
-
     [Header("‰ñ“]‘¬“x(ˆê•b‚Å•Ï‚í‚é—Ê)")]
     [SerializeField] float RotateSpeed;
 
@@ -130,7 +128,7 @@ public class Enemy : CharaBase
         nowDushDelayTime = DushDelayTime;
 
         CharaBaseInit();
-        param.Add((int)Enemy.ParamKey.PossesionMemory, Player.Event.None);
+        param.Add((int)Enemy.ParamKey.PossesionMemory, (int)Player.Event.None);
         param.Add((int)ParamKey.AttackPower, 0);
 
         param.Add((int)Enemy.ParamKey.Hp, HpMax);
@@ -278,7 +276,6 @@ public class Enemy : CharaBase
         //UŒ‚”ÍˆÍ
         if (collision.gameObject.tag == "Player")
         {
-            param.Set((int)Enemy.ParamKey.PossesionMemory, true);
         }
     }
 
@@ -309,7 +306,6 @@ public class Enemy : CharaBase
         //UŒ‚”ÍˆÍ
         if (collision.gameObject.tag == "Player")
         {
-            param.Set((int)Enemy.ParamKey.PossesionMemory, false);
         }
     }
 }

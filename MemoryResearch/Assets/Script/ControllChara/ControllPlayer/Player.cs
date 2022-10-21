@@ -105,6 +105,7 @@ public class Player : CharaBase
 
     public int[] possessionMemory { get; private set; }
 
+    //todo:所持メモリの確認引数を可変できるようにする
     /// <summary>
     /// メモリを所持しているか確認する
     /// 所持していればtrue、いなければfalse
@@ -121,25 +122,34 @@ public class Player : CharaBase
 
         return false;
     }
-
-
-    //todo:重複している強化メモリを先に検索する
     /// <summary>
     /// 空いている配列番号を確認する
     /// 空いている配列番号を返す
-    /// 無い場合、すでにある場合は-1を返す
+    /// 無い場合は-1を返す
     /// </summary>
-    public int GetMemoryArrayNullValue()
+
+    /// <summary>
+    /// 引数と重複している配列番号を返す
+    /// 上記が無い場合は、空いている配列番号を取得する
+    /// </summary>
+    /// <param name="memory">取得したメモリ（アクション）番号</param>
+    /// <returns>空いている配列番号　無い場合は-1</returns>
+    public int GetMemoryArrayNullValue(int memory)
     {
+        int returnValue = -1;
         for (int n = 0; n < MemoryMax; n++)
         {
-            if (possessionMemory[n] == 0)
+            if(possessionMemory[n] == memory)
             {
                 return n;
             }
+            if(possessionMemory[n] == (int)Event.None)
+            {
+                returnValue = (int)Event.None;
+            }
         }
 
-        return -1;
+        return returnValue;
     }
 
 
@@ -148,11 +158,34 @@ public class Player : CharaBase
     /// </summary>
     public void SetPossesionMemory(int memory, int arrayValue)
     {
+        //メモリが重複している場合
+        if(possessionMemory[arrayValue] == memory)
+        {
+            //メモリごとに強化メモリを設定する
+            switch(memory)
+            {
+                case (int)Event.Jump:
+                    possessionMemory[arrayValue] = (int)Event.Double_Jump;
+                    //デバッグ用
+                    Debug.Log("ダブルジャンプ登録");
+
+                    break;
+                default:
+                    break;
+            }
+            return;
+        }
+
+
+
+        //メモリを登録
+        possessionMemory[arrayValue] = memory;
+
+        //デバッグ用
         if (memory == (int)Event.Jump)
         {
             Debug.Log("ジャンプ登録");
         }
-        possessionMemory[arrayValue] = memory;
     }
 
     /// <summary>
@@ -188,7 +221,6 @@ public class Player : CharaBase
         }
 
         CharaBaseInit();
-        Debug.Log(param);
         param.Add((int)ParamKey.AttackPower, 0);
         param.Add((int)ParamKey.Attack_Info, (int)AttackInfo.Attack_Not_Possible);
         param.Add((int)Enemy.ParamKey.Hp, HpMax);

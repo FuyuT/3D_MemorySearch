@@ -26,11 +26,14 @@ public class StateIdle : State
         }
 
         //ƒWƒƒƒ“ƒv
-        if (Owner.situation != (int)Player.Situation.Floating) //•‚—V‚µ‚Ä‚¢‚È‚¢Žž
+        if (Owner.CheckPossesionMemory((int)Player.Event.Jump) || Owner.CheckPossesionMemory((int)Player.Event.Double_Jump))
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Owner.situation != (int)Player.Situation.Floating) //•‚—V‚µ‚Ä‚¢‚È‚¢Žž
             {
-                stateMachine.Dispatch((int)Player.Event.Jump);
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    stateMachine.Dispatch((int)Player.Event.Jump);
+                }
             }
         }
 

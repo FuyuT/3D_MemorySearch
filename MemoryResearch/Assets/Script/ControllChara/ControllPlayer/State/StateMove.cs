@@ -72,13 +72,16 @@ public class StateMove : State
         }
 
         //ジャンプ
-        if (Owner.situation != (int)Player.Situation.Floating) //浮遊していない時
+        if (Owner.CheckPossesionMemory((int)Player.Event.Jump) || Owner.CheckPossesionMemory((int)Player.Event.Double_Jump))
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Owner.situation != (int)Player.Situation.Floating) //浮遊していない時
             {
-                Debug.Log("ジャンプ状態へ移行");
+                if (Input.GetKeyDown(KeyCode.C))
+                {
+                    Debug.Log("ジャンプ状態へ移行");
 
-                stateMachine.Dispatch((int)Player.Event.Jump);
+                    stateMachine.Dispatch((int)Player.Event.Jump);
+                }
             }
         }
 
