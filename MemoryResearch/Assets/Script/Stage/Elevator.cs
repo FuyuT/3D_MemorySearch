@@ -51,4 +51,22 @@ public class Elevator : MonoBehaviour
         }
         is2ndFloor = false;
     }
+
+    //USB‚É‹ß‚Ã‚­‚Æ•\Ž¦
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            MoveUp();
+        }
+    }
+
+    //USB‚©‚ç—£‚ê‚é‚Æ”ñ•\Ž¦
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            MoveDown();
+        }
+    }
 }

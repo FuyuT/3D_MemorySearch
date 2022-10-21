@@ -12,13 +12,9 @@ public class Chapter2 : MonoBehaviour
     private const float ANGLE_LIMIT_UP = 60f;
     private const float ANGLE_LIMIT_DOWN = -60f;
 
-    [SerializeField]
-    GameObject Enemy1;
-
-    [SerializeField]
-    GameObject Enemy2;
 
     //Lockonのスクリプト
+    [SerializeField]
     Lockon lockon;
 
     GameObject lockOnTarget;
@@ -26,21 +22,19 @@ public class Chapter2 : MonoBehaviour
    
     void Start()
     {
-
         mainCamera = Camera.main.gameObject;
         player = GameObject.FindGameObjectWithTag("Player");
-        lockon = player.GetComponentInChildren<Lockon>();
-       
     }
 
     void Update()
     {
+        Debug.Log(player.transform.position+("プレイヤー"));
+        Debug.Log(mainCamera.transform.position + ("カメラ"));
         transform.position = player.transform.position;
-
         //if (Input.GetKeyDown(KeyCode.R))
         //{
 
-            GameObject target = lockon.getTarget();
+        GameObject target = lockon.getTarget();
 
             if (target != null)
             {
@@ -55,6 +49,7 @@ public class Chapter2 : MonoBehaviour
         if (lockOnTarget)
         {
             lockOnTargetObject(lockOnTarget);
+            SetPossesionMemory(lockOnTarget);
         }
         else
         {
@@ -84,16 +79,25 @@ public class Chapter2 : MonoBehaviour
     }
     private void lockOnTargetObject(GameObject target)
     {
-        if (target == Enemy1)
-        { 
-            Debug.Log("a");
-           // transform.LookAt(target.transform, Vector3.up);
-        }
+      
+    }
 
-        if (target == Enemy2)
+    /// <summary>
+    /// プレイヤーの所持しているメモリ配列に、サーチした敵から取得したメモリを格納する
+    /// </summary>
+    /// <param name="target">サーチした敵</param>
+    private void SetPossesionMemory(GameObject target)
+    {
+        //todo:処理の位置調整したい
+        //取得したメモリをプレイヤーに設定
+        int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
+        //空いている配列番号があれば登録
+        var p = player.GetComponent<Player>();
+        int arrayValue = p.GetMemoryArrayNullValue();
+        if (arrayValue != -1)
         {
-            Debug.Log("b");
-            //transform.LookAt(target.transform, Vector3.up);
+            //todo:登録配列番号を変更
+            p.SetPossesionMemory(targetMemory, arrayValue);
         }
     }
 }

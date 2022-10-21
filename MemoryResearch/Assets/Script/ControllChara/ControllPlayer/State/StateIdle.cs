@@ -35,7 +35,7 @@ public class StateIdle : State
         }
 
         //ダッシュ系
-        if (Input.GetKey(KeyCode.Z))
+        if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))
         {
             //空中ダッシュ
             if (Owner.situation == (int)Player.Situation.Floating)

@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = State<Enemy>;
 
-public class Enemy : MonoBehaviour
+public class Enemy : CharaBase
 {
     /// <summary>
     /// ステートenum
@@ -33,11 +33,11 @@ public class Enemy : MonoBehaviour
         Dush,
     }
 
+
     StateMachine<Enemy> stateMachine;
 
     //スコープ小さくする
     [SerializeField] public Transform PlayerTransform;
-    public AnyParameterMap parameter;
 
     [SerializeField] public Vector3 moveVec;
 
@@ -50,6 +50,13 @@ public class Enemy : MonoBehaviour
     public int situation;
 
     [SerializeField] IReaderActor playerReadActor = new Actor();
+
+    [Header("回転速度(一秒で変わる量)")]
+    [SerializeField] float RotateSpeed;
+
+    [Space]
+    [Header("Hp")]
+    [SerializeField] public int HpMax;
 
     [Space]
     [Header("移動")]
@@ -85,6 +92,10 @@ public class Enemy : MonoBehaviour
     [Header("移動時間")]
     [SerializeField] public float DushTime;
 
+    [Space]
+    [Header("索敵距離")]
+    [SerializeField] public float SearchDistance;
+
     public Vector3 dushVec;
     public float nowDushTime;
     public float nowDushDelayTime;
@@ -98,8 +109,6 @@ public class Enemy : MonoBehaviour
     Enemy()
     {
         Init();
-        parameter = new AnyParameterMap();
-
     }
 
     /// <summary>
@@ -120,11 +129,16 @@ public class Enemy : MonoBehaviour
         nowJumpDelayTime = JumpDelayTime;
         nowDushDelayTime = DushDelayTime;
 
-        parameter = new AnyParameterMap();
-        parameter.Add("攻撃可能判定", false);
-        parameter.Add("所持メモリ", (int)Player.Event.Idle);
+        CharaBaseInit();
+        param.Add((int)Enemy.ParamKey.PossesionMemory, Player.Event.None);
+        param.Add((int)ParamKey.AttackPower, 0);
+
+        param.Add((int)Enemy.ParamKey.Hp, HpMax);
+
 
         StateMachineInit();
+
+
     }
 
     /// <summary>
@@ -181,16 +195,19 @@ public class Enemy : MonoBehaviour
         //todo:現在のステートkeyを取得する関数を作成する
         if (moveVec != Vector3.zero)
         {
+            //空中にいる時は、yも回転の要素に加える
             if (moveVec.y != 0)
             {
-                transform.rotation = Quaternion.LookRotation(moveVec);
+                var quaternion = Quaternion.LookRotation(moveVec);
+                transform.rotation = Quaternion.Slerp(this.transform.rotation, quaternion, RotateSpeed * Time.deltaTime);
             }
             else
             {
-                //y軸の角度は変更しない
+                //yは回転の要素に加えない
                 Vector3 temp = moveVec;
                 temp.y = 0;
-                transform.rotation = Quaternion.LookRotation(temp);
+                var quaternion = Quaternion.LookRotation(temp);
+                transform.rotation = Quaternion.Slerp(this.transform.rotation, quaternion, RotateSpeed * Time.deltaTime);
             }
         }
     }
@@ -216,6 +233,7 @@ public class Enemy : MonoBehaviour
 
         moveVec = Vector3.zero;
     }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -260,7 +278,7 @@ public class Enemy : MonoBehaviour
         //攻撃範囲
         if (collision.gameObject.tag == "Player")
         {
-            parameter.Set("攻撃可能判定", true);
+            param.Set((int)Enemy.ParamKey.PossesionMemory, true);
         }
     }
 
@@ -291,7 +309,7 @@ public class Enemy : MonoBehaviour
         //攻撃範囲
         if (collision.gameObject.tag == "Player")
         {
-            parameter.Set("攻撃可能判定", false);
+            param.Set((int)Enemy.ParamKey.PossesionMemory, false);
         }
     }
 }
