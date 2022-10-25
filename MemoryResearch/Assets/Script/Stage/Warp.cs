@@ -28,13 +28,14 @@ public class Warp : MonoBehaviour
     {
         if(flg)
         {
-            //Debug.Log("a");
+         
             Countdown -= Time.deltaTime;
+            
            
         }
         if(Countdown<=0)
         {
-            Debug.Log("a");
+          
             Countdown = 10;
             flg = false;
         }

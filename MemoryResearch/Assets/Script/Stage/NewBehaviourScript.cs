@@ -34,7 +34,7 @@
 //            //　ベルトコンベアーに乗っていたら力を加える	
 //            if (onTheFloor)
 //            {
-//            Debug.Log("a");
+//          
 //                velocity += floorMoveDirection;
 //            }
         
@@ -45,17 +45,16 @@
 
 //    void OnControllerColliderHit(ControllerColliderHit col)
 //    {
-//        //Debug.Log("a");
-//        Debug.DrawLine(transform.position + Vector3.up * 0.1f, transform.position + Vector3.up * 0.1f + Vector3.down * 0.2f, Color.blue);
+//       
 
 //        //　他のコライダと接触していたら下向きにレイを飛ばしてBlockかどうか調べる
 //        if (Physics.Linecast(transform.position + Vector3.up * 0.1f, transform.position + Vector3.up * 0.1f + Vector3.down * 0.2f, LayerMask.GetMask("Block")))
 //        {
-//            Debug.Log("a");
+//           
 //            var beltConveyor = col.gameObject.GetComponent<BeltConveyor>();
 //            if (beltConveyor != null)
 //            {
-//               // Debug.Log("a");
+//             
 //                //floorMoveDirection = FindObjectOfType<BeltConveyor>().ConveyorVelocity();
 //                floorMoveDirection = beltConveyor.ConveyorVelocity();
 //                onTheFloor = true;
@@ -67,7 +66,7 @@
 //        }
 //        else
 //        {
-//           // Debug.Log("a");
+//        
 //            onTheFloor = false;
 //        }
 //    }
