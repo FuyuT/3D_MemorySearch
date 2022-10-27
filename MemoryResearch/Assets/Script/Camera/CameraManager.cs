@@ -14,9 +14,17 @@ public class CameraManager : MonoBehaviour
     [Header("フロアカメラ")]
     [SerializeField] GameObject FloorCamera;
 
+    [Header("コントロールカメラ")]
+    [SerializeField] GameObject ControllerCamera;
+
     //エリアカメラ関連
-    ObjectCollider FloorCameraArea;
+    ObjectCollider              FloorCameraArea;
     [SerializeField] GameObject Area;
+
+    //コントロールカメラ関連
+    ChangeMoveObjectCamera      MoveObjCamScript;
+    //TODO
+    [SerializeField] GameObject Operation;
 
     public enum CameraType
     {
@@ -24,6 +32,7 @@ public class CameraManager : MonoBehaviour
         FPS,
         TPS,
         Floor,
+        Controller
     }
 
     CameraType nowCamera;
@@ -33,9 +42,11 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         nowCamera = CameraType.None;
-        nextCamera = CameraType.Floor;
+        nextCamera = CameraType.None;
         ChangeMainCamara();
+
         FloorCameraArea = Area.GetComponent<ObjectCollider>();
+        MoveObjCamScript = Operation.GetComponent<ChangeMoveObjectCamera>();
     }
 
    // Update is called once per frame
@@ -49,16 +60,29 @@ public class CameraManager : MonoBehaviour
     {
         if (Input.GetKeyDown("space"))
         {
+          
             nextCamera = CameraType.FPS;
-            if(FPSCamera.activeSelf)
-            {
-                
-            }
+          
+            //if(FPSCamera.activeSelf)
+            //{
+                    
+            //}
         }
 
-        if(FloorCameraArea.inArea)
+        //フロアカメラ
+        if (FloorCameraArea.inArea)
         {
             nextCamera = CameraType.TPS;
+        }
+        else
+        {
+            nextCamera = CameraType.Floor;
+        }
+
+        //神獣? ギミック
+        if (MoveObjCamScript.ChangFlg)
+        {
+            nextCamera = CameraType.Controller;
         }
         else
         {
@@ -73,6 +97,7 @@ public class CameraManager : MonoBehaviour
         FPSCamera.SetActive(false);
         TPSCamera.SetActive(false);
         FloorCamera.SetActive(false);
+        ControllerCamera.SetActive(false);
 
         switch (nextCamera)
         {
@@ -86,6 +111,10 @@ public class CameraManager : MonoBehaviour
 
             case CameraType.Floor:
                 FloorCamera.SetActive(true);
+                break;
+
+            case CameraType.Controller:
+                ControllerCamera.SetActive(true);
                 break;
 
             default:
