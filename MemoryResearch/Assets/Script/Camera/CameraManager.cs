@@ -14,9 +14,12 @@ public class CameraManager : MonoBehaviour
     [Header("フロアカメラ")]
     [SerializeField] GameObject FloorCamera;
 
+<<<<<<< HEAD
     [Header("フロアカメラ2")]
     [SerializeField] GameObject FloorCamera2;
 
+=======
+>>>>>>> origin/#24-繝繝｡繝ｼ繧ｸ蜃ｦ逅・
     [Header("コントロールカメラ")]
     [SerializeField] GameObject ControllerCamera;
 
@@ -24,24 +27,33 @@ public class CameraManager : MonoBehaviour
     ObjectCollider              FloorCameraArea;
     [SerializeField] GameObject Area;
 
+<<<<<<< HEAD
     //エリアカメラ関連
     ObjectCollider1 FloorCameraArea2;
     [SerializeField] GameObject Area2;
 
+=======
+>>>>>>> origin/#24-繝繝｡繝ｼ繧ｸ蜃ｦ逅・
     //コントロールカメラ関連
     ChangeMoveObjectCamera      MoveObjCamScript;
     //TODO
     [SerializeField] GameObject Operation;
 
+<<<<<<< HEAD
     bool On;
 
+=======
+>>>>>>> origin/#24-繝繝｡繝ｼ繧ｸ蜃ｦ逅・
     public enum CameraType
     {
         None,
         FPS,
         TPS,
         Floor,
+<<<<<<< HEAD
         Floor2,
+=======
+>>>>>>> origin/#24-繝繝｡繝ｼ繧ｸ蜃ｦ逅・
         Controller
     }
 
@@ -52,6 +64,7 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         nowCamera = CameraType.None;
+<<<<<<< HEAD
         nextCamera = CameraType.Floor;
         ChangeMainCamara();
 
@@ -60,6 +73,13 @@ public class CameraManager : MonoBehaviour
         MoveObjCamScript = Operation.GetComponent<ChangeMoveObjectCamera>();
 
         On = false;
+=======
+        nextCamera = CameraType.None;
+        ChangeMainCamara();
+
+        FloorCameraArea = Area.GetComponent<ObjectCollider>();
+        MoveObjCamScript = Operation.GetComponent<ChangeMoveObjectCamera>();
+>>>>>>> origin/#24-繝繝｡繝ｼ繧ｸ蜃ｦ逅・
     }
 
    // Update is called once per frame
@@ -69,11 +89,15 @@ public class CameraManager : MonoBehaviour
         ChangeMainCamara();
     }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/#24-繝繝｡繝ｼ繧ｸ蜃ｦ逅・
     void SelectNextCamera()
     {
         if (Input.GetKeyDown("space"))
         {
+<<<<<<< HEAD
             if (!FPSCamera.activeSelf)
             {
                 nextCamera = CameraType.FPS;
@@ -118,6 +142,35 @@ public class CameraManager : MonoBehaviour
                 return;
             }
 
+=======
+          
+            nextCamera = CameraType.FPS;
+            
+            //if(FPSCamera.activeSelf)
+            //{
+                    
+            //}
+        }
+
+        //フロアカメラ
+        if (FloorCameraArea.inArea)
+        {
+            nextCamera = CameraType.TPS;
+        }
+        else
+        {
+            nextCamera = CameraType.Floor;
+        }
+
+        //神獣? ギミック
+        if (MoveObjCamScript.ChangFlg)
+        {
+            nextCamera = CameraType.Controller;
+        }
+        else
+        {
+            nextCamera = CameraType.Floor;
+>>>>>>> origin/#24-繝繝｡繝ｼ繧ｸ蜃ｦ逅・
         }
     }
 
@@ -128,9 +181,13 @@ public class CameraManager : MonoBehaviour
         FPSCamera.SetActive(false);
         TPSCamera.SetActive(false);
         FloorCamera.SetActive(false);
+<<<<<<< HEAD
         FloorCamera2.SetActive(false);
         ControllerCamera.SetActive(false);
        
+=======
+        ControllerCamera.SetActive(false);
+>>>>>>> origin/#24-繝繝｡繝ｼ繧ｸ蜃ｦ逅・
 
         switch (nextCamera)
         {
@@ -146,10 +203,13 @@ public class CameraManager : MonoBehaviour
                 FloorCamera.SetActive(true);
                 break;
 
+<<<<<<< HEAD
             case CameraType.Floor2:
                 FloorCamera2.SetActive(true);
                 break;
 
+=======
+>>>>>>> origin/#24-繝繝｡繝ｼ繧ｸ蜃ｦ逅・
             case CameraType.Controller:
                 ControllerCamera.SetActive(true);
                 break;

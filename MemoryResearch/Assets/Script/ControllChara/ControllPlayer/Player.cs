@@ -9,6 +9,9 @@ public class Player : CharaBase
     [Header("チャプターカメラ")]
     [SerializeField] GameObject ChapterCamera;
 
+    [Header("アニメーター")]
+    [SerializeField] Animator animator;
+
     [Space]
     [Header("ステート所持可能メモリ数")]
     [SerializeField] int MemoryMax;
@@ -35,8 +38,6 @@ public class Player : CharaBase
     [SerializeField] public float JumpStartSpeed;
     [Header("加速値")]
     [SerializeField] public float JumpAcceleration;
-    [Header("重さ")]
-    [SerializeField] public float Weight;
 
     [Space]
     [Header("重力")]
@@ -102,6 +103,7 @@ public class Player : CharaBase
     public float nowDushTime;
 
     StateMachine<Player> stateMachine;
+
 
     public int[] possessionMemory { get; private set; }
 
@@ -242,6 +244,7 @@ public class Player : CharaBase
 
         //現在のステートを表示
         //Debug.Log(stateMachine.currentStateKey);
+        Debug.Log("situation:" + situation);
 
     }
 
@@ -276,27 +279,36 @@ public class Player : CharaBase
 
         switch (situation)
         {
-            //ジャンプ中はtransformで移動
+            //ジャンプ中
             case (int)Situation.Jump:
-                moveVec -= new Vector3(0, Weight + JumpDecreaseValue, 0);
-                transform.position += moveVec * Time.deltaTime;
-                rb.velocity = Vector3.zero;
+                //重力を使用しない
+                rb.velocity = moveVec;
                 break;
-            //ダッシュ中は落下しない
+            //ダッシュ中
             case (int)Situation.Dush:
+                //落下しないようにする
                 moveVec.y = 0;
                 rb.velocity = moveVec;
                 break;
-
-            //それ以外はrigidBodyのvelocityで移動
             default:
-
+                //ベクトルを設定（重力も足しておく）
                 rb.velocity = moveVec + new Vector3(0, rb.velocity.y, 0);
                 break;
         }
         moveVec = Vector3.zero;
+
+        float speed = 0;
+
+        if (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z) > 0)
+        {
+            speed = 1;
+        }
+
+        animator.SetFloat("Speed", speed);
+        animator.SetFloat("Speed_Y", rb.velocity.y);
+
     }
-    
+
     /// <summary>
     /// ディレイ時間の更新
     /// </summary>

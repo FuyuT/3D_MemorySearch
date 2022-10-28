@@ -105,9 +105,6 @@ public class StateEnemyMove : State
             case (int)MoveState.Search:
                 break;
         }
-
-
-
     }
 
     protected override void OnExit(State prevState)
