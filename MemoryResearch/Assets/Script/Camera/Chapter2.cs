@@ -5,8 +5,10 @@ using UnityEngine;
 public class Chapter2 : MonoBehaviour
 {
     public GameObject player;
-    public GameObject mainCamera;
     public float rotate_speed;
+
+    public float high;
+    public float profound;
 
     private const int ROTATE_BUTTON = 1;
     private const float ANGLE_LIMIT_UP = 60f;
@@ -22,14 +24,18 @@ public class Chapter2 : MonoBehaviour
    
     void Start()
     {
-        mainCamera = Camera.main.gameObject;
+  
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
     void Update()
     {
-      
+
+       
         transform.position = player.transform.position;
+        transform.rotation=player.transform.rotation;
+       //transform.position = new Vector3(player.transform.position.x, player.transform.position.y + high, player.transform.position.z + profound);
+
         GameObject target = lockon.getTarget();
 
         if (target != null)

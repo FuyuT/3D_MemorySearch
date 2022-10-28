@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectCollider : MonoBehaviour
+public class ObjectCollider1 : MonoBehaviour
 {
-    public bool inArea=false;
+    public bool inArea2 = false;
 
 
     public enum CollisionObject
@@ -22,16 +22,16 @@ public class ObjectCollider : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player")
+        if (other.tag == "Player")
         {
             colObj = CollisionObject.Player;
-            inArea = true;
+            inArea2 = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
         colObj = CollisionObject.None;
-        inArea = false;
+        inArea2 = false;
     }
 }

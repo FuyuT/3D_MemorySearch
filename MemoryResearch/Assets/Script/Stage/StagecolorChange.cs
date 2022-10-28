@@ -46,7 +46,7 @@ public class StagecolorChange : MonoBehaviour
         for (int i = 0; i < NotMoveObject.transform.childCount; i++)
         {
             NotObjectChildren[i] = NotMoveObject.transform.GetChild(i);
-            yuanNotObjectChildrenMaterial[i] = NotObjectChildren[i].GetComponent<Renderer>().material;
+            //yuanNotObjectChildrenMaterial[i] = NotObjectChildren[i].GetComponent<Renderer>().material;
           
         }
     }
@@ -85,14 +85,14 @@ public class StagecolorChange : MonoBehaviour
             {
 
                 NotObjectChildren[i] = NotMoveObject.transform.GetChild(i);
-                NotObjectChildren[i].GetComponent<MeshRenderer>().material = yuanNotObjectChildrenMaterial[i];
+                //NotObjectChildren[i].GetComponent<MeshRenderer>().material = yuanNotObjectChildrenMaterial[i];
             }
 
             //動かせれる空オブジェクトの子オブジェクトを取得
             for (int i = 0; i < MoveObject.transform.childCount; i++)
             {
                 MoveObjectChildren[i] = MoveObject.transform.GetChild(i);
-                MoveObjectChildren[i].GetComponent<MeshRenderer>().material = yuanMoveObjectChildrenMaterial;
+               // MoveObjectChildren[i].GetComponent<MeshRenderer>().material = yuanMoveObjectChildrenMaterial;
             }
         }
     }

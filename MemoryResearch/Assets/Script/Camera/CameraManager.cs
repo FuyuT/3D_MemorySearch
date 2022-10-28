@@ -14,6 +14,9 @@ public class CameraManager : MonoBehaviour
     [Header("フロアカメラ")]
     [SerializeField] GameObject FloorCamera;
 
+    [Header("フロアカメラ2")]
+    [SerializeField] GameObject FloorCamera2;
+
     [Header("コントロールカメラ")]
     [SerializeField] GameObject ControllerCamera;
 
@@ -21,10 +24,16 @@ public class CameraManager : MonoBehaviour
     ObjectCollider              FloorCameraArea;
     [SerializeField] GameObject Area;
 
+    //エリアカメラ関連
+    ObjectCollider1 FloorCameraArea2;
+    [SerializeField] GameObject Area2;
+
     //コントロールカメラ関連
     ChangeMoveObjectCamera      MoveObjCamScript;
     //TODO
     [SerializeField] GameObject Operation;
+
+    bool On;
 
     public enum CameraType
     {
@@ -32,6 +41,7 @@ public class CameraManager : MonoBehaviour
         FPS,
         TPS,
         Floor,
+        Floor2,
         Controller
     }
 
@@ -42,11 +52,14 @@ public class CameraManager : MonoBehaviour
     void Start()
     {
         nowCamera = CameraType.None;
-        nextCamera = CameraType.None;
+        nextCamera = CameraType.Floor;
         ChangeMainCamara();
 
         FloorCameraArea = Area.GetComponent<ObjectCollider>();
+        FloorCameraArea2 = Area2.GetComponent<ObjectCollider1>();
         MoveObjCamScript = Operation.GetComponent<ChangeMoveObjectCamera>();
+
+        On = false;
     }
 
    // Update is called once per frame
@@ -56,37 +69,55 @@ public class CameraManager : MonoBehaviour
         ChangeMainCamara();
     }
 
+
     void SelectNextCamera()
     {
         if (Input.GetKeyDown("space"))
         {
-          
-            nextCamera = CameraType.FPS;
-          
-            //if(FPSCamera.activeSelf)
-            //{
-                    
-            //}
+            if (!FPSCamera.activeSelf)
+            {
+                nextCamera = CameraType.FPS;
+                return;
+                On = true;
+            }
+
+
+            if (FPSCamera.activeSelf)
+            {
+                nextCamera = CameraType.TPS;
+                On = false;
+            }
+            return;
         }
 
-        //フロアカメラ
-        if (FloorCameraArea.inArea)
+        if (!FPSCamera.activeSelf)
         {
-            nextCamera = CameraType.TPS;
-        }
-        else
-        {
-            nextCamera = CameraType.Floor;
-        }
+            //フロアカメラ
+            if (FloorCameraArea.inArea)
+            {
+                nextCamera = CameraType.TPS;
+                return;
+            }
 
-        //神獣? ギミック
-        if (MoveObjCamScript.ChangFlg)
-        {
-            nextCamera = CameraType.Controller;
-        }
-        else
-        {
-            nextCamera = CameraType.Floor;
+            if (FloorCameraArea2.inArea2)
+            {
+                nextCamera = CameraType.Floor2;
+                return;
+            }
+
+            //神獣? ギミック
+            if (MoveObjCamScript.ChangFlg)
+            {
+
+                nextCamera = CameraType.Controller;
+                return;
+            }
+            else
+            {
+                nextCamera = CameraType.Floor;
+                return;
+            }
+
         }
     }
 
@@ -97,7 +128,9 @@ public class CameraManager : MonoBehaviour
         FPSCamera.SetActive(false);
         TPSCamera.SetActive(false);
         FloorCamera.SetActive(false);
+        FloorCamera2.SetActive(false);
         ControllerCamera.SetActive(false);
+       
 
         switch (nextCamera)
         {
@@ -111,6 +144,10 @@ public class CameraManager : MonoBehaviour
 
             case CameraType.Floor:
                 FloorCamera.SetActive(true);
+                break;
+
+            case CameraType.Floor2:
+                FloorCamera2.SetActive(true);
                 break;
 
             case CameraType.Controller:
