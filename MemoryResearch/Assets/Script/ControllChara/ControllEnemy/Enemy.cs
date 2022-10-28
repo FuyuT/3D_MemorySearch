@@ -49,6 +49,8 @@ public class Enemy : CharaBase
 
     public int situation;
 
+    [SerializeField] IReaderActor playerReadActor = new Actor();
+
     [Header("回転速度(一秒で変わる量)")]
     [SerializeField] float RotateSpeed;
 
@@ -71,8 +73,6 @@ public class Enemy : CharaBase
     [SerializeField] public float JumpStartSpeed;
     [Header("加速値")]
     [SerializeField] public float JumpAcceleration;
-    [Header("重さ")]
-    [SerializeField] public float Weight;
 
     [Space]
     [Header("重力")]
@@ -128,7 +128,7 @@ public class Enemy : CharaBase
         nowDushDelayTime = DushDelayTime;
 
         CharaBaseInit();
-        param.Add((int)Enemy.ParamKey.PossesionMemory, (int)Player.Event.None);
+        param.Add((int)Enemy.ParamKey.PossesionMemory, Player.Event.None);
         param.Add((int)ParamKey.AttackPower, 0);
 
         param.Add((int)Enemy.ParamKey.Hp, HpMax);
@@ -215,16 +215,18 @@ public class Enemy : CharaBase
     /// </summary>
     void PositionUpdate()
     {
+        var rb = GetComponent<Rigidbody>();
+
         switch (situation)
         {
-            //ジャンプ中はtransFormを調整
+            //ジャンプ中
             case (int)Situation.Jump:
-                moveVec -= new Vector3(0, Weight + Gravity, 0);
-                transform.position += moveVec * Time.deltaTime;
+                //ジャンプ中は重力を使用しない
+                rb.velocity = moveVec;
                 break;
-            //それ以外は、RigitBodyのvelocityで移動
+            //それ以外
             default:
-                var rb = GetComponent<Rigidbody>();
+                //ベクトルを設定（重力も足しておく）
                 rb.velocity = moveVec + new Vector3(0, rb.velocity.y, 0);
                 break;
         }
@@ -276,6 +278,7 @@ public class Enemy : CharaBase
         //攻撃範囲
         if (collision.gameObject.tag == "Player")
         {
+            param.Set((int)Enemy.ParamKey.PossesionMemory, true);
         }
     }
 
@@ -306,6 +309,7 @@ public class Enemy : CharaBase
         //攻撃範囲
         if (collision.gameObject.tag == "Player")
         {
+            param.Set((int)Enemy.ParamKey.PossesionMemory, false);
         }
     }
 }

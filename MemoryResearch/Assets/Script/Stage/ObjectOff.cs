@@ -47,7 +47,7 @@ public class ObjectOff : MonoBehaviour
             {
                 if (n == 1)
                 {
-                    //Debug.Log("a");
+                   
                     Wal.SetActive(false);
                     ShowObj.SetActive(true);
                     //Destroy(this.textOn);

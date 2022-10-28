@@ -154,7 +154,7 @@ public class Chapter : MonoBehaviour
                 //                    new Vector2(0.5f, 0.5f),
                 //                    new Vector2(targetScreenPoint.x, targetScreenPoint.y)
                 //                );
-                //                Debug.Log(hit.gameObject + ": " + target_distance);
+                //               
 
                 //                if (target_distance < min_target_distance)
                 //                {

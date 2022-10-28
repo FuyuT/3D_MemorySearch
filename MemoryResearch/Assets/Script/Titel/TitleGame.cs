@@ -78,12 +78,12 @@ public class TitleGame : MonoBehaviour
                 if (Input.GetKeyDown("down"))
                 {
                     Select += 1;
-                    Debug.Log("a");
+                   
                 }
                 else if (Input.GetKeyDown("up"))
                 {
                     Select -= 1;
-                    Debug.Log("b");
+                    
                 }
 
                 if (Select > 2)

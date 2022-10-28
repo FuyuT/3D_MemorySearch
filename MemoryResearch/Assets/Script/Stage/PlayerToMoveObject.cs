@@ -25,7 +25,7 @@ public class PlayerToMoveObject : MonoBehaviour
         //　ベルトコンベアーに乗っていたら力を加える	
         if (onTheFloor)
         {
-            //Debug.Log("a");
+           
             velocity += floorMoveDirection;
         }
     }
@@ -56,11 +56,11 @@ public class PlayerToMoveObject : MonoBehaviour
 
         if(other.gameObject.tag=="Block")
         {
-            //Debug.Log("a");
+           
             var beltConveyor = other.gameObject.GetComponent<BeltConveyor>();
             if (beltConveyor != null)
             {
-                Debug.Log("a");
+              
                 //floorMoveDirection = FindObjectOfType<BeltConveyor>().ConveyorVelocity();
                 floorMoveDirection = beltConveyor.ConveyorVelocity();
                 onTheFloor = true;

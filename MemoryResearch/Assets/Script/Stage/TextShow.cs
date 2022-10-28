@@ -29,7 +29,7 @@ public class TextShow : MonoBehaviour
 
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("a");
+           
             textOn.SetActive(true);
            
         }

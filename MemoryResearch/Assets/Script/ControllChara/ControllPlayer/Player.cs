@@ -9,6 +9,9 @@ public class Player : CharaBase
     [Header("チャプターカメラ")]
     [SerializeField] GameObject ChapterCamera;
 
+    [Header("アニメーター")]
+    [SerializeField] Animator animator;
+
     [Space]
     [Header("ステート所持可能メモリ数")]
     [SerializeField] int MemoryMax;
@@ -35,8 +38,6 @@ public class Player : CharaBase
     [SerializeField] public float JumpStartSpeed;
     [Header("加速値")]
     [SerializeField] public float JumpAcceleration;
-    [Header("重さ")]
-    [SerializeField] public float Weight;
 
     [Space]
     [Header("重力")]
@@ -103,9 +104,9 @@ public class Player : CharaBase
 
     StateMachine<Player> stateMachine;
 
+
     public int[] possessionMemory { get; private set; }
 
-    //todo:所持メモリの確認引数を可変できるようにする
     /// <summary>
     /// メモリを所持しているか確認する
     /// 所持していればtrue、いなければfalse
@@ -122,34 +123,25 @@ public class Player : CharaBase
 
         return false;
     }
+
+
+    //todo:重複している強化メモリを先に検索する
     /// <summary>
     /// 空いている配列番号を確認する
     /// 空いている配列番号を返す
-    /// 無い場合は-1を返す
+    /// 無い場合、すでにある場合は-1を返す
     /// </summary>
-
-    /// <summary>
-    /// 引数と重複している配列番号を返す
-    /// 上記が無い場合は、空いている配列番号を取得する
-    /// </summary>
-    /// <param name="memory">取得したメモリ（アクション）番号</param>
-    /// <returns>空いている配列番号　無い場合は-1</returns>
-    public int GetMemoryArrayNullValue(int memory)
+    public int GetMemoryArrayNullValue()
     {
-        int returnValue = -1;
         for (int n = 0; n < MemoryMax; n++)
         {
-            if(possessionMemory[n] == memory)
+            if (possessionMemory[n] == 0)
             {
                 return n;
             }
-            if(possessionMemory[n] == (int)Event.None)
-            {
-                returnValue = (int)Event.None;
-            }
         }
 
-        return returnValue;
+        return -1;
     }
 
 
@@ -158,34 +150,11 @@ public class Player : CharaBase
     /// </summary>
     public void SetPossesionMemory(int memory, int arrayValue)
     {
-        //メモリが重複している場合
-        if(possessionMemory[arrayValue] == memory)
-        {
-            //メモリごとに強化メモリを設定する
-            switch(memory)
-            {
-                case (int)Event.Jump:
-                    possessionMemory[arrayValue] = (int)Event.Double_Jump;
-                    //デバッグ用
-                    Debug.Log("ダブルジャンプ登録");
-
-                    break;
-                default:
-                    break;
-            }
-            return;
-        }
-
-
-
-        //メモリを登録
-        possessionMemory[arrayValue] = memory;
-
-        //デバッグ用
         if (memory == (int)Event.Jump)
         {
             Debug.Log("ジャンプ登録");
         }
+        possessionMemory[arrayValue] = memory;
     }
 
     /// <summary>
@@ -221,6 +190,7 @@ public class Player : CharaBase
         }
 
         CharaBaseInit();
+        Debug.Log(param);
         param.Add((int)ParamKey.AttackPower, 0);
         param.Add((int)ParamKey.Attack_Info, (int)AttackInfo.Attack_Not_Possible);
         param.Add((int)Enemy.ParamKey.Hp, HpMax);
@@ -274,6 +244,7 @@ public class Player : CharaBase
 
         //現在のステートを表示
         //Debug.Log(stateMachine.currentStateKey);
+        Debug.Log("situation:" + situation);
 
     }
 
@@ -308,27 +279,36 @@ public class Player : CharaBase
 
         switch (situation)
         {
-            //ジャンプ中はtransformで移動
+            //ジャンプ中
             case (int)Situation.Jump:
-                moveVec -= new Vector3(0, Weight + JumpDecreaseValue, 0);
-                transform.position += moveVec * Time.deltaTime;
-                rb.velocity = Vector3.zero;
+                //重力を使用しない
+                rb.velocity = moveVec;
                 break;
-            //ダッシュ中は落下しない
+            //ダッシュ中
             case (int)Situation.Dush:
+                //落下しないようにする
                 moveVec.y = 0;
                 rb.velocity = moveVec;
                 break;
-
-            //それ以外はrigidBodyのvelocityで移動
             default:
-
+                //ベクトルを設定（重力も足しておく）
                 rb.velocity = moveVec + new Vector3(0, rb.velocity.y, 0);
                 break;
         }
         moveVec = Vector3.zero;
+
+        float speed = 0;
+
+        if (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z) > 0)
+        {
+            speed = 1;
+        }
+
+        animator.SetFloat("Speed", speed);
+        animator.SetFloat("Speed_Y", rb.velocity.y);
+
     }
-    
+
     /// <summary>
     /// ディレイ時間の更新
     /// </summary>

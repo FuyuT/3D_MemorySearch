@@ -16,6 +16,7 @@ public class StateMove : State
 
     protected override void OnUpdate()
     {
+
         //方向キーの入力値とカメラの向きから、移動方向を決定
         Vector3 inputVector = Vector3.zero;
         if (Input.GetKey("up"))
@@ -72,16 +73,13 @@ public class StateMove : State
         }
 
         //ジャンプ
-        if (Owner.CheckPossesionMemory((int)Player.Event.Jump) || Owner.CheckPossesionMemory((int)Player.Event.Double_Jump))
+        if (Owner.GetComponent<Rigidbody>().velocity.y == 0) //浮遊していない時
         {
-            if (Owner.situation != (int)Player.Situation.Floating) //浮遊していない時
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                if (Input.GetKeyDown(KeyCode.C))
-                {
-                    Debug.Log("ジャンプ状態へ移行");
+                Debug.Log("ジャンプ状態へ移行");
 
-                    stateMachine.Dispatch((int)Player.Event.Jump);
-                }
+                stateMachine.Dispatch((int)Player.Event.Jump);
             }
         }
 

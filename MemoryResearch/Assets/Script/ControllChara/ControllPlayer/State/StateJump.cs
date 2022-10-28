@@ -14,8 +14,6 @@ public class StateJump : State
     protected override void OnEnter(State prevState)
     {
         Owner.situation = (int)Player.Situation.Jump;
-        var rb = Owner.GetComponent<Rigidbody>();
-        rb.useGravity = false;
 
         IsAcceleration = true;
 
@@ -26,6 +24,12 @@ public class StateJump : State
     }
 
     protected override void OnUpdate()
+    {
+        Move();
+        Jump();
+    }
+
+    void Move()
     {
         //方向キーの入力値とカメラの向きから、移動方向を決定
         Vector3 inputVector = Vector3.zero;
@@ -46,15 +50,17 @@ public class StateJump : State
             inputVector += new Vector3(-1, 0, 0);
         }
 
-        //単位ベクトルを作成
+        //カメラの向きから見た進行方向の単位ベクトルを作成
         Vector3 moveForward = Camera.main.transform.forward * inputVector.z + Camera.main.transform.right * inputVector.x;
         moveForward.y = 0;
 
         //移動ベクトルを格納
         Owner.moveVec += moveForward * Owner.MoveSpeed;
+    }
 
-
-        //ジャンプ処理
+    //ジャンプ処理
+    void Jump()
+    {
         //キー入力されていたら、ジャンプ速度を加速させる（飛距離を延ばす）
         if (Input.GetKey(KeyCode.C) && IsAcceleration)
         {
@@ -77,10 +83,8 @@ public class StateJump : State
     protected override void SelectNextState()
     {
         //ダブルジャンプ
-        if(Owner.CheckPossesionMemory((int)Player.Event.Double_Jump)) //メモリを持っているか確認
+        if(Owner.CheckPossesionMemory((int)Player.Event.Jump)) //メモリを持っているか確認
         {
-            Debug.Log("通った");
-
             if (Input.GetKeyDown(KeyCode.C))
             {
                 stateMachine.Dispatch((int)Player.Event.Double_Jump);
@@ -105,8 +109,5 @@ public class StateJump : State
     protected override void OnExit(State nextState)
     {
         Owner.moveVec.y = 0;
-        var rb = Owner.GetComponent<Rigidbody>();
-        rb.useGravity = true;
-
     }
 }
