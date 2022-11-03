@@ -32,7 +32,7 @@ public class MoveObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
- 
+
         if (Script.MoveObjectSwitch)
         {
             if(Input.GetMouseButton(0))

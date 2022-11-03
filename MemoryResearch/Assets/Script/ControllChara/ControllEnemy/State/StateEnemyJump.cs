@@ -22,7 +22,6 @@ public class StateEnemyJump : State
         JumpVec.y = 0;
 
 
-        Owner.GetComponent<Rigidbody>().useGravity = false;
 
         //攻撃力設定
         Owner.param.Set((int)Player.ParamKey.AttackPower, 3);
@@ -57,8 +56,6 @@ public class StateEnemyJump : State
 
         Owner.nowJumpDelayTime = Owner.JumpDelayTime;
         Owner.moveVec.y = 0;
-
-        Owner.GetComponent<Rigidbody>().useGravity = true;
 
         //攻撃力設定
         Owner.param.Set((int)Player.ParamKey.AttackPower, 0);

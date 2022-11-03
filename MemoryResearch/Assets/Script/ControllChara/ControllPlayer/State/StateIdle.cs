@@ -26,7 +26,7 @@ public class StateIdle : State
         }
 
         //ƒWƒƒƒ“ƒv
-        if (Owner.situation != (int)Player.Situation.Floating) //•‚—V‚µ‚Ä‚¢‚È‚¢Žž
+        if (Owner.GetComponent<Rigidbody>().velocity.y == 0) //•‚—V‚µ‚Ä‚¢‚È‚¢Žž
         {
             if (Input.GetKeyDown(KeyCode.C))
             {

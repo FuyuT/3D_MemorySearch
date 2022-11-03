@@ -6,7 +6,6 @@ public class ObjectCollider : MonoBehaviour
 {
     public bool inArea=false;
 
-
     public enum CollisionObject
     {
         None,

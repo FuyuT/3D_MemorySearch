@@ -14,12 +14,14 @@ public class Chapter2 : MonoBehaviour
     private const float ANGLE_LIMIT_UP = 60f;
     private const float ANGLE_LIMIT_DOWN = -60f;
 
+
     //todo 後でテキストマネージャに移す
     //テキスト関連
     [Header("チャプター完了テキスト")]
     [SerializeField]
     GameObject CompleteText;
     public float timer;
+
 
 
 
@@ -32,14 +34,20 @@ public class Chapter2 : MonoBehaviour
    
     void Start()
     {
+
         player = GameObject.FindGameObjectWithTag("Player");
         transform.rotation = player.transform.rotation;
 
         CompleteText.SetActive(false);
+
+        mainCamera = Camera.main.gameObject;
+        player = GameObject.FindGameObjectWithTag("Player");
+
     }
 
     public void Update()
     {
+
 
         
     }
@@ -48,6 +56,11 @@ public class Chapter2 : MonoBehaviour
         transform.position = player.transform.position + new Vector3(0,7,4);
         //transform.position = new Vector3(player.transform.position.x, player.transform.position.y + high, player.transform.position.z + profound);
 
+        GameObject target = lockon.getTarget();
+
+
+      
+        transform.position = player.transform.position;
         GameObject target = lockon.getTarget();
 
         if (target != null)
@@ -71,6 +84,9 @@ public class Chapter2 : MonoBehaviour
                 CompleteText.SetActive(true);
                 timer = 5f;
                
+            if(Input.GetMouseButton(0))
+            {
+                SetPossesionMemory(lockOnTarget);
             }
         }
 
@@ -82,6 +98,10 @@ public class Chapter2 : MonoBehaviour
             {
                 CompleteText.SetActive(false);
             }
+            //if (Input.GetMouseButton(ROTATE_BUTTON))
+            //{
+                rotateCmaeraAngle();
+           // }
         }
 
         rotateCmaeraAngle();

@@ -9,7 +9,8 @@ public class Player : CharaBase
     [Header("チャプターカメラ")]
     [SerializeField] GameObject ChapterCamera;
 
-    [SerializeField] CameraManager CamMan;
+    [Header("アニメーター")]
+    [SerializeField] Animator animator;
 
     [Space]
     [Header("ステート所持可能メモリ数")]
@@ -37,8 +38,6 @@ public class Player : CharaBase
     [SerializeField] public float JumpStartSpeed;
     [Header("加速値")]
     [SerializeField] public float JumpAcceleration;
-    [Header("重さ")]
-    [SerializeField] public float Weight;
 
     [Space]
     [Header("重力")]
@@ -104,6 +103,7 @@ public class Player : CharaBase
     public float nowDushTime;
 
     StateMachine<Player> stateMachine;
+
 
     public int[] possessionMemory { get; private set; }
 
@@ -190,7 +190,7 @@ public class Player : CharaBase
         }
 
         CharaBaseInit();
-        //Debug.Log(param);
+        Debug.Log(param);
         param.Add((int)ParamKey.AttackPower, 0);
         param.Add((int)ParamKey.Attack_Info, (int)AttackInfo.Attack_Not_Possible);
         param.Add((int)Enemy.ParamKey.Hp, HpMax);
@@ -230,9 +230,6 @@ public class Player : CharaBase
     /// </summary>
     void Update()
     {
-        //カメラはオブジェクト操作の場合処理を終了
-        if (CamMan.GetCurrentCameraType() == (int)CameraManager.CameraType.Controller) return;
-       
         //ステートマシン更新
         stateMachine.Update();
 
@@ -247,6 +244,7 @@ public class Player : CharaBase
 
         //現在のステートを表示
         //Debug.Log(stateMachine.currentStateKey);
+        Debug.Log("situation:" + situation);
 
     }
 
@@ -258,7 +256,6 @@ public class Player : CharaBase
         //一人称時の角度変更
         if (ChapterCamera.activeSelf)
         {
-        
             transform.rotation = ChapterCamera.transform.rotation;
         }
         else
@@ -278,32 +275,40 @@ public class Player : CharaBase
     /// </summary>
     void PositionUpdate()
     {
-
         var rb = GetComponent<Rigidbody>();
 
         switch (situation)
         {
-            //ジャンプ中はtransformで移動
+            //ジャンプ中
             case (int)Situation.Jump:
-                moveVec -= new Vector3(0, Weight + JumpDecreaseValue, 0);
-                transform.position += moveVec * Time.deltaTime;
-                rb.velocity = Vector3.zero;
+                //重力を使用しない
+                rb.velocity = moveVec;
                 break;
-            //ダッシュ中は落下しない
+            //ダッシュ中
             case (int)Situation.Dush:
+                //落下しないようにする
                 moveVec.y = 0;
                 rb.velocity = moveVec;
                 break;
-
-            //それ以外はrigidBodyのvelocityで移動
             default:
-
+                //ベクトルを設定（重力も足しておく）
                 rb.velocity = moveVec + new Vector3(0, rb.velocity.y, 0);
                 break;
         }
         moveVec = Vector3.zero;
+
+        float speed = 0;
+
+        if (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z) > 0)
+        {
+            speed = 1;
+        }
+
+        animator.SetFloat("Speed", speed);
+        animator.SetFloat("Speed_Y", rb.velocity.y);
+
     }
-    
+
     /// <summary>
     /// ディレイ時間の更新
     /// </summary>
