@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Map = System.Collections.Generic.Dictionary<string, object>;
+using Map = System.Collections.Generic.Dictionary<int, object>;
 
 /**
  * @brief       パラメータ保存
@@ -23,7 +23,7 @@ public class AnyParameterMap
 	 * @param[in]	key			キー
 	 * @param[in]	value		値
 	 */
-	public bool Add(string key, object value)
+	public bool Add(int key, object value)
     {
         try
         {
@@ -42,7 +42,7 @@ public class AnyParameterMap
 	 * @param[in]	key			キー
 	 * @return		取得したパラメータ(object)
 	 */
-	public object Get(string key)
+	public object Get(int key)
 	{
 		if(!parameters.ContainsKey(key))
         {
@@ -57,7 +57,7 @@ public class AnyParameterMap
 	 * @param[in]	key			キー
 	 * @return		取得したパラメータ(object)
 	 */
-	public Type Get<Type>(string key)
+	public Type Get<Type>(int key)
 	{
 		Type returnValue = default(Type);
 
@@ -88,10 +88,11 @@ public class AnyParameterMap
 	 * @param[in]	value		値
 	 */
 
-	public bool Set(string key, object value)
+	public bool Set(int key, object value)
     {
 		if (!parameters.ContainsKey(key))
 		{
+			Debug.LogError("キーに該当するパラメータが存在しません");
 			return false;
 		}
 		parameters[key] = value;

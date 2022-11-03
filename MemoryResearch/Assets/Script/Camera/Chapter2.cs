@@ -5,20 +5,26 @@ using UnityEngine;
 public class Chapter2 : MonoBehaviour
 {
     public GameObject player;
-    public GameObject mainCamera;
     public float rotate_speed;
+
+    public float high;
+    public float profound;
 
     private const int ROTATE_BUTTON = 1;
     private const float ANGLE_LIMIT_UP = 60f;
     private const float ANGLE_LIMIT_DOWN = -60f;
 
+    //todo 後でテキストマネージャに移す
+    //テキスト関連
+    [Header("チャプター完了テキスト")]
     [SerializeField]
-    GameObject Enemy1;
+    GameObject CompleteText;
+    public float timer;
 
-    [SerializeField]
-    GameObject Enemy2;
+
 
     //Lockonのスクリプト
+    [SerializeField]
     Lockon lockon;
 
     GameObject lockOnTarget;
@@ -26,43 +32,59 @@ public class Chapter2 : MonoBehaviour
    
     void Start()
     {
-
-        mainCamera = Camera.main.gameObject;
         player = GameObject.FindGameObjectWithTag("Player");
-        lockon = player.GetComponentInChildren<Lockon>();
-       
+        transform.rotation = player.transform.rotation;
+
+        CompleteText.SetActive(false);
     }
 
-    void Update()
+    public void Update()
     {
-        transform.position = player.transform.position;
 
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
+        
+    }
+    private void FixedUpdate()
+    {
+        transform.position = player.transform.position + new Vector3(0,7,4);
+        //transform.position = new Vector3(player.transform.position.x, player.transform.position.y + high, player.transform.position.z + profound);
 
-            GameObject target = lockon.getTarget();
+        GameObject target = lockon.getTarget();
 
-            if (target != null)
-            {
-                lockOnTarget = target;
-            }
-            else
-            {
-                lockOnTarget = null;
-            }
-        //}
+        if (target != null)
+        {
+            lockOnTarget = target;
+        }
+        else
+        {
+            lockOnTarget = null;
+        }
 
         if (lockOnTarget)
         {
             lockOnTargetObject(lockOnTarget);
-        }
-        else
-        {
-            if (Input.GetMouseButton(ROTATE_BUTTON))
+            //左クリックしたときにメモリ（アクション）を登録
+            if (Input.GetMouseButton(0))
             {
-                rotateCmaeraAngle();
+                SetPossesionMemory(lockOnTarget);
+
+                //テキスト関連
+                CompleteText.SetActive(true);
+                timer = 5f;
+               
             }
         }
+
+        if(CompleteText.activeSelf)
+        {
+            timer -= Time.deltaTime;
+            Debug.Log("a");
+            if (timer <= 0)
+            {
+                CompleteText.SetActive(false);
+            }
+        }
+
+        rotateCmaeraAngle();
 
         float angle_x = 180f <= transform.eulerAngles.x ? transform.eulerAngles.x - 360 : transform.eulerAngles.x;
         transform.eulerAngles = new Vector3(
@@ -76,7 +98,7 @@ public class Chapter2 : MonoBehaviour
     {
         Vector3 angle = new Vector3(
             Input.GetAxis("Mouse X") * rotate_speed,
-            Input.GetAxis("Mouse Y") * rotate_speed,
+            Input.GetAxis("Mouse Y") * -rotate_speed,
             0
         );
 
@@ -84,16 +106,25 @@ public class Chapter2 : MonoBehaviour
     }
     private void lockOnTargetObject(GameObject target)
     {
-        if (target == Enemy1)
-        { 
-            Debug.Log("a");
-           // transform.LookAt(target.transform, Vector3.up);
-        }
+      
+    }
 
-        if (target == Enemy2)
+    /// <summary>
+    /// プレイヤーの所持しているメモリ配列に、サーチした敵から取得したメモリを格納する
+    /// </summary>
+    /// <param name="target">サーチした敵</param>
+    private void SetPossesionMemory(GameObject target)
+    {
+        //todo:処理の位置調整したい
+        //取得したメモリをプレイヤーに設定
+        int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
+        //空いている配列番号があれば登録
+        var p = player.GetComponent<Player>();
+        int arrayValue = p.GetMemoryArrayNullValue();
+        if (arrayValue != -1)
         {
-            Debug.Log("b");
-            //transform.LookAt(target.transform, Vector3.up);
+            //todo:登録配列番号を変更
+            p.SetPossesionMemory(targetMemory, arrayValue);
         }
     }
 }
