@@ -244,7 +244,7 @@ public class Player : CharaBase
 
         //現在のステートを表示
         //Debug.Log(stateMachine.currentStateKey);
-        Debug.Log("situation:" + situation);
+       // Debug.Log("situation:" + situation);
 
     }
 

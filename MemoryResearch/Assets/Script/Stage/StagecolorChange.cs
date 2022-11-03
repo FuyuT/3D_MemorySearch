@@ -92,7 +92,7 @@ public class StagecolorChange : MonoBehaviour
             //動かせれる空オブジェクトの子オブジェクトを取得
             for (int i = 0; i < MoveObject.transform.childCount; i++)
             {
-                Debug.Log("a");
+             
                 MoveObjectChildren[i] = MoveObject.transform.GetChild(i);
                 MoveObjectChildren[i].GetComponent<MeshRenderer>().material = yuanMoveObjectChildrenMaterial[i];
             }

@@ -2072,7 +2072,7 @@ Transform:
   m_Children:
   - {fileID: 1066459947}
   m_Father: {fileID: 1150570502}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &52046051
 GameObject:
@@ -9055,7 +9055,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5724627729681730399, guid: 46c3625f465ccf74e9e6bfdf74c8a3d5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 38.2
+      value: 40.02
       objectReference: {fileID: 0}
     - target: {fileID: 5724627729681730399, guid: 46c3625f465ccf74e9e6bfdf74c8a3d5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -20942,7 +20942,6 @@ MonoBehaviour:
   JumpToTargetPower: 4
   JumpStartSpeed: 14
   JumpAcceleration: 0.5
-  Weight: 10
   Gravity: 0.05
   DushDelayTime: 5
   DushStartSpeed: 2
@@ -22290,7 +22289,6 @@ MonoBehaviour:
   JumpToTargetPower: 4
   JumpStartSpeed: 14
   JumpAcceleration: 0.5
-  Weight: 10
   Gravity: 0.05
   DushDelayTime: 5
   DushStartSpeed: 2
@@ -28519,6 +28517,35 @@ Transform:
   m_Father: {fileID: 977925226}
   m_RootOrder: 54
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &871084857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+  m_PrefabInstance: {fileID: 901583985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &871084858 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+  m_PrefabInstance: {fileID: 901583985}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &871084859
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 871084857}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 99f7a10ef47c31645bc885cd81f26537, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &876168896
 GameObject:
   m_ObjectHideFlags: 0
@@ -29301,6 +29328,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900276480}
   m_Mesh: {fileID: 8906489163305638948, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
+--- !u!1001 &901583985
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1150570502}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
+      propertyPath: m_Name
+      value: waiting motion 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b6688dafe861c2a40861ff6adf2cfcda, type: 3}
 --- !u!1 &902450920
 GameObject:
   m_ObjectHideFlags: 0
@@ -37498,7 +37582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChapterCamera: {fileID: 369635898}
-  CamMan: {fileID: 1442867918}
+  animator: {fileID: 871084859}
   MemoryMax: 5
   RotateSpeed: 4
   HpMax: 0
@@ -37506,7 +37590,6 @@ MonoBehaviour:
   RunSpeed: 30
   JumpStartSpeed: 40
   JumpAcceleration: 0.8
-  Weight: 5
   JumpDecreaseValue: 1.5
   DushDelayTime: 0.5
   nowDushDelayTime: 0
@@ -37530,8 +37613,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.149109, y: 2.4621758, z: 2.194788}
-  m_Center: {x: 0, y: 1.7399993, z: -0.08709049}
+  m_Size: {x: 2.149109, y: 3.1722958, z: 2.194788}
+  m_Center: {x: 0, y: 1.3849394, z: -0.08709049}
 --- !u!54 &1150570501
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -37556,11 +37639,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150570496}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 73.8, y: -72.295876, z: 118}
+  m_LocalPosition: {x: 73.8, y: -72.295876, z: -146}
   m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
   m_Children:
-  - {fileID: 102532788438749373}
   - {fileID: 51567931}
+  - {fileID: 871084858}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -70694,22 +70777,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &38988029301151472
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4111854553862845374}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint38
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &41436552317220644
 Transform:
   m_ObjectHideFlags: 0
@@ -71154,25 +71221,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2551997772128490779}
   m_Mesh: {fileID: -3491982131694558561, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!4 &102532788438749373
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 731718029264062983}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
-  m_Children:
-  - {fileID: 3408027707309321195}
-  - {fileID: 8670635304394384773}
-  - {fileID: 7114775761167675930}
-  - {fileID: 6382307406158590118}
-  - {fileID: 2286984502205574621}
-  m_Father: {fileID: 1150570502}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &103356573965438096
 GameObject:
   m_ObjectHideFlags: 0
@@ -71246,22 +71294,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &117553125194462399
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4725147930228823077}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint39
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &123608777667362286
 Transform:
   m_ObjectHideFlags: 0
@@ -71773,22 +71805,6 @@ Transform:
   m_Father: {fileID: 3348999545951163494}
   m_RootOrder: 168
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &200074422857632526
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1178785807601971050}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint46 1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &202441253439489932
 Transform:
   m_ObjectHideFlags: 0
@@ -72300,22 +72316,6 @@ GameObject:
   - component: {fileID: 8025593701543090923}
   m_Layer: 0
   m_Name: transform52
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &337311156878896627
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1620943966942148017}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:right_finger2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73108,7 +73108,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148723077938}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -102, y: -114, z: -76}
+  m_LocalPosition: {x: -102, y: -112, z: -76}
   m_LocalScale: {x: 5, y: 10, z: 10}
   m_Children:
   - {fileID: 1422275485}
@@ -73798,21 +73798,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &614700349434034036
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9140585520443713180}
-  m_LocalRotation: {x: 0.0015033256, y: -0.102248244, z: 0.014624048, w: 0.9946503}
-  m_LocalPosition: {x: 0.0043650526, y: -0.000033058142, z: 0.0035750659}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2924319373117391855}
-  m_Father: {fileID: 1368378006726873891}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &617942497234712868
 GameObject:
   m_ObjectHideFlags: 0
@@ -74020,22 +74005,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8778228302866143099}
   m_Mesh: {fileID: 5848532872401043900, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!1 &650431184942310524
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7564590576394273207}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint43
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &651190243904976568
 GameObject:
   m_ObjectHideFlags: 0
@@ -74098,20 +74067,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &663634111760470591
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8217482825003740972}
-  m_LocalRotation: {x: 0, y: 0, z: 0.70312333, w: 0.711068}
-  m_LocalPosition: {x: -0.015442006, y: 0, z: -3.493503e-20}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4104178432002145086}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &663989055618533186
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -74331,21 +74286,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!4 &708670773106685432
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4866956170566249047}
-  m_LocalRotation: {x: 0.0015033256, y: -0.102248244, z: 0.014624048, w: 0.9946503}
-  m_LocalPosition: {x: -0.0045852093, y: -0.000097913406, z: -0.0027846938}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 6969443969526430783}
-  m_Father: {fileID: 4920371901669501424}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &710043683629768463
 Transform:
   m_ObjectHideFlags: 0
@@ -74475,22 +74415,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &731718029264062983
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 102532788438749373}
-  m_Layer: 0
-  m_Name: ballrobo rignasi
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &741165984757570307
 GameObject:
   m_ObjectHideFlags: 0
@@ -76052,22 +75976,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &956335261105531509
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2924319373117391855}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint28
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &961107632607327207
 Transform:
   m_ObjectHideFlags: 0
@@ -77311,21 +77219,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1178785807601971050
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 200074422857632526}
-  m_LocalRotation: {x: -0.0000012294307, y: 0.0000043154055, z: 0.00000070468025, w: 1}
-  m_LocalPosition: {x: -0.0034381188, y: 0.000035091303, z: -0.006213293}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2083379099730891144}
-  m_Father: {fileID: 6180447806228342239}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1183892007519771382
 GameObject:
   m_ObjectHideFlags: 0
@@ -77698,20 +77591,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1247614398575166971
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2556918325524251606}
-  m_LocalRotation: {x: -0.44911516, y: 0.54616445, z: 0.44911516, w: 0.54616445}
-  m_LocalPosition: {x: -0.007246634, y: 0.0016495535, z: 1.6894136e-18}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5101183919329392910}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1249383933220314340
 GameObject:
   m_ObjectHideFlags: 0
@@ -77843,21 +77722,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &1284584591183763529
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4912975630904973118}
-  m_LocalRotation: {x: -0.00063055975, y: 0.042887334, z: 0.014687586, w: 0.99897176}
-  m_LocalPosition: {x: -0.00597114, y: -0.00013867609, z: -0.0004077843}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2253257492615035798}
-  m_Father: {fileID: 4920371901669501424}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1292066693116693389
 Transform:
   m_ObjectHideFlags: 0
@@ -78218,24 +78082,6 @@ Transform:
   m_Father: {fileID: 9132470239874274812}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1368378006726873891
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6913090317382516076}
-  m_LocalRotation: {x: -3.6682883e-17, y: 1.8051968e-17, z: 0.6925939, w: 0.72132784}
-  m_LocalPosition: {x: 0.008329555, y: 0.01416342, z: 0.0015219925}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8084017251261378550}
-  - {fileID: 1620943966942148017}
-  - {fileID: 614700349434034036}
-  - {fileID: 2430160274120084681}
-  m_Father: {fileID: 3179409486010955937}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1372548126018644236
 Transform:
   m_ObjectHideFlags: 0
@@ -78565,22 +78411,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2359499723882141490}
   m_Mesh: {fileID: 1549956737193052800, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!1 &1460589161215990706
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3408027707309321195}
-  m_Layer: 0
-  m_Name: ballrobo_927:robo
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &1461432966715888796
 Transform:
   m_ObjectHideFlags: 0
@@ -80104,21 +79934,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1620943966942148017
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 337311156878896627}
-  m_LocalRotation: {x: -0.00063055975, y: 0.042887334, z: 0.014687586, w: 0.99897176}
-  m_LocalPosition: {x: 0.0061349687, y: 0.00010678542, z: 0.00044876488}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7976930640604668224}
-  m_Father: {fileID: 1368378006726873891}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &1621071077263986808
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -81115,21 +80930,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1837721973173083868
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2844819997405932908}
-  m_LocalRotation: {x: -0.003987618, y: 0.27121663, z: 0.014149972, w: 0.9624061}
-  m_LocalPosition: {x: 0.0015421376, y: 0.00008230268, z: 0.0048452867}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2123703772009468625}
-  m_Father: {fileID: 4920371901669501424}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1848030608199927835
 Transform:
   m_ObjectHideFlags: 0
@@ -81847,20 +81647,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2022722994959684803
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5943918807141372257}
-  m_LocalRotation: {x: 0.17538524, y: 0.68501097, z: -0.17538524, w: 0.68501097}
-  m_LocalPosition: {x: -0.0071428423, y: -1.110223e-18, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5475939911038805311}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2027288277811570893
 GameObject:
   m_ObjectHideFlags: 0
@@ -81916,7 +81702,7 @@ GameObject:
   - component: {fileID: 8418640413932013341}
   m_Layer: 0
   m_Name: Cube.003
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -81970,21 +81756,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2083379099730891144
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3587572775791404818}
-  m_LocalRotation: {x: -0.49560422, y: 0.5043557, z: 0.49875733, w: 0.5012413}
-  m_LocalPosition: {x: -0.0013412341, y: -0.00014649768, z: 0.006767936}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8043150427599490293}
-  m_Father: {fileID: 1178785807601971050}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2087319723799132925
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -82188,20 +81959,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2123703772009468625
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2411546978472565759}
-  m_LocalRotation: {x: 0, y: -0.27124596, z: -0, w: 0.9625101}
-  m_LocalPosition: {x: -0.0069692126, y: -0.0013501011, z: -0.00010646143}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1837721973173083868}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2129629142392002787
 GameObject:
   m_ObjectHideFlags: 0
@@ -83043,20 +82800,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 266
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &2253257492615035798
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8539574142691278416}
-  m_LocalRotation: {x: 0, y: -0.042891975, z: -0, w: 0.99907976}
-  m_LocalPosition: {x: -0.004622269, y: -2.220446e-18, z: 2.220446e-18}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1284584591183763529}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2255580958657747944
 GameObject:
   m_ObjectHideFlags: 0
@@ -83177,36 +82920,6 @@ GameObject:
   - component: {fileID: 5298512060243348840}
   m_Layer: 0
   m_Name: "\u7ACB\u65B9\u4F53.043"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2286984502205574621
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4985383519338205151}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.015765755, z: -0.04609587}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 102532788438749373}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2287225810974415530
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8043150427599490293}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83538,20 +83251,6 @@ Transform:
   m_Father: {fileID: 3906223568787124151}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &2357741951628535374
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6393667229372112900}
-  m_LocalRotation: {x: -0.0022518982, y: -0.7071032, z: -0.0022518982, w: 0.7071032}
-  m_LocalPosition: {x: -0.008306919, y: 1.8214596e-19, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4728292001309105872}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2359439565975327026
 Transform:
   m_ObjectHideFlags: 0
@@ -83736,22 +83435,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &2393972942637204613
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3244358543553930948}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:outlet_cover
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &2403871232418084021
 Transform:
   m_ObjectHideFlags: 0
@@ -83830,22 +83513,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 71
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2411546978472565759
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2123703772009468625}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint10
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &2416888188940538210
 Transform:
   m_ObjectHideFlags: 0
@@ -83935,21 +83602,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2430160274120084681
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6484158412881403585}
-  m_LocalRotation: {x: -0.0026002123, y: 0.17685269, z: 0.014469335, w: 0.9841276}
-  m_LocalPosition: {x: -0.0017776944, y: -0.00008920211, z: -0.0042769504}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3064405057310514174}
-  m_Father: {fileID: 1368378006726873891}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &2431225710021293938
 Transform:
   m_ObjectHideFlags: 0
@@ -84660,8 +84312,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.022553207, y: 0.019999996, z: 0.019999998}
-  m_Center: {x: -0.0012766042, y: 1.7462298e-10, z: -0.000000029802322}
+  m_Size: {x: 0.022553207, y: 0.019999994, z: 0.006902799}
+  m_Center: {x: -0.0012766044, y: -5.8484335e-11, z: -0.006548626}
 --- !u!1 &2542826110894594777
 GameObject:
   m_ObjectHideFlags: 0
@@ -84752,22 +84404,6 @@ GameObject:
   - component: {fileID: 6209151913482733229}
   m_Layer: 0
   m_Name: "\u5186\u67F1.125"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &2556918325524251606
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1247614398575166971}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint36
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -85316,21 +84952,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2617860898143223085}
   m_Mesh: {fileID: -1712030740159487791, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!4 &2654393610171209630
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7104818317270997380}
-  m_LocalRotation: {x: -0.038824216, y: -0.70584947, z: 0.7066216, w: -0.030908015}
-  m_LocalPosition: {x: 0.0020920276, y: 0.00006796637, z: 0.018132744}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8099101684093667911}
-  m_Father: {fileID: 3179409486010955937}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2654713335081883652
 GameObject:
   m_ObjectHideFlags: 0
@@ -85412,22 +85033,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 74
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2691901217562004461
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4090064597813262836}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:ear
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &2696269820385395662
 GameObject:
   m_ObjectHideFlags: 0
@@ -85734,22 +85339,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &2738288212330547075
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3179409486010955937}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint17
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!33 &2738360979829440781
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -86344,22 +85933,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &2844819997405932908
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1837721973173083868}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:left_thumb
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!33 &2845342904514374903
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -86824,20 +86397,6 @@ Transform:
   - {fileID: 8740683571350999958}
   m_Father: {fileID: 3348999545951163494}
   m_RootOrder: 278
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &2924319373117391855
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 956335261105531509}
-  m_LocalRotation: {x: 0.000000012837134, y: 0.10225929, z: -0.0000000013196341, w: 0.9947578}
-  m_LocalPosition: {x: 0.0036722627, y: 0.000030346035, z: -0.00025005767}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 614700349434034036}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2927201679252377982
 GameObject:
@@ -87308,22 +86867,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2542826110894594777}
   m_Mesh: {fileID: -3694619871386304983, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!1 &3018154112634813756
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4104178432002145086}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:Head
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &3020953069074281680
 GameObject:
   m_ObjectHideFlags: 0
@@ -87544,20 +87087,6 @@ Transform:
   - {fileID: 7151170472947855704}
   m_Father: {fileID: 3348999545951163494}
   m_RootOrder: 62
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &3064405057310514174
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6148914717168413568}
-  m_LocalRotation: {x: 0.000000016035424, y: -0.27124596, z: 0.0000000045189585, w: 0.9625101}
-  m_LocalPosition: {x: 0.007306555, y: 0.0013500949, z: -0.0010626503}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2430160274120084681}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &3076575369903975760
 MeshRenderer:
@@ -88070,30 +87599,6 @@ Transform:
   m_Father: {fileID: 8598024826474517124}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &3179409486010955937
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2738288212330547075}
-  m_LocalRotation: {x: -0.00000036209164, y: 0.00026934495, z: 0.9999991, w: -0.0013443406}
-  m_LocalPosition: {x: -0.0106198145, y: 0.00017246982, z: 2.112146e-20}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2654393610171209630}
-  - {fileID: 4090064597813262836}
-  - {fileID: 4349772394694222442}
-  - {fileID: 4104178432002145086}
-  - {fileID: 4920371901669501424}
-  - {fileID: 7266977433616451387}
-  - {fileID: 5475939911038805311}
-  - {fileID: 3244358543553930948}
-  - {fileID: 1368378006726873891}
-  - {fileID: 6180447806228342239}
-  m_Father: {fileID: 3408027707309321195}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &3185682158232299528
 Transform:
   m_ObjectHideFlags: 0
@@ -88411,21 +87916,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3244358543553930948
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2393972942637204613}
-  m_LocalRotation: {x: -0.18741557, y: -0.6816202, z: 0.6840512, w: -0.17984241}
-  m_LocalPosition: {x: -0.00065660133, y: 0.00009314111, z: 0.0075353174}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7564590576394273207}
-  m_Father: {fileID: 3179409486010955937}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3244456391441352926
 GameObject:
   m_ObjectHideFlags: 0
@@ -91237,21 +90727,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 27
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &3408027707309321195
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1460589161215990706}
-  m_LocalRotation: {x: -0.7040786, y: 0.7101221, z: 4.348244e-17, w: -4.3112382e-17}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3179409486010955937}
-  m_Father: {fileID: 102532788438749373}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &3413094743797799787
 Transform:
   m_ObjectHideFlags: 0
@@ -92344,22 +91819,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 214
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &3587572775791404818
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2083379099730891144}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:right_foot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &3593233279979594626
 Transform:
   m_ObjectHideFlags: 0
@@ -92494,22 +91953,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3564783574028698555}
   m_Mesh: {fileID: -5546347261141537002, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!1 &3646150730800680754
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4920371901669501424}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:left_hand
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &3647240433658220309
 GameObject:
   m_ObjectHideFlags: 0
@@ -93136,22 +92579,6 @@ GameObject:
   - component: {fileID: 3942528658826974454}
   m_Layer: 0
   m_Name: "\u5186\u67F1.233"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &3793086140984889431
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7976930640604668224}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint26
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94537,20 +93964,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4067760379368458107
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8408623927655039521}
-  m_LocalRotation: {x: 0, y: -0.18379137, z: -0, w: 0.9829653}
-  m_LocalPosition: {x: -0.004248541, y: 2.220446e-18, z: 3.330669e-18}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8166235415876927717}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4072257913561673318
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -94679,21 +94092,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4090064597813262836
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2691901217562004461}
-  m_LocalRotation: {x: 0.007779161, y: 0.9988189, z: -0.0006431518, w: 0.047958866}
-  m_LocalPosition: {x: 0.01578512, y: -0.000091981376, z: 0.0007734252}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7563028052321309468}
-  m_Father: {fileID: 3179409486010955937}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4090474770928834206
 GameObject:
   m_ObjectHideFlags: 0
@@ -94762,21 +94160,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4104178432002145086
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3018154112634813756}
-  m_LocalRotation: {x: 0.011235241, y: 0.9999369, z: 6.1916434e-17, w: -6.0540515e-17}
-  m_LocalPosition: {x: 0.000001829257, y: 0.00016338813, z: -2.0009806e-20}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 663634111760470591}
-  m_Father: {fileID: 3179409486010955937}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4107876029293873183
 GameObject:
   m_ObjectHideFlags: 0
@@ -94841,20 +94224,6 @@ Transform:
   m_LocalScale: {x: 0.29227635, y: 4.9215283, z: 4.9215283}
   m_Children: []
   m_Father: {fileID: 3774461183459035604}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4111854553862845374
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 38988029301151472}
-  m_LocalRotation: {x: -2.2977076e-17, y: 0.869383, z: 2.2977076e-17, w: -0.49413887}
-  m_LocalPosition: {x: -0.0049952297, y: 3.9704669e-25, z: -0.00011263682}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4349772394694222442}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4115297655853747688
@@ -96196,22 +95565,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4349772394694222442
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5974695020744916968}
-  m_LocalRotation: {x: -0.35153094, y: -0.34760705, z: -0.61809677, w: 0.61118877}
-  m_LocalPosition: {x: 0.006251617, y: 0.000009773862, z: -0.0035787325}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4111854553862845374}
-  - {fileID: 4725147930228823077}
-  m_Father: {fileID: 3179409486010955937}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4355466070379580565
 GameObject:
   m_ObjectHideFlags: 0
@@ -96428,94 +95781,6 @@ Transform:
   m_Father: {fileID: 5541147222803189624}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &4384220368273481760
-SkinnedMeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7968163229234965592}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 3
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 1965653950172967545, guid: 40c54b931616c354bb4dcd13df82aa51, type: 3}
-  - {fileID: 5561349426305759274, guid: 40c54b931616c354bb4dcd13df82aa51, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  serializedVersion: 2
-  m_Quality: 0
-  m_UpdateWhenOffscreen: 0
-  m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 1712101860552982092, guid: 40c54b931616c354bb4dcd13df82aa51, type: 3}
-  m_Bones:
-  - {fileID: 3408027707309321195}
-  - {fileID: 3179409486010955937}
-  - {fileID: 4104178432002145086}
-  - {fileID: 663634111760470591}
-  - {fileID: 1368378006726873891}
-  - {fileID: 2430160274120084681}
-  - {fileID: 3064405057310514174}
-  - {fileID: 8084017251261378550}
-  - {fileID: 7057162139460367841}
-  - {fileID: 1620943966942148017}
-  - {fileID: 7976930640604668224}
-  - {fileID: 614700349434034036}
-  - {fileID: 2924319373117391855}
-  - {fileID: 4920371901669501424}
-  - {fileID: 1837721973173083868}
-  - {fileID: 2123703772009468625}
-  - {fileID: 8166235415876927717}
-  - {fileID: 4067760379368458107}
-  - {fileID: 1284584591183763529}
-  - {fileID: 2253257492615035798}
-  - {fileID: 708670773106685432}
-  - {fileID: 6969443969526430783}
-  - {fileID: 2083379099730891144}
-  - {fileID: 8043150427599490293}
-  - {fileID: 4728292001309105872}
-  - {fileID: 2357741951628535374}
-  - {fileID: 4349772394694222442}
-  - {fileID: 4111854553862845374}
-  - {fileID: 4725147930228823077}
-  - {fileID: 4090064597813262836}
-  - {fileID: 7563028052321309468}
-  - {fileID: 3244358543553930948}
-  - {fileID: 7564590576394273207}
-  - {fileID: 5475939911038805311}
-  - {fileID: 2022722994959684803}
-  m_BlendShapeWeights: []
-  m_RootBone: {fileID: 3408027707309321195}
-  m_AABB:
-    m_Center: {x: -0.014623861, y: -0.000031141564, z: 0.006683169}
-    m_Extent: {x: 0.015533251, y: 0.024714693, z: 0.016487315}
-  m_DirtyAABB: 0
 --- !u!4 &4384699814774921689
 Transform:
   m_ObjectHideFlags: 0
@@ -97400,22 +96665,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &4558506037296926487
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7057162139460367841}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint24
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4564104224794654384
 Transform:
   m_ObjectHideFlags: 0
@@ -98029,35 +97278,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4725147930228823077
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 117553125194462399}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.002563417, y: 3.9704669e-25, z: -0.004394689}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4349772394694222442}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4728292001309105872
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6286048234788704013}
-  m_LocalRotation: {x: 0.5043828, y: 0.49557847, z: 0.50121415, w: -0.49878302}
-  m_LocalPosition: {x: -0.0013471225, y: 0.00050989393, z: 0.0067635314}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2357741951628535374}
-  m_Father: {fileID: 9202115814337099101}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4729728736755766630
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -98461,22 +97681,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4866956170566249047
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 708670773106685432}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:left_finger3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!23 &4875795227692729439
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -98773,22 +97977,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 194
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &4912975630904973118
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1284584591183763529}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:left_finger2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!23 &4913777614421450251
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -98867,24 +98055,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6126156166657331415}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4920371901669501424
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3646150730800680754}
-  m_LocalRotation: {x: 0.7006544, y: 0.7135008, z: 8.65414e-17, w: -7.3506004e-19}
-  m_LocalPosition: {x: 0.008014278, y: -0.013897271, z: 0.0015990683}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 8166235415876927717}
-  - {fileID: 1284584591183763529}
-  - {fileID: 708670773106685432}
-  - {fileID: 1837721973173083868}
-  m_Father: {fileID: 3179409486010955937}
-  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4921547566215696865
 GameObject:
@@ -99132,23 +98302,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103356573965438096}
   m_Mesh: {fileID: -7422862659594939908, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!1 &4985383519338205151
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2286984502205574621}
-  - component: {fileID: 6510664071148158254}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:pasted__polySurface50
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &4985523288659368720
 Transform:
   m_ObjectHideFlags: 0
@@ -99419,38 +98572,6 @@ Transform:
   m_Father: {fileID: 2546565497020302479}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5022842817894204108
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7266977433616451387}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:left_tuika
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &5024109687654519598
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8084017251261378550}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:right_finger1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &5027451897167971296
 GameObject:
   m_ObjectHideFlags: 0
@@ -99861,21 +98982,6 @@ Transform:
   m_Father: {fileID: 1336730319396117487}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &5101183919329392910
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9135834267299137792}
-  m_LocalRotation: {x: 1.8697043e-17, y: -1.21029e-16, z: 0.9882768, w: -0.15267293}
-  m_LocalPosition: {x: -0.009979631, y: 0.0016411986, z: -2.3067278e-18}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1247614398575166971}
-  m_Father: {fileID: 8099101684093667911}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5108330270108412276
 Transform:
   m_ObjectHideFlags: 0
@@ -99934,22 +99040,6 @@ GameObject:
   - component: {fileID: 1348690432429080789}
   m_Layer: 0
   m_Name: "\u5186\u67F1.004"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &5120000511885023523
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7563028052321309468}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint41
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101395,21 +100485,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3348999545951163494}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &5475939911038805311
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8214072537387318947}
-  m_LocalRotation: {x: 0.61024344, y: 0.35683835, z: -0.363868, w: 0.6065224}
-  m_LocalPosition: {x: -0.007434153, y: 0.00017415902, z: 0.01656768}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 2022722994959684803}
-  m_Father: {fileID: 3179409486010955937}
-  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5478226174452313213
 GameObject:
@@ -103532,22 +102607,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &5943918807141372257
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2022722994959684803}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint45
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &5950477893828577442
 GameObject:
   m_ObjectHideFlags: 0
@@ -103646,22 +102705,6 @@ GameObject:
   - component: {fileID: 8428999734246697543}
   m_Layer: 0
   m_Name: "\u7ACB\u65B9\u4F53.288"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &5974695020744916968
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4349772394694222442}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:eye
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -104528,22 +103571,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &6148914717168413568
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3064405057310514174}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint22
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &6155110588217261994
 GameObject:
   m_ObjectHideFlags: 0
@@ -104667,21 +103694,6 @@ Transform:
   - {fileID: 3196856767982630318}
   m_Father: {fileID: 3348999545951163494}
   m_RootOrder: 28
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &6180447806228342239
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8644074621230274389}
-  m_LocalRotation: {x: 0.00018163898, y: -0.00066800567, z: -0.00048284637, w: 0.99999964}
-  m_LocalPosition: {x: 0.00023665784, y: 0.008170405, z: 0.0012526094}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1178785807601971050}
-  m_Father: {fileID: 3179409486010955937}
-  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &6183020495393777169
 Transform:
@@ -104849,22 +103861,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 908499206715940384}
   m_Mesh: {fileID: -7872496254930725850, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!1 &6214037867240516805
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6969443969526430783}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint16
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &6220398302971656916
 Transform:
   m_ObjectHideFlags: 0
@@ -105342,22 +104338,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &6286048234788704013
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4728292001309105872}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:left_foot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &6287595794253918046
 Transform:
   m_ObjectHideFlags: 0
@@ -105387,22 +104367,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 39
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6292068781541167694
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 9202115814337099101}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint46
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!23 &6293914851351846710
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -105809,20 +104773,6 @@ Transform:
   m_Father: {fileID: 2008107611395233732}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &6382307406158590118
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7968163229234965592}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 102532788438749373}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &6382483889825672912
 Transform:
   m_ObjectHideFlags: 0
@@ -105912,22 +104862,6 @@ Transform:
   m_Father: {fileID: 3348999545951163494}
   m_RootOrder: 219
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6393667229372112900
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2357741951628535374}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint30
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &6394233076945974936
 Transform:
   m_ObjectHideFlags: 0
@@ -106533,22 +105467,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &6484158412881403585
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2430160274120084681}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:right_thumb
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &6489791210328953891
 Transform:
   m_ObjectHideFlags: 0
@@ -106611,62 +105529,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!137 &6510664071148158254
-SkinnedMeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4985383519338205151}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 3
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 5561349426305759274, guid: 40c54b931616c354bb4dcd13df82aa51, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  serializedVersion: 2
-  m_Quality: 0
-  m_UpdateWhenOffscreen: 0
-  m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -490638518852440432, guid: 40c54b931616c354bb4dcd13df82aa51, type: 3}
-  m_Bones:
-  - {fileID: 2654393610171209630}
-  - {fileID: 8099101684093667911}
-  - {fileID: 5101183919329392910}
-  - {fileID: 1247614398575166971}
-  m_BlendShapeWeights: []
-  m_RootBone: {fileID: 2654393610171209630}
-  m_AABB:
-    m_Center: {x: -0.00430198, y: -0.0011923785, z: -0.000000004656613}
-    m_Extent: {x: 0.0060504097, y: 0.004615881, z: 0.0066913185}
-  m_DirtyAABB: 0
 --- !u!33 &6511481585264057430
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -107786,22 +106648,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 201
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6788466260242005030
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8166235415876927717}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:left_finger1
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &6795061672257760750
 GameObject:
   m_ObjectHideFlags: 0
@@ -107843,22 +106689,6 @@ GameObject:
   - component: {fileID: 3543556303018381034}
   m_Layer: 0
   m_Name: transform9
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &6802531758317285881
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8670635304394384773}
-  m_Layer: 0
-  m_Name: ikHandle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108112,22 +106942,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &6913090317382516076
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1368378006726873891}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:right_hand
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &6914499353750013636
 GameObject:
   m_ObjectHideFlags: 0
@@ -108280,20 +107094,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6969443969526430783
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6214037867240516805}
-  m_LocalRotation: {x: 0, y: 0.10225929, z: -0, w: 0.9947578}
-  m_LocalPosition: {x: -0.0038944061, y: -2.220446e-18, z: 5.551115e-19}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 708670773106685432}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6970933020386788912
 GameObject:
   m_ObjectHideFlags: 0
@@ -109073,20 +107873,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 67057691971725804}
   m_Mesh: {fileID: 2036760498122965033, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!4 &7057162139460367841
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4558506037296926487}
-  m_LocalRotation: {x: 0.000000016376205, y: -0.18379137, z: 0.0000000030619651, w: 0.9829653}
-  m_LocalPosition: {x: 0.004272965, y: -8.881784e-18, z: -0.00006307301}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8084017251261378550}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7062846528875047734
 GameObject:
   m_ObjectHideFlags: 0
@@ -109211,22 +107997,6 @@ Transform:
   m_Father: {fileID: 6388470643298689606}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7104818317270997380
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2654393610171209630}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:backpack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &7105526335712175754
 Transform:
   m_ObjectHideFlags: 0
@@ -109249,20 +108019,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1707409760590865867}
   m_Mesh: {fileID: -6063092979602340506, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!4 &7114775761167675930
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9155127676573788934}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0077792094, y: 0.0059250537, z: 0.006494503}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 102532788438749373}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7115587786247746718
 Transform:
   m_ObjectHideFlags: 0
@@ -109751,21 +108507,6 @@ Transform:
   m_Father: {fileID: 2847649536772062786}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &7266977433616451387
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5022842817894204108}
-  m_LocalRotation: {x: -0.00043431498, y: 0.00062513317, z: 0.0014281558, w: 0.9999987}
-  m_LocalPosition: {x: 0.000053077874, y: -0.008172304, z: 0.0012614125}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 9202115814337099101}
-  m_Father: {fileID: 3179409486010955937}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7268018447881681488
 Transform:
   m_ObjectHideFlags: 0
@@ -110036,22 +108777,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1175114770617068417}
   m_Mesh: {fileID: -5828191019427618711, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!1 &7337947366991352611
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8099101684093667911}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint34
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &7347096697061814675
 GameObject:
   m_ObjectHideFlags: 0
@@ -111158,34 +109883,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &7563028052321309468
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5120000511885023523}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7055612, w: 0.708649}
-  m_LocalPosition: {x: 0.003398008, y: -0.000044602377, z: 0.007886165}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4090064597813262836}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &7564590576394273207
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 650431184942310524}
-  m_LocalRotation: {x: -0.35299897, y: 0.61269224, z: 0.35299897, w: 0.61269224}
-  m_LocalPosition: {x: -0.0026944366, y: -0.0000003443432, z: 4.3368086e-21}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 3244358543553930948}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7569350283544776098
 Transform:
   m_ObjectHideFlags: 0
@@ -112747,23 +111444,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7968163229234965592
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6382307406158590118}
-  - component: {fileID: 4384220368273481760}
-  m_Layer: 0
-  m_Name: polySurface51
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &7969762149125383630
 Transform:
   m_ObjectHideFlags: 0
@@ -112777,20 +111457,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 210
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &7976930640604668224
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3793086140984889431}
-  m_LocalRotation: {x: 0.000000016644675, y: -0.042891975, z: 7.1458045e-10, w: 0.99907976}
-  m_LocalPosition: {x: 0.0042524002, y: 0.000036723006, z: 0.00024203943}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1620943966942148017}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &7979188461848546324
 Transform:
@@ -113044,20 +111710,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 142
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &8043150427599490293
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2287225810974415530}
-  m_LocalRotation: {x: -0.0022518982, y: -0.7071032, z: -0.0022518982, w: 0.7071032}
-  m_LocalPosition: {x: 0.008306919, y: 7.6431567e-10, z: -1.110223e-18}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2083379099730891144}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &8046920414827027580
 Transform:
   m_ObjectHideFlags: 0
@@ -113292,21 +111944,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &8084017251261378550
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5024109687654519598}
-  m_LocalRotation: {x: -0.002701938, y: 0.1837715, z: 0.014450685, w: 0.9828591}
-  m_LocalPosition: {x: 0.0055642757, y: 0.00012673922, z: -0.0023594038}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 7057162139460367841}
-  m_Father: {fileID: 1368378006726873891}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &8084317953169915897
 Transform:
   m_ObjectHideFlags: 0
@@ -113388,21 +112025,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8099101684093667911
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7337947366991352611}
-  m_LocalRotation: {x: 0, y: 0, z: 0.9944508, w: 0.10520245}
-  m_LocalPosition: {x: -0.008130703, y: 0.00041428834, z: 1.8283765e-18}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 5101183919329392910}
-  m_Father: {fileID: 2654393610171209630}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8099465363074961944
 GameObject:
   m_ObjectHideFlags: 0
@@ -113707,21 +112329,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 133
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &8166235415876927717
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6788466260242005030}
-  m_LocalRotation: {x: -0.002701938, y: 0.1837715, z: 0.014450685, w: 0.9828591}
-  m_LocalPosition: {x: -0.0053771697, y: -0.00012120636, z: 0.002909985}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4067760379368458107}
-  m_Father: {fileID: 4920371901669501424}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8166985018815839935
 GameObject:
   m_ObjectHideFlags: 0
@@ -113962,38 +112569,6 @@ Transform:
   m_Father: {fileID: 6769631882393318993}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8214072537387318947
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5475939911038805311}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:outlet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &8217482825003740972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 663634111760470591}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint8
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!33 &8235790466243966208
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -114882,22 +113457,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8405543051183799514}
   m_Mesh: {fileID: -378987902302580082, guid: 4ea0f007b0d18a74f82365fed2d111fd, type: 3}
---- !u!1 &8408623927655039521
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4067760379368458107}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint12
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &8411407647498538059
 GameObject:
   m_ObjectHideFlags: 0
@@ -115525,22 +114084,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &8539574142691278416
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2253257492615035798}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint14
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &8542845173879592816
 GameObject:
   m_ObjectHideFlags: 0
@@ -116027,22 +114570,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &8644074621230274389
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6180447806228342239}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:right_tuika
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!4 &8651210808498545869
 Transform:
   m_ObjectHideFlags: 0
@@ -116311,20 +114838,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &8670635304394384773
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6802531758317285881}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.007936872, y: 0.005946002, z: 0.0065016304}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 102532788438749373}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8676865559324738294
 GameObject:
   m_ObjectHideFlags: 0
@@ -118554,22 +117067,6 @@ Transform:
   m_Father: {fileID: 2568270088023711570}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &9135834267299137792
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5101183919329392910}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:joint35
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!23 &9139875088426669915
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -118611,22 +117108,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &9140585520443713180
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 614700349434034036}
-  m_Layer: 0
-  m_Name: ShieldCrab927:ballrobo_928:ballrobo_927:right_finger3
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!23 &9140994797523351109
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -118714,22 +117195,6 @@ Transform:
   m_Father: {fileID: 543450652932016520}
   m_RootOrder: 220
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &9155127676573788934
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7114775761167675930}
-  m_Layer: 0
-  m_Name: ikHandle2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!33 &9156279337708302064
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -119040,21 +117505,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9202115814337099101
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6292068781541167694}
-  m_LocalRotation: {x: -0.00000003161625, y: -0.0000016466204, z: 0.00000016147939, w: 1}
-  m_LocalPosition: {x: -0.0034238314, y: 0.00003458313, z: -0.006214147}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 4728292001309105872}
-  m_Father: {fileID: 7266977433616451387}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &9213178461726965700
 MeshRenderer:
   m_ObjectHideFlags: 0

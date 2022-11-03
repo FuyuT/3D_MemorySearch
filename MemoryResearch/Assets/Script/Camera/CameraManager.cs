@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraManager : MonoBehaviour
 {
     [Header("FPSカメラ")]
-    [SerializeField] public GameObject FPSCamera;
     [SerializeField] GameObject FPSCamera;
 
     [Header("TPSカメラ")]
@@ -40,13 +39,6 @@ public class CameraManager : MonoBehaviour
 
     public int GetCurrentCameraType() {return stateMachine.currentStateKey; }
 
-    ObjectCollider              FloorCameraArea;
-    [SerializeField] GameObject Area;
-
-    //コントロールカメラ関連
-    ChangeMoveObjectCamera      MoveObjCamScript;
-    //TODO
-    [SerializeField] GameObject Operation;
 
     public enum CameraType
     {
@@ -99,17 +91,12 @@ public class CameraManager : MonoBehaviour
         nowCamera = CameraType.None;
         nextCamera = CameraType.None;
         ChangeMainCamara();
-
+        SelectNextCamera();
         FloorCameraArea = Area.GetComponent<ObjectCollider>();
         MoveObjCamScript = Operation.GetComponent<ChangeMoveObjectCamera>();
     }
 
-   // Update is called once per frame
-    void Update()
-    {
-        SelectNextCamera();
-        ChangeMainCamara();
-    }
+   
 
     void SelectNextCamera()
     {
@@ -152,7 +139,7 @@ public class CameraManager : MonoBehaviour
         FloorCamera.SetActive(false);
         FloorCamera2.SetActive(false);
         ControllerCamera.SetActive(false);
-       
+
 
         switch (stateMachine.currentStateKey)
         {
@@ -169,6 +156,9 @@ public class CameraManager : MonoBehaviour
                 break;
 
             case (int)CameraType.Controller:
+                ControllerCamera.SetActive(true);
+                break;
+        }
         if (nowCamera == nextCamera) return;
 
         FPSCamera.SetActive(false);
