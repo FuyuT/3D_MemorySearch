@@ -39,6 +39,7 @@ public class CameraManager : MonoBehaviour
 
     public int GetCurrentCameraType() {return stateMachine.currentStateKey; }
 
+    [SerializeField] public StagecolorChange colorChange;
 
     public enum CameraType
     {

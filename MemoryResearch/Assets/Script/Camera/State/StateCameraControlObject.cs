@@ -8,7 +8,10 @@ public class StateCameraControlObject : State
 {
     protected override void OnEnter(State prevState)
     {
+        //オブジェクトのマテリアル変更
+        Owner.colorChange.ChangeAfterMaterial();
     }
+
     protected override void OnUpdate()
     {
         SelectNextState();
@@ -22,4 +25,11 @@ public class StateCameraControlObject : State
             stateMachine.Dispatch((int)CameraManager.CameraType.Floor);
         }
     }
+
+    protected override void OnExit(State nextState)
+    {
+        //オブジェクトのマテリアルを戻す
+        Owner.colorChange.ChangeBeforeMaterial();
+    }
+
 }

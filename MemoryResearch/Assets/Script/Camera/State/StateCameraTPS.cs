@@ -6,9 +6,6 @@ using State = State<CameraManager>;
 
 public class StateCameraTPS : State
 {
-    protected override void OnEnter(State prevState)
-    {
-    }
     protected override void OnUpdate()
     {
         SelectNextState();
@@ -29,9 +26,10 @@ public class StateCameraTPS : State
         }
 
         //Object移動カメラ
-        if (Owner.MoveObjCamScript.ChangFlg)
+        if ( Owner.MoveObjCamScript.ChangFlg)
         {
             stateMachine.Dispatch((int)CameraManager.CameraType.Controller);
+            
         }
     }
 }

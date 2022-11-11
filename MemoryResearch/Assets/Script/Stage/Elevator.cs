@@ -1,72 +1,101 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class Elevator : MonoBehaviour
-{
-    // Start is called before the first frame update
+//public class Elevator : MonoBehaviour
+//{
+//    // Start is called before the first frame update
 
-    private Vector3 pos;
+//    [Header("エレベータポジション")]
+//    private Vector3 pos;
 
-    public Vector3  Move;
+//    //[Header("エレベータ移動範囲")]
+//    public Vector3 Move;
 
-    public bool is2ndFloor;
+//    [Header("エレベータスピード")]
+//    public float Movespeed;
 
-    void Start()
-    {
-        is2ndFloor = false;
-    }
+//    //一階もしくは二階なのかの識別
+//    public bool is2ndFloor;
 
-    //2階へ上昇
-    public void MoveUp()
-    {
-        StartCoroutine("MoveUpStart");
-    }
+//    void Start()
+//    {
+//        is2ndFloor = false;
+//    }
 
-    IEnumerator MoveUpStart()
-    {
-        while (pos.y < Move.y)
-        {
-            pos = transform.position;
-            transform.Translate(0, 0.2f, 0);
-            yield return new WaitForSeconds(0.01f);
-        }
-        is2ndFloor = true;
-    }
+//    //2階へ上昇
+//    public void MoveUp()
+//    {
+//        StartCoroutine("MoveUpStart");
+//    }
 
-    //1階へ下降
-    public void MoveDown()
-    {
-        StartCoroutine("MoveDownStart");
+//    //public void MoveUpStart()
+//    //{
+//    //    if (pos.y < Move.y && !is2ndFloor)
+//    //    {
+//    //        Debug.Log("上がる");
+//    //        pos = new Vector3(0, Move.y, 0);
+//    //        transform.Translate(0, Movespeed, 0);
 
-    }
+//    //    }
+//    //    is2ndFloor = true;
+//    //}
 
-    IEnumerator MoveDownStart()
-    {
-        while (pos.y > 0.0f)
-        {
-            pos = transform.position;
-            transform.Translate(0, -0.02f, 0);
-            yield return new WaitForSeconds(0.01f);
-        }
-        is2ndFloor = false;
-    }
 
-    //USBに近づくと表示
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            MoveUp();
-        }
-    }
+//    IEnumerator MoveUpStart()
+//    {
+//        //while (pos.y < Move.y)
+//        //{
+//        //    //Debug.Log("上がる");
+//        //    pos = new Vector3(0, Move.y, 0);
+//        //    transform.Translate(0, Movespeed, 0);
+//        //    yield return new WaitForSeconds(0.01f);
+//        //}
+//        //is2ndFloor = true;
 
-    //USBから離れると非表示
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            MoveDown();
-        }
-    }
-}
+//        while (transform.position.y < Move.y)
+//        {
+//            //Debug.Log("上がる");
+//            // pos = new Vector3(0, Move.y, 0);
+//            transform.Translate(0, Movespeed, 0);
+//            yield return new WaitForSeconds(0.01f);
+//        }
+//        is2ndFloor = true;
+//    }
+
+//    //1階へ下降
+//    public void MoveDown()
+//    {
+//        StartCoroutine("MoveDownStart");
+
+//    }
+
+//    //IEnumerator MoveDownStart()
+//    //{
+//    //    while (pos.y > 0.0f)
+//    //    {
+//    //        pos = transform.position;
+//    //        transform.Translate(0, -Movespeed, 0);
+//    //        yield return new WaitForSeconds(0.01f);
+//    //    }
+//    //    is2ndFloor = false;
+//    //}
+
+//    //エレベータに乗ると上がる
+//    private void OnCollisionEnter(Collision collision)
+//    {
+//        if (collision.gameObject.tag == "Player")
+//        {
+//            MoveUp();
+//        }
+//    }
+
+//    ////エレベータから離れると下がる
+//    //private void OnCollisionExit(Collision collision)
+//    //{
+//    //    if (collision.gameObject.tag == "Player")
+//    //    {
+//    //        MoveDown();
+//    //    }
+//    //}
+//}

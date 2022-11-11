@@ -31,6 +31,7 @@ public class StateCameraFloor : State
         if (Input.GetKeyDown("v") && Owner.MoveObjCamScript.ChangFlg)
         {
             stateMachine.Dispatch((int)CameraManager.CameraType.Controller);
+            
         }
     }
 }

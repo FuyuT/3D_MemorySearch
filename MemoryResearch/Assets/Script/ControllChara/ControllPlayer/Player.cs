@@ -56,6 +56,15 @@ public class Player : CharaBase
     [Header("移動時間")]
     [SerializeField] public float DushTime;
 
+    [Header("カメラマネージャー")]
+    [SerializeField] CameraManager camemana;
+
+
+    //FPSモード時プレイヤーの姿が見えなくする
+    [Header("自キャラ")]
+    [SerializeField] public GameObject player;
+    ChangeCamera changeCame;
+
     //アクター
     /// <summary>
     /// ステートenum
@@ -190,7 +199,7 @@ public class Player : CharaBase
         }
 
         CharaBaseInit();
-        Debug.Log(param);
+       // Debug.Log(param);
         param.Add((int)ParamKey.AttackPower, 0);
         param.Add((int)ParamKey.Attack_Info, (int)AttackInfo.Attack_Not_Possible);
         param.Add((int)Enemy.ParamKey.Hp, HpMax);
@@ -230,14 +239,18 @@ public class Player : CharaBase
     /// </summary>
     void Update()
     {
+      if(ChapterCamera.activeSelf)
+      {
+            player.SetActive(false);  
+      }
+      else
+      {
+            player.SetActive(true);
+      }
         //ステートマシン更新
         stateMachine.Update();
 
-        //角度更新
-        RotateUpdate();
-
-        //位置更新
-        PositionUpdate();
+        TransformUpdate();
 
         //Delayの更新
         DelayTimeUpdate();
@@ -246,6 +259,19 @@ public class Player : CharaBase
         //Debug.Log(stateMachine.currentStateKey);
        // Debug.Log("situation:" + situation);
 
+    }
+
+    void TransformUpdate()
+    {
+        //Debug.Log(camemana.GetCurrentCameraType());
+        if (camemana.GetCurrentCameraType() == (int)CameraManager.CameraType.Controller)
+        {
+            moveVec = Vector3.zero;
+            GetComponent<Rigidbody>().velocity = moveVec;
+            return ;
+        }
+        RotateUpdate();
+        PositionUpdate();
     }
 
     /// <summary>
@@ -275,6 +301,7 @@ public class Player : CharaBase
     /// </summary>
     void PositionUpdate()
     {
+       
         var rb = GetComponent<Rigidbody>();
 
         switch (situation)

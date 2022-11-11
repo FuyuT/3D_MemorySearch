@@ -124,7 +124,7 @@ public class TitleGame : MonoBehaviour
     //項目新しく始めるを選んだ場合
    public void SelectGameStart()
    {
-     FadeManager.Instance.LoadScene("SampleScene", 1.0f);
+     FadeManager.Instance.LoadScene("Game", 1.0f);
    }
 
    //項目続きからを選んだ場合

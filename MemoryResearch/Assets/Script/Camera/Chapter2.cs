@@ -31,10 +31,10 @@ public class Chapter2 : MonoBehaviour
 
     GameObject lockOnTarget;
 
-   
+    Player ply;
     void Start()
     {
-
+        
         player = GameObject.FindGameObjectWithTag("Player");
         transform.rotation = player.transform.rotation;
 
@@ -53,15 +53,13 @@ public class Chapter2 : MonoBehaviour
     }
     private void FixedUpdate()
     {
-      
-        transform.position = player.transform.position + new Vector3(0, 10, 5);
+
+        transform.position = player.transform.position+new Vector3(0, 7, 0);
         //transform.position = new Vector3(player.transform.position.x, player.transform.position.y + high, player.transform.position.z + profound);
 
         GameObject target = lockon.getTarget();
 
-
-
-        transform.position = player.transform.position;
+        //transform.position = player.transform.position;
 
         if (target != null)
         {
@@ -93,7 +91,7 @@ public class Chapter2 : MonoBehaviour
             if (CompleteText.activeSelf)
             {
                 timer -= Time.deltaTime;
-                Debug.Log("a");
+                
                 if (timer <= 0)
                 {
                     CompleteText.SetActive(false);

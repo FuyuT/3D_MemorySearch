@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class StagecolorChange : MonoBehaviour
 {
+    [Header("カメラマネージャー")]
+    [SerializeField] CameraManager camemana;
     //
     [SerializeField]
     GameObject ControlScript;
@@ -19,83 +21,64 @@ public class StagecolorChange : MonoBehaviour
     [SerializeField]
     GameObject MoveObject;
 
-    //動かせないオブジェクト
-    Transform[] NotObjectChildren;
-
-    //動かせれるオブジェクト
-    Transform[] MoveObjectChildren;
-    
-  
-
-    public Material ChangeMaterial ;
-    public Material ChangeMoveMaterial;
+    public Material ChangeNotMoveAfterMaterial;
+    public Material ChangeMoveAfterMaterial;
 
     //動かせないオブジェクトの元マテリアル
-     //public Material[] yuanNotObjectChildrenMaterial;
+    Material[] NotMoveObjectChildrenBeforeMaterial;
 
     //動かせれるオブジェクトの元マテリアル
-    public Material[] yuanMoveObjectChildrenMaterial;
+    Material[] MoveObjectChildrenBeforeMaterial;
 
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         Script = ControlScript.GetComponent<ControlCamera>();
 
-        NotObjectChildren = new Transform[NotMoveObject.transform.childCount];
-        MoveObjectChildren = new Transform[MoveObject.transform.childCount];
+        //要素分メモリ確保
+        NotMoveObjectChildrenBeforeMaterial = new Material[NotMoveObject.transform.childCount];
+        MoveObjectChildrenBeforeMaterial = new Material[MoveObject.transform.childCount];
+        //子オブジェクトを入れてあげる
         for (int i = 0; i < NotMoveObject.transform.childCount; i++)
         {
-            NotObjectChildren[i] = NotMoveObject.transform.GetChild(i);
-            //yuanNotObjectChildrenMaterial[i] = NotObjectChildren[i].GetComponent<Renderer>().material;
-          
+            NotMoveObjectChildrenBeforeMaterial[i] = NotMoveObject.transform.GetChild(i).GetComponent<MeshRenderer>().material;
+        }
+        for (int i = 0; i < MoveObject.transform.childCount; i++)
+        {
+            MoveObjectChildrenBeforeMaterial[i] = MoveObject.transform.GetChild(i).GetComponent<MeshRenderer>().material;
         }
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public void ChangeAfterMaterial()
     {
-        if (Script.MaterialChange)
+       
+        //動かせれない子オブジェクトのマテリアルを変更
+        for (int i = 0; i < NotMoveObject.transform.childCount; i++)
         {
-      
-            //動かせれない空オブジェクトの子オブジェクトを取得
-           for(int i=0 ; i < NotMoveObject.transform.childCount;i++)
-           {
-               
-                NotObjectChildren[i] = NotMoveObject.transform.GetChild(i);
-                //NotObjectChildren[i].GetComponent<MeshRenderer>().material = ChangeMaterial;
-           }
-
-            //動かせれる空オブジェクトの子オブジェクトを取得
-           for (int i = 0; i < MoveObject.transform.childCount; i++)
-           {
-                MoveObjectChildren[i] = MoveObject.transform.GetChild(i);
-                MoveObjectChildren[i].GetComponent<MeshRenderer>().material = ChangeMoveMaterial;
-           }
-
-            
+            NotMoveObject.transform.GetChild(i).GetComponent<MeshRenderer>().material = ChangeNotMoveAfterMaterial;
         }
 
-       else if(!Script.MaterialChange)
-       {
+        //動かせれる子オブジェクトのマテリアルを変更
+        for (int i = 0; i < MoveObject.transform.childCount; i++)
+        {
+            MoveObject.transform.GetChild(i).GetComponent<MeshRenderer>().material = ChangeMoveAfterMaterial;
+        }
+    }
 
+    public void ChangeBeforeMaterial()
+    {
+        //動かせれない子オブジェクトのマテリアルを元に戻す
+        for (int i = 0; i < NotMoveObject.transform.childCount; i++)
+        {
+            NotMoveObject.transform.GetChild(i).GetComponent<MeshRenderer>().material = NotMoveObjectChildrenBeforeMaterial[i];
+        }
 
-            //動かせれない空オブジェクトの子オブジェクトを取得
-            for (int i = 0; i < NotMoveObject.transform.childCount; i++)
-            {
-
-                NotObjectChildren[i] = NotMoveObject.transform.GetChild(i);
-                //NotObjectChildren[i].GetComponent<MeshRenderer>().material = yuanNotObjectChildrenMaterial[i];
-            }
-
-            //動かせれる空オブジェクトの子オブジェクトを取得
-            for (int i = 0; i < MoveObject.transform.childCount; i++)
-            {
-             
-                MoveObjectChildren[i] = MoveObject.transform.GetChild(i);
-                MoveObjectChildren[i].GetComponent<MeshRenderer>().material = yuanMoveObjectChildrenMaterial[i];
-            }
+        //動かせれる子オブジェクトのマテリアルを元に戻す
+        for (int i = 0; i < MoveObject.transform.childCount; i++)
+        {
+            MoveObject.transform.GetChild(i).GetComponent<MeshRenderer>().material = MoveObjectChildrenBeforeMaterial[i];
         }
     }
 }
+

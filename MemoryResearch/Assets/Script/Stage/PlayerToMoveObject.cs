@@ -10,13 +10,13 @@ public class PlayerToMoveObject : MonoBehaviour
 
     //　動く床の上にいるかどうか
     private bool onTheFloor = false;
-   
+
 
     private Vector3 velocity = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -25,42 +25,42 @@ public class PlayerToMoveObject : MonoBehaviour
         //　ベルトコンベアーに乗っていたら力を加える	
         if (onTheFloor)
         {
-           
+
             velocity += floorMoveDirection;
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        //エレベータ
-        if (other.gameObject.name == "Area")
-        {
-            if (elevator.GetComponent<Elevator>().is2ndFloor == false)
-            {
-                elevator.GetComponent<Elevator>().MoveUp();
-            }
+        ////エレベータ
+        //if (other.gameObject.name == "Area")
+        //{
+        //    if (elevator.GetComponent<Elevator>().is2ndFloor == false)
+        //    {
+        //        elevator.GetComponent<Elevator>().MoveUp();
+        //    }
 
-            if (elevator.GetComponent<Elevator>().is2ndFloor == true)
-            {
-                elevator.GetComponent<Elevator>().MoveDown();
-            }
-        }
+        //    if (elevator.GetComponent<Elevator>().is2ndFloor == true)
+        //    {
+        //        elevator.GetComponent<Elevator>().MoveDown();
+        //    }
+        //}
 
         //横移動の床
         if (other.tag == "floor")
         {
-           
+
             this.gameObject.transform.parent = Movefloor.gameObject.transform;
         }
 
 
-        if(other.gameObject.tag=="Block")
+        if (other.gameObject.tag == "Block")
         {
-           
+
             var beltConveyor = other.gameObject.GetComponent<BeltConveyor>();
             if (beltConveyor != null)
             {
-              
+
                 //floorMoveDirection = FindObjectOfType<BeltConveyor>().ConveyorVelocity();
                 floorMoveDirection = beltConveyor.ConveyorVelocity();
                 onTheFloor = true;
