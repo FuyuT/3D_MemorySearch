@@ -39,22 +39,29 @@ public class BGMOnOff : MonoBehaviour
     //ÉLÅ[ì¸óÕÇ…ÇÊÇÈëÄçÏÅ@Ç¢ÇÁÇ»Ç¢Ç»ÇÁçÌèúÇµÇƒÇ‡OK
     void Update()
     {
-        //float v = m_Slider.value;
-        //if (m_isInput)
-        //{
-        //    if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
-        //    {
-        //        v -= m_ScroolSpeed * Time.deltaTime;
-        //    }
-        //    if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.RightArrow))
-        //    {
-        //        v += m_ScroolSpeed * Time.deltaTime;
-        //    }
-        //}
-        //v = Mathf.Clamp(v, 0, 1);
-        //m_Slider.value = v;
-        //ClickOnOff();
-      aud.volume = slider.GetComponent<Slider>().normalizedValue;
+        if (OnOff)
+        {
+            //float v = m_Slider.value;
+            //if (m_isInput)
+            //{
+            //    if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            //    {
+            //        v -= m_ScroolSpeed * Time.deltaTime;
+            //    }
+            //    if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.RightArrow))
+            //    {
+            //        v += m_ScroolSpeed * Time.deltaTime;
+            //    }
+            //}
+            //v = Mathf.Clamp(v, 0, 1);
+            //m_Slider.value = v;
+            //ClickOnOff();
+            aud.volume = slider.GetComponent<Slider>().normalizedValue;
+        }
+        else
+        {
+            aud.volume = 0;
+        }
     }
 
     public  void OnButton()
