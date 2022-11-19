@@ -22,7 +22,7 @@ public class BeltConveyor : MonoBehaviour
 
     public Vector3 ConveyorVelocity()
     {
-        Debug.Log("a");
+        
         return transform.forward * speed;
     }
 }

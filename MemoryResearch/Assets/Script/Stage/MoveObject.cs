@@ -11,42 +11,51 @@ public class MoveObject : MonoBehaviour
     //ControlCameraのスクリプトを取得
     ControlCamera Script;
 
-    //オブジェクトを動かすときの速さ
-    public float MoveObjectSpeed;
+    public float moveSpeed;
 
-    const float Move_Max = 4.5f;
+    Camera mainCamera;
+    private float rayDistance;
 
-    Vector3 currenPos ,previousPos;
-
-    public float Sensitivity = 1f;
+    //private Transform FirstFloorPos;
 
     // Start is called before the first frame update
     void Start()
     {
+        rayDistance = 100f;
+        mainCamera = Camera.main;
         Script = ControlScript.GetComponent<ControlCamera>();
+        //FirstFloorPos.localPosition = transform.localPosition;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Script.MoveObjectSwitch == true)
+        if (Script.MoveObjectSwitch)
         {
-            if (Input.GetMouseButtonDown(1))
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            foreach (RaycastHit hit in Physics.RaycastAll(ray))
             {
-                previousPos = Input.mousePosition;
-            }
-            if (Input.GetMouseButton(1))
-            {
-                currenPos = Input.mousePosition;
-                float diffDistance = (currenPos.x - previousPos.x) / Screen.width * MoveObjectSpeed;
-                diffDistance *= Sensitivity;
+                if (hit.transform.name == "Dore")
+                {
+                    if (Input.GetMouseButton(0))
+                    {
 
-                float newX = Mathf.Clamp(transform.localPosition.x + diffDistance,-Move_Max,Move_Max);
-                this.gameObject.transform.Translate(newX, 0, 0);
+                        Vector3 objPos = Camera.main.WorldToScreenPoint(transform.position);
 
+                        Vector3 mousePos = new Vector3(objPos.x, Input.mousePosition.y, objPos.z);
 
-                previousPos = currenPos;
+                        transform.position += new Vector3(0, Input.GetAxis("Mouse Y") * moveSpeed, 0);
+                        //Debug.Log(Input.GetAxis("Vertical"));
+                     
+
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
             }
         }
     }
 }
+
