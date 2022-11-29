@@ -1,43 +1,51 @@
-//using System.Collections;
-//using System.Collections.Generic;
-//using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-//public class Lockon : MonoBehaviour
-//{
+public class Lockon : MonoBehaviour
+{
 
-//    [SerializeField]
-//    private GameObject target;
+    [SerializeField]
+    private GameObject target;
 
-//    protected void OnTriggerEnter(Collider c)
-//    {
-//        if (c.gameObject.tag == "Enemy")
-//        {
-//            target = c.gameObject;
-//        }
-//    }
+    //[SerializeField]
+    // Camera ca;
 
-//    protected void OnTriggerExit(Collider c)
-//    {
-//        if (c.gameObject.tag == "Enemy")
-//        {
-//            target = null;
-//        }
-//    }
+    protected void OnTriggerEnter(Collider c)
+    {
+        if (c.gameObject.tag == "Enemy")
+        {
+            target = c.gameObject;
+        }
+    }
 
-//    public GameObject getTarget()
-//    {
-//        return this.target;
-//    }
+    protected void OnTriggerExit(Collider c)
+    {
+        if (c.gameObject.tag == "Enemy")
+        {
+            target = null;
+        }
+    }
 
-//    // Start is called before the first frame update
-//    void Start()
-//    {
+    public GameObject getTarget()
+    {
+        return target;
+    }
 
-//    }
+   // Start is called before the first frame update
+    void Start()
+    {
 
-//    // Update is called once per frame
-//    void Update()
-//    {
+    }
 
-//    }
-//}
+    //Update is called once per frame
+    void Update()
+    {
+   
+    }
+
+    // void FixedUpdate()
+    //{
+    //    transform.rotation = Quaternion.LookRotation(ca.transform.forward);
+    //}
+}
