@@ -45,11 +45,6 @@ public class ChangeMoveObjectCamera : MonoBehaviour
             ShowText.SetActive(true);
             colObj = CollisionObject.Player;
             ChangFlg = true;
-            //if (Input.GetKeyDown("v"))
-            //{
-            //    ChangFlg = true;
-            //}
-
         }
     }
 

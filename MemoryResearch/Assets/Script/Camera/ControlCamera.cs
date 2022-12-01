@@ -32,7 +32,6 @@ public class ControlCamera : MonoBehaviour
     [Header("カメラマネージャー")]
     [SerializeField] CameraManager camemana;
 
-
     //ズーム用変数
     public float ZoomSpeed;
 

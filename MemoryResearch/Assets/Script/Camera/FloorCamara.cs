@@ -12,7 +12,7 @@ public class FloorCamara : MonoBehaviour
         
     }
 
-    private void Update()
+    void LateUpdate()
     {
         transform.LookAt(Player.transform);
     }

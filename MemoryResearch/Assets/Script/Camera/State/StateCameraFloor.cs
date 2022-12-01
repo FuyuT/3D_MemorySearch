@@ -30,10 +30,14 @@ public class StateCameraFloor : State
         }
 
         //フロアカメラ
-        if (!Owner.FloorCameraArea.inArea)
+        if (!Owner.FloorCameraArea.inArea && !Owner.FloorCameraArea2.inArea2 && !Owner.FloorCameraArea3.inArea3 && !Owner.FloorCameraArea4.inArea4)
         {
             stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
         }
+        //else if (!Owner.FloorCameraArea2.inArea2)
+        //{
+        //    stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
+        //}
 
         if (Input.GetKeyDown("v") && Owner.MoveObjCamScript.ChangFlg)
         {
