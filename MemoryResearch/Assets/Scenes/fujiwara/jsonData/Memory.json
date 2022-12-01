@@ -1,0 +1,24 @@
+{
+  "Memories": [
+    {
+      "name": "Jump",
+      "material": "None",
+      "explanation": "aaジャンプができる"
+    },
+    {
+      "name": "Tackle",
+      "material": "None",
+      "explanation": "突進ができる"
+    },
+    {
+      "name": "DowbleJump",
+      "material": "Jump+Jump",
+      "explanation": "ジャンプができる"
+    },
+    {
+      "name": "AirDush",
+      "material": "Jump+Tackle",
+      "explanation": "空中でダッシュができる"
+    }
+  ]
+}
