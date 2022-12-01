@@ -10,23 +10,36 @@ public class CameraManager : MonoBehaviour
     [Header("TPSカメラ")]
     [SerializeField] GameObject TPSCamera;
 
-    //TODO
     [Header("フロアカメラ")]
     [SerializeField] GameObject FloorCamera;
 
     [Header("フロアカメラ2")]
     [SerializeField] GameObject FloorCamera2;
 
+    [Header("フロアカメラ3")]
+    [SerializeField] GameObject FloorCamera3;
+
+    [Header("フロアカメラ4")]
+    [SerializeField] GameObject FloorCamera4;
+
     [Header("コントロールカメラ")]
     [SerializeField] GameObject ControllerCamera;
-    
+
     //エリアカメラ関連
     public ObjectCollider       FloorCameraArea;
     [SerializeField] GameObject Area;
-    
+
     //エリアカメラ関連
     public ObjectCollider1      FloorCameraArea2;
     [SerializeField] GameObject Area2;
+
+    //エリアカメラ関連
+    public ObjectCollider2 FloorCameraArea3;
+    [SerializeField] GameObject Area3;
+
+    //エリアカメラ関連
+    public ObjectCollider3 FloorCameraArea4;
+    [SerializeField] GameObject Area4;
 
     //コントロールカメラ関連
     public ChangeMoveObjectCamera MoveObjCamScript;
@@ -36,8 +49,8 @@ public class CameraManager : MonoBehaviour
     int floorNo;
 
     StateMachine<CameraManager> stateMachine;
-
     public int GetCurrentCameraType() {return stateMachine.currentStateKey; }
+    [SerializeField] public StagecolorChange colorChange;
 
     public enum CameraType
     {
@@ -57,6 +70,9 @@ public class CameraManager : MonoBehaviour
 
         FloorCameraArea = Area.GetComponent<ObjectCollider>();
         FloorCameraArea2 = Area2.GetComponent<ObjectCollider1>();
+        FloorCameraArea3 = Area3.GetComponent<ObjectCollider2>();
+        FloorCameraArea4 = Area4.GetComponent<ObjectCollider3>();
+
         MoveObjCamScript = Operation.GetComponent<ChangeMoveObjectCamera>();
 
         StateMachineInit();
@@ -73,25 +89,26 @@ public class CameraManager : MonoBehaviour
         stateMachine.AddAnyTransition<StateCameraTPS>((int)CameraType.TPS);
         stateMachine.AddAnyTransition<StateCameraFPS>((int)CameraType.FPS);
         stateMachine.AddAnyTransition<StateCameraControlObject>((int)CameraType.Controller);
-
         stateMachine.AddAnyTransition<StateCameraFloor>((int)CameraType.Floor);
-
         stateMachine.Start(stateMachine.GetOrAddState<StateCameraTPS>());
         stateMachine.currentStateKey = (int)CameraType.TPS;
     }
 
     void Update()
     {
-        //Debug.Log("現在のカメラ:" + stateMachine.currentStateKey
-        //    + "前回のカメラ:" + stateMachine.beforeStateKey);
-
         stateMachine.Update();
         ChangeMainCamara();
         nowCamera = CameraType.None;
         nextCamera = CameraType.None;
         ChangeMainCamara();
         SelectNextCamera();
+
         FloorCameraArea = Area.GetComponent<ObjectCollider>();
+        FloorCameraArea2 = Area2.GetComponent<ObjectCollider1>();
+        FloorCameraArea3 = Area3.GetComponent<ObjectCollider2>();
+        FloorCameraArea4 = Area4.GetComponent<ObjectCollider3>();
+
+
         MoveObjCamScript = Operation.GetComponent<ChangeMoveObjectCamera>();
     }
 
@@ -104,20 +121,20 @@ public class CameraManager : MonoBehaviour
           
             nextCamera = CameraType.FPS;
             
-            //if(FPSCamera.activeSelf)
-            //{
-                    
-            //}
         }
 
         //フロアカメラ
-        if (FloorCameraArea.inArea)
-        {
-            nextCamera = CameraType.TPS;
-        }
-        else
+        if (FloorCameraArea.inArea || FloorCameraArea2.inArea2 || FloorCameraArea3.inArea3 || FloorCameraArea4.inArea4)
         {
             nextCamera = CameraType.Floor;
+        }
+        //else if ()
+        //{
+        //    nextCamera = CameraType.Floor;
+        //}
+        else
+        {
+            nextCamera = CameraType.TPS;
         }
 
         //神獣? ギミック
@@ -135,8 +152,13 @@ public class CameraManager : MonoBehaviour
     {
         FPSCamera.SetActive(false);
         TPSCamera.SetActive(false);
+
+        //フロアカメラ
+        //TODO後で一つにまとめる
         FloorCamera.SetActive(false);
         FloorCamera2.SetActive(false);
+        FloorCamera3.SetActive(false);
+
         ControllerCamera.SetActive(false);
 
 
@@ -186,6 +208,7 @@ public class CameraManager : MonoBehaviour
             default:
                 break;
         }
+
     }
 
     void SelectFloorCamera()
@@ -200,6 +223,16 @@ public class CameraManager : MonoBehaviour
             floorNo = 2;
         }
 
+        if (FloorCameraArea3.inArea3)
+        {
+            floorNo = 3;
+        }
+
+        if (FloorCameraArea4.inArea4)
+        {
+            floorNo = 4;
+        }
+
 
         switch (floorNo)
         {
@@ -210,9 +243,16 @@ public class CameraManager : MonoBehaviour
             case 2:
                 FloorCamera2.SetActive(true);
                 break;
+            case 3:
+                FloorCamera3.SetActive(true);
+                break;
+            case 4:
+                FloorCamera4.SetActive(true);
+                break;
 
             default:
                 break;
         }
+
     }
 }

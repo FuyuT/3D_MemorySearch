@@ -34,21 +34,6 @@ public class ChangeMoveObjectCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        //if (ChangFlg = true)
-        //{
-           
-        //}
-        //}
-
-        //if (CustomInput.Interval_InputKeydown(KeyCode.V, 2))
-        //{
-
-        //    //メインカメラをアクティブに設定
-        //    MoveObjectCamera.SetActive(false);
-        //    MainCamera.SetActive(true);
-        //    ChangFlg = false;
-
-        //}
 
     }
 
@@ -59,13 +44,7 @@ public class ChangeMoveObjectCamera : MonoBehaviour
         {
             ShowText.SetActive(true);
             colObj = CollisionObject.Player;
-            ChangFlg = true;     
-            if (Input.GetKeyDown("v"))
-            {
-                ChangFlg = true;
-                Debug.Log("通った");
-            }
-           
+            ChangFlg = true;
         }
     }
 
@@ -73,7 +52,7 @@ public class ChangeMoveObjectCamera : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-          
+            ShowText.SetActive(false);
             colObj = CollisionObject.None;
             ChangFlg = false;
         }
