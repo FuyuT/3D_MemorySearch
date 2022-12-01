@@ -18,6 +18,7 @@ public class MenuOpen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         menu = GameObject.Find("Menu");
         menu.SetActive(false);
 

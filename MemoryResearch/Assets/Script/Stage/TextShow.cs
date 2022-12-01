@@ -9,16 +9,12 @@ public class TextShow : MonoBehaviour
     //テキスト
     [SerializeField]
     GameObject textOn;
-
-    [SerializeField]
-    GameObject bottun;
-
+  
 
     // Start is called before the first frame update
     void Start()
     {
         textOn.SetActive(false);
-        bottun.SetActive(false);
     }
 
     // Update is called once per frame
@@ -28,16 +24,13 @@ public class TextShow : MonoBehaviour
     }
 
     //USBに近づくと表示
-    private void OnTriggerEnter(Collider other)//エレベーターの中に入ったら
+    private void OnCollisionEnter(Collision collision)
     {
-      
 
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
            
             textOn.SetActive(true);
-
-            bottun.SetActive(true);
            
         }
 
@@ -50,7 +43,7 @@ public class TextShow : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             textOn.SetActive(false);
-            bottun.SetActive(false);
+           
         }
     }
 }

@@ -47,6 +47,9 @@ public class TitleGame : MonoBehaviour
         SelectPanel.SetActive(false);
         OptionPanel.SetActive(false);
 
+      
+          
+        //ボタンが選択された状態になる
         StartButton.Select();
     }
 
@@ -96,17 +99,23 @@ public class TitleGame : MonoBehaviour
                 {
                     if (Select == 0)
                     {
+                        
                             SelectGameStart();
+                        
                     }
 
                     if (Select == 1)
                     {
+                        
                             SelectContinued();
+                        
                     }
 
                     if (Select == 2)
                     {
+                        
                             SelectOption();
+                        
                     }
                 }
             }
@@ -115,7 +124,7 @@ public class TitleGame : MonoBehaviour
     //項目新しく始めるを選んだ場合
    public void SelectGameStart()
    {
-     FadeManager.Instance.LoadScene("Game", 1.0f);
+     FadeManager.Instance.LoadScene("SampleScene", 1.0f);
    }
 
    //項目続きからを選んだ場合

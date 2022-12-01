@@ -4,18 +4,11 @@ using UnityEngine;
 
 using State = State<CameraManager>;
 
-
-
 public class StateCameraFloor : State
 {
-    //private GameObject player;
-
     protected override void OnEnter(State prevState)
     {
-        //player = GameObject.Find("Player");
-        //Owner.transform.LookAt(player.transform);
     }
-
     protected override void OnUpdate()
     {
         SelectNextState();
@@ -30,19 +23,14 @@ public class StateCameraFloor : State
         }
 
         //フロアカメラ
-        if (!Owner.FloorCameraArea.inArea && !Owner.FloorCameraArea2.inArea2 && !Owner.FloorCameraArea3.inArea3 && !Owner.FloorCameraArea4.inArea4)
+        if (Owner.FloorCameraArea.inArea)
         {
             stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
         }
-        //else if (!Owner.FloorCameraArea2.inArea2)
-        //{
-        //    stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
-        //}
 
         if (Input.GetKeyDown("v") && Owner.MoveObjCamScript.ChangFlg)
         {
             stateMachine.Dispatch((int)CameraManager.CameraType.Controller);
-            
         }
     }
 }

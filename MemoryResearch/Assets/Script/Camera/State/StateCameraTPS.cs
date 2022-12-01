@@ -6,6 +6,9 @@ using State = State<CameraManager>;
 
 public class StateCameraTPS : State
 {
+    protected override void OnEnter(State prevState)
+    {
+    }
     protected override void OnUpdate()
     {
         SelectNextState();
@@ -20,15 +23,10 @@ public class StateCameraTPS : State
         }
 
         //フロアカメラ
-        if (Owner.FloorCameraArea.inArea || Owner.FloorCameraArea2.inArea2 || Owner.FloorCameraArea3.inArea3 || Owner.FloorCameraArea4.inArea4)
+        if (!Owner.FloorCameraArea.inArea)
         {
             stateMachine.Dispatch((int)CameraManager.CameraType.Floor);
         }
-        ////フロアカメラ
-        //else if (Owner.FloorCameraArea2.inArea2)
-        //{
-        //    stateMachine.Dispatch((int)CameraManager.CameraType.Floor);
-        //}
 
         //Object移動カメラ
         if (Owner.MoveObjCamScript.ChangFlg)

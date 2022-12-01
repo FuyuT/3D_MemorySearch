@@ -152,6 +152,7 @@ public class StateMachine<TOwner>
         currentStateKey = eventId;
 
         Change(to);
+
     }
 
     /// <summary>
@@ -164,4 +165,25 @@ public class StateMachine<TOwner>
         nextState.Enter(CurrentState);
         CurrentState = nextState;
     }
+
+    /// <summary>
+    /// 現在のステートのkeyを取得する
+    /// 存在しなければ-1を返す
+    /// </summary>
+    //public int GetCurrentStateKey()
+    //{
+    //    int key = -1;
+    //    var pair = CurrentState.transitions.FirstOrDefault(c => c.Value == CurrentState);
+    //    try
+    //    {
+    //        key = (int)pair.Key;
+    //    }
+    //    catch
+    //    {
+            
+    //    }
+
+    //    return key;
+    //}
+
 }
