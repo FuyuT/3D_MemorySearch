@@ -9,7 +9,9 @@ public class USBactuation : MonoBehaviour
     //プレイヤー
     private GameObject chara;
     //テキスト
-    private GameObject textOn;
+    [SerializeField]
+    GameObject textOn;
+
     //消したい壁
     public GameObject Wal;
     //表示したいオブジェクト
@@ -23,7 +25,7 @@ public class USBactuation : MonoBehaviour
     void Start()
     {
         chara = GameObject.Find("Player");
-        textOn = GameObject.Find("ButtonText");
+      
 
         if (Wal != null)
         {
@@ -42,44 +44,40 @@ public class USBactuation : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-       
+    {  
             if (s == 1)
             {
-                if (Input.GetKeyDown("c"))
+                if (Input.GetKeyDown("v"))
                 {
                    if (n == 1)
                    {
-                       //Debug.Log("a");
+                       
                         Wal.SetActive(false);
                         ShowObj.SetActive(true);
-                        Destroy(this.textOn);
+                        //Destroy(this.textOn);
                    }
                    else if (n == 2)
-                    {
+                   {
                         Wal.SetActive(false);
                         ShowObj = null;
-                    }
+                   }
                    else if(n==3)
-                {
+                   {
                     ShowObj.SetActive(true);
                     Wal.SetActive(false);
-                }
+                   }
                 }
             }
     }
 
     //USBに近づくと表示
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-
-        if (other.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player")
         {
             textOn.SetActive(true);
             s = 1;
         }
-
-
     }
 
     //USBから離れると非表示

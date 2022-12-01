@@ -8,6 +8,8 @@ public class StagecolorChange : MonoBehaviour
     //
     [SerializeField]
     GameObject ControlScript;
+    //ControlCameraのスクリプトを取得
+    ControlCamera Script;
 
     //動かせないオブジェクト
     [SerializeField]
@@ -17,18 +19,23 @@ public class StagecolorChange : MonoBehaviour
     [SerializeField]
     GameObject MoveObject;
 
-    //動かせないオブジェクトのマテリアル
+    //動かせないオブジェクト
     Transform[] NotObjectChildren;
 
-    //動かせれるオブジェクトのマテリアル
-    Transform[] MoveObjectChildren; 
-
-
-    //ControlCameraのスクリプトを取得
-    ControlCamera Script;
+    //動かせれるオブジェクト
+    Transform[] MoveObjectChildren;
+    
+  
 
     public Material ChangeMaterial ;
     public Material ChangeMoveMaterial;
+
+    //動かせないオブジェクトの元マテリアル
+     //public Material[] yuanNotObjectChildrenMaterial;
+
+    //動かせれるオブジェクトの元マテリアル
+    public Material[] yuanMoveObjectChildrenMaterial;
+
 
     // Start is called before the first frame update
     void Start()
@@ -37,29 +44,58 @@ public class StagecolorChange : MonoBehaviour
 
         NotObjectChildren = new Transform[NotMoveObject.transform.childCount];
         MoveObjectChildren = new Transform[MoveObject.transform.childCount];
+        for (int i = 0; i < NotMoveObject.transform.childCount; i++)
+        {
+            NotObjectChildren[i] = NotMoveObject.transform.GetChild(i);
+            //yuanNotObjectChildrenMaterial[i] = NotObjectChildren[i].GetComponent<Renderer>().material;
+          
+        }
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        if(Script.MaterialChange==true)
+        if (Script.MaterialChange)
         {
-
+      
             //動かせれない空オブジェクトの子オブジェクトを取得
            for(int i=0 ; i < NotMoveObject.transform.childCount;i++)
            {
+               
                 NotObjectChildren[i] = NotMoveObject.transform.GetChild(i);
-                NotObjectChildren[i].GetComponent<MeshRenderer>().material = ChangeMaterial;
-            }
+                //NotObjectChildren[i].GetComponent<MeshRenderer>().material = ChangeMaterial;
+           }
 
             //動かせれる空オブジェクトの子オブジェクトを取得
            for (int i = 0; i < MoveObject.transform.childCount; i++)
            {
                 MoveObjectChildren[i] = MoveObject.transform.GetChild(i);
                 MoveObjectChildren[i].GetComponent<MeshRenderer>().material = ChangeMoveMaterial;
-            }
+           }
 
             
+        }
+
+       else if(!Script.MaterialChange)
+       {
+
+
+            //動かせれない空オブジェクトの子オブジェクトを取得
+            for (int i = 0; i < NotMoveObject.transform.childCount; i++)
+            {
+
+                NotObjectChildren[i] = NotMoveObject.transform.GetChild(i);
+                //NotObjectChildren[i].GetComponent<MeshRenderer>().material = yuanNotObjectChildrenMaterial[i];
+            }
+
+            //動かせれる空オブジェクトの子オブジェクトを取得
+            for (int i = 0; i < MoveObject.transform.childCount; i++)
+            {
+             
+                MoveObjectChildren[i] = MoveObject.transform.GetChild(i);
+                MoveObjectChildren[i].GetComponent<MeshRenderer>().material = yuanMoveObjectChildrenMaterial[i];
+            }
         }
     }
 }

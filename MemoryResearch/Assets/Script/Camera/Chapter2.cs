@@ -5,20 +5,28 @@ using UnityEngine;
 public class Chapter2 : MonoBehaviour
 {
     public GameObject player;
-    public GameObject mainCamera;
     public float rotate_speed;
+
+    public float high;
+    public float profound;
 
     private const int ROTATE_BUTTON = 1;
     private const float ANGLE_LIMIT_UP = 60f;
     private const float ANGLE_LIMIT_DOWN = -60f;
 
-    [SerializeField]
-    GameObject Enemy1;
 
+    //todo 後でテキストマネージャに移す
+    //テキスト関連
+    [Header("チャプター完了テキスト")]
     [SerializeField]
-    GameObject Enemy2;
+    GameObject CompleteText;
+    public float timer;
+
+
+    GameObject mainCamera;
 
     //Lockonのスクリプト
+    [SerializeField]
     Lockon lockon;
 
     GameObject lockOnTarget;
@@ -26,43 +34,72 @@ public class Chapter2 : MonoBehaviour
    
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        transform.rotation = player.transform.rotation;
+
+        CompleteText.SetActive(false);
 
         mainCamera = Camera.main.gameObject;
         player = GameObject.FindGameObjectWithTag("Player");
-        lockon = player.GetComponentInChildren<Lockon>();
-       
+
     }
 
     void Update()
     {
+        Debug.Log("Update");
+    }
+
+    private void FixedUpdate()
+    {
+
+        transform.position = player.transform.position + new Vector3(0, 10, 5);
+        //transform.position = new Vector3(player.transform.position.x, player.transform.position.y + high, player.transform.position.z + profound);
+
+        GameObject target = lockon.getTarget();
+
+
+
         transform.position = player.transform.position;
 
-        //if (Input.GetKeyDown(KeyCode.R))
-        //{
-
-            GameObject target = lockon.getTarget();
-
-            if (target != null)
-            {
-                lockOnTarget = target;
-            }
-            else
-            {
-                lockOnTarget = null;
-            }
-        //}
+        if (target != null)
+        {
+            lockOnTarget = target;
+        }
+        else
+        {
+            lockOnTarget = null;
+        }
 
         if (lockOnTarget)
         {
             lockOnTargetObject(lockOnTarget);
-        }
-        else
-        {
-            if (Input.GetMouseButton(ROTATE_BUTTON))
+            //左クリックしたときにメモリ（アクション）を登録
+            if (Input.GetMouseButtonDown(0))
             {
-                rotateCmaeraAngle();
+                Debug.Log("クリック");
+                SetPossesionMemory(lockOnTarget);
+
+                //テキスト関連
+                CompleteText.SetActive(true);
+                timer = 5f;
+
             }
         }
+
+        if (CompleteText.activeSelf)
+        {
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                CompleteText.SetActive(false);
+            }
+            //if (Input.GetMouseButton(ROTATE_BUTTON))
+            //{
+            rotateCmaeraAngle();
+            // }
+        }
+
+        rotateCmaeraAngle();
 
         float angle_x = 180f <= transform.eulerAngles.x ? transform.eulerAngles.x - 360 : transform.eulerAngles.x;
         transform.eulerAngles = new Vector3(
@@ -70,13 +107,15 @@ public class Chapter2 : MonoBehaviour
             transform.eulerAngles.y,
             transform.eulerAngles.z
         );
+        
     }
 
     private void rotateCmaeraAngle()
     {
+     
         Vector3 angle = new Vector3(
             Input.GetAxis("Mouse X") * rotate_speed,
-            Input.GetAxis("Mouse Y") * rotate_speed,
+            Input.GetAxis("Mouse Y") * -rotate_speed,
             0
         );
 
@@ -84,16 +123,37 @@ public class Chapter2 : MonoBehaviour
     }
     private void lockOnTargetObject(GameObject target)
     {
-        if (target == Enemy1)
-        { 
-            Debug.Log("a");
-           // transform.LookAt(target.transform, Vector3.up);
-        }
 
-        if (target == Enemy2)
+    }
+
+    /// <summary>
+    /// プレイヤーの所持しているメモリ配列に、サーチした敵から取得したメモリを格納する
+    /// </summary>
+    /// <param name="target">サーチした敵</param>
+    private void SetPossesionMemory(GameObject target)
+    {
+        //todo:処理の位置調整したい
+        //敵が持っているメモリを取得
+        int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
+        var p = player.GetComponent<Player>();
+        //空いている配列番号を確認
+        int arrayValue = p.GetMemoryArrayNullValue(targetMemory);
+        
+        if (arrayValue != -1)
         {
-            Debug.Log("b");
-            //transform.LookAt(target.transform, Vector3.up);
+            int setMemory = targetMemory;
+            if (p.CheckPossesionMemory(targetMemory))
+            {
+                switch (targetMemory)
+                {
+                    case (int)Player.Event.Jump:
+                        setMemory = (int)Player.Event.Double_Jump;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            p.SetPossesionMemory(setMemory, arrayValue);
         }
     }
 }

@@ -48,18 +48,20 @@ public class ControlCamera : MonoBehaviour
       
     }
 
-    void Update()
+    void FixedUpdate()
     {
-
-        //ControlleCamera.SetActive(true);
+       
+        
         if (Script.ChangFlg == true)
         {
             MaterialChange = true;
 
             MoveObjectSwitch = true;
 
+            ControlleCamera.SetActive(true);
+
             //左クリックした時
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(1))
             {
 
                 //カメラの角度を変数newAngleに格納
@@ -71,7 +73,7 @@ public class ControlCamera : MonoBehaviour
                 lastMousePosition = Input.mousePosition;
             }
             //左ドラッグしている間
-            else if (Input.GetMouseButton(0))
+            else if (Input.GetMouseButton(1))
             {
               
 
@@ -84,9 +86,13 @@ public class ControlCamera : MonoBehaviour
                         newAngle.y -= (lastMousePosition.x - Input.mousePosition.x) * rotationSpeed.y;
 
                     //これ以上は回転できない
-                    if (newAngle.y >= 90)
+                    if (newAngle.y <= 90)
                     {
-                       
+                        rotationSpeed.y = 0;
+                    }
+                    else if (newAngle.x >= 90)
+                    {
+                        rotationSpeed.x = 0;
                     }
 
                     // X軸の回転：マウスドラッグ方向に視点回転
@@ -129,8 +135,14 @@ public class ControlCamera : MonoBehaviour
             //一定以上ズームは出来なくする
             if (mainCamera.transform.position.y <= 0)
             {
-               
+                ZoomSpeed = 0;
             }
         }
+        else
+        {
+            Debug.Log("b");
+            MaterialChange = false;
+        }
     }
+   
 }
