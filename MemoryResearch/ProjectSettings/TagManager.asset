@@ -14,8 +14,13 @@ TagManager:
   - Enemy
   - Collide
   - Ground
-  - CombineMaterial
+  - MemoryUIFrame
   - SelectMemory
+  - CombineMaterial
+  - EuipmentMemory
+  - CombineMemory
+  - CombineManager
+  - DataManager
   layers:
   - Default
   - TransparentFX

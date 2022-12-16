@@ -29,12 +29,11 @@ public class ControlCamera : MonoBehaviour
     // カメラの角度を格納する変数（初期値に0,0を代入）
     private Vector2 newAngle = new Vector2(0, 0);
 
+    [Header("カメラマネージャー")]
+    [SerializeField] CameraManager camemana;
 
     //ズーム用変数
     public float ZoomSpeed;
-
-    //ステージの色変化bool
-   public bool MaterialChange;
 
     public bool MoveObjectSwitch;
 
@@ -42,7 +41,7 @@ public class ControlCamera : MonoBehaviour
     {
         Script = USBObject.GetComponent<ChangeMoveObjectCamera>();
 
-        MaterialChange = false;
+      
 
         MoveObjectSwitch = false;
       
@@ -50,82 +49,75 @@ public class ControlCamera : MonoBehaviour
 
     void FixedUpdate()
     {
-       
-        
-        if (Script.ChangFlg == true)
+        if (camemana.GetCurrentCameraType() != (int)CameraManager.CameraType.Controller)
         {
-            MaterialChange = true;
+            return;
+        }
+        MoveObjectSwitch = true;
 
-            MoveObjectSwitch = true;
+        ControlleCamera.SetActive(true);
 
-            ControlleCamera.SetActive(true);
+        //左クリックした時
+        if (Input.GetMouseButtonDown(1))
+        {
+            //カメラの角度を変数newAngleに格納
+            newAngle = mainCamera.transform.localEulerAngles;
 
-            //左クリックした時
-            if (Input.GetMouseButtonDown(1))
+            newAngle = ControlleCamera.transform.localEulerAngles;
+
+            //マウス座標を変数lastMousePositionに格納
+            lastMousePosition = Input.mousePosition;
+        }
+        //左ドラッグしている間
+        else if (Input.GetMouseButton(1))
+        {
+            //カメラ回転方向の判定フラグがtrueの場合
+            if (!reverse)
             {
+                // Y軸の回転：マウスドラッグ方向に視点回転
+                // マウスの水平移動値に変数rotationSpeedを掛ける
+                //（クリック時の座標とマウス座標の現在値の差分値）
+                newAngle.y -= (lastMousePosition.x - Input.mousePosition.x) * rotationSpeed.y;
 
-                //カメラの角度を変数newAngleに格納
-                newAngle = mainCamera.transform.localEulerAngles;
+                //これ以上は回転できない
+                if (newAngle.y <= 90)
+                {
+                    rotationSpeed.y = 0;
+                }
+                else if (newAngle.x >= 90)
+                {
+                    rotationSpeed.x = 0;
+                }
 
-                newAngle = ControlleCamera.transform.localEulerAngles;
+                // X軸の回転：マウスドラッグ方向に視点回転
+                // マウスの垂直移動値に変数rotationSpeedを掛ける
+                //（クリック時の座標とマウス座標の現在値の差分値）
+                newAngle.x -= (Input.mousePosition.y - lastMousePosition.y) * rotationSpeed.x;
+
+                //newAngleの角度をカメラ角度に格納
+                mainCamera.transform.localEulerAngles = newAngle;
+
+                mainCamera.transform.localEulerAngles = newAngle;
 
                 //マウス座標を変数lastMousePositionに格納
                 lastMousePosition = Input.mousePosition;
             }
-            //左ドラッグしている間
-            else if (Input.GetMouseButton(1))
+            //カメラ回転方向の判定フラグがreverseの場合
+            else if (reverse)
             {
-              
+                //Y軸の回転：マウスドラッグと逆方向に視点回転
+                newAngle.y -= (Input.mousePosition.x - lastMousePosition.x) * rotationSpeed.y;
 
-                //カメラ回転方向の判定フラグがtrueの場合
-                if (!reverse)
-                    {
-                        // Y軸の回転：マウスドラッグ方向に視点回転
-                        // マウスの水平移動値に変数rotationSpeedを掛ける
-                        //（クリック時の座標とマウス座標の現在値の差分値）
-                        newAngle.y -= (lastMousePosition.x - Input.mousePosition.x) * rotationSpeed.y;
+                //X軸の回転：マウスドラッグと逆方向に視点回転
+                newAngle.x -= (lastMousePosition.y - Input.mousePosition.y) * rotationSpeed.x;
 
-                    //これ以上は回転できない
-                    if (newAngle.y <= 90)
-                    {
-                        rotationSpeed.y = 0;
-                    }
-                    else if (newAngle.x >= 90)
-                    {
-                        rotationSpeed.x = 0;
-                    }
+                //newAngleの角度をカメラ角度に格納
+                mainCamera.transform.localEulerAngles = newAngle;
 
-                    // X軸の回転：マウスドラッグ方向に視点回転
-                    // マウスの垂直移動値に変数rotationSpeedを掛ける
-                    //（クリック時の座標とマウス座標の現在値の差分値）
-                    newAngle.x -= (Input.mousePosition.y - lastMousePosition.y) * rotationSpeed.x;
+                mainCamera.transform.localEulerAngles = newAngle;
 
-                        //newAngleの角度をカメラ角度に格納
-                        mainCamera.transform.localEulerAngles = newAngle;
-
-                        mainCamera.transform.localEulerAngles = newAngle;
-
-                        //マウス座標を変数lastMousePositionに格納
-                        lastMousePosition = Input.mousePosition;
-                    }
-                    //カメラ回転方向の判定フラグがreverseの場合
-                    else if (reverse)
-                    {
-                        //Y軸の回転：マウスドラッグと逆方向に視点回転
-                        newAngle.y -= (Input.mousePosition.x - lastMousePosition.x) * rotationSpeed.y;
-
-                        //X軸の回転：マウスドラッグと逆方向に視点回転
-                        newAngle.x -= (lastMousePosition.y - Input.mousePosition.y) * rotationSpeed.x;
-
-                        //newAngleの角度をカメラ角度に格納
-                        mainCamera.transform.localEulerAngles = newAngle;
-
-                        mainCamera.transform.localEulerAngles = newAngle;
-
-                        //マウス座標を変数lastMousePositionに格納
-                        lastMousePosition = Input.mousePosition;
-                    }
-               
+                //マウス座標を変数lastMousePositionに格納
+                lastMousePosition = Input.mousePosition;
             }
 
             //マウスホールドでズームイン・ズームアウト
@@ -138,11 +130,5 @@ public class ControlCamera : MonoBehaviour
                 ZoomSpeed = 0;
             }
         }
-        else
-        {
-            Debug.Log("b");
-            MaterialChange = false;
-        }
     }
-   
 }
