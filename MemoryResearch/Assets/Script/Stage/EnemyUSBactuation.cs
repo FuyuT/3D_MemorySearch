@@ -35,7 +35,7 @@ public class EnemyUSBactuation : MonoBehaviour
         {
             if (Input.GetKeyDown("c"))
             {
-                Debug.Log("a");
+               
                 Wal.SetActive(false);
                 //Destroy(this.textOn);
             }
