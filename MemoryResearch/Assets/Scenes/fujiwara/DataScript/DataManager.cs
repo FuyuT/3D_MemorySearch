@@ -6,11 +6,14 @@ public class DataManager : MonoBehaviour
 {
     //////////////////////////////
     /// private
+    MemoryData memoryData;
+    SaveData   saveData;
     
     [SerializeField] TextAsset saveDataText;
 
-    MemoryData memoryData;
-    SaveData   saveData;
+
+    [Header("memorySpriteには、メモリの画像を「Memory.cs MemoryType」の順番に配置してください。")]
+    [SerializeField] Sprite[] memorySprite;
 
     void Start()
     {
@@ -33,20 +36,15 @@ public class DataManager : MonoBehaviour
         saveData = new SaveData();
     }
 
-
-    /// <summary>
-    /// メモリデータを取得
-    /// </summary>
-    /// <param name="memoryType">種類</param>
-    /// <returns>メモリデータ</returns>
-    public Memory GetMemoryData(MemoryType memoryType)
+    //メモリデータのインターフェイスを取得
+    public IMemoryData GetIMemoryData()
     {
-        return memoryData.GetData(memoryType);
+        return memoryData;
     }
 
-    //素材から合成されるメモリを検索
-    public MemoryType FindCombineMemory(MemoryType[] material)
+    public Sprite GetMemorySprite(MemoryType type)
     {
-        return memoryData.FindCombineMemory(material);
+        //todo:例外処理
+        return memorySprite[(int)type];
     }
 }

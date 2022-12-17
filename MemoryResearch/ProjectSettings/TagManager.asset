@@ -21,6 +21,7 @@ TagManager:
   - CombineMemory
   - CombineManager
   - DataManager
+  - Inventory
   layers:
   - Default
   - TransparentFX
