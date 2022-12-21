@@ -60,7 +60,7 @@ public class ChangeSceneManager : MonoBehaviour
             case SceneType.Game:
                 break;
             case SceneType.End:
-                UnityEditor.EditorApplication.isPlaying = false;
+                //UnityEditor.EditorApplication.isPlaying = false;
                 break;
         }
 

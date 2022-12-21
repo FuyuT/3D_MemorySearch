@@ -4,25 +4,17 @@ using UnityEngine;
 
 public class MemorySelectManager : MonoBehaviour
 {
-    public enum MoveType
-    {
-        None,
-        Set,
-        Replace,
-    }
-
+    //////////////////////////////
+    /// private
     [SerializeField] MemorySelectPreview preview;
     [SerializeField] MemoryExplanation   explanation;
     MemoryUI selectMemory;
-
-    //////////////////////////////
-    /// private
 
     void Update()
     {
         if (preview.GetSituation() == MemorySelectPreview.SituationType.None) return;
 
-        MoveMemory();
+        MoveMemory();    
     }
 
     void MoveMemory()
@@ -51,6 +43,12 @@ public class MemorySelectManager : MonoBehaviour
 
     //////////////////////////////
     /// public
+    public enum MoveType
+    {
+        None,
+        Set,
+        Replace,
+    }
 
     //メモリのUIボタンを選択した際（押した際）に呼び出される処理
     //メモリの選択

@@ -47,4 +47,9 @@ public class DataManager : MonoBehaviour
         //todo:—áŠOˆ—
         return memorySprite[(int)type];
     }
+
+    public void testSave()
+    {
+        saveData.Save();
+    }
 }

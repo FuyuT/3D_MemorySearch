@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21598165793799305}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -92,7 +92,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.7180176, y: -2.0267334}
+  m_Offset: {x: 0.7180176, y: -12.30896}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -103,7 +103,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 786.1836, y: 498.32947}
+  m_Size: {x: 786.1836, y: 542.4972}
   m_EdgeRadius: 0
 --- !u!1 &1365830998800977167
 GameObject:
@@ -2254,11 +2254,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2544022360074267037, guid: 0ad3c81bc0d122f459952e8b06a6f0c9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 53
+      value: 881
       objectReference: {fileID: 0}
     - target: {fileID: 2544022360074267037, guid: 0ad3c81bc0d122f459952e8b06a6f0c9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -415
+      value: -139
       objectReference: {fileID: 0}
     - target: {fileID: 2544022360074267037, guid: 0ad3c81bc0d122f459952e8b06a6f0c9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2297,6 +2297,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 21598165793799304}
     m_Modifications:
+    - target: {fileID: 5394027290802623528, guid: b06fc3bbe326ed14fa2d4d5b99bcffdc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: cb29a6867cc5c61448f08a3b6b2f90b0, type: 3}
     - target: {fileID: 5394027291202544491, guid: b06fc3bbe326ed14fa2d4d5b99bcffdc, type: 3}
       propertyPath: m_Name
       value: MemorySelectManager

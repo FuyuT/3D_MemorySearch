@@ -45,6 +45,7 @@ public class MemoryUI : MonoBehaviour
         memoryType = type;
         //‰æ‘œ‚ğ•ÏX
         GetComponent<Image>().sprite = dataManager.GetMemorySprite(memoryType);
+        dataManager.testSave();
     }
 
 }
