@@ -27,7 +27,7 @@ public class AimX : MonoBehaviour
   public  bool XOnOff;
 
     //FPSカメラから回転スピードをもらう
-    Chapter2 chapter;
+    SearchMemory chapter;
 
 
 

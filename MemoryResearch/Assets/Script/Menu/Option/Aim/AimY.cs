@@ -28,7 +28,7 @@ public class AimY : MonoBehaviour
    public bool YOnOff;
 
     //FPSカメラから回転スピードをもらう
-    Chapter2 chapter;
+    SearchMemory chapter;
 
 
 

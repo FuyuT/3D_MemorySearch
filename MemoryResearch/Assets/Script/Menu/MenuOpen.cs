@@ -2,15 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+using CustomInputKey;
 
 public class MenuOpen : MonoBehaviour
 {
-    //メニューパネル
-    GameObject menu;
-
-    //オプションパネル
-    GameObject option;
+    [Header("メニューパネル")]
+    [SerializeField] GameObject MenuPanel;
 
     //メニューパネルの表示用
     bool show;
@@ -18,36 +15,33 @@ public class MenuOpen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        menu = GameObject.Find("Menu");
-        menu.SetActive(false);
-
-        option = GameObject.Find("OptionPanel");
-        // option.SetActive(false);
-
+        MenuPanel.SetActive(false);
         show = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!show)
+        if (CustomInput.Interval_InputKeydown(KeyCode.O, 1))
         {
-            if (Input.GetKey("o"))
+            if (!MenuPanel.activeSelf)
             {
                 OnMenu();
+            }
+            else
+            {
+                OffMenu();
             }
         }
     }
 
     public void OnMenu()
     {
-        menu.SetActive(true);
-        show = true;
+        MenuPanel.SetActive(true);
     }
 
-    public void OffMnenu()
+    public void OffMenu()
     {
-        menu.SetActive(false);
-        show = false;
+        MenuPanel.SetActive(false);
     }
 }

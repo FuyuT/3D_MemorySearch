@@ -9,8 +9,8 @@ public class MainCameraScript : MonoBehaviour
     public Vector3 offset; // offset form the target object
 
     [SerializeField] private float distance = 4.0f; // distance from following object
-    [SerializeField] private float polarAngle = 45.0f; // angle with y-axis
-    [SerializeField] private float azimuthalAngle = 45.0f; // angle with x-axis
+    [SerializeField] private float YAngle = 45.0f; // angle with y-axis
+    [SerializeField] private float XAngle = 45.0f; // angle with x-axis
 
     [SerializeField] private float minDistance = 1.0f;
     [SerializeField] private float maxDistance = 7.0f;
@@ -20,26 +20,39 @@ public class MainCameraScript : MonoBehaviour
     [SerializeField] private float mouseYSensitivity = 5.0f;
     [SerializeField] private float scrollSensitivity = 5.0f;
 
+    [Header("障害物のレイヤー")]
+    [SerializeField]
+    private LayerMask obstacleLayer;
+
     void LateUpdate()
     {
-        if (Input.GetMouseButton(0))
-        {
-            updateAngle(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        }
-       // updateDistance(Input.GetAxis("Mouse ScrollWheel"));
-
+       // Cursor.lockState = CursorLockMode.Locked;
+       
+        RaycastHit hit;
+        //マウスで視点を変更
+        updateAngle(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
         var lookAtPos = target.transform.position + offset;
         updatePosition(lookAtPos);
         transform.LookAt(lookAtPos);
+        //transform.RotateAround(target.transform.position, Vector3.up, lookAtPos);
+        if (Physics.Linecast(target.transform.position, transform.position, out hit, obstacleLayer))
+        {
+            transform.position = hit.point;
+        }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            transform.LookAt(target.transform.forward);
+        }
+
     }
 
     void updateAngle(float x, float y)
     {
-        x = azimuthalAngle - x * mouseXSensitivity;
-        azimuthalAngle = Mathf.Repeat(x, 360);
+        x = XAngle - x * mouseXSensitivity;
+        XAngle = Mathf.Repeat(x, 360);
 
-        y = polarAngle + y * mouseYSensitivity;
-        polarAngle = Mathf.Clamp(y, minPolarAngle, maxPolarAngle);
+        y =YAngle + y * mouseYSensitivity;
+        YAngle = Mathf.Clamp(y, minPolarAngle, maxPolarAngle);
     }
 
     void updateDistance(float scroll)
@@ -50,8 +63,8 @@ public class MainCameraScript : MonoBehaviour
 
     void updatePosition(Vector3 lookAtPos)
     {
-        var da = azimuthalAngle * Mathf.Deg2Rad;
-        var dp = polarAngle * Mathf.Deg2Rad;
+        var da = XAngle * Mathf.Deg2Rad;
+        var dp = YAngle * Mathf.Deg2Rad;
         transform.position = new Vector3(
             lookAtPos.x + distance * Mathf.Sin(dp) * Mathf.Cos(da),
             lookAtPos.y + distance * Mathf.Cos(dp),

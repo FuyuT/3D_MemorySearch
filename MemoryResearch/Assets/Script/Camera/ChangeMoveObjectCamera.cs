@@ -16,6 +16,9 @@ public class ChangeMoveObjectCamera : MonoBehaviour
     //カメラ変更フラグ      
     public bool ChangFlg;
 
+    //範囲に入ったか
+    public bool RangeInFlg;
+
     public CollisionObject colObj { get; private set; }
 
     public enum CollisionObject
@@ -28,6 +31,7 @@ public class ChangeMoveObjectCamera : MonoBehaviour
     void Start()
     {
         ChangFlg = false;
+        RangeInFlg = false;
         colObj = CollisionObject.None;
     }
 
@@ -44,7 +48,7 @@ public class ChangeMoveObjectCamera : MonoBehaviour
         {
             ShowText.SetActive(true);
             colObj = CollisionObject.Player;
-            ChangFlg = true;
+            RangeInFlg = true;
         }
     }
 
@@ -54,7 +58,7 @@ public class ChangeMoveObjectCamera : MonoBehaviour
         {
             ShowText.SetActive(false);
             colObj = CollisionObject.None;
-            ChangFlg = false;
+            RangeInFlg = false;
         }
         colObj = CollisionObject.None;
     }

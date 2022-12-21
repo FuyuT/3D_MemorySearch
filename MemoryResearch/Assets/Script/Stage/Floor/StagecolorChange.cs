@@ -10,6 +10,7 @@ public class StagecolorChange : MonoBehaviour
     //
     [SerializeField]
     GameObject ControlScript;
+
     //ControlCameraのスクリプトを取得
     ControlCamera Script;
 
