@@ -61,14 +61,6 @@ public class Player : CharaBase
     [Header("移動時間")]
     [SerializeField] public float DushTime;
 
-    [Header("カメラマネージャー")]
-    [SerializeField] CameraManager camemana;
-
-    //FPSモード時プレイヤーの姿が見えなくする
-    [Header("プレイヤー")]
-    [SerializeField]　private Renderer player;
-    ChangeCamera changeCame;
-
     public bool isGround;
 
     //アクター
@@ -262,22 +254,10 @@ public class Player : CharaBase
 
     void Update()
     {
-       
-
         if (param.Get<int>((int)Enemy.ParamKey.Hp) <= 0)
         {
             animator.SetBool("isDead", true);
             return;
-        }
-
-        if (ChapterCamera.activeSelf)
-        {
-            player.enabled = false;
-
-        }
-        else
-        {
-            player.enabled = true;
         }
 
         //ステートマシン更新
