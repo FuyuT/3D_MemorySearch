@@ -12,7 +12,16 @@ public class StateMenu : State
 
     protected override void SelectNextState()
     {
-       
+        if (Owner.Menuselect.OptionIn)
+        {
+            stateMachine.Dispatch((int)Title.PanelType.Option);
+        }
+
+        if (Owner.Menuselect.Titelreturn)
+        {
+            stateMachine.Dispatch((int)Title.PanelType.Titel);
+            Owner.Menuselect.Titelreturn = false;
+        }
     }
 }
 

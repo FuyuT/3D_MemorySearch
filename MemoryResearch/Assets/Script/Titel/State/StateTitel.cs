@@ -12,7 +12,7 @@ public class StateTitel : State
 
     protected override void SelectNextState()
     {
-       if(Input.GetButtonDown("space"))
+       if(Input.GetKeyDown("space"))
        {
           stateMachine.Dispatch((int)Title.PanelType.Menu);
        }

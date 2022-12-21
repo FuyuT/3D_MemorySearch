@@ -21,7 +21,7 @@ public class StateCameraControlObject : State
     {
         if (Input.GetKeyDown("v"))
         {
-            stateMachine.Dispatch((int)CameraManager.CameraType.Floor);
+            stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
         }
     }
 

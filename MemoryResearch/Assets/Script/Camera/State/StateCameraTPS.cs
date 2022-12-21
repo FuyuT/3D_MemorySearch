@@ -18,15 +18,15 @@ public class StateCameraTPS : State
         {
             stateMachine.Dispatch((int)CameraManager.CameraType.FPS);
         }
-   
-        //フロアカメラ
-        if (Owner.FloorCameraArea.inArea || Owner.FloorCameraArea2.inArea2 || Owner.FloorCameraArea3.inArea3 || Owner.FloorCameraArea4.inArea4)
-        {
-            stateMachine.Dispatch((int)CameraManager.CameraType.Floor);
-        }
+
+        ////フロアカメラ
+        //if (Owner.FloorCameraArea.inArea || Owner.FloorCameraArea2.inArea2 || Owner.FloorCameraArea3.inArea3 || Owner.FloorCameraArea4.inArea4)
+        //{
+        //    stateMachine.Dispatch((int)CameraManager.CameraType.Floor);
+        //}
 
         //Object移動カメラ
-        if (Input.GetKeyDown("v") && Owner.MoveObjCamScript.ChangFlg)
+        if (Input.GetKeyDown("v") && Owner.MoveObjCamScript.RangeInFlg)
         {
             stateMachine.Dispatch((int)CameraManager.CameraType.Controller);
         }
