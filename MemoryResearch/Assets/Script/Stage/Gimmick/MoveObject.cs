@@ -15,7 +15,7 @@ public class MoveObject : MonoBehaviour
 
     void Update()
     {
-        if (cameraManager.GetCurrentCameraType() == (int)CameraManager.CameraType.Controller) return;
+        if (cameraManager.GetCurrentCameraType() != (int)CameraManager.CameraType.Controller) return;
 
         if (!Input.GetMouseButton(0)) return;
         
@@ -24,7 +24,6 @@ public class MoveObject : MonoBehaviour
          {
              if (hit.transform.name == "Dore")
              {
-                 Debug.Log("“–‚½‚Á‚½Žž");
                  Vector3 objPos = Camera.main.WorldToScreenPoint(transform.position);
                  transform.position += new Vector3(0, Input.GetAxis("Mouse Y") * moveSpeed, 0);
              }

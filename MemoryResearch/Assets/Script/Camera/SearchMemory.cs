@@ -27,16 +27,14 @@ public class SearchMemory : MonoBehaviour
     public Slider sliderX;
     [Header("オプションスライダーY")]
     public Slider sliderY;
-    [Header("チャプタースライダー")]
-    public Slider ChapterSlider;
+    [Header("サーチスライダー")]
+    public Slider SearcSlider;
+    public float SearcCompleteSpeed;
 
     GameObject mainCamera;
 
-    //反転機能をAimXとAimYからもらう
-    [SerializeField] GameObject Aimx;
-    [SerializeField] GameObject Aimy;
-    AimX aimx;
-    AimY aimy;
+    //オプションの情報を取得
+    [SerializeField] OptionManager optionManager;
 
     //Lockonのスクリプト
     [SerializeField]
@@ -46,34 +44,23 @@ public class SearchMemory : MonoBehaviour
 
     void Start()
     {
-        
         player = GameObject.FindGameObjectWithTag("Player");
         transform.rotation = player.transform.rotation;
 
         CompleteText.SetActive(false);
 
         mainCamera = Camera.main.gameObject;
-        player = GameObject.FindGameObjectWithTag("Player");
 
-        aimx = Aimx.GetComponent<AimX>();
-        aimy = Aimy.GetComponent<AimY>();
+        //optionManager = GameObject.Find("Option").GetComponent<OptionManager>();
+
+        SearcSlider.value = 0;
     }
 
-    public void Update()
+     void Update()
     {
-
-        rotateCmaeraAngle();
-        
-    }
-    private void FixedUpdate()
-    {
-
-        transform.position = player.transform.position+new Vector3(0, 7, 0);
-        //transform.position = new Vector3(player.transform.position.x, player.transform.position.y + high, player.transform.position.z + profound);
+        transform.position = player.transform.position + new Vector3(0, 7, 0);
 
         GameObject target = lockon.getTarget();
-
-        //transform.position = player.transform.position;
 
         if (target != null)
         {
@@ -82,50 +69,41 @@ public class SearchMemory : MonoBehaviour
         else
         {
             lockOnTarget = null;
+            SearcSlider.value = 0;
         }
 
         if (lockOnTarget)
         {
-
+            SearcSlider.value += 0.1f;
             lockOnTargetObject(lockOnTarget);
             //左クリックしたときにメモリ（アクション）を登録
-            if (Input.GetMouseButton(0))
+
+            if (SearcSlider.value == 1)
             {
-                SetPossesionMemory(lockOnTarget);
-
-                //テキスト関連
-                CompleteText.SetActive(true);
-                timer = 5f;
-
                 if (Input.GetMouseButton(0))
                 {
                     SetPossesionMemory(lockOnTarget);
+
+                    //テキスト関連
+                    CompleteText.SetActive(true);
+                    timer = 5f;
+                    SearcSlider.value = 0;
                 }
             }
         }
         if (CompleteText.activeSelf)
         {
             timer -= Time.deltaTime;
-            
+
             if (timer <= 0)
             {
                 CompleteText.SetActive(false);
             }
-            //if (Input.GetMouseButton(ROTATE_BUTTON))
-            //{
-            rotateCmaeraAngle();
-            // }
         }
 
         rotateCmaeraAngle();
 
-        float angle_x = 180f <= transform.eulerAngles.x ? transform.eulerAngles.x - 360 : transform.eulerAngles.x;
-        transform.eulerAngles = new Vector3(
-            Mathf.Clamp(angle_x, ANGLE_LIMIT_DOWN, ANGLE_LIMIT_UP),
-            transform.eulerAngles.y,
-            transform.eulerAngles.z
-        );
-        
+      
     }
     private void rotateCmaeraAngle()
     {
@@ -166,12 +144,13 @@ public class SearchMemory : MonoBehaviour
         //{
         Vector3 angle = new Vector3(
             Input.GetAxis("Mouse X") * sliderX.value,
-            Input.GetAxis("Mouse Y") * -sliderX.value,
+            Input.GetAxis("Mouse Y") * -sliderY.value,
             0
         );
         transform.eulerAngles += new Vector3(angle.y, angle.x);
         //}
     }
+
     private void lockOnTargetObject(GameObject target)
     {
 
@@ -183,16 +162,21 @@ public class SearchMemory : MonoBehaviour
     /// <param name="target">サーチした敵</param>
     private void SetPossesionMemory(GameObject target)
     {
-        //todo:処理の位置調整したい
-        //取得したメモリをプレイヤーに設定
-        int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
+        //todo:処理の位置調整したい 取得したメモリをプレイヤーに設定
+
+        //int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
         //空いている配列番号があれば登録
-        var p = player.GetComponent<Player>();
-        int arrayValue = p.GetMemoryArrayNullValue(targetMemory);
-        if (arrayValue != -1)
-        {
-            //todo:登録配列番号を変更
-            p.SetPossesionMemory(targetMemory, arrayValue);
-        }
+        //var p = player.GetComponent<Player>();
+        //int arrayValue = p.GetMemoryArrayNullValue(targetMemory);
+        //if (arrayValue != -1)
+        //{
+        //    //todo:登録配列番号を変更
+        //    p.SetPossesionMemory(targetMemory, arrayValue);
+        //}
+    }
+
+    void OnEnable()
+    {
+        transform.rotation = player.transform.rotation;
     }
 }

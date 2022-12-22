@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,11 +37,11 @@ public class OptionManager : MonoBehaviour
 
     [Header("BGMオーディオ")]
     [SerializeField]
-    AudioSource BGMAud;
+    AudioSource BGMAudio;
 
     [Header("SEオーディオ")]
     [SerializeField]
-    AudioSource SEAud;
+    AudioSource SEAudio;
 
     [Header("ライト")]
     [SerializeField]
@@ -55,13 +53,10 @@ public class OptionManager : MonoBehaviour
 
     bool BgmOnOff;
     bool SeOnOff;
-    public bool XOnOff;
-    public bool YOnOff;
+   
+    public bool isAimReverseX;
+    public bool isAimReverseY;
 
-    //FPSカメラから回転スピードをもらう
-    Chapter2 chapter;
-
-    // Start is called before the first frame update
     void Start()
     {
         BGM();
@@ -71,26 +66,26 @@ public class OptionManager : MonoBehaviour
         AimY();
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpBGM();
         UpSE();
         UpLight();
     }
+
     //Startで呼び出す
     public void BGM()
     {
         BgmOnOff = true;
-        BGMslider.onValueChanged.AddListener(value => this.BGMAud.volume = value);
-        BGMslider.value = BGMAud.GetComponent<AudioSource>().volume;
+        BGMslider.onValueChanged.AddListener(value => this.BGMAudio.volume = value);
+        BGMslider.value = BGMAudio.GetComponent<AudioSource>().volume;
     }
 
     public void SE()
     {
         SeOnOff = true;
-        SEslider.onValueChanged.AddListener(value => this.SEAud.volume = value);
-        SEslider.value = SEAud.GetComponent<AudioSource>().volume;
+        SEslider.onValueChanged.AddListener(value => this.SEAudio.volume = value);
+        SEslider.value = SEAudio.GetComponent<AudioSource>().volume;
     }
 
     public void Light()
@@ -101,12 +96,12 @@ public class OptionManager : MonoBehaviour
 
     public void AimX()
     {
-        XOnOff = true;
+        isAimReverseX = true;
     }
 
     public void AimY()
     {
-        YOnOff = true;
+        isAimReverseY = true;
     }
     ///////////////////////////////////
 
@@ -115,11 +110,11 @@ public class OptionManager : MonoBehaviour
     {
         if (BgmOnOff)
         {
-            BGMAud.volume = BGMslider.GetComponent<Slider>().normalizedValue;
+            BGMAudio.volume = BGMslider.GetComponent<Slider>().normalizedValue;
         }
         else
         {
-            BGMAud.volume = 0;
+            BGMAudio.volume = 0;
         }
     }
 
@@ -127,11 +122,11 @@ public class OptionManager : MonoBehaviour
     {
         if (SeOnOff)
         {
-            SEAud.volume = SEslider.GetComponent<Slider>().normalizedValue;
+            SEAudio.volume = SEslider.GetComponent<Slider>().normalizedValue;
         }
         else
         {
-            SEAud.volume = 0;
+            SEAudio.volume = 0;
         }
     }
 
@@ -174,32 +169,32 @@ public class OptionManager : MonoBehaviour
 
     }
 
-    public void OnAimXButton()
+    public void ReverseAimX()
     {
-        if (XOnOff)
+        if (isAimReverseX)
         {
             AimXButton.GetComponent<UnityEngine.UI.Image>().enabled = false;
-            XOnOff = false;
+            isAimReverseX = false;
         }
         else
         {
             AimXButton.GetComponent<UnityEngine.UI.Image>().enabled = true;
-            XOnOff = true;
+            isAimReverseX = true;
         }
 
     }
 
-    public void OnAimYButton()
+    public void ReverseAimY()
     {
-        if (YOnOff)
+        if (isAimReverseY)
         {
             AimYButton.GetComponent<UnityEngine.UI.Image>().enabled = false;
-            YOnOff = false;
+            isAimReverseY = false;
         }
         else
         {
             AimYButton.GetComponent<UnityEngine.UI.Image>().enabled = true;
-            YOnOff = true;
+            isAimReverseY = true;
         }
 
     }

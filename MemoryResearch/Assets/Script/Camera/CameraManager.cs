@@ -86,6 +86,7 @@ public class CameraManager : MonoBehaviour
         {
             case (int)CameraType.FPS:
                 FPSCamera.SetActive(true);
+                
                 break;
 
             case (int)CameraType.TPS:

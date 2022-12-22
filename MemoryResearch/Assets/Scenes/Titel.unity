@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3524,12 +3524,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 232598d27edab774bb50cb4e9d8e043a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Button: {fileID: 396729767617405245}
-  cam: {fileID: 0}
-  slider: {fileID: 396729768294017230}
-  m_isInput: 0
-  m_ScroolSpeed: 1
-  YOnOff: 0
 --- !u!114 &396729768667181864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3685,12 +3679,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c6729504d3a2c841baa90dd93cacc68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Button: {fileID: 396729768685122075}
-  cam: {fileID: 0}
-  slider: {fileID: 396729767526163605}
-  m_isInput: 0
-  m_ScroolSpeed: 1
-  XOnOff: 0
 --- !u!114 &396729768667181871
 MonoBehaviour:
   m_ObjectHideFlags: 0
