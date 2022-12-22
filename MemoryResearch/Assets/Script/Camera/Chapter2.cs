@@ -35,8 +35,8 @@ public class Chapter2 : MonoBehaviour
     //反転機能をAimXとAimYからもらう
     [SerializeField] GameObject Aimx;
     [SerializeField] GameObject Aimy;
-    AimX aimx;
-    AimY aimy;
+    OptionManager aimx;
+    OptionManager aimy;
 
     //Lockonのスクリプト
     [SerializeField]
@@ -55,17 +55,17 @@ public class Chapter2 : MonoBehaviour
         mainCamera = Camera.main.gameObject;
         player = GameObject.FindGameObjectWithTag("Player");
 
-        aimx = Aimx.GetComponent<AimX>();
-        aimy = Aimy.GetComponent<AimY>();
+        aimx = Aimx.GetComponent<OptionManager>();
+        aimy = Aimy.GetComponent<OptionManager>();
     }
 
-    public void Update()
-    {
+    //public void Update()
+    //{
 
-        rotateCmaeraAngle();
+    //    rotateCmaeraAngle();
         
-    }
-    private void FixedUpdate()
+    //}
+     void FixedUpdate()
     {
 
         transform.position = player.transform.position+new Vector3(0, 7, 0);

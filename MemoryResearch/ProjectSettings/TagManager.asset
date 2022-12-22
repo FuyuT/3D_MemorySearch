@@ -14,14 +14,8 @@ TagManager:
   - Enemy
   - Collide
   - Ground
-  - MemoryUIFrame
-  - SelectMemory
   - CombineMaterial
-  - EuipmentMemory
-  - CombineMemory
-  - CombineManager
-  - DataManager
-  - Inventory
+  - SelectMemory
   - CameraManager
   layers:
   - Default

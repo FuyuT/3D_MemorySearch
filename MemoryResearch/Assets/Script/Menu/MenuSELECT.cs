@@ -63,6 +63,7 @@ public class MenuSELECT : MonoBehaviour
         if(StandbyTime<0)
         {
             Titelreturn = true;
+            StandbyTime += 60f;
         }
     }
 
@@ -100,19 +101,37 @@ public class MenuSELECT : MonoBehaviour
     {
         if(Input.GetKeyDown("return") && select == 0)
         {
-            FadeManager.Instance.LoadScene("Game", 1.0f);
+            StartGame();
         }
         else if (Input.GetKeyDown("return") && select == 1)
         {
-            //FadeManager.Instance.LoadScene("Game", 1.0f);
+            StartTutorial();
         }
         else if (Input.GetKeyDown("return") && select == 2)
         {
-            OptionIn = true;
+            OnOption();
         }
         else if (Input.GetKeyDown("return") && select == 3)
         {
-            Titelreturn = true;
+            TitelToReturn();
         }
+    }
+
+    public void StartGame()
+    {
+        FadeManager.Instance.LoadScene("Game", 1.0f);
+    }
+
+    public void StartTutorial()
+    {
+        //FadeManager.Instance.LoadScene("Game", 1.0f);
+    }
+    public void OnOption()
+    {
+        OptionIn = true;
+    }
+    public void TitelToReturn()
+    {
+        Titelreturn = true;
     }
 }

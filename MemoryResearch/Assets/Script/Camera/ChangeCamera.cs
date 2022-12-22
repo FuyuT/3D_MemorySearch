@@ -32,10 +32,17 @@ public class ChangeCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
+    }
+
+
+    void FixedUpdate()
+    {
         //スペースキーが押すたびに、カメラを切り替える
         if (Input.GetKeyDown("space"))
         {
-                Debug.Log("通った");
+            Debug.Log("通った");
             if (MainCamera.activeSelf)
             {
                 //サブカメラをアクティブに設定
@@ -56,12 +63,5 @@ public class ChangeCamera : MonoBehaviour
                 ChangFlg = false;
             }
         }
-
-    }
-
-
-    void FixedUpdate()
-    {
-
     }
 }

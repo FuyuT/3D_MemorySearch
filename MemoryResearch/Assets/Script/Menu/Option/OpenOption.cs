@@ -7,22 +7,19 @@ public class OpenOption : MonoBehaviour
     //オプションパネル
     [SerializeField]GameObject option;
 
-    //メニューパネルの表示用
-    bool show;
 
     // Start is called before the first frame update
     void Start()
     {
         option.SetActive(false);
-        show = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(CustomInput.Interval_InputKeydown(KeyCode.O, 1))
+       if(Input.GetKeyDown(KeyCode.O))
         {
-            if (!option.activeSelf)
+            if(!option.activeSelf)
             {
                 OnOption();
             }
@@ -36,10 +33,12 @@ public class OpenOption : MonoBehaviour
     public void OnOption()
     {
         option.SetActive(true);
+        Time.timeScale = 0f;
     }
 
     public void OffOption()
     {
         option.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 }
