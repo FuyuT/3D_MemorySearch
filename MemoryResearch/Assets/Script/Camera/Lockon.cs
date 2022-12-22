@@ -31,21 +31,4 @@ public class Lockon : MonoBehaviour
     {
         return target;
     }
-
-   // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    //Update is called once per frame
-    void Update()
-    {
-   
-    }
-
-    // void FixedUpdate()
-    //{
-    //    transform.rotation = Quaternion.LookRotation(ca.transform.forward);
-    //}
 }

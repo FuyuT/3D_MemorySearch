@@ -303,7 +303,9 @@ public class Player : CharaBase
         //ˆêlÌ‚ÌŠp“x•ÏX
         if (ChapterCamera.activeSelf)
         {
-            transform.rotation = ChapterCamera.transform.rotation;
+            Vector3 a = Vector3.zero;
+            a.y = ChapterCamera.transform.eulerAngles.y;
+            transform.eulerAngles = a;
         }
         else
         {

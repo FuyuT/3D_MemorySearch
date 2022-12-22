@@ -11,29 +11,37 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject Inventory;
     [SerializeField] GameObject MemoryCobine;
     [SerializeField] GameObject System;
+    [SerializeField] GameObject Option;
 
     bool isOpen;
 
     MenuManager()
     {
-        nowMenu  = MenuType.None;
+        nowMenu = MenuType.None;
         nextMenu = MenuType.Inventory;
 
         isOpen = false;
     }
 
+    void Start()
+    {
+        Option.SetActive(false);
+
+    }
+
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if(isOpen)
+            if (isOpen)
             {
                 CloseMenu();
             }
             else
             {
-                nowMenu  = MenuType.None;
+                nowMenu = MenuType.None;
                 nextMenu = MenuType.Inventory;
+                //Time.timeScale = 0f;
             }
             isOpen = !isOpen;
         }
@@ -41,10 +49,10 @@ public class MenuManager : MonoBehaviour
         //メニューを開いていなければ終了
         if (!isOpen) return;
 
-        ChangePopUp();
+        ChangeMenu();
     }
 
-    void ChangePopUp()
+    void ChangeMenu()
     {
         if (nowMenu == nextMenu) return;
 
@@ -75,11 +83,13 @@ public class MenuManager : MonoBehaviour
         Inventory.SetActive(false);
         MemoryCobine.SetActive(false);
         System.SetActive(false);
+        Option.SetActive(false);
+        Time.timeScale = 1.0f;
     }
 
     ///******************************
     /// public
-    
+
     public enum MenuType
     {
         None,
@@ -108,5 +118,17 @@ public class MenuManager : MonoBehaviour
     {
         CloseMenu();
         isOpen = false;
+    }
+
+    public void OpenOption()
+    {
+        if (!Option.activeSelf)
+        {
+            Option.SetActive(true);
+        }
+        else
+        {
+            Option.SetActive(false);
+        }
     }
 }

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:MemoryResearch/Assets/Chara/Player/Animation/defense.fbx.meta
 guid: 6a5aa8eb3ec9b8b478d7c57c78cd6715
+=======
+guid: 3591b16deacbaeb40a5c484b25d58fcc
+>>>>>>> 不具合・微調整:MemoryResearch/Assets/Chara/Enemy/Enemy_Flog/jump descent .fbx.meta
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:

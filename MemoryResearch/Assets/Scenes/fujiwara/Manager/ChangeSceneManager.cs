@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum SceneType
 {
@@ -27,6 +29,7 @@ public class ChangeSceneManager : MonoBehaviour
     public void ToTitle()
     {
         nextScene = SceneType.Title;
+        FadeManager.Instance.LoadScene("Titel", 1.0f);
     }
 
     public void ToGame()

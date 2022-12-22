@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:MemoryResearch/Assets/Chara/Player/Animation/jump small jump.fbx.meta
 guid: b92594b6c2a7af045ac06c038c1dc516
+=======
+guid: 6e7eea2d8c886634f84bf1e9df7991d2
+>>>>>>> 不具合・微調整:MemoryResearch/Assets/Chara/Enemy/Enemy_Flog/jump rise .fbx.meta
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
