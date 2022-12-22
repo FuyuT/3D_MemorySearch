@@ -47,9 +47,7 @@ public class ControlCamera : MonoBehaviour
         newAngle.x += inputVec.y * -rotationSpeed.y * Time.deltaTime;
         newAngle.y += inputVec.x * rotationSpeed.x * Time.deltaTime;
         transform.localEulerAngles = new Vector3(newAngle.x, newAngle.y, 0);
-
     }
-
 
     void Update()
     {

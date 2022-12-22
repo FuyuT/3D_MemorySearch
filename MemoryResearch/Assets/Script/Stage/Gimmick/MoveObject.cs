@@ -18,8 +18,8 @@ public class MoveObject : MonoBehaviour
         if (cameraManager.GetCurrentCameraType() != (int)CameraManager.CameraType.Controller) return;
 
         if (!Input.GetMouseButton(0)) return;
-
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        
+         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
          foreach (RaycastHit hit in Physics.RaycastAll(ray))
          {
              if (hit.transform.name == "Dore")

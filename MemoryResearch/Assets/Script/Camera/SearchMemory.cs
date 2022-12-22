@@ -32,11 +32,8 @@ public class SearchMemory : MonoBehaviour
 
     GameObject mainCamera;
 
-    //反転機能をAimXとAimYからもらう
-    [SerializeField] GameObject Aimx;
-    [SerializeField] GameObject Aimy;
-    AimX aimx;
-    AimY aimy;
+    //オプションの情報を取得
+    [SerializeField] OptionManager optionManager;
 
     //Lockonのスクリプト
     [SerializeField]
@@ -55,16 +52,13 @@ public class SearchMemory : MonoBehaviour
         mainCamera = Camera.main.gameObject;
         player = GameObject.FindGameObjectWithTag("Player");
 
-        aimx = Aimx.GetComponent<AimX>();
-        aimy = Aimy.GetComponent<AimY>();
+        optionManager = GameObject.Find("Option").GetComponent<OptionManager>();
     }
 
     public void Update()
     {
-
-        rotateCmaeraAngle();
-        
     }
+
     private void FixedUpdate()
     {
 
@@ -166,7 +160,7 @@ public class SearchMemory : MonoBehaviour
         //{
         Vector3 angle = new Vector3(
             Input.GetAxis("Mouse X") * sliderX.value,
-            Input.GetAxis("Mouse Y") * -sliderX.value,
+            Input.GetAxis("Mouse Y") * -sliderY.value,
             0
         );
         transform.eulerAngles += new Vector3(angle.y, angle.x);

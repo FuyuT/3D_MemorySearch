@@ -37,7 +37,6 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
-
         MoveObjCamScript = Operation.GetComponent<ChangeMoveObjectCamera>();
         stageGimmick = Operation.GetComponent<StageGimmick>();
 
@@ -62,6 +61,10 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
         stateMachine.Update();
+    }
+
+    void FixedUpdate()
+    {
         ChangeMainCamara();
     }
 

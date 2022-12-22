@@ -24,7 +24,12 @@ public class MainCameraScript : MonoBehaviour
     [SerializeField]
     private LayerMask obstacleLayer;
 
-    void LateUpdate()
+    //private void FixedUpdate()
+    //{
+    //    LateUpdate();
+    //}
+
+    void FixedUpdate()
     {
        // Cursor.lockState = CursorLockMode.Locked;
        

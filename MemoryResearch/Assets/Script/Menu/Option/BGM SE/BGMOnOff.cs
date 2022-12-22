@@ -35,7 +35,6 @@ public class BGMOnOff : MonoBehaviour
     }
 
     // Update is called once per frame
-    //ƒL[“ü—Í‚É‚æ‚é‘€ì@‚¢‚ç‚È‚¢‚È‚çíœ‚µ‚Ä‚àOK
     void Update()
     {
         if (BgmOnOff)
