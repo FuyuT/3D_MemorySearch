@@ -14,14 +14,13 @@ public enum MemoryType
     Punch,
     AirDush,
     Dush,
+    Slam,
     Tackle,
     Guard,
-    UpperDown,
+    Boost,
     JetPack,
     BigPunch,
     InvisibleGuard,
-    Boost,
-    Slam,
     Count,
 }
 

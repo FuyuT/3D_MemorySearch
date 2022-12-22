@@ -28,9 +28,9 @@ public class StateCameraFPS : State
             case (int)CameraManager.CameraType.TPS:
                 stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
                 break;
-            case (int)CameraManager.CameraType.Floor:
-                stateMachine.Dispatch((int)CameraManager.CameraType.Floor);
-                break;
+            //case (int)CameraManager.CameraType.Floor:
+            //    stateMachine.Dispatch((int)CameraManager.CameraType.Floor);
+            //    break;
         }
     }
 }

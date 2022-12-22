@@ -19,10 +19,9 @@ public class StateCameraControlObject : State
 
     protected override void SelectNextState()
     {
-       
         if (Input.GetKeyDown("v"))
         {
-            stateMachine.Dispatch((int)CameraManager.CameraType.Floor);
+            stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
         }
     }
 
@@ -30,5 +29,6 @@ public class StateCameraControlObject : State
     {
         //オブジェクトのマテリアルを戻す
         Owner.colorChange.ChangeBeforeMaterial();
+        Owner.MoveObjCamScript.ChangFlg = false;
     }
 }

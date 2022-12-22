@@ -2,99 +2,95 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using CustomInputKey;
 
 public class GameOver : MonoBehaviour
 {
     //ゲームオーバーパネル
     [SerializeField]
-    GameObject GameOverPanel;
+    GameObject GameOverImage;
 
-    //ゲームオーバーアイテム
-    [SerializeField]
-    GameObject GameOverItemPabel;
+    ////ゲームオーバーアイテム
+    //[SerializeField]
+    //GameObject GameOverItemPabel;
 
-    //パネルの表示用
-    bool show;
+    ////パネルの表示用
+    //bool show;
 
-    //パネルでキー入力でのカーソル
-    int select;
+    ////パネルでキー入力でのカーソル
+    //int select;
 
-    //Outスクリプト
-    PanelOut OutScript;
+    ////Outスクリプト
+    //PanelOut OutScript;
 
-    PanelIn  InScript;
+    //PanelIn  InScript;
 
     // Start is called before the first frame update
     void Start()
     {
-        select = 0;
-        show = false;
+        //select = 0;
+        //show = false;
 
-        OutScript = GameOverPanel.GetComponent<PanelOut>();
+        //OutScript = GameOverPanel.GetComponent<PanelOut>();
 
-        InScript = GameOverItemPabel.GetComponent<PanelIn>();
+        //InScript = GameOverItemPabel.GetComponent<PanelIn>();
 
-        GameOverPanel.SetActive(false);
+        GameOverImage.SetActive(false);
 
-        GameOverItemPabel.SetActive(false);
+        //GameOverItemPabel.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //ゲームオーバー表示
-        if (!show)
+        if (CustomInput.Interval_InputKeydown(KeyCode.F1, 1))
         {
-            if (Input.GetKey("f1"))
+            if (!GameOverImage.activeSelf)
             {
-                OutScript.IsFadeOut = true;
-
-                InScript.IsFadeIn = true;
-
-                GameOverPanel.SetActive(true);
-
-                GameOverItemPabel.SetActive(true);
-
-                show = true;
+                OnGameOver();
+            }
+            else
+            {
+                OffGameOver();
             }
         }
 
-        if (show)
-        {
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                select += 1;
-            }
-            else if (Input.GetKeyDown("left"))
-            {
-                select -= 1;
-            }
+        //if (show)
+        //{
+        //    if (Input.GetKeyDown(KeyCode.RightArrow))
+        //    {
+        //        select += 1;
+        //    }
+        //    else if (Input.GetKeyDown("left"))
+        //    {
+        //        select -= 1;
+        //    }
 
-            if (select > 1)
-            {
-                select = 0;
-            }
-            else if (select < 0)
-            {
-                select = 1;
-            }
+        //    if (select > 1)
+        //    {
+        //        select = 0;
+        //    }
+        //    else if (select < 0)
+        //    {
+        //        select = 1;
+        //    }
 
-            if (select == 0)
-            {
-                if (Input.GetKeyDown("z"))
-                {
-                    SelectTitleButton();
-                }
-            }
+        //    if (select == 0)
+        //    {
+        //        if (Input.GetKeyDown("z"))
+        //        {
+        //            SelectTitleButton();
+        //        }
+        //    }
 
-            if (select == 1)
-            {
-                if (Input.GetKeyDown("z"))
-                {
-                    SelectRetry();
-                }
-            }
-        }
+        //    if (select == 1)
+        //    {
+        //        if (Input.GetKeyDown("z"))
+        //        {
+        //            SelectRetry();
+        //        }
+        //    }
+        //}
     }
 
     ////ゲームオーバー表示の関数
@@ -124,6 +120,16 @@ public class GameOver : MonoBehaviour
     {
         //MenuPanel.SetActive(false);
         FadeManager.Instance.LoadScene("SampleScene", 1.0f);
+    }
+
+    public void OnGameOver()
+    {
+        GameOverImage.SetActive(true);
+    }
+
+    public void OffGameOver()
+    {
+        GameOverImage.SetActive(false);
     }
 
 }
