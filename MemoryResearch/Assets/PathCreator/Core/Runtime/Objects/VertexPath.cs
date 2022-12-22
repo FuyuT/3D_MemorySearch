@@ -38,6 +38,41 @@ namespace PathCreation {
 
         Transform transform;
 
+        //追加分
+        //現在の走行終了時に行う処理
+        private EndOfPathInstruction endOfPathInstruction;
+
+        public EndOfPathInstruction GetNowSituation()
+        {
+            return endOfPathInstruction;
+        }
+
+        public void SetSituation(EndOfPathInstruction endOfPathInstruction)
+        {
+            this.endOfPathInstruction = endOfPathInstruction;
+        }
+
+        //最終パスに到達したかどうか
+        private bool isEndPath = false;
+
+        //最後のパスに到達したかどうかは、距離によって判定しているので、
+        //loop、Reverseを使う時は、距離の初期化を行うこと
+        public bool IsEndPath()
+        {
+            return isEndPath;
+        }
+
+        public void Restart()
+        {
+            if(isEndPath)
+            {
+                isEndPath = false;
+                distanceTravelled = 0;
+            }
+        }
+
+        //移動距離
+        float distanceTravelled = 0;
         #endregion
 
         #region Constructors
@@ -175,52 +210,73 @@ namespace PathCreation {
         }
 
         /// Gets point on path based on distance travelled.
-        public Vector3 GetPointAtDistance (float dst, EndOfPathInstruction endOfPathInstruction = EndOfPathInstruction.Loop) {
-            float t = dst / length;
-            return GetPointAtTime (t, endOfPathInstruction);
+        public Vector3 GetPointAtDistance (float speed) {
+            distanceTravelled += speed * Time.deltaTime;
+            float t = distanceTravelled / length;
+
+            //追加分
+            switch (endOfPathInstruction)
+            {
+                case EndOfPathInstruction.Stop:
+                    if (t >= 1)
+                    {
+                        //合計距離を超えた場合
+                        isEndPath = true;
+                    }
+                    break;
+                default:
+                    if(isEndPath)
+                    {
+                        isEndPath = false;
+                    }
+                    break;
+            }
+            //
+
+            return GetPointAtTime (t);
         }
 
         /// Gets forward direction on path based on distance travelled.
-        public Vector3 GetDirectionAtDistance (float dst, EndOfPathInstruction endOfPathInstruction = EndOfPathInstruction.Loop) {
+        public Vector3 GetDirectionAtDistance (float dst) {
             float t = dst / length;
-            return GetDirection (t, endOfPathInstruction);
+            return GetDirection (t);
         }
 
         /// Gets normal vector on path based on distance travelled.
-        public Vector3 GetNormalAtDistance (float dst, EndOfPathInstruction endOfPathInstruction = EndOfPathInstruction.Loop) {
+        public Vector3 GetNormalAtDistance (float dst) {
             float t = dst / length;
-            return GetNormal (t, endOfPathInstruction);
+            return GetNormal (t);
         }
 
         /// Gets a rotation that will orient an object in the direction of the path at this point, with local up point along the path's normal
-        public Quaternion GetRotationAtDistance (float dst, EndOfPathInstruction endOfPathInstruction = EndOfPathInstruction.Loop) {
-            float t = dst / length;
-            return GetRotation (t, endOfPathInstruction);
+        public Quaternion GetRotationAtDistance () {
+            float t = distanceTravelled / length;
+            return GetRotation (t);
         }
 
         /// Gets point on path based on 'time' (where 0 is start, and 1 is end of path).
-        public Vector3 GetPointAtTime (float t, EndOfPathInstruction endOfPathInstruction = EndOfPathInstruction.Loop) {
-            var data = CalculatePercentOnPathData (t, endOfPathInstruction);
+        public Vector3 GetPointAtTime (float t) {
+            var data = CalculatePercentOnPathData (t);
             return Vector3.Lerp (GetPoint (data.previousIndex), GetPoint (data.nextIndex), data.percentBetweenIndices);
         }
 
         /// Gets forward direction on path based on 'time' (where 0 is start, and 1 is end of path).
-        public Vector3 GetDirection (float t, EndOfPathInstruction endOfPathInstruction = EndOfPathInstruction.Loop) {
-            var data = CalculatePercentOnPathData (t, endOfPathInstruction);
+        public Vector3 GetDirection (float t) {
+            var data = CalculatePercentOnPathData (t);
             Vector3 dir = Vector3.Lerp (localTangents[data.previousIndex], localTangents[data.nextIndex], data.percentBetweenIndices);
             return MathUtility.TransformDirection (dir, transform, space);
         }
 
         /// Gets normal vector on path based on 'time' (where 0 is start, and 1 is end of path).
-        public Vector3 GetNormal (float t, EndOfPathInstruction endOfPathInstruction = EndOfPathInstruction.Loop) {
-            var data = CalculatePercentOnPathData (t, endOfPathInstruction);
+        public Vector3 GetNormal (float t) {
+            var data = CalculatePercentOnPathData (t);
             Vector3 normal = Vector3.Lerp (localNormals[data.previousIndex], localNormals[data.nextIndex], data.percentBetweenIndices);
             return MathUtility.TransformDirection (normal, transform, space);
         }
 
         /// Gets a rotation that will orient an object in the direction of the path at this point, with local up point along the path's normal
-        public Quaternion GetRotation (float t, EndOfPathInstruction endOfPathInstruction = EndOfPathInstruction.Loop) {
-            var data = CalculatePercentOnPathData (t, endOfPathInstruction);
+        public Quaternion GetRotation (float t) {
+            var data = CalculatePercentOnPathData (t);
             Vector3 direction = Vector3.Lerp (localTangents[data.previousIndex], localTangents[data.nextIndex], data.percentBetweenIndices);
             Vector3 normal = Vector3.Lerp (localNormals[data.previousIndex], localNormals[data.nextIndex], data.percentBetweenIndices);
             return Quaternion.LookRotation (MathUtility.TransformDirection (direction, transform, space), MathUtility.TransformDirection (normal, transform, space));
@@ -250,7 +306,7 @@ namespace PathCreation {
 
         /// For a given value 't' between 0 and 1, calculate the indices of the two vertices before and after t. 
         /// Also calculate how far t is between those two vertices as a percentage between 0 and 1.
-        TimeOnPathData CalculatePercentOnPathData (float t, EndOfPathInstruction endOfPathInstruction) {
+        TimeOnPathData CalculatePercentOnPathData (float t) {
             // Constrain t based on the end of path instruction
             switch (endOfPathInstruction) {
                 case EndOfPathInstruction.Loop:
