@@ -29,6 +29,20 @@ public class MainCameraScript : MonoBehaviour
     //    LateUpdate();
     //}
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else if(Input.GetKeyDown(KeyCode.L))
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
     void FixedUpdate()
     {
        // Cursor.lockState = CursorLockMode.Locked;
@@ -48,7 +62,6 @@ public class MainCameraScript : MonoBehaviour
         {
             transform.LookAt(target.transform.forward);
         }
-
     }
 
     void updateAngle(float x, float y)

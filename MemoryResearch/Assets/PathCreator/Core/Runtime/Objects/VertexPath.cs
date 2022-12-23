@@ -196,7 +196,6 @@ namespace PathCreation {
                 return localPoints.Length;
             }
         }
-
         public Vector3 GetTangent (int index) {
             return MathUtility.TransformDirection (localTangents[index], transform, space);
         }

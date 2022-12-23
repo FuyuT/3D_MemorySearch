@@ -76,7 +76,6 @@ public class StateEnemyMove : State
 
     protected override void SelectNextState()
     {
-
         switch (moveState)
         {
             case (int)MoveState.Chase:

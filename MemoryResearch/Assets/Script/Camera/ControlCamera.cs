@@ -49,10 +49,20 @@ public class ControlCamera : MonoBehaviour
         transform.localEulerAngles = new Vector3(newAngle.x, newAngle.y, 0);
     }
 
+    //角度のリセット
+    void ResetRotate()
+    {
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+
+        }
+    }
+
     void Update()
     {
         Rotate();
         Zoom();
+        ResetRotate();
     }
 }
 

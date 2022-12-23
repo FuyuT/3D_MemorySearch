@@ -3,7 +3,17 @@ guid: 61673189dbb27564c9afed7f44a2ef1b
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: JumpFrog_aiStandardSurface1
+    second: {fileID: 2100000, guid: 9f0adfb6b99657448aa966107c1a1766, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: 9f0adfb6b99657448aa966107c1a1766, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

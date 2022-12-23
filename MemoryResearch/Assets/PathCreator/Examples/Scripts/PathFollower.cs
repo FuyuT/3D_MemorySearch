@@ -9,11 +9,14 @@ namespace PathCreation.Examples
         public PathCreator pathCreator;
         public EndOfPathInstruction endOfPathInstruction;
         public float speed;
+        public Quaternion endPathRotate;
+        
 
         void Start() {
             if (pathCreator != null)
             {
                 pathCreator.path.SetSituation(endOfPathInstruction);
+                endPathRotate.eulerAngles = Vector4.zero;
             }
         }
 
@@ -23,7 +26,7 @@ namespace PathCreation.Examples
             {
                 pathCreator.path.Restart();
             }
-
+            pathCreator.path.GetPoint(pathCreator.path.NumPoints);
             //ゴールについていたら終了
             if (pathCreator.path.IsEndPath()) return;
             transform.position = pathCreator.path.GetPointAtDistance(speed);
