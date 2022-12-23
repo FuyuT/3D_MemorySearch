@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CharaBase : ObjectBase
 {
-    //////////////////////////////
+    ///***************************
     /// private
 
     /// <summary>
@@ -19,7 +19,7 @@ public class CharaBase : ObjectBase
         }
     }
 
-    //////////////////////////////
+    ///***************************
     /// protected
     protected CharaBase()
     {
@@ -32,7 +32,7 @@ public class CharaBase : ObjectBase
         currentState = 0;
     }
 
-    //////////////////////////////
+    ///***************************
     /// public
     public enum ParamKey
     {

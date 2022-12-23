@@ -18,7 +18,7 @@ public class ChangeSceneManager : MonoBehaviour
     SceneType nowScene;
     SceneType nextScene;
 
-    Player player;
+    IPlayer player;
     //////////////////////////////
     /// setter
     //////////////////////////////
@@ -64,9 +64,24 @@ public class ChangeSceneManager : MonoBehaviour
 
     void Update()
     {
+        CheckGameOver();
+
+        SceneUpdate();
+    }
+
+    //ゲームオーバーか確認して、ゲームオーバーなら次のシーンをゲームオーバーに設定
+    void CheckGameOver()
+    {
+        if (!player.IsDead()) return;
+        nextScene = SceneType.GameOver;
+    }
+
+    //シーンの更新
+    void SceneUpdate()
+    {
         if (nowScene == nextScene) return;
 
-        switch(nextScene)
+        switch (nextScene)
         {
             case SceneType.Title:
 
