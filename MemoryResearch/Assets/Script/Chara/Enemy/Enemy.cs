@@ -162,9 +162,7 @@ public class Enemy : CharaBase
 
         stateMachine.AddAnyTransition<StateEnemyMove>((int)Event.Move);
 
-        stateMachine.AddAnyTransition<StateEnemyJump>((int)Event.Jump);
 
-        stateMachine.AddAnyTransition<StateEnemyShot>((int)Event.Attack_Shot);
 
         //stateMachine.AddAnyTransition<StateEnemyAttack>((int)Event.Attack_Punch);
 

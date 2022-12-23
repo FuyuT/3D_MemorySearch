@@ -58,12 +58,6 @@ public class StateFlogMove : State
         switch (moveState)
         {
             case (int)MoveState.Chase:
-                //目標に向かって追従移動
-                Vector3 moveAdd = Owner.TargetTransform.position - Owner.transform.position;
-                moveAdd += Vector3.Normalize(moveAdd) * Owner.MoveSpeed;
-
-                moveAdd.y = 0;
-                Owner.objectParam.AddMoveVec(moveAdd);
                 break;
             case (int)MoveState.Search:
                 //索敵
@@ -82,12 +76,18 @@ public class StateFlogMove : State
             case (int)MoveState.Chase:
 
                 //ジャンプ
+                if (Owner.nowShotDelaytime < 0)
+                {
+                    stateMachine.Dispatch((int)Enemy.Event.Attack_Shot);
+                    return;
+                }
+
+                //ジャンプ
                 if (Owner.nowJumpDelayTime < 0)
                 {
                     stateMachine.Dispatch((int)Enemy.Event.Jump);
                     return;
                 }
-
 
                 break;
             case (int)MoveState.Search:

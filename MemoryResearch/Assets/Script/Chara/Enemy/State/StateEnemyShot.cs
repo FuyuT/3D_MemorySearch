@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<Enemy>;
+using State = State<EnemyFlog>;
 
 public class StateEnemyShot : State
 {
@@ -14,7 +14,7 @@ public class StateEnemyShot : State
         //攻撃力設定
         Owner.param.Set((int)Player.ParamKey.AttackPower, 5);
 
-        Owner.moveVec = Vector3.zero;
+        Owner.objectParam.InitMoveVec();
 
         isAttack = false;
 
@@ -23,8 +23,8 @@ public class StateEnemyShot : State
 
     protected override void OnUpdate()
     {
-        Vector3 moveAdd = Owner.PlayerTransform.position - Owner.transform.position;
-        Owner.moveVec += Vector3.Normalize(moveAdd) * Owner.MoveSpeed;
+        Vector3 moveAdd = Owner.TargetTransform.position - Owner.transform.position;
+        Owner.objectParam.AddMoveVec(Vector3.Normalize(moveAdd) * Owner.MoveSpeed);
         Shot();
         SelectNextState();
     }
@@ -43,7 +43,7 @@ public class StateEnemyShot : State
         }
         else
         {
-            //弾丸を生成[
+            //弾丸を生成
             Vector3 pos = Owner.transform.position + Owner.transform.forward * 4;
             var bullet = Object.Instantiate(Owner.bullet);
             bullet.GetComponent<Bullet>().Init(pos, Owner.transform.forward, Owner.ShotSpeed, Owner.ShotDamage);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<Enemy>;
+using State = State<EnemyFlog>;
 
 public class StateEnemyJump : State
 {
@@ -17,7 +17,7 @@ public class StateEnemyJump : State
 
         //目標に向かうベクトル
         JumpVec = Vector3.zero;
-        JumpVec = Owner.PlayerTransform.position - Owner.transform.position;
+        JumpVec = Owner.TargetTransform.position - Owner.transform.position;
         JumpVec = Vector3.Normalize(JumpVec) * Owner.JumpToTargetPower;
         JumpVec.y = 0;
 
@@ -35,7 +35,7 @@ public class StateEnemyJump : State
         //ジャンプ速度を減速
         Owner.nowJumpSpeed -= Owner.Gravity;
         //移動ベクトルに進行方向のベクトルとジャンプのベクトルを足す
-        Owner.moveVec += JumpVec + new Vector3(0, Owner.nowJumpSpeed + Owner.JumpAcceleration, 0);
+        Owner.objectParam.AddMoveVec(JumpVec + new Vector3(0, Owner.nowJumpSpeed + Owner.JumpAcceleration, 0));
 
         SelectNextState();
     }
@@ -43,7 +43,7 @@ public class StateEnemyJump : State
     protected override void SelectNextState()
     {
         //ジャンプを終了して移動へ
-        if (Owner.situation == (int)Enemy.Situation.Jump_End && Owner.moveVec.y < 0)
+        if (Owner.situation == (int)Enemy.Situation.Jump_End && Owner.objectParam.GetMoveVec().y < 0)
         {
             stateMachine.Dispatch((int)Enemy.Event.Move);
         }
@@ -56,7 +56,7 @@ public class StateEnemyJump : State
         Owner.situation = (int)Enemy.Situation.Jump_End;
 
         Owner.nowJumpDelayTime = Owner.JumpDelayTime;
-        Owner.moveVec.y = 0;
+        Owner.objectParam.InitMoveVec();
 
         //攻撃力設定
         Owner.param.Set((int)Player.ParamKey.AttackPower, 0);

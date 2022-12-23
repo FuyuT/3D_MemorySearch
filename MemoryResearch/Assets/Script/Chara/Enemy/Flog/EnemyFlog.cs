@@ -6,27 +6,22 @@ using State = State<EnemyFlog>;
 
 public class EnemyFlog : CharaBase
 {
-    //////////////////////////////
+    ///***************************
     /// private
 
     StateMachine<EnemyFlog> stateMachine;
 
-    /// <summary>
-    /// MainStart
-    /// </summary>
     void Start()
     {
         Init();
     }
 
-    /// <summary>
-    /// 初期化
-    /// </summary>
     private void Init()
     {
         situation = (int)Situation.None;
 
         nowJumpDelayTime = JumpDelayTime;
+        nowShotDelaytime = ShotDelayTime;
 
         CharaBaseInit();
 
@@ -40,13 +35,13 @@ public class EnemyFlog : CharaBase
         StateMachineInit();
     }
 
-    /// <summary>
-    /// ステートマシンの初期化
-    /// </summary>
+    // ステートマシンの初期化
     void StateMachineInit()
     {
         stateMachine = new StateMachine<EnemyFlog>(this);
         stateMachine.AddAnyTransition<StateFlogMove>((int)Event.Move);
+        stateMachine.AddAnyTransition<StateEnemyJump>((int)Event.Jump);
+        stateMachine.AddAnyTransition<StateEnemyShot>((int)Event.Attack_Shot);
 
         //ステートマシンの開始　初期ステートは引数で指定
         stateMachine.Start(stateMachine.GetOrAddState<StateFlogMove>());
@@ -68,6 +63,12 @@ public class EnemyFlog : CharaBase
         if (nowJumpDelayTime > 0)
         {
             nowJumpDelayTime -= Time.deltaTime;
+        }
+
+        //射撃待機時間の更新
+        if(nowShotDelaytime > 0)
+        {
+            nowShotDelaytime -= Time.deltaTime;
         }
 
         //角度更新
@@ -129,7 +130,7 @@ public class EnemyFlog : CharaBase
     }
 
 
-    //////////////////////////////
+    ///***************************
     /// public
 
     /// <summary>
@@ -183,6 +184,15 @@ public class EnemyFlog : CharaBase
     [Header("移動")]
     [SerializeField] public float MoveSpeed;
 
+    [Header("射撃")]
+    [SerializeField] public float ShotDelayTime;
+    public float nowShotDelaytime;
+
+    [SerializeField] public float ShotSpeed;
+    [SerializeField] public int ShotDamage;
+    [SerializeField] public GameObject bullet;
+    [SerializeField] public float ShotInterval;
+
     [Header("ジャンプ")]
     [Header("ジャンプに入るまでの時間")]
     [SerializeField] public float JumpDelayTime;
@@ -202,6 +212,8 @@ public class EnemyFlog : CharaBase
     [Header("索敵距離")]
     [SerializeField] public float SearchDistance;
 
+    ///***************************
+    /// 衝突判定
 
     private void OnCollisionEnter(Collision collision)
     {

@@ -162,7 +162,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer
+    path: JumpFrog:programmer
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -313,7 +313,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -491,7 +491,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6/JumpFrog:joint9/JumpFrog:joint7
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6/JumpFrog:joint9/JumpFrog:joint7
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -651,7 +651,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6/JumpFrog:joint9/JumpFrog:joint7/JumpFrog:joint10
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6/JumpFrog:joint9/JumpFrog:joint7/JumpFrog:joint10
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -676,7 +676,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:Cannon2
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:Cannon2
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -701,7 +701,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:Cannon2/JumpFrog:joint21/JumpFrog:Cannon1
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:Cannon2/JumpFrog:joint21/JumpFrog:Cannon1
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -726,7 +726,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:tongue/JumpFrog:tongue1
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:tongue/JumpFrog:tongue1
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -751,7 +751,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:head
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:head
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -776,7 +776,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -801,7 +801,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27/JumpFrog:joint28/JumpFrog:joint29
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27/JumpFrog:joint28/JumpFrog:joint29
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -934,7 +934,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1121,7 +1121,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61/JumpFrog:joint91/JumpFrog:joint71
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61/JumpFrog:joint91/JumpFrog:joint71
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1263,7 +1263,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61/JumpFrog:joint91/JumpFrog:joint71/JumpFrog:joint101
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61/JumpFrog:joint91/JumpFrog:joint71/JumpFrog:joint101
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1288,7 +1288,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1313,7 +1313,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271/JumpFrog:joint281/JumpFrog:joint291
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271/JumpFrog:joint281/JumpFrog:joint291
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1338,7 +1338,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint14
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint14
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1471,7 +1471,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint14/JumpFrog:joint15/JumpFrog:joint16
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint14/JumpFrog:joint15/JumpFrog:joint16
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1631,7 +1631,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint14/JumpFrog:joint15/JumpFrog:joint16/JumpFrog:joint17/JumpFrog:left_hand
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint14/JumpFrog:joint15/JumpFrog:joint16/JumpFrog:joint17/JumpFrog:left_hand
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1656,7 +1656,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint141
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint141
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1780,7 +1780,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint141/JumpFrog:joint151/JumpFrog:joint161
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint141/JumpFrog:joint151/JumpFrog:joint161
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -1940,7 +1940,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint141/JumpFrog:joint151/JumpFrog:joint161/JumpFrog:joint171/JumpFrog:right_hand
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint141/JumpFrog:joint151/JumpFrog:joint161/JumpFrog:joint171/JumpFrog:right_hand
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2082,7 +2082,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23
+    path: JumpFrog:nurbsCircle23
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2233,7 +2233,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle12
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle12
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2384,7 +2384,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle11
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle11
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2499,7 +2499,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle10
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle10
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2614,7 +2614,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle9
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle9
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2639,7 +2639,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle8
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle8
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2664,7 +2664,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle7
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle7
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -2833,7 +2833,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle6
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle6
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3002,7 +3002,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle5
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle5
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3162,7 +3162,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle4
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle4
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3322,7 +3322,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle3
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle3
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3446,7 +3446,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle2
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle2
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3588,7 +3588,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle1
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle1
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3613,7 +3613,57 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle13
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle13
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: 0, y: -0, z: -0, w: 1}
+        inSlope: {x: 0, y: 0, z: 0, w: 0}
+        outSlope: {x: 0, y: 0, z: 0, w: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+      - serializedVersion: 3
+        time: 0.016666668
+        value: {x: 0, y: -0, z: -0, w: 1}
+        inSlope: {x: 0, y: 0, z: 0, w: 0}
+        outSlope: {x: 0, y: 0, z: 0, w: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle16
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: 0, y: -0, z: -0, w: 1}
+        inSlope: {x: 0, y: 0, z: 0, w: 0}
+        outSlope: {x: 0, y: 0, z: 0, w: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+      - serializedVersion: 3
+        time: 0.016666668
+        value: {x: 0, y: -0, z: -0, w: 1}
+        inSlope: {x: 0, y: 0, z: 0, w: 0}
+        outSlope: {x: 0, y: 0, z: 0, w: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle17
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3638,7 +3688,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle20
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle20
   m_CompressedRotationCurves: []
   m_EulerCurves: []
   m_PositionCurves:
@@ -3864,13 +3914,13 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer
+    path: JumpFrog:programmer
   - curve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: -0.0006641168, y: -0.00025673007, z: 2.5648567e-18}
+        value: {x: -0.0006641168, y: -0.00025673007, z: 2.605254e-18}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -3879,7 +3929,7 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 1.5
-        value: {x: -0.0006641168, y: -0.00025673007, z: 2.5648567e-18}
+        value: {x: -0.0006641168, y: -0.00025673007, z: 2.605254e-18}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -3889,7 +3939,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:Cannon2
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:Cannon2
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -3914,7 +3964,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:Cannon2/JumpFrog:joint21/JumpFrog:Cannon1
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:Cannon2/JumpFrog:joint21/JumpFrog:Cannon1
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4065,7 +4115,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:tongue/JumpFrog:tongue1
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:tongue/JumpFrog:tongue1
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4208,16 +4258,16 @@ AnimationClip:
         time: 1.1166667
         value: {x: -0.010956135, y: 0.0031245193, z: 2.9618866e-10}
         inSlope: {x: 0.15691008, y: 0.00038922543, z: -2.7406676e-15}
-        outSlope: {x: 0.15691124, y: 0.0003892901, z: 7.0901264e-24}
+        outSlope: {x: 0.15691124, y: 0.0003892901, z: 2.7406676e-15}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
         time: 1.1333333
-        value: {x: -0.008173906, y: 0.0031359422, z: 2.9618866e-10}
-        inSlope: {x: 0.10343169, y: 0.000491129, z: 1.6543628e-23}
-        outSlope: {x: 0.10343044, y: 0.00049084384, z: 2.7406676e-15}
+        value: {x: -0.008173906, y: 0.0031359422, z: 2.9618863e-10}
+        inSlope: {x: 0.10343169, y: 0.000491129, z: 2.7406676e-15}
+        outSlope: {x: 0.10343044, y: 0.00049084384, z: -0}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
@@ -4225,7 +4275,7 @@ AnimationClip:
       - serializedVersion: 3
         time: 1.15
         value: {x: -0.007508446, y: 0.0031408875, z: 2.9618863e-10}
-        inSlope: {x: 0.039669424, y: 0.0003517946, z: 2.7406676e-15}
+        inSlope: {x: 0.039669424, y: 0.0003517946, z: -0}
         outSlope: {x: 0.03966914, y: 0.00035214025, z: -0}
         tangentMode: 0
         weightedMode: 0
@@ -4270,7 +4320,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:head
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:head
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4295,7 +4345,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4320,7 +4370,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27/JumpFrog:joint28/JumpFrog:joint29
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27/JumpFrog:joint28/JumpFrog:joint29
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4345,7 +4395,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4370,7 +4420,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271/JumpFrog:joint281/JumpFrog:joint291
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271/JumpFrog:joint281/JumpFrog:joint291
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4458,7 +4508,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23
+    path: JumpFrog:nurbsCircle23
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4483,7 +4533,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle12
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle12
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4508,7 +4558,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle11
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle11
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4533,7 +4583,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle10
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle10
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4558,7 +4608,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle9
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle9
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4583,7 +4633,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle8
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle8
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4608,7 +4658,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle7
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle7
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4633,7 +4683,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle6
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle6
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4658,7 +4708,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle5
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle5
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4683,7 +4733,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle2
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle2
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4771,7 +4821,57 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle13
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle13
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: -0.0020003498, y: 0.004147375, z: 0}
+        inSlope: {x: -3.4694466e-17, y: -0, z: -0}
+        outSlope: {x: -3.4694466e-17, y: -0, z: -0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
+        time: 0.016666668
+        value: {x: -0.0020003498, y: 0.004147375, z: 0}
+        inSlope: {x: -1.4869058e-17, y: -0, z: -0}
+        outSlope: {x: -1.4869058e-17, y: -0, z: -0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle16
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: 0.002688966, y: 0.004147375, z: 0}
+        inSlope: {x: 5.947623e-17, y: -0, z: -0}
+        outSlope: {x: 5.947623e-17, y: -0, z: -0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
+        time: 0.016666668
+        value: {x: 0.002688966, y: 0.004147375, z: 0}
+        inSlope: {x: 1.3877786e-16, y: -0, z: -0}
+        outSlope: {x: 1.3877786e-16, y: -0, z: -0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle17
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4814,7 +4914,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle20
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle20
   m_ScaleCurves:
   - curve:
       serializedVersion: 2
@@ -4840,7 +4940,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer
+    path: JumpFrog:programmer
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4865,7 +4965,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4890,7 +4990,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6/JumpFrog:joint9/JumpFrog:joint7
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6/JumpFrog:joint9/JumpFrog:joint7
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4915,7 +5015,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6/JumpFrog:joint9/JumpFrog:joint7/JumpFrog:joint10
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_foot/JumpFrog:joint5/JumpFrog:joint6/JumpFrog:joint9/JumpFrog:joint7/JumpFrog:joint10
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4940,7 +5040,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:tongue/JumpFrog:tongue1
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:Cannon/JumpFrog:tongue/JumpFrog:tongue1
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4965,7 +5065,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:head
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:head
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -4990,7 +5090,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5015,7 +5115,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27/JumpFrog:joint28/JumpFrog:joint29
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:left_jet/JumpFrog:joint27/JumpFrog:joint28/JumpFrog:joint29
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5040,7 +5140,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5065,7 +5165,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61/JumpFrog:joint91/JumpFrog:joint71
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61/JumpFrog:joint91/JumpFrog:joint71
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5090,7 +5190,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61/JumpFrog:joint91/JumpFrog:joint71/JumpFrog:joint101
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_foot/JumpFrog:joint51/JumpFrog:joint61/JumpFrog:joint91/JumpFrog:joint71/JumpFrog:joint101
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5115,7 +5215,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5140,7 +5240,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271/JumpFrog:joint281/JumpFrog:joint291
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:right_jet/JumpFrog:joint271/JumpFrog:joint281/JumpFrog:joint291
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5165,7 +5265,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint14
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint14
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5190,7 +5290,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint14/JumpFrog:joint15/JumpFrog:joint16
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint14/JumpFrog:joint15/JumpFrog:joint16
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5215,7 +5315,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint14/JumpFrog:joint15/JumpFrog:joint16/JumpFrog:joint17/JumpFrog:left_hand
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint14/JumpFrog:joint15/JumpFrog:joint16/JumpFrog:joint17/JumpFrog:left_hand
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5240,7 +5340,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint141
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint141
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5265,7 +5365,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint141/JumpFrog:joint151/JumpFrog:joint161
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint141/JumpFrog:joint151/JumpFrog:joint161
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5290,7 +5390,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: programmer/JumpFrog:body/JumpFrog:joint141/JumpFrog:joint151/JumpFrog:joint161/JumpFrog:joint171/JumpFrog:right_hand
+    path: JumpFrog:programmer/JumpFrog:body/JumpFrog:joint141/JumpFrog:joint151/JumpFrog:joint161/JumpFrog:joint171/JumpFrog:right_hand
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5315,7 +5415,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23
+    path: JumpFrog:nurbsCircle23
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5340,7 +5440,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle12
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle12
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5365,7 +5465,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle11
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle11
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5390,7 +5490,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle10
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle10
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5415,7 +5515,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle9
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle9
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5440,7 +5540,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle8
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle8
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5465,7 +5565,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle7
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle7
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5490,7 +5590,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle6
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle6
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5515,7 +5615,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle5
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle5
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5540,7 +5640,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle2
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle2
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5565,7 +5665,57 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle13
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle13
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: 0.16144882, y: 0.16144882, z: 0.024693623}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
+        time: 0.016666668
+        value: {x: 0.16144882, y: 0.16144882, z: 0.024693623}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle16
+  - curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: {x: 0.16144882, y: 0.16144882, z: 0.024693623}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      - serializedVersion: 3
+        time: 0.016666668
+        value: {x: 0.16144882, y: 0.16144882, z: 0.024693623}
+        inSlope: {x: 0, y: 0, z: 0}
+        outSlope: {x: 0, y: 0, z: 0}
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+        outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle17
   - curve:
       serializedVersion: 2
       m_Curve:
@@ -5590,7 +5740,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: nurbsCircle23/nurbsCircle20
+    path: JumpFrog:nurbsCircle23/JumpFrog:nurbsCircle20
   m_FloatCurves: []
   m_PPtrCurves: []
   m_SampleRate: 60
@@ -5599,7 +5749,665 @@ AnimationClip:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
   m_ClipBindingConstant:
-    genericBindings: []
+    genericBindings:
+    - serializedVersion: 2
+      path: 2273995093
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2021929517
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2280166389
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 478905062
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1185533588
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 4102933741
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2273995093
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3490522292
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3976028437
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 4116927026
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 218922213
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3428283556
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2909343463
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 969624819
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1045003485
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1411035494
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2723894150
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 478905062
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 833551874
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2829561784
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3751845678
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3250656648
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1367214105
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3363264931
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3211815221
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 555023510
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1444137984
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3474628026
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3473297045
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1012419222
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 286742846
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 706128651
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 956987451
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1393882002
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 833551874
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2829561784
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3751845678
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3250656648
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3066438942
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 645478543
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1367214105
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3363264931
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1444137984
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 918764059
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1103366797
+      attribute: 1
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3473297045
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1012419222
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2021929517
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2280166389
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 286742846
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 706128651
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 956987451
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1393882002
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1697345884
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3781482777
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3066438942
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 645478543
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1185533588
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 918764059
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1103366797
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 4102933741
+      attribute: 2
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2273995093
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3490522292
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3976028437
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 4116927026
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2021929517
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2280166389
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 286742846
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 706128651
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 218922213
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3428283556
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2909343463
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 956987451
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1393882002
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1697345884
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 969624819
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1045003485
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3781482777
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1411035494
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2723894150
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 478905062
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 833551874
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 2829561784
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3751845678
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3250656648
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3066438942
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 645478543
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1367214105
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 3363264931
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1444137984
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1185533588
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 918764059
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 1103366797
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
+    - serializedVersion: 2
+      path: 4102933741
+      attribute: 3
+      script: {fileID: 0}
+      typeID: 4
+      customType: 0
+      isPPtrCurve: 0
     pptrCurveMapping: []
   m_AnimationClipSettings:
     serializedVersion: 2
@@ -5611,7 +6419,7 @@ AnimationClip:
     m_Level: 0
     m_CycleOffset: 0
     m_HasAdditiveReferencePose: 0
-    m_LoopTime: 0
+    m_LoopTime: 1
     m_LoopBlend: 0
     m_LoopBlendOrientation: 0
     m_LoopBlendPositionY: 0
