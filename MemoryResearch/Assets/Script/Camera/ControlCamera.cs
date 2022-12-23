@@ -52,6 +52,7 @@ public class ControlCamera : MonoBehaviour
     //角度のリセット
     void ResetRotate()
     {
+        //Qを押した時に、PathFollowerの最終パスのRotationにリセットする
         if(Input.GetKeyDown(KeyCode.Q))
         {
 

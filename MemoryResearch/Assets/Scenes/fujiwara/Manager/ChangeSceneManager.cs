@@ -9,6 +9,7 @@ public enum SceneType
     None,
     Title,
     Game,
+    GameOver,
     End,
 }
 
@@ -17,6 +18,7 @@ public class ChangeSceneManager : MonoBehaviour
     SceneType nowScene;
     SceneType nextScene;
 
+    Player player;
     //////////////////////////////
     /// setter
     //////////////////////////////
@@ -49,6 +51,15 @@ public class ChangeSceneManager : MonoBehaviour
     {
         nowScene = SceneType.Title;
         nextScene = SceneType.Title;
+
+        try
+        {
+             player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        }
+        catch
+        {
+
+        }
     }
 
     void Update()
@@ -61,7 +72,11 @@ public class ChangeSceneManager : MonoBehaviour
 
                 break;
             case SceneType.Game:
+
                 break;
+            case SceneType.GameOver:
+                break;
+
             case SceneType.End:
                 //UnityEditor.EditorApplication.isPlaying = false;
                 break;

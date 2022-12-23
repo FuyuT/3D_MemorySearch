@@ -33,7 +33,8 @@ public class StateEnemyJump : State
     {
         //ジャンプ処理
         //ジャンプ速度を減速
-        Owner.nowJumpSpeed -= Owner.Gravity;
+        
+        Owner.nowJumpSpeed -= Owner.Gravity * Time.deltaTime;
         //移動ベクトルに進行方向のベクトルとジャンプのベクトルを足す
         Owner.objectParam.AddMoveVec(JumpVec + new Vector3(0, Owner.nowJumpSpeed + Owner.JumpAcceleration, 0));
 

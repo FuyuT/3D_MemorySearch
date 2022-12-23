@@ -19,7 +19,7 @@ public class MemorySelectManager : MonoBehaviour
 
     void MoveMemory()
     {
-        switch(preview.GetSituation())
+        switch (preview.GetSituation())
         {
             //ƒƒ‚ƒŠ‚ÌƒZƒbƒg
             case MemorySelectPreview.SituationType.Set_Memory:

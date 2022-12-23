@@ -8,7 +8,7 @@ public class MemoryData : IMemoryData
 {
     //////////////////////////////
     /// private
-    
+    [SerializeField] TextAsset memoryDataTxt;
     Dictionary<MemoryType, Memory> dictionary;
     Dictionary<MemoryType, bool>   isCombineMemory; //合成用のメモリかどうか判断するための配列
     //////////////////////////////
@@ -27,7 +27,7 @@ public class MemoryData : IMemoryData
     public void Load()
     {
         //データをバッファに読み込み
-        List<string[]> dataBuffer = Util.TextUtility.ReadCSVData(Application.dataPath + "/Resources/Data/MemoryDataCSV.csv");
+        List<string[]> dataBuffer = Util.TextUtility.ReadCSVData(memoryDataTxt);
         const int Type          = 1;
         const int ExplanationNo = 2;
         const int MaterialNo_0  = 3;
@@ -139,7 +139,6 @@ public class MemoryData : IMemoryData
                 return dictionary[type].type;
             }
         }
-
         //存在しなければMemoryType.Noneを返す
         return MemoryType.None;
     }

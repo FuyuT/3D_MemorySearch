@@ -110,28 +110,28 @@ public class MemorySelectPreview : MemoryUI
         moveType = type;
     }
 
-    //////////////////////////////
-    /// 衝突判定
-    private void OnTriggerStay2D(Collider2D collision)
+    //メモリUIに当たっている時の処理
+    public void PointerEnterToMemoryUI(GameObject collision)
     {
         if (situation == SituationType.None) return;
 
         //合成フレーム
         if (collision.tag == "EuipmentMemory" || collision.tag == "CombineMemory")
         {
+            //合成フレーム
             switch (moveType)
             {
                 case MemorySelectManager.MoveType.Set:
                     situation = SituationType.Set_Memory;
+
                     break;
                 case MemorySelectManager.MoveType.Replace:
                     situation = SituationType.Replace_Memory;
                     break;
             }
-
-            //衝突相手を格納
-            collisionMemoryUI = collision.GetComponent<MemoryUI>();
         }
+        //衝突相手を格納
+        collisionMemoryUI = collision.GetComponent<MemoryUI>();
 
         if (moveType == MemorySelectManager.MoveType.Replace && collision.tag == "Inventory")
         {
@@ -139,15 +139,11 @@ public class MemorySelectPreview : MemoryUI
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    public void PointerExitToMemoryUI(GameObject collision)
     {
         if (situation == SituationType.None) return;
 
-        //合成フレーム
-        if (collision.tag == "EuipmentMemory" || collision.tag == "CombineMemory" || collision.tag == "Inventory")
-        {
-            situation = SituationType.Drag_Preview;
-            collisionMemoryUI = null;
-        }
+        situation = SituationType.Drag_Preview;
+        collisionMemoryUI = null;
     }
 }

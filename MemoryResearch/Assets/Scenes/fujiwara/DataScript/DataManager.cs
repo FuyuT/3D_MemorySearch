@@ -6,7 +6,8 @@ public class DataManager : MonoBehaviour
 {
     //////////////////////////////
     /// private
-    MemoryData memoryData;
+
+    [SerializeField] MemoryData memoryData;
     SaveData   saveData;
     
     [SerializeField] TextAsset saveDataText;
@@ -33,7 +34,7 @@ public class DataManager : MonoBehaviour
     public DataManager()
     {
         memoryData = new MemoryData();
-        saveData = new SaveData();
+        saveData   = new SaveData();
     }
 
     //メモリデータのインターフェイスを取得

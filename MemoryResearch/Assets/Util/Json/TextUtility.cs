@@ -42,5 +42,27 @@ namespace Util
             return dataBuffer;
         }
 
+        /// <summary>
+        /// cscデータの読み込みを行い、バッファを返す
+        /// エンコードはしない
+        /// </summary>
+        /// <param name="csvFile">csv形式のテキスト</param>
+        /// <returns>読み込んだデータのバッファ</returns>
+        static public List<string[]> ReadCSVData(TextAsset csvFile)
+        {
+            //指定したアドレスに保管されているCSVファイルから情報を読み取り、enemyDataに情報を文字列として格納するメソッド。
+            //enemyData[i][j]はCSVファイルのi行、j列目のデータを表す。但し先頭行（タイトル部分）は0行目と考えるものとする。
+            List<string[]> dataBuffer = new List<string[]>();
+            StringReader reader = new StringReader(csvFile.text);
+            while (reader.Peek() != -1)
+            {
+                string line = reader.ReadLine();
+                dataBuffer.Add(line.Split(','));
+            }
+
+            return dataBuffer;
+        }
+
+
     }
 }

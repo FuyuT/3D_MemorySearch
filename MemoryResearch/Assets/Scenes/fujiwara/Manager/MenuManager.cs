@@ -26,7 +26,6 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
         Option.SetActive(false);
-
     }
 
     private void Update()
@@ -41,7 +40,7 @@ public class MenuManager : MonoBehaviour
             {
                 nowMenu = MenuType.None;
                 nextMenu = MenuType.Inventory;
-                //Time.timeScale = 0f;
+                Time.timeScale = 0f;
             }
             isOpen = !isOpen;
         }

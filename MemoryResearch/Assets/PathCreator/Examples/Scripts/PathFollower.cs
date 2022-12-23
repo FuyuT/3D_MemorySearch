@@ -11,7 +11,6 @@ namespace PathCreation.Examples
         public float speed;
         public Quaternion endPathRotate;
         
-
         void Start() {
             if (pathCreator != null)
             {
@@ -22,17 +21,21 @@ namespace PathCreation.Examples
 
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                pathCreator.path.Restart();
-            }
-            pathCreator.path.GetPoint(pathCreator.path.NumPoints);
+            MoveRestart();
+
             //ゴールについていたら終了
             if (pathCreator.path.IsEndPath()) return;
             transform.position = pathCreator.path.GetPointAtDistance(speed);
             transform.rotation = pathCreator.path.GetRotationAtDistance();
-
         }
 
+        //移動のリスタート
+        void MoveRestart()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                pathCreator.path.Restart();
+            }
+        }
     }
 }
