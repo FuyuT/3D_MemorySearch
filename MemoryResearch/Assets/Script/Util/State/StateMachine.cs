@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 /// <summary>
 /// ステートマシン
@@ -23,8 +24,15 @@ public class StateMachine<TOwner>
     /// <summary>
     /// StateMachineのDispath（ステートの変更)時点で初期値が入る
     /// Startでは入らないので注意
+    /// 初期値は-1
     /// </summary>
-    public int currentStateKey { get; private set; }
+    public int currentStateKey { get;  set; }
+
+    /// <summary>
+    /// 前回のステートキーを格納
+    /// 初期値は-1
+    /// </summary>
+    public int beforeStateKey { get; set; }
 
     // ステートリスト
     private LinkedList<State<TOwner>> states = new LinkedList<State<TOwner>>();
@@ -36,7 +44,8 @@ public class StateMachine<TOwner>
     public StateMachine(TOwner owner)
     {
         Owner = owner;
-        currentStateKey = 0;
+        currentStateKey = -1;
+        beforeStateKey  = -1;
     }
 
     /// <summary>
@@ -136,9 +145,13 @@ public class StateMachine<TOwner>
                 return;
             }
         }
-        Change(to);
 
+        //前回のStateKeyを格納
+        beforeStateKey = currentStateKey;
+        //現在のステートを変更先のステートにする
         currentStateKey = eventId;
+
+        Change(to);
     }
 
     /// <summary>
@@ -151,16 +164,4 @@ public class StateMachine<TOwner>
         nextState.Enter(CurrentState);
         CurrentState = nextState;
     }
-
-    /// <summary>
-    /// 現在のステートのkeyを取得する
-    /// 存在しなければ-1を返す
-    /// </summary>
-    public int GetCurrentStateKey()
-    {
-        int key = -1;
-        states.Find(CurrentState);
-        return key;
-    }
-
 }

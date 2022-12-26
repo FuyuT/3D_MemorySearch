@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameStart : MonoBehaviour
 {
@@ -11,8 +12,15 @@ public class GameStart : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+   public void Update()
     {
+        
+    }
+
+    public void Restart()
+    {
+      
+      FadeManager.Instance.LoadScene("Game", 1.0f);
         
     }
 }

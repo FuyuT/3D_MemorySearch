@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SoundManager: MonoBehaviour
 {
+    public UnityEvent onAwake = new UnityEvent();
+    public UnityEvent onDestroy = new UnityEvent();
+
     [SerializeField]
     AudioSource bgmAudioSource;
     [SerializeField]
     AudioSource seAudioSource;
+
     public float BgmVolume
     {
         get
@@ -40,7 +45,7 @@ public class SoundManager: MonoBehaviour
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -67,8 +72,27 @@ public class SoundManager: MonoBehaviour
         if (clip == null)
         {
             return;
-        }
+        };
         seAudioSource.PlayOneShot(clip);
     }
 
+    public void StopBgm(AudioClip clip)
+    {
+        bgmAudioSource.Play();
+    }
+    public void StopSe(AudioClip clip)
+    {
+        seAudioSource.Stop();
+    }
+
+
+    void Awake()
+    {
+        onAwake.Invoke();
+    }
+
+     void OnDestroy()
+    {
+        onDestroy.Invoke();
+    }
 }

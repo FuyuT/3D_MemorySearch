@@ -5,104 +5,133 @@ using UnityEngine.SceneManagement;
 
 public class MenuSELECT : MonoBehaviour
 {
-    //メニューパネル
-    [SerializeField] GameObject   MenuPanel;
+    ////メニューパネル
+    //[SerializeField] GameObject   MenuPanel;
 
-    //オプションパネル
-    [SerializeField] GameObject OptionPanel;
+    ////オプションパネル
+    //[SerializeField] GameObject OptionPanel;
+
+    //ボタン類///////////////
+    [Header("アドベンチャーボタン")]
+    [SerializeField]
+    GameObject AdventureBuuton;
+
+    [Header("チュートリアルボタン")]
+    [SerializeField]
+    GameObject TutorialBuuton;
+
+    [Header("オプションボタン")]
+    [SerializeField]
+    GameObject OptionBuuton;
+
+    [Header("戻るボタン")]
+    [SerializeField]
+    GameObject BackBuuton;
+    //////////////////////////////
+
     //メニューパネルの表示用
-    bool                               show;
+    bool show;
 
     //メニューパネルでキー入力でのカーソル
-    int                              select;
-  
+    int select;
+
+    //タイトル画面に戻る関連
+    float StandbyTime;
+    public bool Titelreturn;
+
+    //オプション
+    public bool OptionIn;
+
     // Start is called before the first frame update
     void Start()
     {
         select = 0;
-        show = false;
 
-        MenuPanel.SetActive(false);
-        OptionPanel.SetActive(false);
+        StandbyTime = 60f;
+        Titelreturn = false;
+        OptionIn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //メニューを開く
-        if (!show)
-        {
-            if (Input.GetKey("o"))
-            {
-                OnMenu();
-            }
-        }
+        MenuSelect();
+        SelectProject();
 
+        Debug.Log(select);
+        StandbyTime -= Time.deltaTime;
+        if(StandbyTime<0)
+        {
+            Titelreturn = true;
+            StandbyTime += 60f;
+        }
+    }
+
+    void MenuSelect()
+    {
+        //キー入力で項目選択
+        if(Input.GetKeyDown("up"))
+        {
+            select = 0;
+        }
         if (Input.GetKeyDown("down"))
+        {
+            select = 3;
+        }
+        if (Input.GetKeyDown("left"))
+        {
+            select -= 1;
+        }
+        if (Input.GetKeyDown("right"))
         {
             select += 1;
         }
 
-        if(select>2)
+        if (select > 3)
         {
             select = 0;
         }
-        else if(select<0)
+        else if (select < 0)
         {
-            select = 2;
-        }
-
-        if (select == 0)
-        {
-            if (Input.GetKeyDown("z"))
-            {
-                SelectOptionButton();
-            }
-        }
-
-        if (select == 1)
-        {
-            if (Input.GetKeyDown("z"))
-            {
-                SelectTitleButton();
-            }
-        }
-
-        if (select == 2)
-        {
-            if (Input.GetKeyDown("z"))
-            {
-                SelectReturnButton();
-            }
+            select = 3;
         }
     }
 
-    //オプションパネルを開く関数
-    public void SelectOptionButton()
+    void SelectProject()
     {
-        MenuPanel.SetActive(false);
-        OptionPanel.SetActive(true);
-        select = 0;
+        if(Input.GetKeyDown("return") && select == 0)
+        {
+            StartGame();
+        }
+        else if (Input.GetKeyDown("return") && select == 1)
+        {
+            StartTutorial();
+        }
+        else if (Input.GetKeyDown("return") && select == 2)
+        {
+            OnOption();
+        }
+        else if (Input.GetKeyDown("return") && select == 3)
+        {
+            TitelToReturn();
+        }
     }
 
-    //タイトル画面に戻る関数
-    public void SelectTitleButton()
+    public void StartGame()
     {
-        //MenuPanel.SetActive(false);
-        FadeManager.Instance.LoadScene("Titel", 1.0f);
+        FadeManager.Instance.LoadScene("Game", 1.0f);
     }
 
-    //ゲームに戻る（メニューを閉じる）関数
-    public void SelectReturnButton()
+    public void StartTutorial()
     {
-        MenuPanel.SetActive(false);
-        show = false;
+        //FadeManager.Instance.LoadScene("Game", 1.0f);
     }
-
-    //メニューを開く
-    public void OnMenu()
+    public void OnOption()
     {
-        MenuPanel.SetActive(true);
-        show = true;
+        OptionIn = true;
+    }
+    public void TitelToReturn()
+    {
+        Titelreturn = true;
     }
 }
