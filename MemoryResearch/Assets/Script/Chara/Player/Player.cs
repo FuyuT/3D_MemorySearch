@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = State<Player>;
 
-public class Player : CharaBase
+public class Player : CharaBase,IPlayer
 {
     [Header("チャプターカメラ")]
     [SerializeField] public GameObject ChapterCamera;
@@ -269,14 +269,14 @@ public class Player : CharaBase
         }
 
         //FPSカメラの時は、プレイヤーを非表示にする
-        if (ChapterCamera.activeSelf)
-        {
-            playerRenderer.enabled = false;
-        }
-        else
-        {
-            playerRenderer.enabled = true;
-        }
+        //if (ChapterCamera.activeSelf)
+        //{
+        //    playerRenderer.enabled = false;
+        //}
+        //else
+        //{
+        //    playerRenderer.enabled = true;
+        //}
 
         //ステートマシン更新
         stateMachine.Update();
@@ -440,6 +440,20 @@ public class Player : CharaBase
             }
             isGround = false;
         }
+    }
+
+    public Vector3 GetPos()
+    {
+        return transform.position;
+    }
+
+    public bool IsDead()
+    {
+        if (param.Get<int>((int)Enemy.ParamKey.Hp) <= 0)
+        {
+            return true;
+        }
+        return false;
     }
 }
 

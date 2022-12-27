@@ -5,59 +5,58 @@ using UnityEngine.UI;
 
 public class SearchMemory : MonoBehaviour
 {
-    public GameObject player;
-    //public float rotate_speed;
+    /*******************************
+    * private
+    *******************************/
 
-    public float high;
-    public float profound;
+    [SerializeField] GameObject player;
 
-    private const int ROTATE_BUTTON = 1;
-    private const float ANGLE_LIMIT_UP = 60f;
-    private const float ANGLE_LIMIT_DOWN = -60f;
-
-    float _inputX, _inputY;
     [SerializeField]
     float viewAngle;
 
     //テキスト関連
-    [Header("チャプター完了テキスト")]
+    [Header("チャプター完了UI")]
     [SerializeField]
-    GameObject CompleteText;
-    public float timer;
+    GetMemoryUI getMemoryUI;
+
+    //オプション関連/////////////////////////
 
     [Header("オプションスライダーX")]
-    public Slider sliderX;
+    [SerializeField] Slider sliderX;
     [Header("オプションスライダーY")]
-    public Slider sliderY;
-
-    [Header("サーチスライダー")]
-    public Slider SearcSlider;
-    public float SearcCompleteSpeed;
-
+    [SerializeField] Slider sliderY;
+    //オプションの情報を取得
+    [SerializeField] OptionManager optionManager;
+    ///////////////////////////////////////////
 
     //SE関連/////////////////////////
     [Header("サウンドマネージャー")]
     [SerializeField]
     SoundManager soundManager;
-    public AudioClip Successclip;
-    bool SuccessisPlaying = false;
+    [SerializeField] AudioClip Successclip;
 
-    public AudioClip Missclip;
-    bool MissisPlaying = false;
+    [SerializeField] AudioClip Missclip;
 
-    public AudioClip Chargeclip;
-    bool ChargeisPlaying = false;
+    [SerializeField] AudioClip Chargeclip;
+
+    
     ///////////////////////////////////////////
-    GameObject mainCamera;
 
-    //オプションの情報を取得
-    [SerializeField] OptionManager optionManager;
+    [Header("サーチスライダー")]
+    [SerializeField] Slider SearchSlider;
+    [SerializeField] float SearcCompleteSpeed;
 
     //Lockonのスクリプト
     [SerializeField]
     Lockon lockon;
 
-    GameObject lockOnTarget;
+    bool Successcomplete;
+    bool ScanStart;
+
+    public enum SEType
+    {
+        
+    }
 
     void Start()
     {
@@ -67,37 +66,31 @@ public class SearchMemory : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
         transform.rotation = player.transform.rotation;
 
-        CompleteText.SetActive(false);
+        getMemoryUI.Stop();
 
-        mainCamera = Camera.main.gameObject;
+        InitSearchSlider();
 
-        //optionManager = GameObject.Find("Option").GetComponent<OptionManager>();
-
-        SearcSlider.value = 0;
-        SuccessisPlaying = false;
-        MissisPlaying= false;
-        ChargeisPlaying = false;
+        isScan = false;
+        ScanStart = false;
+        Successcomplete = false;
     }
 
-     void Update()
+    void Update()
     {
         transform.position = player.transform.position + new Vector3(0, 7, 0);
 
+        RotateCmaeraAngle(viewAngle);
+
         Scan();
-        _inputX = Input.GetAxis("Mouse X");
-        _inputY = Input.GetAxis("Mouse Y");
-
-        rotateCmaeraAngle(_inputX,_inputY,viewAngle);
-
-      
     }
-     void rotateCmaeraAngle(float _inputX, float _inputY, float limit)
-     {
-        
+
+    void RotateCmaeraAngle(float limit)
+    {
+
         float maxLimit = limit, minLimit = 360 - maxLimit;
         //X軸回転
         var localAngle = transform.localEulerAngles;
-        localAngle.x -= _inputY*sliderY.value;
+        localAngle.x -= Input.GetAxis("Mouse Y") * sliderY.value;
         if (localAngle.x > maxLimit && localAngle.x < 180)
             localAngle.x = maxLimit;
         if (localAngle.x < minLimit && localAngle.x > 180)
@@ -105,13 +98,8 @@ public class SearchMemory : MonoBehaviour
         transform.localEulerAngles = localAngle;
         //Y軸回転
         var angle = transform.eulerAngles;
-        angle.y += _inputX*sliderX.value;
+        angle.y += Input.GetAxis("Mouse X") * sliderX.value;
         transform.eulerAngles = angle;
-      
-     }
-
-    private void lockOnTargetObject(GameObject target)
-    {
 
     }
 
@@ -134,108 +122,123 @@ public class SearchMemory : MonoBehaviour
         //}
     }
 
+    //Activeになった時
     void OnEnable()
     {
+        //プレイヤーの角度に合わせる
         transform.rotation = player.transform.rotation;
     }
 
+
     void Scan()
     {
-        GameObject target = lockon.getTarget();
+        //メモリ取得時のUIを再生
+        if (lockon.GetTarget())
+        {
 
-        if (target != null)
-        {
-            lockOnTarget = target;
-        }
-        else
-        {
-            lockOnTarget = null;
-            SearcSlider.value = 0;
         }
 
-
-        lockOnTargetObject(lockOnTarget);
-        //左クリックしたときにメモリ（アクション）を登録
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1) && lockon.GetTarget())
         {
-            if (lockOnTarget)
-            {
-                //チャージSEを流す
-                ChargeSE();
-                if (SearcSlider.value <= 1)
-                {
-                    ChargeisPlaying = false;
-                    SearcSlider.value += SearcCompleteSpeed;
-                    //スキャン成功
-                    if (SearcSlider.value >= 1)
-                    {
-                        //スキャン成功音を流す
-                        SuccessSE();
-                        SetPossesionMemory(lockOnTarget);
-
-                        //テキスト関連
-                        CompleteText.SetActive(true);
-                        timer = 5f;
-                        SearcSlider.value = 0;
-
-                    }
-
-                    //スキャン失敗
-
-                }
-               
-            }
-            else
-            {
-                Debug.Log("外れた");
-                MissSE();
-                //ChargeisPlaying = false;
-            }
+            isScan = true;
         }
-        else
+
+        if (!isScan) return;
+
+        if (!lockon.GetTarget())
         {
-            SearcSlider.value = 0;
-            SuccessisPlaying = false;
-            ChargeisPlaying = false;
-            MissisPlaying = false;
+            MissScan();
+            Successcomplete = false;
+            ScanStart = false;
         }
-        if (CompleteText.activeSelf)
-        {
-            timer -= Time.deltaTime;
 
-            if (timer <= 0)
-            {
-                CompleteText.SetActive(false);
-            }
-        }
+        ScanUpdate();
     }
 
-    void ChargeSE()
+    void ScanUpdate()
     {
-        if (!ChargeisPlaying)
-        {
-            soundManager.PlaySe(Chargeclip);
-            ChargeisPlaying = true;
-        }
-    }
 
-    void MissSE()
-    {
-        if (!MissisPlaying)
+        //チャージSEを流す
+        if (SearchSlider.value <1)
         {
-            soundManager.StopSe(Chargeclip);
-            soundManager.PlaySe(Missclip);
-            MissisPlaying = true;
-        }
-    }
+            if (!ScanStart)
+            {
+                soundManager.PlaySe(Chargeclip);
+            }
+            SearchSlider.value += SearcCompleteSpeed;
+            ScanStart = true;
 
-    void SuccessSE()
-    {
-        if(!SuccessisPlaying)
+
+            if (Input.GetMouseButtonUp(1) && !Successcomplete)
+            {
+                MissScan();
+                return;
+            }
+        }
+
+        if (!lockon.GetTarget())
         {
+            MissScan();
+            ScanStart = false;
+        }
+
+        if (SearchSlider.value == 1 && !Successcomplete)
+        {
+            //スキャン成功音を流す
             soundManager.StopSe(Chargeclip);
             soundManager.PlaySe(Successclip);
-            SuccessisPlaying = true;
+            SetPossesionMemory(lockon.GetTarget());
+            getMemoryUI.Play();
+            Successcomplete = true;
         }
+
+    }
+
+    void MissScan()
+    {
+        isScan = false;
+        soundManager.StopSe(Chargeclip);
+        soundManager.PlaySe(Missclip);
+        SearchSlider.value = 0;
+    }
+
+    //void ChargeSE()
+    //{
+    //    //if (!soundManager.IsPlayingSe(Chargeclip))
+    //    //{
+    //    //    soundManager.StopSe(Missclip);
+    //    //    soundManager.PlaySe(Chargeclip);
+    //    //}
+    //}
+
+    //void MissSE()
+    //{
+    //    if (!soundManager.IsPlayingSe(Missclip))
+    //    {
+    //        soundManager.StopSe(Chargeclip);
+    //        soundManager.PlaySe(Missclip);
+    //    }
+    //}
+
+    //void SuccessSE()
+    //{
+    //    if (!soundManager.IsPlayingSe(Successclip))
+    //    {
+    //        soundManager.StopSe(Chargeclip);
+    //        //soundManager.StopSe(Missclip);
+    //        soundManager.PlaySe(Successclip);
+    //    }
+    //}
+    
+
+    /*******************************
+    * public
+    *******************************/
+    public bool isScan { get; private set; }
+
+    public void InitSearchSlider()
+    {
+        SearchSlider.value = 0;
     }
 }
+

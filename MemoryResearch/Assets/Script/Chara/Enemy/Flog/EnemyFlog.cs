@@ -295,5 +295,5 @@ public class EnemyFlog : CharaBase
         {
             param.Set((int)Enemy.ParamKey.PossesionMemory, false);
         }
-    }
+    }    
 }
