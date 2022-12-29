@@ -12,6 +12,7 @@ public class BGM : MonoBehaviour
     void Start()
     {
         soundManager.PlayBgm(clip);
+      
     }
     // Update is called once per frame
     void Update()
