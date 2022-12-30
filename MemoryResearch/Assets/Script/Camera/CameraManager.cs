@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    public static CameraManager instance;
+
     [Header("FPSÉJÉÅÉâ")]
     [SerializeField] GameObject FPSCamera;
 
@@ -21,7 +23,7 @@ public class CameraManager : MonoBehaviour
 
     int floorNo;
 
-    StateMachine<CameraManager> stateMachine;
+    MyUtil.StateMachine<CameraManager> stateMachine;
     public int GetCurrentCameraType() {return stateMachine.currentStateKey; }
     [SerializeField] public StagecolorChange colorChange;
 
@@ -34,6 +36,11 @@ public class CameraManager : MonoBehaviour
     }
 
     CameraType nowCamera;
+
+    CameraManager()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -49,7 +56,7 @@ public class CameraManager : MonoBehaviour
 
     void StateMachineInit()
     {
-        stateMachine = new StateMachine<CameraManager>(this);
+        stateMachine = new MyUtil.StateMachine<CameraManager>(this);
 
         stateMachine.AddAnyTransition<StateCameraTPS>((int)CameraType.TPS);
         stateMachine.AddAnyTransition<StateCameraFPS>((int)CameraType.FPS);

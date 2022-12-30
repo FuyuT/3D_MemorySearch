@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<Player>;
+using State = MyUtil.ActorState<Player>;
 
 /// <summary>
 /// 待機
@@ -40,21 +40,18 @@ public class StateIdle : State
         //ダッシュ系
         if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))
         {
-            //空中ダッシュ
-            if (Owner.situation == (int)Player.Situation.Floating)
-            {
-                stateMachine.Dispatch((int)Player.Event.Air_Dush);
-            }
-            //タックル
-            else
+            if(Owner.isGround)
             {
                 stateMachine.Dispatch((int)Player.Event.Attack_Tackle);
             }
-
+            else
+            {
+                stateMachine.Dispatch((int)Player.Event.Air_Dush);
+            }
         }
 
         //パンチ
-        if(Input.GetMouseButtonDown(0) && !Owner.ChapterCamera.activeSelf)
+        if (Input.GetMouseButtonDown(0) && !Owner.ChapterCamera.activeSelf)
         {
             stateMachine.Dispatch((int)Player.Event.Attack_Punch);
         }

@@ -2,84 +2,128 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<EnemyCow>;
+using State = MyUtil.ActorState<EnemyCow>;
 
 public class EnemyCow : CharaBase
 {
-    ///***************************
-    /// private
+    /*******************************
+    * private
+    *******************************/
+    //アクター
+    MyUtil.Actor<EnemyCow> actor;
+    //ステートマシン
+    MyUtil.ActorStateMachine<EnemyCow> stateMachine;
 
-    float searchTime;
 
-    StateMachine<EnemyCow> stateMachine;
-
-    private void Start()
+    private void Awake()
     {
         Init();
-    }
+        StateMachineInit();
+        actor.Transform.Init();
 
+    }
     private void Init()
     {
         CharaBaseInit();
+        charaParam.hp = hpMax;
+    }
+    void StateMachineInit()
+    {
+        stateMachine.AddAnyTransition<StateCowIdle>((int)State.Idle);
+        stateMachine.AddAnyTransition<StateCowMove>((int)State.Move);
+        stateMachine.AddAnyTransition<StateCowTackle>((int)State.Attack_Tackle);
+
+        stateMachine.Start(stateMachine.GetOrAddState<StateCowIdle>());
     }
 
     private void Update()
     {
-        //索敵範囲内にいるか確認 範囲内なら追従(chase)、それ以外なら索敵(search)
-        float x = Mathf.Abs(transform.position.x) - Mathf.Abs(TargetTransform.position.x);
-        float z = Mathf.Abs(transform.position.z) - Mathf.Abs(TargetTransform.position.z);
-        float targetDistance = Mathf.Abs(x) + Mathf.Abs(z);
-
-        Vector3 moveVec = Vector3.zero;
-        if (targetDistance <= SearchDistance)
+        if (IsDead())
         {
-            moveVec  = Vector3.Normalize(TargetTransform.position - transform.position);
-            moveVec *= MoveSpeed;
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
+            {
+                animator.SetTrigger("Damage_Dead");
+                //当たり判定を消す
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
+                this.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                rigidbody.velocity = Vector3.zero;
+            }
+            return;
         }
-        else
+
+        stateMachine.Update();
+
+        UpdateRotate();
+
+        UpdatePosition();
+
+        UpdateDelay();
+    }
+    //角度更新
+    void UpdateRotate()
+    {
+        Vector3 temp = actor.IVelocity().GetVelocity();
+        temp.y = 0;
+        if (temp != Vector3.zero)
         {
-            if (searchTime < 0)
-            {
-                moveVec.x = Random.Range(-10, 11);
-                moveVec.z = Random.Range(-10, 11);
-                moveVec *= 0.1f;
-                searchTime = 3;
-            }
-            else
-            {
-                searchTime -= Time.deltaTime;
-            }
+            actor.Transform.RotateUpdateToVec(temp, rotateSpeed);
         }
-        objectParam.AddMoveVec(moveVec);
-
-        RotateUpdate();
-        PositionUpdate();
     }
-
-    /// <summary>
-    /// 角度の更新
-    /// </summary>
-    void RotateUpdate()
+    //位置更新
+    void UpdatePosition()
     {
-        RotateUpdateToMoveVec();
-    }
+        //位置を更新
+        actor.Transform.PositionUpdate(MyUtil.MoveType.Rigidbody);
 
-    /// <summary>
-    /// 位置の更新
-    /// </summary>
-    void PositionUpdate()
+        //velocityを初期化
+        actor.IVelocity().InitVelocity();
+    }
+    void UpdateDelay()
     {
-        //移動
-        ObjectPositionUpdate(ObjectBase.MoveType.Rigidbody);
+        //探知範囲にターゲットが入っていなければ終了
+        if (!searchRange.InTarget) return;
+        if (delayTackle < delayTackleMax)
+        {
+            delayTackle += Time.deltaTime;
+        }
+    }
+    
+
+    /*******************************
+    * public
+    *******************************/
+    public enum State
+    {
+        Idle,
+        Move,
+        Attack_Tackle,
     }
 
-    ///***************************
-    /// public
+    [Header("アニメーター")]
+    [SerializeField] public Animator animator;
 
-    [SerializeField] public Transform TargetTransform;
-    [SerializeField] public float MoveSpeed;
-    [Space]
-    [Header("索敵距離")]
-    [SerializeField] public float SearchDistance;
+    [Header("範囲")]
+    [SerializeField] public MyUtil.TargetCollider searchRange;
+    [SerializeField] public MyUtil.TargetCollider attackRange;
+
+    [Header("速度")]
+    [SerializeField] public float moveSpeed;
+    [SerializeField] public float rotateSpeed;
+
+    [Header("HP")]
+    [SerializeField] public int hpMax;
+
+    [Header("タックル")]
+    [SerializeField]  public float delayTackleMax;
+    [HideInInspector] public float delayTackle;
+    [SerializeField]  public float tackleTimeMax;
+    [HideInInspector] public float tackleTime;
+    [SerializeField]  public float tackleSpeed;
+
+    public EnemyCow()
+    {
+        actor = new MyUtil.Actor<EnemyCow>(this);
+        stateMachine = new MyUtil.ActorStateMachine<EnemyCow>(this, ref actor);
+    }
 
 }

@@ -26,7 +26,7 @@ public class Title : MonoBehaviour
     [SerializeField] GameObject Menu;
 
 
-    StateMachine<Title> stateMachine;
+    MyUtil.StateMachine<Title> stateMachine;
     public int GetCurrentPanelType() { return stateMachine.currentStateKey; }
 
     public enum PanelType
@@ -59,7 +59,7 @@ public class Title : MonoBehaviour
 
     void StateMachineInit()
     {
-        stateMachine = new StateMachine<Title>(this);
+        stateMachine = new MyUtil.StateMachine<Title>(this);
 
         stateMachine.AddAnyTransition<StateTitel>((int)PanelType.Titel);
         stateMachine.AddAnyTransition<StateMenu>((int)PanelType.Menu);

@@ -1,17 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class SoundManager: MonoBehaviour
 {
-    public UnityEvent onAwake = new UnityEvent();
-    public UnityEvent onDestroy = new UnityEvent();
+    /*******************************
+    * private
+    *******************************/
 
     [SerializeField]
     AudioSource bgmAudioSource;
     [SerializeField]
     AudioSource seAudioSource;
+
+    void Awake()
+    {
+        //サウンドマネージャーが他にないか確認し、ある場合は削除する
+        //（前回のシーンから引き継いできたものなど）
+        GameObject soundManager = GameObject.FindGameObjectWithTag("SoundManager");
+        bool checkResult = soundManager != null && soundManager != gameObject;
+        if (checkResult)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+
+    /*******************************
+    * public
+    *******************************/
+
+    //音量
     public float BgmVolume
     {
         get
@@ -34,55 +52,31 @@ public class SoundManager: MonoBehaviour
             seAudioSource.volume = Mathf.Clamp01(value);
         }
     }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        GameObject soundManager = CheckOtherSoundManager();
-        bool checkResult = soundManager != null && soundManager != gameObject;
-        if (checkResult)
-        {
-            Destroy(gameObject);
-        }
-        //DontDestroyOnLoad(gameObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    GameObject CheckOtherSoundManager()
-    {
-        return GameObject.FindGameObjectWithTag("SoundManager");
-    }
+    
+    //再生
     public void PlayBgm(AudioClip clip)
     {
         bgmAudioSource.clip = clip;
-        if (clip == null)
-        {
-            return;
-        }
+        if (clip == null) return;
         bgmAudioSource.Play();
     }
     public void PlaySe(AudioClip clip)
     {
-        if (clip == null)
-        {
-            return;
-        }
+        if (clip == null) return;
         seAudioSource.PlayOneShot(clip);
     }
 
-
-    void Awake()
+    //停止
+    public void StopBgm(AudioClip clip)
     {
-        onAwake.Invoke();
+        bgmAudioSource.clip = clip;
+        if (clip == null) return;
+        bgmAudioSource.Stop();
     }
-
-    void OnDestroy()
+    public void StopSe(AudioClip clip)
     {
-        onDestroy.Invoke();
+        seAudioSource.clip = clip;
+        if (clip == null) return;
+        seAudioSource.Stop();
     }
 }

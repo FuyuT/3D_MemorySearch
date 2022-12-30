@@ -61,7 +61,7 @@ public class SearchMemory : MonoBehaviour
         transform.position = player.transform.position + new Vector3(0, 7, 0);
 
         GameObject target = lockon.getTarget();
-
+        
         if (target != null)
         {
             lockOnTarget = target;

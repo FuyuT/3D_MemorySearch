@@ -2,68 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<Player>;
+using State = MyUtil.ActorState<Player>;
 
 /// <summary>
 /// 空中ダッシュ
 /// </summary>
 public class StateAirDush : State
 {
-    Vector3 accelerateionVec;
+    Vector3 accelerateionSpeed;
     protected override void OnEnter(State prevState)
     {
-        Owner.situation = (int)Player.Situation.Dush;
-
-        //方向キーの入力値とカメラの向きから、移動方向を決定
-        Owner.dushVec = Vector3.zero;
-        if (Input.GetKey(KeyCode.W))
-        {
-            Owner.dushVec += new Vector3(0, 0, 1);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            Owner.dushVec += new Vector3(0, 0, -1);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            Owner.dushVec += new Vector3(1, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            Owner.dushVec += new Vector3(-1, 0, 0);
-        }
-
-        //ダッシュベクトルが0なら
-        if (Owner.dushVec == Vector3.zero)
-        {
-            //キャラの前方ベクトル単位ベクトルを取得
-            Owner.dushVec = Owner.transform.forward;
-        }
-        else
-        {
-            //単位ベクトルを作成
-            Owner.dushVec = Camera.main.transform.forward * Owner.dushVec.z + Camera.main.transform.right * Owner.dushVec.x;
-            Owner.dushVec.y = 0;
-        }
+        //ダッシュベクトルを作成
+        Owner.dushSpeed = BehaviorMoveToInput.GetDushVec(Owner.transform.forward);
 
         //加速値を作成
-        accelerateionVec = Owner.dushVec * Owner.DushAcceleration;
+        accelerateionSpeed = Owner.dushSpeed * Owner.DushAcceleration;
 
         //初速を設定
-        Owner.dushVec *= Owner.DushStartSpeed;
+        Owner.dushSpeed *= Owner.DushStartSpeed;
 
         //時間を設定
         Owner.nowDushTime = Owner.DushTime;
     }
     protected override void OnUpdate()
     {
-        //目標地点まで毎フレーム移動
         if (Owner.nowDushTime > 0)
         {
             Owner.nowDushTime -= Time.deltaTime;
-
-            Owner.dushVec += accelerateionVec;
-            Owner.moveVec += Owner.dushVec;
+            //加速
+            Owner.dushSpeed += accelerateionSpeed;
+            //スピード設定
+            Actor.Transform.IVelocity().SetVelocity(Owner.dushSpeed);
         }
 
         SelectNextState();
@@ -81,7 +50,6 @@ public class StateAirDush : State
 
     protected override void OnExit(State nextState)
     {
-        Owner.situation = (int)Player.Situation.None;
         Owner.nowDushDelayTime = Owner.DushDelayTime;
     }
 

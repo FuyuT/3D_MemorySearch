@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<Player>;
+using State = MyUtil.ActorState<Player>;
 
 
 /// <summary>
@@ -10,45 +10,32 @@ using State = State<Player>;
 /// </summary>
 public class StateMove : State
 {
+    /*******************************
+    * protected
+    *******************************/
     protected override void OnEnter(State prevState)
     {
     }
 
     protected override void OnUpdate()
     {
+        Vector3 moveAdd = BehaviorMoveToInput.GetInputVec();
 
-        //方向キーの入力値とカメラの向きから、移動方向を決定
-        Vector3 inputVector = Vector3.zero;
-        if (Input.GetKey(KeyCode.W))
-        {
-            inputVector += new Vector3(0, 0, 1);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            inputVector += new Vector3(0, 0, -1);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            inputVector += new Vector3(1, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            inputVector += new Vector3(-1, 0, 0);
-        }
-
-        //単位ベクトルを作成
-        Vector3 moveForward = Camera.main.transform.forward * inputVector.z + Camera.main.transform.right * inputVector.x;
-        moveForward.y = 0;
+        //カメラの方向と移動ベクトルを合わせる
+        moveAdd = Camera.main.transform.forward * moveAdd.z + Camera.main.transform.right * moveAdd.x;
+        moveAdd.y = 0;
 
         //移動スピードを掛ける
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            Owner.moveVec += moveForward * Owner.RunSpeed;
+            moveAdd *= Owner.RunSpeed;
         }
         else
         {
-            Owner.moveVec += moveForward * Owner.MoveSpeed;
+            moveAdd *= Owner.MoveSpeed;
         }
+
+        Actor.Transform.IVelocity().AddVelocity(moveAdd);
 
         SelectNextState();
     }
@@ -58,17 +45,15 @@ public class StateMove : State
         //ダッシュ系
         if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))
         {
-            switch (Owner.situation)
+            if(Owner.isGround)
             {
-                case (int)Player.Situation.Jump:
-                case (int)Player.Situation.Floating:
-                    //空中ダッシュ
-                    stateMachine.Dispatch((int)Player.Event.Air_Dush);
-                    return;
-                default:
-                    //タックル
-                    stateMachine.Dispatch((int)Player.Event.Attack_Tackle);
-                    return;
+                //タックル
+                stateMachine.Dispatch((int)Player.Event.Attack_Tackle);
+            }
+            else
+            {
+                //空中ダッシュ
+                stateMachine.Dispatch((int)Player.Event.Air_Dush);
             }
         }
 
@@ -93,7 +78,7 @@ public class StateMove : State
         }
 
         //待機状態
-        if (Owner.moveVec == Vector3.zero)
+        if (Actor.Transform.IVelocity().GetVelocity() == Vector3.zero)
         {
             stateMachine.Dispatch((int)Player.Event.Idle);
             return;

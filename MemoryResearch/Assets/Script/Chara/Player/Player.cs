@@ -2,29 +2,37 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<Player>;
-
-public class Player : CharaBase, IPlayer
+using State = MyUtil.ActorState<Player>;
+public class Player : CharaBase, IReadPlayer
 {
-    ///***************************
-    /// private
-    Player()
-    {
-    }
+    /*******************************
+    * private
+    *******************************/
+    //アクター
+    MyUtil.Actor<Player> actor;
+    //ステートマシン
+    MyUtil.ActorStateMachine<Player> stateMachine;
 
+    MyUtil.MoveType moveType;
+
+    [Header("地面との当たり判定で使用するレイの長さ")]
+    [SerializeField] float DirectionCheckHitGround;
     void Start()
     {
         Init();
+        if (readPlayer == null)
+        {
+            readPlayer = this;
+        }
     }
 
     private void Init()
     {
-        situation = (int)Situation.None;
         nowJumpSpeed = 0.0f;
-        dushVec = Vector3.zero;
+        dushSpeed = Vector3.zero;
         nowDushTime = 0;
         nowDushDelayTime = DushDelayTime;
-        isGround = false;
+        isGround = true;
         possessionMemory = new int[MemoryMax];
         for (int n = 0; n < MemoryMax; n++)
         {
@@ -32,18 +40,17 @@ public class Player : CharaBase, IPlayer
         }
 
         possessionMemory[0] = (int)Event.Double_Jump;
+
         CharaBaseInit();
-        param.Add((int)ParamKey.AttackPower, 0);
-        param.Add((int)ParamKey.Attack_Info, (int)AttackInfo.Attack_Not_Possible);
-        param.Add((int)Enemy.ParamKey.Hp, HpMax);
+
+        charaParam.hp = HpMax;
 
         StateMachineInit();
+        actor.Transform.Init();
     }
 
     void StateMachineInit()
     {
-        stateMachine = new StateMachine<Player>(this);
-
         //移動キーが押されているなら移動
         stateMachine.AddTransition<StateIdle, StateMove>((int)Event.Move);
 
@@ -66,9 +73,10 @@ public class Player : CharaBase, IPlayer
         //ステートマシンの開始　初期ステートは引数で指定
         stateMachine.Start(stateMachine.GetOrAddState<StateIdle>());
     }
+
     void Update()
     {
-        if (param.Get<int>((int)Enemy.ParamKey.Hp) <= 0)
+        if (IsDead())
         {
             animator.SetBool("isDead", true);
             return;
@@ -86,7 +94,6 @@ public class Player : CharaBase, IPlayer
 
         //ステートマシン更新
         stateMachine.Update();
-        currentState = stateMachine.currentStateKey;
 
         //角度更新
         RotateUpdate();
@@ -97,10 +104,8 @@ public class Player : CharaBase, IPlayer
         //Delayの更新
         DelayTimeUpdate();
 
-        //現在のステートを表示
-        //Debug.Log(stateMachine.currentStateKey);
-        // Debug.Log("situation:" + situation);
-
+        //地面に着地しているか確認する
+        CheckCollisionGround();
     }
 
     //角度更新
@@ -109,18 +114,15 @@ public class Player : CharaBase, IPlayer
         //一人称時の角度変更
         if (ChapterCamera.activeSelf)
         {
-            Vector3 a = Vector3.zero;
-            a.y = ChapterCamera.transform.eulerAngles.y;
-            transform.eulerAngles = a;
+            transform.eulerAngles = new Vector3(0, ChapterCamera.transform.eulerAngles.y, 0);
         }
         else
         {
-            Vector3 temp = moveVec;
+            Vector3 temp = actor.IVelocity().GetVelocity();
             temp.y = 0;
             if (temp != Vector3.zero)
             {
-                var quaternion = Quaternion.LookRotation(temp);
-                transform.rotation = Quaternion.Slerp(this.transform.rotation, quaternion, RotateSpeed * Time.deltaTime);
+                actor.Transform.RotateUpdateToVec(temp, RotateSpeed);
             }
         }
     }
@@ -128,27 +130,24 @@ public class Player : CharaBase, IPlayer
     //位置更新
     void PositionUpdate()
     {
-        var rb = GetComponent<Rigidbody>();
-
-        switch (situation)
+        moveType = MyUtil.MoveType.Rigidbody;
+        switch (stateMachine.currentStateKey)
         {
             //ジャンプ中
-            case (int)Situation.Jump:
+            case (int)Event.Jump:
+            case (int)Event.Double_Jump:
                 //重力を使用しない
-                rb.velocity = moveVec;
-                break;
-            //ダッシュ中
-            case (int)Situation.Dush:
-                //落下しないようにする
-                moveVec.y = 0;
-                rb.velocity = moveVec;
+                actor.IVelocity().SetUseGravity(false);
                 break;
             default:
                 //ベクトルを設定（重力も足しておく）
-                rb.velocity = moveVec + new Vector3(0, rb.velocity.y, 0);
+                actor.IVelocity().SetUseGravity(true);
                 break;
         }
-        moveVec = Vector3.zero;
+        actor.Transform.PositionUpdate(moveType);
+
+        //velocityを初期化
+        actor.IVelocity().InitVelocity();
 
         SetAnimatarComponent();
     }
@@ -156,15 +155,14 @@ public class Player : CharaBase, IPlayer
     //アニメーターに要素を設定
     void SetAnimatarComponent()
     {
-        var rb = GetComponent<Rigidbody>();
         float speed = 0;
-        if (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z) > 0)
+        if (Mathf.Abs(rigidbody.velocity.x) + Mathf.Abs(rigidbody.velocity.z) > 0)
         {
             speed = 1;
         }
 
         animator.SetFloat("Speed", speed);
-        animator.SetFloat("Speed_Y", rb.velocity.y);
+        animator.SetFloat("Speed_Y", rigidbody.velocity.y);
         animator.SetInteger("StateNo", (int)stateMachine.currentStateKey);
     }
 
@@ -177,9 +175,17 @@ public class Player : CharaBase, IPlayer
         }
     }
 
-    ///***************************
-    /// public
+    /*******************************
+    * public
+    *******************************/
 
+    static public IReadPlayer readPlayer; 
+
+    public Player()
+    {
+        actor = new MyUtil.Actor<Player>(this);
+        stateMachine = new MyUtil.ActorStateMachine<Player>(this, ref actor);
+    }
     [Header("チャプターカメラ")]
     [SerializeField] public GameObject ChapterCamera;
 
@@ -265,15 +271,6 @@ public class Player : CharaBase, IPlayer
         Attack_Tackle,
     }
 
-    public enum Situation
-    {
-        None,
-        Jump,
-        Jump_End,
-        Floating,
-        Dush,
-    }
-
     public enum AttackInfo
     {
         Attack_Not_Possible,
@@ -284,23 +281,17 @@ public class Player : CharaBase, IPlayer
     public float nowJumpSpeed;
     public float jumpAcceleration;
 
-    public int situation;
-
-    public Vector3 moveVec;
-
-    public Vector3 dushVec;
+    public Vector3 dushSpeed;
     public float nowDushTime;
-
-    StateMachine<Player> stateMachine;
 
     public int[] possessionMemory { get; private set; }
 
-    public bool IsDead()
+    // getter
+    public Vector3 GetPos()
     {
-        return param.Get<int>((int)Enemy.ParamKey.Hp) <= 0 ? true : false;
+        return transform.position;
     }
 
-    // getter
     //メモリを所持しているか確認する
     public bool CheckPossesionMemory(int memory)
     {
@@ -356,73 +347,29 @@ public class Player : CharaBase, IPlayer
         possessionMemory[arrayValue] = memory;
     }
 
-    ///***************************
-    /// 衝突判定
+    /*******************************
+    * 衝突判定
+    *******************************/
 
-    private void OnCollisionEnter(Collision collision)
+    private void CheckCollisionGround()
     {
-        //地面
-        if (collision.gameObject.tag == "Ground")
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+
+        Debug.DrawRay(ray.origin, ray.direction * DirectionCheckHitGround, Color.red);
+        if (Physics.Raycast(ray,out hit, DirectionCheckHitGround)) //速度が0の時に例が0にならないように+RayAdjustしている
         {
-            switch (situation)
+
+            //地面にレイが当たっていて、プレイヤーのVelocityが上昇していない時
+            if (hit.collider.gameObject.CompareTag("Ground")
+                && actor.IVelocity().GetState() != MyUtil.VelocityState.isUp)
             {
-                case (int)Situation.Jump:
-                    situation = (int)Situation.Jump_End;
-                    nowJumpSpeed = 0.0f;
-                    break;
-                case (int)Situation.Floating:
-                    break;
-                default:
-                    break;
+                isGround = true;
             }
         }
-    }
-
-    private void OnCollisionStay(Collision collision)
-    {
-        //地面
-        if (collision.gameObject.tag == "Ground")
+        //何にも当たっていないなら
+        else
         {
-            switch (situation)
-            {
-                case (int)Situation.Jump:
-                    if (nowJumpSpeed < 0)
-                    {
-                        situation = (int)Situation.Jump_End;
-                        nowJumpSpeed = 0.0f;
-                    }
-                    break;
-                case (int)Situation.Floating:
-                    break;
-                default:
-                    break;
-            }
-            isGround = true;
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        //地面
-        if (collision.gameObject.tag == "Ground")
-        {
-            switch (situation)
-            {
-                case (int)Situation.None:
-                    //浮遊状態へ
-                    situation = (int)Situation.Floating;
-                    break;
-
-                case (int)Situation.Jump:
-                    break;
-                case (int)Situation.Jump_End:
-                    break;
-
-                case (int)Situation.Floating:
-                    break;
-                default:
-                    break;
-            }
             isGround = false;
         }
     }

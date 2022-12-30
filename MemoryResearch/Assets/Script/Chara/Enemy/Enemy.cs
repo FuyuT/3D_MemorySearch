@@ -2,10 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<Enemy>;
+using State = MyUtil.ActorState<Enemy>;
 
 public class Enemy : CharaBase
 {
+
+    /*******************************
+    * private
+    *******************************/
+    //アクター
+    MyUtil.Actor<Enemy> actor;
+    //ステートマシン
+    MyUtil.ActorStateMachine<Enemy> stateMachine;
+
+
+    /*******************************
+    * public
+    *******************************/
+
     /// <summary>
     /// ステートenum
     /// </summary>
@@ -34,8 +48,6 @@ public class Enemy : CharaBase
         Dush,
     }
 
-    StateMachine<Enemy> stateMachine;
-
     [Header("アニメーター")]
     [SerializeField] public Animator animator;
 
@@ -56,7 +68,6 @@ public class Enemy : CharaBase
 
     public int   situation;
 
-    [SerializeField] IReaderActor playerReadActor = new Actor();
 
     [Header("回転速度(一秒で変わる量)")]
     [SerializeField] float RotateSpeed;
@@ -120,6 +131,8 @@ public class Enemy : CharaBase
     /// </summary>
     Enemy()
     {
+        actor = new MyUtil.Actor<Enemy>(this);
+        stateMachine = new MyUtil.ActorStateMachine<Enemy>(this, ref actor);
         Init();
     }
 
@@ -143,12 +156,6 @@ public class Enemy : CharaBase
         nowDushDelayTime = DushDelayTime;
 
         CharaBaseInit();
-        //todo:param消す　もしくは修正する　Addの初期値設定できてない
-        param.Add((int)Enemy.ParamKey.PossesionMemory, Player.Event.None);
-        param.Add((int)ParamKey.AttackPower, 0);
-
-        param.Add((int)Enemy.ParamKey.Hp, HpMax);
-        param.Set((int)Enemy.ParamKey.Hp, HpMax);
 
         StateMachineInit();
     }
@@ -158,7 +165,6 @@ public class Enemy : CharaBase
     /// </summary>
     void StateMachineInit()
     {
-        stateMachine = new StateMachine<Enemy>(this);
 
         stateMachine.AddAnyTransition<StateEnemyMove>((int)Event.Move);
 
@@ -175,7 +181,7 @@ public class Enemy : CharaBase
 
     void Update()
     {
-        if (param.Get<int>((int)Enemy.ParamKey.Hp) <= 0)
+        if (IsDead())
         {
             animator.SetBool("isDead", true);
             return;
@@ -183,7 +189,6 @@ public class Enemy : CharaBase
 
         //ステートマシン更新
         stateMachine.Update();
-        currentState = stateMachine.currentStateKey;
 
         //ジャンプ待機時間の更新
         if (nowJumpDelayTime > 0)
@@ -314,12 +319,6 @@ public class Enemy : CharaBase
                     break;
             }
         }
-
-        //攻撃範囲
-        if (collision.gameObject.tag == "Player")
-        {
-            param.Set((int)Enemy.ParamKey.PossesionMemory, true);
-        }
     }
 
     private void OnCollisionExit(Collision collision)
@@ -346,12 +345,6 @@ public class Enemy : CharaBase
                 default:
                     break;
             }
-        }
-
-        //攻撃範囲
-        if (collision.gameObject.tag == "Player")
-        {
-            param.Set((int)Enemy.ParamKey.PossesionMemory, false);
         }
     }
 }

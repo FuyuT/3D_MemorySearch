@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<Title>;
+using State = MyUtil.State<Title>;
 public class StateOption : State
 {
     protected override void OnUpdate()

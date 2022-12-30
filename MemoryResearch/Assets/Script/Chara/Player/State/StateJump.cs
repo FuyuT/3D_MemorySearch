@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<Player>;
+using State = MyUtil.ActorState<Player>;
 
 /// <summary>
 /// ジャンプ
@@ -13,12 +13,13 @@ public class StateJump : State
 
     protected override void OnEnter(State prevState)
     {
-        Owner.situation = (int)Player.Situation.Jump;
+        Actor.Transform.IVelocity().SetUseGravity(false);
+        Owner.isGround = false;
 
         IsAcceleration = true;
 
         //y軸の速度を0にする
-        Owner.moveVec = new Vector3(Owner.moveVec.x, 0, Owner.moveVec.z);
+        Actor.Transform.IVelocity().SetVelocityY(0);
         //初速を設定
         Owner.nowJumpSpeed = Owner.JumpStartSpeed;
     }
@@ -26,38 +27,22 @@ public class StateJump : State
     protected override void OnUpdate()
     {
         Move();
+
         Jump();
+
+        SelectNextState();
     }
 
     void Move()
     {
         //方向キーの入力値とカメラの向きから、移動方向を決定
-        Vector3 inputVector = Vector3.zero;
-        if (Input.GetKey(KeyCode.W))
-        {
-            inputVector += new Vector3(0, 0, 1);
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            inputVector += new Vector3(0, 0, -1);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            inputVector += new Vector3(1, 0, 0);
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            inputVector += new Vector3(-1, 0, 0);
-        }
-        //カメラの向きから見た進行方向の単位ベクトルを作成
-        Vector3 moveForward = Camera.main.transform.forward * inputVector.z + Camera.main.transform.right * inputVector.x;
-        moveForward.y = 0;
+        Vector3 moveAdd = BehaviorMoveToInput.GetInputVec();
+        BehaviorMoveToInput.ParseToCameraVec(ref moveAdd);
 
-        //移動ベクトルを格納
-        Owner.moveVec += moveForward * Owner.MoveSpeed;
+        Actor.Transform.IVelocity().AddVelocity(moveAdd * Owner.MoveSpeed);
     }
 
-    //ジャンプ処理
+    //ジャンプ
     void Jump()
     {
         //キー入力されていたら、ジャンプ速度を加速させる（飛距離を延ばす）
@@ -74,15 +59,14 @@ public class StateJump : State
         Owner.nowJumpSpeed -= Owner.JumpDecreaseValue;
 
         //ジャンプベクトルを格納
-        Owner.moveVec.y += Owner.nowJumpSpeed;
-
-        SelectNextState();
+        Actor.Transform.IVelocity().AddVelocityY(Owner.nowJumpSpeed);
     }
 
     protected override void SelectNextState()
     {
         //ダブルジャンプ
-        if(Owner.CheckPossesionMemory((int)Player.Event.Double_Jump)) //メモリを持っているか確認
+        //todo:メモリを持っているか確認
+        if (Owner.CheckPossesionMemory((int)Player.Event.Double_Jump))
         {
             if (Input.GetKeyDown(KeyCode.C))
             {
@@ -96,8 +80,8 @@ public class StateJump : State
             stateMachine.Dispatch((int)Player.Event.Air_Dush);
         }
 
-        //着地していたら待機状態へ
-        if (Owner.situation == (int)Player.Situation.Jump_End)
+        //ジャンプ中でない、かつ着地していたら待機状態へ
+        if (!IsAcceleration && Owner.isGround)
         {
             stateMachine.Dispatch((int)Player.Event.Idle);
         }
@@ -106,6 +90,9 @@ public class StateJump : State
 
     protected override void OnExit(State nextState)
     {
-        Owner.moveVec.y = 0;
+        Actor.Transform.IVelocity().SetVelocityY(0);
+        Actor.Transform.IVelocity().SetUseGravity(true);
+        Owner.nowJumpSpeed = 0;
+        Actor.Transform.IVelocity().InitRigidBodyVelocity();
     }
 }

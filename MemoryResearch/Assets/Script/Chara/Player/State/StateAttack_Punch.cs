@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<Player>;
+using State = MyUtil.ActorState<Player>;
 
 /// <summary>
 /// 移動
@@ -13,10 +13,9 @@ public class StateAttack_Punch : State
     private bool isAttack;
     protected override void OnEnter(State prevState)
     {
-        //攻撃力設定
-        Owner.param.Set((int)Player.ParamKey.AttackPower, 5);
+        //todo:攻撃力設定
 
-        Owner.moveVec = Vector3.zero;
+        Actor.Transform.IVelocity().InitVelocity();
 
         isAttack = false;
     }
@@ -41,8 +40,7 @@ public class StateAttack_Punch : State
         }
     }
 
-    protected override void OnExit(State<Player> nextState)
+    protected override void OnExit(State nextState)
     {
-        Owner.Attack_Punch.SetAttackPossible();
     }
 }
