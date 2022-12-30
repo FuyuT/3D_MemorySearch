@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;//情報を読み込むStringReaderを使用するために導入
 
-namespace Util
+namespace MyUtil
 {
     public class TextUtility
     {
@@ -30,13 +30,14 @@ namespace Util
             //指定したアドレスに保管されているCSVファイルから情報を読み取り、enemyDataに情報を文字列として格納するメソッド。
             //enemyData[i][j]はCSVファイルのi行、j列目のデータを表す。但し先頭行（タイトル部分）は0行目と考えるものとする。
             List<string[]> dataBuffer = new List<string[]>();
-
-            StreamReader reader = new StreamReader(dataPath,
-                System.Text.Encoding.GetEncoding("shift_jis"));
-            while (reader.Peek() != -1)
+            using(StreamReader reader = new StreamReader(dataPath,
+                System.Text.Encoding.GetEncoding("shift_jis")))
             {
-                string line = reader.ReadLine();
-                dataBuffer.Add(line.Split(','));
+                while (reader.Peek() != -1)
+                {
+                    string line = reader.ReadLine();
+                    dataBuffer.Add(line.Split(','));
+                }
             }
 
             return dataBuffer;
@@ -53,14 +54,32 @@ namespace Util
             //指定したアドレスに保管されているCSVファイルから情報を読み取り、enemyDataに情報を文字列として格納するメソッド。
             //enemyData[i][j]はCSVファイルのi行、j列目のデータを表す。但し先頭行（タイトル部分）は0行目と考えるものとする。
             List<string[]> dataBuffer = new List<string[]>();
-            StringReader reader = new StringReader(csvFile.text);
-            while (reader.Peek() != -1)
+            using(StringReader reader = new StringReader(csvFile.text))
             {
-                string line = reader.ReadLine();
-                dataBuffer.Add(line.Split(','));
+                while (reader.Peek() != -1)
+                {
+                    string line = reader.ReadLine();
+                    dataBuffer.Add(line.Split(','));
+                }
             }
 
             return dataBuffer;
+        }
+
+        /// <summary>
+        /// 指定したパスにテキストデータを書き込む
+        /// </summary>
+        /// <param name="path">書き込むファイルのパス</param>
+        /// <param name="writeData">書き込む内容</param>
+        static public void WriteText(string path, List<string> writeData)
+        {
+            using (StreamWriter sw = new StreamWriter(path, false, System.Text.Encoding.UTF8))
+            {
+                foreach (string text in writeData)
+                {
+                    sw.Write(text);
+                }
+            }
         }
 
 

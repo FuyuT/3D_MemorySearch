@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class MenuManager : MonoBehaviour
 {
-    ///******************************
-    /// private
+    /*******************************
+    * private
+    *******************************/
 
     MenuType nowMenu;
     MenuType nextMenu;
@@ -86,8 +87,9 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-    ///******************************
-    /// public
+    /*******************************
+    * public
+    *******************************/
 
     public enum MenuType
     {
