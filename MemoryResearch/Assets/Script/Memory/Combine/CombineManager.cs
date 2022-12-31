@@ -79,7 +79,5 @@ public class CombineManager : MonoBehaviour
 
         var playerData = DataManager.instance.IPlayerData();
         playerData.AddPossesionMemory(combineResult.GetMemoryType());
-        Debug.Log("’Ê‚Á‚½");
-
     }
 }

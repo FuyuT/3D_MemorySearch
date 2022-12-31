@@ -47,7 +47,6 @@ public class MemoryPossesionUI : MonoBehaviour
 
         //todo:所持メモリUIのソート（しないかも？）取得した順番に、レベルで昇順にソートしてUIにセットする
         //List<int> sortList;
-        Debug.Log("所持している数" + possesionMemories.Count);
 
         for (int n = 0; n < MemoriesUI.Length; n++)
         {
