@@ -27,11 +27,11 @@ public class StateFlogJump : State
     protected override void OnUpdate()
     {
         //アニメーションが変更されていなければ処理終了
-        if (!Owner.animator.GetCurrentAnimatorStateInfo(0).IsName("Jump_Start"))
+        if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_Start"))
         {
-            Owner.animator.SetTrigger("Jump_Start");
             return;
         }
+
 
         //ジャンプ処理
         //ジャンプ速度を減速

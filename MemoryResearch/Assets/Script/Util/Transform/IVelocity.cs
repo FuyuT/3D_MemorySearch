@@ -23,6 +23,9 @@ namespace MyUtil
         public void InitRigidBodyVelocity();
 
         public Vector3 GetMaxVelocity();
+        public void SetMaxVelocityX(float maxVelocityX);
+        public void SetMaxVelocityY(float maxVelocityY);
+        public void SetMaxVelocityZ(float maxVelocityZ);
         public void SetMaxVelocity(Vector3 maxVelocity);
 
         public bool IsUseGravity();

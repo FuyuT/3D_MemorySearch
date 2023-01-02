@@ -11,8 +11,10 @@ public class AttackInfo
     /*******************************
     * public
     *******************************/
+    public int id;
     public int power;
     public DamageType type;
+    public AttackSituation situation;
 
     public AttackInfo()
     {
@@ -21,8 +23,10 @@ public class AttackInfo
 
     public void Init()
     {
+        id = UniqueIDSetter.Instance().GetUniqueID();
         power = 0;
         type = DamageType.Once;
+        situation = AttackSituation.Possible;
     }
 }
 

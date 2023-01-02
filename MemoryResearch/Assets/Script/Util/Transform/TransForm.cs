@@ -65,6 +65,7 @@ namespace MyUtil
             rotate     = new MyUtil.Rotate<TOwner>(ref owner);
         }
 
+        //初期化
         public void Init()
         {
             SetRigidBody();
@@ -90,7 +91,8 @@ namespace MyUtil
                     {
                         SetRigidBody();
                     }
-                    position.UpdateByRigidBody(ref rigidbody, velocity.GetVelocity(), velocity.IsUseGravity());
+                    
+                    position.UpdateByRigidBody(ref rigidbody, velocity.GetVelocity());
                     break;
                 case MyUtil.MoveType.Transform:
                     position.UpdateByTransform(velocity.GetVelocity());

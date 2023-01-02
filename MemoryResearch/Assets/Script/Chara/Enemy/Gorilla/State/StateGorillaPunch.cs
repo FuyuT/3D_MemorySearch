@@ -11,6 +11,8 @@ public class StateGorillaPunch : State
     protected override void OnEnter(State prevState)
     {
         Owner.animator.SetTrigger("Attack_Punch");
+
+        Owner.SetAttackPower(10);
     }
 
     protected override void OnUpdate()
@@ -37,5 +39,6 @@ public class StateGorillaPunch : State
 
     protected override void OnExit(State prevState)
     {
+        Owner.InitAttackPower();
     }
 }

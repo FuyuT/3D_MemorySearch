@@ -8,6 +8,8 @@ public class StateCrabDefense : State
     protected override void OnEnter(State prevState)
     {
         Owner.animator.SetTrigger("Defense1");
+
+        Owner.SetDefencePower(30);
     }
 
     protected override void OnUpdate()
@@ -30,5 +32,6 @@ public class StateCrabDefense : State
     protected override void OnExit(State prevState)
     {
         Owner.delayGuard = 0;
+        Owner.InitDefencePower();
     }
 }

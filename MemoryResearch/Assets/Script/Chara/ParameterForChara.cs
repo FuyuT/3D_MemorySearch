@@ -6,6 +6,7 @@ public class ParameterForChara
     *******************************/
     public int uniqueID;
     public int hp;
+    public int defencePower;
     public AttackInfo attackInfo;
 
     public ParameterForChara()
@@ -16,7 +17,9 @@ public class ParameterForChara
 
     public void Init()
     {
+        uniqueID = UniqueIDSetter.Instance().GetUniqueID();
         hp = 0;
+        defencePower = 0;
         attackInfo.Init();
     }
 }

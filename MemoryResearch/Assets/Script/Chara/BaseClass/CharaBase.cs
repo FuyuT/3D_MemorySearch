@@ -24,9 +24,12 @@ public class CharaBase : MonoBehaviour
 
     protected Rigidbody rigidbody;
 
+    Dictionary<int, AttackInfo> damageInfo;
+
     protected CharaBase()
     {
         charaParam = new ParameterForChara();
+        damageInfo = new Dictionary<int, AttackInfo>();
     }
 
     protected void CharaBaseInit()
@@ -35,17 +38,68 @@ public class CharaBase : MonoBehaviour
         rigidbody = gameObject.GetComponent<Rigidbody>();
     }
 
+    protected void UpdateDamage()
+    {
+        //攻撃が終了していたら、damageInfoから除外する
+        foreach(KeyValuePair<int, AttackInfo> kvp in damageInfo)
+        {
+            //ダメージ判定が終了していれば次の値へ
+            if (kvp.Value.situation == AttackSituation.End) continue;
+            Damage(kvp.Value.power);
+
+            //一度だけ判定する攻撃なら、攻撃状態を終了に変更
+            if(kvp.Value.type == DamageType.Once)
+            {
+                damageInfo[kvp.Key].situation = AttackSituation.End;
+            }
+        }
+    }
+
+    /// <summary>
+    /// ダメージの更新を行う
+    /// </summary>
+    protected void CharaUpdate()
+    {
+        UpdateDamage();
+    }
+
     /*******************************
     * public
     *******************************/
 
+
+    //ダメージ情報を追加する
+    public void AddDamageInfo(int id, AttackInfo attackInfo)
+    {
+        //死んでいたら終了
+        if (IsDead()) return;
+
+        //同じものが登録されていたら終了
+        if (damageInfo.ContainsKey(id)) return;
+        Debug.Log("add" + id);
+
+        damageInfo.Add(id, attackInfo);
+    }
+
+    //ダメージ情報を除外する
+    public void RemoveDamageInfo(int id)
+    {
+        //idが登録されていなければ終了
+        if (!damageInfo.ContainsKey(id)) return;
+        Debug.Log("remove" + id);
+
+        damageInfo.Remove(id);
+    }
+
     //ダメージ処理
     public void Damage(int attackPower)
     {
-        Debug.Log(attackPower + "ダメージ");
+        int damage = attackPower - charaParam.defencePower < 0 ? 0 : attackPower - charaParam.defencePower;
+        
+        Debug.Log(damage + "ダメージ");
 
-        charaParam.hp -= attackPower;
-        if(IsDead())
+        charaParam.hp -= damage;
+        if (IsDead())
         {
             Dead();
         }
@@ -57,10 +111,48 @@ public class CharaBase : MonoBehaviour
         return charaParam.hp <= 0 ? true : false;
     }
 
+
+    //getter
+    //IDの取得
+    public int GetID()
+    {
+        return charaParam.uniqueID;
+    }
+
     //HPの取得
     public int GetHP()
     {
         return charaParam.hp;
+    }
+
+    //攻撃情報の取得
+    public AttackInfo GetAttackInfo()
+    {
+        return charaParam.attackInfo;
+    }
+
+
+    //setter
+    //攻撃力の設定
+    public void InitAttackPower()
+    {
+        charaParam.attackInfo.power = 0;
+    }
+
+    public void SetAttackPower(int power)
+    {
+        charaParam.attackInfo.power = power;
+    }
+
+    //防御力の設定
+    public void InitDefencePower()
+    {
+        charaParam.defencePower = 0;
+    }
+
+    public void SetDefencePower(int defence)
+    {
+        charaParam.defencePower = defence;
     }
 
 }

@@ -79,6 +79,8 @@ public class EnemyCrab : CharaBase
         UpdatePosition();
 
         UpdateDelay();
+
+        CharaUpdate();
     }
     //角度更新
     void UpdateRotate()

@@ -21,14 +21,8 @@ namespace MyUtil
         /// 位置の更新 rigidBodyのVelocityを使用して進行方向にmoveVecを設定する
         /// isUseGravityがtrueなら重力をベクトルに加え、falseなら加えない
         /// </summary>
-        public void UpdateByRigidBody(ref Rigidbody rigidbody, Vector3 velocity, bool isUseGravity)
+        public void UpdateByRigidBody(ref Rigidbody rigidbody, Vector3 velocity)
         {
-            if (isUseGravity)
-            {
-                //重力をベクトルに加える
-                velocity += new Vector3(0, rigidbody.velocity.y, 0);
-            }
-
             rigidbody.velocity = velocity;
         }
 

@@ -29,17 +29,16 @@ public class Player : CharaBase, IReadPlayer
     private void Init()
     {
         nowJumpSpeed = 0.0f;
-        dushSpeed = Vector3.zero;
-        nowDushTime = 0;
         nowDushDelayTime = DushDelayTime;
-        isGround = true;
+        isGround = false;
+        actor.IVelocity().SetUseGravity(true);
         possessionMemory = new int[MemoryMax];
         for (int n = 0; n < MemoryMax; n++)
         {
             possessionMemory[n] = 0;
         }
 
-        possessionMemory[0] = (int)Event.Double_Jump;
+        possessionMemory[0] = (int)State.Double_Jump;
 
         CharaBaseInit();
 
@@ -47,28 +46,38 @@ public class Player : CharaBase, IReadPlayer
 
         StateMachineInit();
         actor.Transform.Init();
+
+        //速度の上限値を設定
+        actor.IVelocity().SetMaxVelocityY(120);
     }
 
     void StateMachineInit()
     {
-        //移動キーが押されているなら移動
-        stateMachine.AddTransition<StateIdle, StateMove>((int)Event.Move);
+        //歩く
+        stateMachine.AddTransition<StateIdle, StateMoveWalk>((int)State.Move_Walk);
+        //走る
+        stateMachine.AddAnyTransition<StateMoveRun>((int)State.Move_Run);
+        //ガード
+        stateMachine.AddAnyTransition<StateGuard>((int)State.Guard);
 
-        //タックルキーが押されているならタックル
-        stateMachine.AddAnyTransition<StateTackle>((int)Event.Attack_Tackle);
+        //ダッシュ
+        stateMachine.AddAnyTransition<StateDush>((int)State.Move_Dush);
 
-        //ジャンプボタンでジャンプ
-        stateMachine.AddAnyTransition<StateJump>((int)Event.Jump);
-        stateMachine.AddAnyTransition<StateDoubleJump>((int)Event.Double_Jump);
+        //ジャンプ
+        stateMachine.AddAnyTransition<StateJump>((int)State.Jump);
+        stateMachine.AddAnyTransition<StateDoubleJump>((int)State.Double_Jump);
 
-        //エアダッシュ
-        stateMachine.AddAnyTransition<StateAirDush>((int)Event.Air_Dush);
+        //タックル
+        stateMachine.AddAnyTransition<StateAttackTackle>((int)State.Attack_Tackle);
 
         //パンチ
-        stateMachine.AddAnyTransition<StateAttack_Punch>((int)Event.Attack_Punch);
+        stateMachine.AddAnyTransition<StateAttack_Punch>((int)State.Attack_Punch);
+
+        //叩きつけ
+        stateMachine.AddAnyTransition<StateAttack_Slam>((int)State.Attack_Slam);
 
         //何も押されていないなら待機状態へ
-        stateMachine.AddAnyTransition<StateIdle>((int)Event.Idle);
+        stateMachine.AddAnyTransition<StateIdle>((int)State.Idle);
 
         //ステートマシンの開始　初期ステートは引数で指定
         stateMachine.Start(stateMachine.GetOrAddState<StateIdle>());
@@ -78,7 +87,7 @@ public class Player : CharaBase, IReadPlayer
     {
         if (IsDead())
         {
-            animator.SetBool("isDead", true);
+            BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
             return;
         }
 
@@ -106,6 +115,8 @@ public class Player : CharaBase, IReadPlayer
 
         //地面に着地しているか確認する
         CheckCollisionGround();
+
+        CharaUpdate();
     }
 
     //角度更新
@@ -130,41 +141,13 @@ public class Player : CharaBase, IReadPlayer
     //位置更新
     void PositionUpdate()
     {
-        moveType = MyUtil.MoveType.Rigidbody;
-        switch (stateMachine.currentStateKey)
-        {
-            //ジャンプ中
-            case (int)Event.Jump:
-            case (int)Event.Double_Jump:
-                //重力を使用しない
-                actor.IVelocity().SetUseGravity(false);
-                break;
-            default:
-                //ベクトルを設定（重力も足しておく）
-                actor.IVelocity().SetUseGravity(true);
-                break;
-        }
-        actor.Transform.PositionUpdate(moveType);
+        actor.Transform.PositionUpdate(MyUtil.MoveType.Rigidbody);
 
         //velocityを初期化
         actor.IVelocity().InitVelocity();
 
-        SetAnimatarComponent();
     }
 
-    //アニメーターに要素を設定
-    void SetAnimatarComponent()
-    {
-        float speed = 0;
-        if (Mathf.Abs(rigidbody.velocity.x) + Mathf.Abs(rigidbody.velocity.z) > 0)
-        {
-            speed = 1;
-        }
-
-        animator.SetFloat("Speed", speed);
-        animator.SetFloat("Speed_Y", rigidbody.velocity.y);
-        animator.SetInteger("StateNo", (int)stateMachine.currentStateKey);
-    }
 
     //ディレイ時間の更新
     void DelayTimeUpdate()
@@ -173,6 +156,12 @@ public class Player : CharaBase, IReadPlayer
         {
             nowDushDelayTime -= Time.deltaTime;
         }
+
+        if (nowTackleDelayTime > 0)
+        {
+            nowTackleDelayTime -= Time.deltaTime;
+        }
+
     }
 
     /*******************************
@@ -218,7 +207,7 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] public float RunSpeed;
 
     [Space]
-    [Header("ジャンプ")]
+    [Header("「ジャンプステート」")]
     [Header("初速")]
     [SerializeField] public float JumpStartSpeed;
     [Header("加速値")]
@@ -229,7 +218,7 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] public float JumpDecreaseValue;
 
     [Space]
-    [Header("ダッシュ")]
+    [Header("「ダッシュステート」")]
     [Header("ディレイ秒数")]
     [SerializeField] public float DushDelayTime;
     public float nowDushDelayTime;
@@ -240,6 +229,21 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] public float DushAcceleration;
     [Header("移動時間")]
     [SerializeField] public float DushTime;
+
+    [Space]
+    [Header("「タックルステート」")]
+    [Header("ディレイ秒数")]
+    [SerializeField] public float TackleDelayTime;
+
+    public float nowTackleDelayTime;
+
+    [Header("初速")]
+    [SerializeField] public float TackleStartSpeed;
+    [Header("加速値")]
+    [SerializeField] public float TackleAcceleration;
+    [Header("移動時間")]
+    [SerializeField] public float TackleTime;
+
 
     [Header("カメラマネージャー")]
     [SerializeField] CameraManager camemana;
@@ -255,20 +259,24 @@ public class Player : CharaBase, IReadPlayer
     /// <summary>
     /// ステートenum
     /// </summary>
-    public enum Event
+    public enum State
     {
         None,
         Idle,
         //移動
-        Move,
-        Air_Dush,
+        Move_Walk,
+        Move_Run,
+        Move_Dush,
         //ジャンプ
         Jump,
         Double_Jump,
         Floating,
         //攻撃
         Attack_Punch,
+        Attack_Slam,
         Attack_Tackle,
+        //防御
+        Guard,
     }
 
     public enum AttackInfo
@@ -281,8 +289,6 @@ public class Player : CharaBase, IReadPlayer
     public float nowJumpSpeed;
     public float jumpAcceleration;
 
-    public Vector3 dushSpeed;
-    public float nowDushTime;
 
     public int[] possessionMemory { get; private set; }
 
@@ -334,10 +340,10 @@ public class Player : CharaBase, IReadPlayer
         //todo:デバッグ:設定した行動メモリ表示用
         switch(memory)
         {
-            case (int)Event.Jump:
+            case (int)State.Jump:
                 Debug.Log("ジャンプ登録");
                 break;
-            case (int)Event.Double_Jump:
+            case (int)State.Double_Jump:
                 Debug.Log("ダブルジャンプ登録");
                 break;
             default:

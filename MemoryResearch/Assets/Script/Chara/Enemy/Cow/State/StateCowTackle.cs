@@ -13,6 +13,8 @@ public class StateCowTackle : State
         //待機状態を1回再生して、チャージしている動作に見せる
         Owner.animator.SetTrigger("Idle");
         isTackleReady = false;
+
+        Owner.SetAttackPower(10);
     }
 
     protected override void OnUpdate()
@@ -79,5 +81,7 @@ public class StateCowTackle : State
     {
         Owner.delayTackle = 0;
         Owner.tackleTime  = 0;
+
+        Owner.InitAttackPower();
     }
 }

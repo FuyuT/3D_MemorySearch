@@ -8,12 +8,13 @@ public class StateCrabAttack : State
     protected override void OnEnter(State prevState)
     {
         Owner.animator.SetTrigger("Attack");
+        //攻撃力設定
+        Owner.SetAttackPower(5);
     }
 
     protected override void OnUpdate()
     {
         //移動
-
         SelectNextState();
     }
 
@@ -40,6 +41,8 @@ public class StateCrabAttack : State
 
     protected override void OnExit(State prevState)
     {
+        //攻撃力初期化
+        Owner.InitAttackPower();
     }
 
 }

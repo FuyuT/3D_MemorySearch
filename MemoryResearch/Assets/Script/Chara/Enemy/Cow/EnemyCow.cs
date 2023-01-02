@@ -14,7 +14,6 @@ public class EnemyCow : CharaBase
     //ステートマシン
     MyUtil.ActorStateMachine<EnemyCow> stateMachine;
 
-
     private void Awake()
     {
         Init();
@@ -58,6 +57,8 @@ public class EnemyCow : CharaBase
         UpdatePosition();
 
         UpdateDelay();
+
+        CharaUpdate();
     }
     //角度更新
     void UpdateRotate()

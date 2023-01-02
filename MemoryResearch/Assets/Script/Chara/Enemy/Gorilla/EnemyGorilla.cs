@@ -56,6 +56,8 @@ public class EnemyGorilla : CharaBase
         UpdatePosition();
 
         UpdateDelay();
+
+        CharaUpdate();
     }
     //äpìxçXêV
     void UpdateRotate()

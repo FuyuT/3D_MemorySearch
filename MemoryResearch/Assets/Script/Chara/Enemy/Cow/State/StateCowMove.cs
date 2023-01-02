@@ -12,6 +12,12 @@ public class StateCowMove : State
 
     protected override void OnUpdate()
     {
+        //アニメーションが変更されていなければ処理終了
+        if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Move_Walk"))
+        {
+            return;
+        }
+
         //移動
         if (Owner.searchRange.InTarget)
         {

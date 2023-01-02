@@ -29,17 +29,24 @@ namespace MyUtil
         //最高速度を超えないように調整
         void AdjustVelocity()
         {
-            if(velocity.x > maxVelocity.x)
+            //XZの上限値調整
+            if (Mathf.Abs(velocity.x) > maxVelocity.x)
             {
-                velocity.x = maxVelocity.x;
+                velocity.x = Mathf.Sign(velocity.x) == 1 ? maxVelocity.x : -maxVelocity.x;
             }
-            if (velocity.y > maxVelocity.y)
+            if (Mathf.Abs(velocity.z) > maxVelocity.z)
             {
-                velocity.y = maxVelocity.y;
+                velocity.z = Mathf.Sign(velocity.z) == 1 ? maxVelocity.z : -maxVelocity.z;
             }
-            if (velocity.z > maxVelocity.z)
+            //Yの上限値調整
+            if (isUseGravity)
             {
-                velocity.z = maxVelocity.z;
+                velocity.y += rigidbody.velocity.y;
+            }
+
+            if (Mathf.Abs(velocity.y) > maxVelocity.y)
+            {
+                velocity.y = Mathf.Sign(velocity.y) == 1 ? maxVelocity.y : -maxVelocity.y;
             }
         }
 
@@ -160,6 +167,19 @@ namespace MyUtil
         {
             return maxVelocity;
         }
+        public void SetMaxVelocityX(float maxVelocityX)
+        {
+            maxVelocity.x = maxVelocityX;
+        }
+        public void SetMaxVelocityY(float maxVelocityY)
+        {
+            maxVelocity.y = maxVelocityY;
+        }
+        public void SetMaxVelocityZ(float maxVelocityZ)
+        {
+            maxVelocity.z = maxVelocityZ;
+        }
+
         public void SetMaxVelocity(Vector3 maxVelocity)
         {
             this.maxVelocity = maxVelocity;

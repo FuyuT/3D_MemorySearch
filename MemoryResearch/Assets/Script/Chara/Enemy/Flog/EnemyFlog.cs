@@ -75,6 +75,8 @@ public class EnemyFlog : CharaBase
 
         //地面に着地しているか確認する
         CheckCollisionGround();
+
+        CharaUpdate();
     }
 
     //角度の更新
