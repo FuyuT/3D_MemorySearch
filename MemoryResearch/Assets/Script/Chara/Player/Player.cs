@@ -244,10 +244,6 @@ public class Player : CharaBase, IReadPlayer
     [Header("移動時間")]
     [SerializeField] public float TackleTime;
 
-
-    [Header("カメラマネージャー")]
-    [SerializeField] CameraManager camemana;
-
     [Header("プレイヤーのRenderer")]
     [SerializeField] Renderer playerRenderer;
 
@@ -277,13 +273,6 @@ public class Player : CharaBase, IReadPlayer
         Attack_Tackle,
         //防御
         Guard,
-    }
-
-    public enum AttackInfo
-    {
-        Attack_Not_Possible,
-        Attack_Possible,
-        Attack_End,
     }
 
     public float nowJumpSpeed;

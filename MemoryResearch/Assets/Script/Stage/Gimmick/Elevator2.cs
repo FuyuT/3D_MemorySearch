@@ -24,6 +24,7 @@ public class Elevator2 : MonoBehaviour
     //待機時間
     private float StopTime;
 
+    //エレベータの行動ステータス
     enum ElevatorSituation
     {
         Stop,
@@ -31,24 +32,13 @@ public class Elevator2 : MonoBehaviour
         Down,
     }
 
-    enum PlayerPosInfo
-    {
-        None,
-        InElevator,
-        OutElevater,
-        UpFloor,
-        DownFloor,
-    }
-
     ElevatorSituation situation;
-    PlayerPosInfo     playerPosInfo;
 
     // Start is called before the first frame update
     void Start()
     {
         NowFloorNo = 1;
         FirstFloorPos = transform.localPosition.y;
-        playerPosInfo = PlayerPosInfo.None;
         move = false;
         StopTime = 0;
     }
@@ -56,26 +46,29 @@ public class Elevator2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(StopTime>=0 && NowFloorNo==2)
+        if (StopTime >= 0 && NowFloorNo == 2)
+        {
+            StopTime -= Time.deltaTime;
+        }
+        else if (StopTime >= 0 && NowFloorNo == 1)
         {
             StopTime -= Time.deltaTime;
         }
         SituationUpdate();
         MoveUpdate();
-       
+
     }
 
     void SituationUpdate()
     {
-        //Debug.Log(FirstFloorPos);
-        //プレイヤーが乗ったら上昇・下降
+      
         //指定位置になったら止まる
-        //プレイヤーが乗っていないかつ自分より下にいるなら下降する
+        //タイムが0になったら動き出す
 
-        if (transform.localPosition.y < SecondFloorPos && NowFloorNo==1 && StopTime>=0)
+        if (transform.localPosition.y < SecondFloorPos && NowFloorNo==1 && StopTime<=0)
         {
             situation = ElevatorSituation.Up;
-            StopTime = 2;
+            StopTime = 4;
         }
 
         if (transform.localPosition.y >= SecondFloorPos && NowFloorNo == 1 && StopTime >=0 )
@@ -87,15 +80,15 @@ public class Elevator2 : MonoBehaviour
         if (transform.localPosition.y > FirstFloorPos && NowFloorNo==2 && StopTime <= 0)
         {
             situation = ElevatorSituation.Down;
-            StopTime = 2;
+            StopTime = 4;
         }
 
-        if (transform.localPosition.y <= FirstFloorPos && NowFloorNo == 2 && StopTime >= 0 )
+        if (transform.localPosition.y <= FirstFloorPos && NowFloorNo == 2 && StopTime >= 0)
         {
             situation = ElevatorSituation.Stop;
             NowFloorNo = 1;
         }
-        
+
     }
 
     void MoveUpdate()

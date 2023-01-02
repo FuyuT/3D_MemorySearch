@@ -24,28 +24,9 @@ public class MainCameraScript : MonoBehaviour
     [SerializeField]
     private LayerMask obstacleLayer;
 
-    //private void FixedUpdate()
-    //{
-    //    LateUpdate();
-    //}
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else if(Input.GetKeyDown(KeyCode.L))
-        {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-    }
-
     void FixedUpdate()
     {
-       // Cursor.lockState = CursorLockMode.Locked;
+      
        
         RaycastHit hit;
         //マウスで視点を変更
@@ -56,12 +37,11 @@ public class MainCameraScript : MonoBehaviour
         //transform.RotateAround(target.transform.position, Vector3.up, lookAtPos);
         if (Physics.Linecast(target.transform.position, transform.position, out hit, obstacleLayer))
         {
-            transform.position = hit.point;
+            transform.position = hit.point+new Vector3(0,10,0);
+            transform.LookAt(target.transform);
         }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            transform.LookAt(target.transform.forward);
-        }
+      
+
     }
 
     void updateAngle(float x, float y)
@@ -71,6 +51,11 @@ public class MainCameraScript : MonoBehaviour
 
         y =YAngle + y * mouseYSensitivity;
         YAngle = Mathf.Clamp(y, minPolarAngle, maxPolarAngle);
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            transform.LookAt(target.transform.forward);
+        }
     }
 
     void updateDistance(float scroll)

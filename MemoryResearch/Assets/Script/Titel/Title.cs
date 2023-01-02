@@ -26,7 +26,7 @@ public class Title : MonoBehaviour
     [SerializeField] GameObject Menu;
 
 
-    MyUtil.StateMachine<Title> stateMachine;
+    StateMachine<Title> stateMachine;
     public int GetCurrentPanelType() { return stateMachine.currentStateKey; }
 
     public enum PanelType
@@ -38,17 +38,6 @@ public class Title : MonoBehaviour
     }
     PanelType nowPanel;
 
-
-    //bool Show;
-
-    ////項目選択の数値
-    //int Select;
-
-    ////項目パネルが表示してから操作できるまで用の時間
-    //public float ShowTime;
-
-    //PanelofIn InScript;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +48,7 @@ public class Title : MonoBehaviour
 
     void StateMachineInit()
     {
-        stateMachine = new MyUtil.StateMachine<Title>(this);
+        stateMachine = new StateMachine<Title>(this);
 
         stateMachine.AddAnyTransition<StateTitel>((int)PanelType.Titel);
         stateMachine.AddAnyTransition<StateMenu>((int)PanelType.Menu);
@@ -74,64 +63,6 @@ public class Title : MonoBehaviour
     {
         stateMachine.Update();
         ChangePanel();
-
-        //if (Input.GetKeyDown("return") || Input.GetMouseButtonDown(0))
-        //{
-        //    TitlePanel.SetActive(false);
-        //    MenuPanel.SetActive(true);
-        //    // InScript.IsFadeIn = true;
-        //    Show = true;
-
-        //    //StartButton.Select();
-
-        //}
-
-        //if (Show)
-        //{
-        //    ShowTime -= Time.deltaTime;
-        //}
-
-        //if (ShowTime <= 0)
-        //{
-
-        //    if (Input.GetKeyDown("down"))
-        //    {
-        //        Select += 1;
-
-        //    }
-        //    else if (Input.GetKeyDown("up"))
-        //    {
-        //        Select -= 1;
-
-        //    }
-
-        //    if (Select > 2)
-        //    {
-        //        Select = 0;
-        //    }
-        //    else if (Select < 0)
-        //    {
-        //        Select = 2;
-        //    }
-
-        //    if (CustomInput.Interval_InputKeydown(KeyCode.Return, 2))
-        //    {
-        //        if (Select == 0)
-        //        {
-        //            SelectGameStart();
-        //        }
-
-        //        if (Select == 1)
-        //        {
-        //            SelectContinued();
-        //        }
-
-        //        if (Select == 2)
-        //        {
-        //            SelectOption();
-        //        }
-        //    }
-        //}
     }
 
     void AllPanelInit()
@@ -164,23 +95,4 @@ public class Title : MonoBehaviour
         }
         nowPanel = (PanelType)stateMachine.currentStateKey;
     }
-
-    ////項目新しく始めるを選んだ場合
-    //public void SelectGameStart()
-    //{
-    //    FadeManager.Instance.LoadScene("Game", 1.0f);
-    //}
-
-    ////項目続きからを選んだ場合
-    //public void SelectContinued()
-    //{
-
-    //}
-
-    ////項目オプションを選んだ場合
-    //public void SelectOption()
-    //{
-    //    // SelectPanel.SetActive(false);
-    //    //OptionPanel.SetActive(true);
-    //}
 }

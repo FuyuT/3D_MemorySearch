@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SoundManager: MonoBehaviour
+public class SoundManager : MonoBehaviour
 {
     /*******************************
     * private
@@ -52,7 +52,7 @@ public class SoundManager: MonoBehaviour
             seAudioSource.volume = Mathf.Clamp01(value);
         }
     }
-    
+
     //çƒê∂
     public void PlayBgm(AudioClip clip)
     {
@@ -62,6 +62,7 @@ public class SoundManager: MonoBehaviour
     }
     public void PlaySe(AudioClip clip)
     {
+        seAudioSource.clip = clip;
         if (clip == null) return;
         seAudioSource.PlayOneShot(clip);
     }
@@ -78,5 +79,19 @@ public class SoundManager: MonoBehaviour
         seAudioSource.clip = clip;
         if (clip == null) return;
         seAudioSource.Stop();
+    }
+
+    public bool IsPlayingBgm(AudioClip clip)
+    {
+        bgmAudioSource.clip = clip;
+        if (clip == null) return false;
+        return bgmAudioSource.isPlaying;
+    }
+
+    public bool IsPlayingSe(AudioClip clip)
+    {
+        seAudioSource.clip = clip;
+        if (clip == null) return false;
+        return seAudioSource.isPlaying;
     }
 }
