@@ -1,3 +1,4 @@
+using MyUtil;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,7 @@ public class StateGuard : State
     protected override void OnEnter(State prevState)
     {
         isReady = true;
+        Owner.SetDefencePower(5);
     }
 
     protected override void OnUpdate()
@@ -38,7 +40,7 @@ public class StateGuard : State
             BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Guard_Ready");
 
             //再生が終了していたら準備完了
-            if (BehaviorAnimation.IsPlayEndCheck(ref Owner.animator, "Guard_Ready"))
+            if (BehaviorAnimation.IsPlayEnd(ref Owner.animator, "Guard_Ready"))
             {
                 isReady = true;
             }
@@ -48,8 +50,7 @@ public class StateGuard : State
     protected override void SelectNextState()
     {
         //ガードモーションに入っていなければ終了
-        if (!BehaviorAnimation.IsNameCheck(ref Owner.animator, "Guard_Guarding")) return;
-
+        if (!BehaviorAnimation.IsName(ref Owner.animator, "Guard_Guarding")) return;
 
         //待機
         if (!Input.GetKey(KeyCode.H))
@@ -57,5 +58,10 @@ public class StateGuard : State
             stateMachine.Dispatch((int)Player.State.Idle);
             return;
         }
+    }
+
+    protected override void OnExit(ActorState<Player> nextState)
+    {
+        Owner.InitDefencePower();
     }
 }

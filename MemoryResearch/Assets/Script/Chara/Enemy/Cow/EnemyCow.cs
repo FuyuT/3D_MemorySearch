@@ -19,7 +19,6 @@ public class EnemyCow : CharaBase
         Init();
         StateMachineInit();
         actor.Transform.Init();
-
     }
     private void Init()
     {
@@ -37,6 +36,9 @@ public class EnemyCow : CharaBase
 
     private void Update()
     {
+        //プレイヤーの実体がなければ終了
+        if (Player.readPlayer == null) return;
+
         if (IsDead())
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
@@ -99,9 +101,6 @@ public class EnemyCow : CharaBase
         Move,
         Attack_Tackle,
     }
-
-    [Header("アニメーター")]
-    [SerializeField] public Animator animator;
 
     [Header("範囲")]
     [SerializeField] public MyUtil.TargetCollider searchRange;

@@ -7,8 +7,6 @@ public class StateCrabDefense : State
 {
     protected override void OnEnter(State prevState)
     {
-        Owner.animator.SetTrigger("Defense1");
-
         Owner.SetDefencePower(30);
     }
 
@@ -19,8 +17,11 @@ public class StateCrabDefense : State
 
     protected override void SelectNextState()
     {
-        //アニメーションが変更されていなければ処理終了
-        if (!Owner.animator.GetCurrentAnimatorStateInfo(0).IsName("Defense1")) return;
+        //アニメーションが変更されていなければ変更
+        if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Defense1"))
+        {
+            return;
+        }
 
         //アニメーションが終了していたら
         if (Owner.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)

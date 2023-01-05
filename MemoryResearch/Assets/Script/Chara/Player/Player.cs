@@ -17,13 +17,10 @@ public class Player : CharaBase, IReadPlayer
 
     [Header("地面との当たり判定で使用するレイの長さ")]
     [SerializeField] float DirectionCheckHitGround;
-    void Start()
+    void Awake()
     {
         Init();
-        if (readPlayer == null)
-        {
-            readPlayer = this;
-        }
+        readPlayer = this;
     }
 
     private void Init()
@@ -91,6 +88,9 @@ public class Player : CharaBase, IReadPlayer
             return;
         }
 
+        //TimeScaleが0以下の時は処理を終了
+        if(Time.timeScale <= 0) return;
+
         //FPSカメラの時は、プレイヤーを非表示にする
         if (ChapterCamera.activeSelf)
         {
@@ -145,7 +145,6 @@ public class Player : CharaBase, IReadPlayer
 
         //velocityを初期化
         actor.IVelocity().InitVelocity();
-
     }
 
 
@@ -161,14 +160,13 @@ public class Player : CharaBase, IReadPlayer
         {
             nowTackleDelayTime -= Time.deltaTime;
         }
-
     }
 
     /*******************************
     * public
     *******************************/
 
-    static public IReadPlayer readPlayer; 
+    static public IReadPlayer readPlayer;
 
     public Player()
     {
@@ -177,9 +175,6 @@ public class Player : CharaBase, IReadPlayer
     }
     [Header("チャプターカメラ")]
     [SerializeField] public GameObject ChapterCamera;
-
-    [Header("アニメーター")]
-    [SerializeField] public Animator animator;
 
     [Space]
     [Header("攻撃範囲")]
@@ -354,9 +349,8 @@ public class Player : CharaBase, IReadPlayer
         Debug.DrawRay(ray.origin, ray.direction * DirectionCheckHitGround, Color.red);
         if (Physics.Raycast(ray,out hit, DirectionCheckHitGround)) //速度が0の時に例が0にならないように+RayAdjustしている
         {
-
             //地面にレイが当たっていて、プレイヤーのVelocityが上昇していない時
-            if (hit.collider.gameObject.CompareTag("Ground")
+            if (hit.collider.CompareTag("Ground")
                 && actor.IVelocity().GetState() != MyUtil.VelocityState.isUp)
             {
                 isGround = true;

@@ -50,7 +50,7 @@ public class StateDoubleJump : State
         //キー入力されていたら、ジャンプ速度を加速させる（飛距離を延ばす）
         if (Input.GetKey(KeyCode.C) && IsAcceleration)
         {
-            Owner.nowJumpSpeed += Owner.JumpAcceleration;
+            Owner.nowJumpSpeed += Owner.JumpAcceleration * Time.timeScale;
         }
         else
         {
@@ -58,10 +58,10 @@ public class StateDoubleJump : State
         }
 
         //ジャンプの速度を減少させる
-        Owner.nowJumpSpeed -= Owner.JumpDecreaseValue;
+        Owner.nowJumpSpeed -= Owner.JumpDecreaseValue * Time.timeScale;
 
         //ジャンプベクトルを格納
-        Actor.IVelocity().AddVelocityY(Owner.nowJumpSpeed);
+        Actor.Transform.IVelocity().AddVelocityY(Owner.nowJumpSpeed);
     }
 
     protected override void SelectNextState()

@@ -88,9 +88,10 @@ public class SearchMemory : MonoBehaviour
     {
 
         float maxLimit = limit, minLimit = 360 - maxLimit;
+        var option = DataManager.instance.IOptionData().GetAimOption();
         //Xé≤âÒì]
         var localAngle = transform.localEulerAngles;
-        localAngle.x -= Input.GetAxis("Mouse Y") * sliderY.value;
+        localAngle.x -= Input.GetAxis("Mouse Y") * option.sensitivity.y;
         if (localAngle.x > maxLimit && localAngle.x < 180)
             localAngle.x = maxLimit;
         if (localAngle.x < minLimit && localAngle.x > 180)
@@ -98,9 +99,8 @@ public class SearchMemory : MonoBehaviour
         transform.localEulerAngles = localAngle;
         //Yé≤âÒì]
         var angle = transform.eulerAngles;
-        angle.y += Input.GetAxis("Mouse X") * sliderX.value;
+        angle.y += Input.GetAxis("Mouse X") * option.sensitivity.x;
         transform.eulerAngles = angle;
-
     }
 
     /// <summary>
@@ -157,7 +157,6 @@ public class SearchMemory : MonoBehaviour
 
     void ScanUpdate()
     {
-
         //É`ÉÉÅ[ÉWSEÇó¨Ç∑
         if (SearchSlider.value <1)
         {

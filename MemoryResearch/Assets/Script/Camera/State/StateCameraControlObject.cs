@@ -29,6 +29,5 @@ public class StateCameraControlObject : State
     {
         //オブジェクトのマテリアルを戻す
         Owner.colorChange.ChangeBeforeMaterial();
-        Owner.MoveObjCamScript.ChangFlg = false;
     }
 }

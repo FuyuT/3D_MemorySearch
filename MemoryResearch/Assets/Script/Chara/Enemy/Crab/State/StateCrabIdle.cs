@@ -7,7 +7,9 @@ public class StateCrabIdle : State
 {
     protected override void OnEnter(State prevState)
     {
-        Owner.animator.SetTrigger("Idle");
+        SelectNextState();
+
+        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle");
     }
 
     protected override void OnUpdate()
@@ -17,9 +19,6 @@ public class StateCrabIdle : State
 
     protected override void SelectNextState()
     {
-        //アニメーションが変更されていなければ処理終了
-        if (!Owner.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
-
         //移動への遷移
         if (Owner.searchRange.InTarget)
         {

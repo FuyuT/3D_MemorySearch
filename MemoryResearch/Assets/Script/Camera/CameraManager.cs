@@ -12,17 +12,12 @@ public class CameraManager : MonoBehaviour
     [Header("TPSカメラ")]
     [SerializeField] GameObject TPSCamera;
 
-    [Header("コントロールカメラ")]
-    [SerializeField] public GameObject ControllerCamera;
+    [Header("オブジェクト操作カメラ")]
+    [SerializeField] public GameObject OparationMoveObjectCamera;
 
-    //コントロールカメラ関連
-    public ChangeMoveObjectCamera MoveObjCamScript;
-    public StageGimmick stageGimmick;
+    //オブジェクト操作用コンソールの範囲
+    public MoveObjectConsoleRange ConsoleRange { get; private set; }
     
-    [SerializeField] GameObject Operation;
-
-    int floorNo;
-
     MyUtil.StateMachine<CameraManager> stateMachine;
     public int GetCurrentCameraType() {return stateMachine.currentStateKey; }
     [SerializeField] public StagecolorChange colorChange;
@@ -44,14 +39,9 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
-        MoveObjCamScript = Operation.GetComponent<ChangeMoveObjectCamera>();
-        stageGimmick = Operation.GetComponent<StageGimmick>();
-
         StateMachineInit();
 
         ChangeMainCamara();
-
-        floorNo = 1;
     }
 
     void StateMachineInit()
@@ -79,7 +69,7 @@ public class CameraManager : MonoBehaviour
     {
         FPSCamera.SetActive(false);
         TPSCamera.SetActive(false);
-        ControllerCamera.SetActive(false);
+        OparationMoveObjectCamera.SetActive(false);
     }
 
     void ChangeMainCamara()
@@ -92,17 +82,14 @@ public class CameraManager : MonoBehaviour
         switch (stateMachine.currentStateKey)
         {
             case (int)CameraType.FPS:
-                FPSCamera.SetActive(true);
-                
+                FPSCamera.SetActive(true); 
                 break;
-
             case (int)CameraType.TPS:
                 TPSCamera.SetActive(true);
                 break;
 
             case (int)CameraType.Controller:
-                ControllerCamera.SetActive(true);
-                MoveObjCamScript.ChangFlg = true;
+                OparationMoveObjectCamera.SetActive(true);
                 break;
         }
         nowCamera = (CameraType)stateMachine.currentStateKey;

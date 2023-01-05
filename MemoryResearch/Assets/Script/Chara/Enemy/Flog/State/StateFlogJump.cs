@@ -6,41 +6,40 @@ using State = MyUtil.ActorState<EnemyFlog>;
 
 public class StateFlogJump : State
 {
-    Vector3 JumpVec;
+    Vector3 moveVec;
     protected override void OnEnter(State prevState)
     {
-        Owner.animator.SetTrigger("Jump_Start");
-
         //初速を設定
         Owner.nowJumpSpeed = Owner.JumpStartSpeed;
 
         //目標に向かうベクトル
-        JumpVec = Vector3.zero;
-        JumpVec = Vector3.Normalize(Player.readPlayer.GetPos() - Owner.transform.position) * Owner.JumpToTargetPower;
-        JumpVec.y = 0;
+        moveVec = Vector3.zero;
+        moveVec = Vector3.Normalize(Player.readPlayer.GetPos() - Owner.transform.position) * Owner.JumpToTargetPower;
+        moveVec.y = 0;
 
-        //攻撃力設定
-        //todo:ダメージ変更
+        //速度の初期化
+        Actor.IVelocity().InitVelocity();
+
+        //重力の変更
+        Actor.IVelocity().SetUseGravity(false);
 
     }
 
     protected override void OnUpdate()
     {
-        //アニメーションが変更されていなければ処理終了
-        if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_Start"))
-        {
-            return;
-        }
-
-
-        //ジャンプ処理
-        //ジャンプ速度を減速
-        Owner.nowJumpSpeed -= (Owner.Gravity + Owner.JumpAcceleration) * Time.deltaTime;
-        //移動ベクトルに進行方向のベクトルとジャンプのベクトルを足す
-        Actor.IVelocity().AddVelocity(JumpVec + new Vector3(0, Owner.nowJumpSpeed , 0));
+        Jump();
 
         SelectNextState();
     }
+
+    void Jump()
+    {
+        //ジャンプ速度を減速
+        Owner.nowJumpSpeed -= Owner.JumpDecreaseValue * Time.timeScale;
+        //移動ベクトルに進行方向のベクトルとジャンプのベクトルを足す
+        Actor.IVelocity().AddVelocity(moveVec + new Vector3(0, Owner.nowJumpSpeed, 0));
+    }
+
 
     protected override void SelectNextState()
     {
@@ -56,6 +55,7 @@ public class StateFlogJump : State
         Owner.delayJumpTime = 0;
         Actor.IVelocity().InitVelocity();
 
-        //攻撃力設定
+        //重力の変更
+        Actor.IVelocity().SetUseGravity(true);
     }
 }

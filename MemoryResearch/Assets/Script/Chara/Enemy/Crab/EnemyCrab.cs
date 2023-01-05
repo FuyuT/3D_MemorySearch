@@ -7,9 +7,6 @@ public class EnemyCrab : CharaBase
     /*******************************
     * private
     *******************************/
-    [Header("アニメーター")]
-    [SerializeField] public Animator animator;
-
     [Header("範囲")]
     [SerializeField] public MyUtil.TargetCollider searchRange;
     [SerializeField] public MyUtil.TargetCollider attackRange;
@@ -59,7 +56,10 @@ public class EnemyCrab : CharaBase
 
     void Update()
     {
-        if(IsDead())
+        //プレイヤーの実体がなければ終了
+        if (Player.readPlayer == null) return;
+
+        if (IsDead())
         {
             if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
             {

@@ -14,6 +14,7 @@ public class DataManager : MonoBehaviour
 
     MemoryData memoryData;
     PlayerData playerData;
+    OptionData optionData;
 
     string saveDataPath;
 
@@ -25,7 +26,7 @@ public class DataManager : MonoBehaviour
 
             memoryData = new MemoryData();
             playerData = new PlayerData();
-
+            optionData = new OptionData();
             Load();
         }
         else
@@ -33,6 +34,7 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
     void Load()
     {
         //メモリーデータの読み込み
@@ -41,7 +43,21 @@ public class DataManager : MonoBehaviour
         //セーブデータパスの取得
         saveDataPath = SaveDataProcess.GetSaveDataPath();
         //セーブデータの読み込み
-        SaveDataProcess.Load(saveDataPath, ref playerData);
+        SaveDataProcess.Load(saveDataPath, ref playerData, ref optionData);
+
+        //セーブデータ反映
+        //サウンド
+        try
+        {
+            SoundManager soundManager = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager>();
+            soundManager.BgmVolume = optionData.soundOption.bgmVolume;
+            soundManager.SeVolume = optionData.soundOption.seVolume;
+        }
+        catch
+        {
+            Debug.Log("SoundManagerが見つかりません");
+        }
+        //明るさ
     }
 
     /*******************************
@@ -61,10 +77,16 @@ public class DataManager : MonoBehaviour
         return playerData;
     }
 
+    //オプションデータのインターフェイスを取得
+    public IOptionData IOptionData()
+    {
+        return optionData;
+    }
+
     //データをセーブする
     public void Save()
     {
-        SaveDataProcess.Save(saveDataPath, ref playerData);
+        SaveDataProcess.Save(saveDataPath, ref playerData, ref optionData);
     }
 
     //メモリの画像を取得

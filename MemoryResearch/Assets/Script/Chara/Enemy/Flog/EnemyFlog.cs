@@ -31,6 +31,8 @@ public class EnemyFlog : CharaBase
         delayJumpTime = 0;
         delayShotTime = 0;
         charaParam.hp = HpMax;
+
+        actor.IVelocity().SetUseGravity(true);
     }
     // ステートマシンの初期化
     void StateMachineInit()
@@ -46,11 +48,16 @@ public class EnemyFlog : CharaBase
 
     void Update()
     {
+        //プレイヤーの実体がなければ終了
+        if (Player.readPlayer == null)
+        {
+            return;
+        }
+
         if (IsDead())
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
             {
-                Debug.Log("死亡");
                 animator.SetTrigger("Damage_Dead");
                 //当たり判定を消す
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
@@ -62,7 +69,6 @@ public class EnemyFlog : CharaBase
 
         //ステートマシン更新
         stateMachine.Update();
-
 
         //角度更新
         RotateUpdate();
@@ -93,18 +99,6 @@ public class EnemyFlog : CharaBase
     ///位置の更新
     void PositionUpdate()
     {
-        //重力の変更
-        switch (stateMachine.currentStateKey)
-        {
-            //ジャンプ中は重力を使用しない
-            case (int)State.Jump:
-                actor.IVelocity().SetUseGravity(false);
-                break;
-            default:
-                actor.IVelocity().SetUseGravity(true);
-                break;
-        }
-
         //攻撃の時は移動を止める
         if (stateMachine.currentStateKey == (int)State.Attack_Shot)
         {
@@ -153,8 +147,6 @@ public class EnemyFlog : CharaBase
         Attack_Tongue,
         Attack_Shot,
     }
-    [Header("アニメーター")]
-    [SerializeField] public Animator animator;
 
     [Header("範囲")]
     [SerializeField] public MyUtil.TargetCollider searchRange;
@@ -168,15 +160,7 @@ public class EnemyFlog : CharaBase
     [Header("HP")]
     [SerializeField] public int HpMax;
 
-    [Header("タックル")]
-    [SerializeField] public float delayTackleMax;
-    [HideInInspector] public float delayTackle;
-    [SerializeField] public float tackleTimeMax;
-    [HideInInspector] public float tackleTime;
-    [SerializeField] public float tackleSpeed;
-
-
-    [Header("射撃")]
+    [Header("「射撃ステート」")]
     [SerializeField] public float delayShotTimeMax;
     public float delayShotTime;
 
@@ -185,20 +169,16 @@ public class EnemyFlog : CharaBase
     [SerializeField] public GameObject bullet;
     [SerializeField] public float ShotInterval;
 
-    [Header("ジャンプ")]
-    [Header("ジャンプに入るまでの時間")]
+    [Header("「ジャンプステート」")]
     [SerializeField] public float delayJumpTimeMax;
     [Header("進む力")]
     [SerializeField] public float JumpToTargetPower;
 
     [Header("初速")]
     [SerializeField] public float JumpStartSpeed;
-    [Header("加速値")]
-    [SerializeField] public float JumpAcceleration;
 
-    [Space]
-    [Header("重力")]
-    [SerializeField] public float Gravity;
+    [Header("減速力")]
+    [SerializeField] public float JumpDecreaseValue;
 
     public bool isGround;
 

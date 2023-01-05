@@ -26,7 +26,7 @@ public class StateCameraTPS : State
         //}
 
         //Object移動カメラ
-        if (Input.GetKeyDown("v") && Owner.MoveObjCamScript.RangeInFlg)
+        if (Input.GetKeyDown("v") && Owner.ConsoleRange.InRange)
         {
             stateMachine.Dispatch((int)CameraManager.CameraType.Controller);
         }

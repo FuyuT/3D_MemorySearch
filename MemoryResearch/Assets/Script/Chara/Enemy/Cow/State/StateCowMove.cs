@@ -7,12 +7,11 @@ public class StateCowMove : State
 {
     protected override void OnEnter(State prevState)
     {
-        Owner.animator.SetTrigger("Move_Walk");
     }
 
     protected override void OnUpdate()
     {
-        //アニメーションが変更されていなければ処理終了
+        //アニメーションが変更されていなければ変更
         if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Move_Walk"))
         {
             return;

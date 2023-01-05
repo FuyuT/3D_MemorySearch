@@ -8,15 +8,16 @@ public class StateFlogAttackTongue : State
 {
     protected override void OnEnter(State prevState)
     {
-        Owner.animator.SetTrigger("Attack_Tongue");
+        //アニメーションの更新
+        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Tongue");
 
         //攻撃力設定
-        Owner.SetAttackPower(5);
+        Owner.SetAttackPower(2);
     }
 
     protected override void OnUpdate()
     {
-        //アニメーションが変更されていなければ処理終了
+        //アニメーションが変更されていなければ変更
         if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Tongue"))
         {
             return;

@@ -14,16 +14,21 @@ public static class SaveDataProcess
 
     enum SaveDataLine
     {
-        PossesionMemoryCount,
-        PossesionMemory,
-        EquipmentMemory,
-        Option,
+        Possesion_Memory_Count,
+        Possesion_Memory,
+        Equipment_Memory,
+        Option_BGM,
+        Option_SE,
+        Option_Brightness,
+        Option_Sensitivity_X,
+        Option_Sensitivity_Y,
+        Option_AutoSave,
     }
 
     /*******************************
     * public
     *******************************/
-    
+
     /// <summary>
     /// セーブデータのパスの取得
     /// ファイルが無ければ作成する
@@ -52,36 +57,48 @@ public static class SaveDataProcess
     /// </summary>
     /// <param name="path">ファイルのパス</param>
     /// <param name="playerData">プレイヤーデータ</param>
-    public static void Load(string path ,ref PlayerData playerData)
+    public static void Load(string path ,ref PlayerData playerData, ref OptionData optionData)
     {
         //データをバッファに読み込み
         List<string[]> dataBuffer = MyUtil.TextUtility.ReadCSVData(path);
 
         //各データの設定
         //所持しているメモリの数
-        int memoryPossesionCount = int.Parse(dataBuffer[(int)SaveDataLine.PossesionMemoryCount][0]);
+        int memoryPossesionCount = int.Parse(dataBuffer[(int)SaveDataLine.Possesion_Memory_Count][0]);
         //所持しているメモリ
         for(int n = 0; n < memoryPossesionCount; n++)
         {
             playerData.possesionMemories.Add(
-                (MemoryType)int.Parse(dataBuffer[(int)SaveDataLine.PossesionMemory][n]));
+                (MemoryType)int.Parse(dataBuffer[(int)SaveDataLine.Possesion_Memory][n]));
         }
 
         //装備しているメモリ
         for (int n = 0; n < Global.EquipmentMemoryMax; n++)
         {
-            playerData.equipmentMemory[n] = (MemoryType)int.Parse(dataBuffer[(int)SaveDataLine.EquipmentMemory][n]);
+            playerData.equipmentMemory[n] = (MemoryType)int.Parse(dataBuffer[(int)SaveDataLine.Equipment_Memory][n]);
         }
 
-        //todo:追加のセーブデータ
         //BGM音量
+        optionData.soundOption.bgmVolume = float.Parse(dataBuffer[(int)SaveDataLine.Option_BGM][0]);
+        optionData.soundOption.isMuteBGM = bool.Parse(dataBuffer[(int)SaveDataLine.Option_BGM][1]);
 
         //SE音量
+        optionData.soundOption.seVolume = float.Parse(dataBuffer[(int)SaveDataLine.Option_SE][0]);
+        optionData.soundOption.isMuteSE = bool.Parse(dataBuffer[(int)SaveDataLine.Option_SE][1]);
+
+        //明るさ
+        optionData.brightness = float.Parse(dataBuffer[(int)SaveDataLine.Option_Brightness][0]);
 
         //マウス感度X
+        optionData.aimOption.sensitivity.x = float.Parse(dataBuffer[(int)SaveDataLine.Option_Sensitivity_X][0]);
+        optionData.aimOption.isReverseX    = bool.Parse(dataBuffer[(int)SaveDataLine.Option_Sensitivity_X][1]);
 
         //マウス感度Y
+        optionData.aimOption.sensitivity.y = float.Parse(dataBuffer[(int)SaveDataLine.Option_Sensitivity_Y][0]);
+        optionData.aimOption.isReverseY = bool.Parse(dataBuffer[(int)SaveDataLine.Option_Sensitivity_Y][1]);
 
+        //オートセーブ
+        optionData.isAutoSave = bool.Parse(dataBuffer[(int)SaveDataLine.Option_AutoSave][0]);        
     }
 
     /// <summary>
@@ -89,7 +106,7 @@ public static class SaveDataProcess
     /// </summary>
     /// <param name="path">ファイルのパス</param>
     /// <param name="playerData">プレイヤーデータ</param>
-    public static void Save(string path, ref PlayerData playerData)
+    public static void Save(string path, ref PlayerData playerData, ref OptionData optionData)
     {
         List<string> writeData = new List<string>();
 
@@ -114,14 +131,33 @@ public static class SaveDataProcess
         }
         writeData.Add("\n");
 
-        //todo:追加のセーブデータ
         //BGM音量
+        writeData.Add(optionData.soundOption.bgmVolume + ",");
+        writeData.Add(optionData.soundOption.isMuteBGM + ",");
+        writeData.Add("\n");
 
         //SE音量
+        writeData.Add(optionData.soundOption.seVolume + ",");
+        writeData.Add(optionData.soundOption.isMuteSE + ",");
+        writeData.Add("\n");
+
+        //明るさ
+        writeData.Add(optionData.brightness + ",");
+        writeData.Add("\n");
 
         //マウス感度X
+        writeData.Add(optionData.aimOption.sensitivity.x + ",");
+        writeData.Add(optionData.aimOption.isReverseX + ",");
+        writeData.Add("\n");
 
         //マウス感度Y
+        writeData.Add(optionData.aimOption.sensitivity.y + ",");
+        writeData.Add(optionData.aimOption.isReverseY + ",");
+        writeData.Add("\n");
+
+        //オートセーブ
+        writeData.Add(optionData.isAutoSave + ",");
+        writeData.Add("\n");
 
         //データを書き込む
         MyUtil.TextUtility.WriteText(path, writeData);

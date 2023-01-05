@@ -7,7 +7,6 @@ public class StateCowIdle : State
 {
     protected override void OnEnter(State prevState)
     {
-        Owner.animator.SetTrigger("Idle");
     }
 
     protected override void OnUpdate()
@@ -17,8 +16,11 @@ public class StateCowIdle : State
 
     protected override void SelectNextState()
     {
-        //アニメーションが変更されていなければ処理終了
-        if (!Owner.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle")) return;
+        //アニメーションが変更されていなければ変更
+        if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle"))
+        {
+            return;
+        }
 
         //探知範囲にいなければ処理終了
         if (!Owner.searchRange.InTarget) return;

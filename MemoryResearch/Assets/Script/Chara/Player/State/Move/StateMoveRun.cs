@@ -40,7 +40,7 @@ public class StateMoveRun : State
             BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Move_Run_Ready");
 
             //再生が終了していたら準備完了
-            if (BehaviorAnimation.IsPlayEndCheck(ref Owner.animator, "Move_Run_Ready"))
+            if (BehaviorAnimation.IsPlayEnd(ref Owner.animator, "Move_Run_Ready"))
             {
                 isReady = true;
             }
@@ -63,7 +63,7 @@ public class StateMoveRun : State
     protected override void SelectNextState()
     {
         //走るモーションに入っていなければ終了
-        if (!BehaviorAnimation.IsNameCheck(ref Owner.animator, "Move_Run")) return;
+        if (!BehaviorAnimation.IsName(ref Owner.animator, "Move_Run")) return;
 
         //ダッシュ系
         if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))

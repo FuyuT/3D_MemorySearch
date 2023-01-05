@@ -40,7 +40,7 @@ public class CharaBase : MonoBehaviour
 
     protected void UpdateDamage()
     {
-        //攻撃が終了していたら、damageInfoから除外する
+        //当たっている攻撃のダメージ処理を行う
         foreach(KeyValuePair<int, AttackInfo> kvp in damageInfo)
         {
             //ダメージ判定が終了していれば次の値へ
@@ -66,7 +66,8 @@ public class CharaBase : MonoBehaviour
     /*******************************
     * public
     *******************************/
-
+    [Header("アニメーター")]
+    [SerializeField] public Animator animator;
 
     //ダメージ情報を追加する
     public void AddDamageInfo(int id, AttackInfo attackInfo)
@@ -109,6 +110,14 @@ public class CharaBase : MonoBehaviour
     public bool IsDead()
     {
         return charaParam.hp <= 0 ? true : false;
+    }
+    public bool IsEndDeadMotion()
+    {
+        if (BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
+        {
+            return true;
+        }
+        return false;
     }
 
 

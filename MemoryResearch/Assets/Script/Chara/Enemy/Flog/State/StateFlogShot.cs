@@ -16,19 +16,16 @@ public class StateFlogShot : State
     *******************************/
     protected override void OnEnter(State prevState)
     {
-        Owner.animator.SetTrigger("Attack_Shot");
-        Debug.Log("射撃へ");
+        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Shot");
 
         delayShotTime = 0;
-        //攻撃力設定
     }
 
     protected override void OnUpdate()
     {
-        //アニメーションが変更されていなければ処理終了
-        if (!Owner.animator.GetCurrentAnimatorStateInfo(0).IsName("Attack_Shot"))
+        //アニメーションが変更されていなければ変更
+        if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Shot"))
         {
-            Owner.animator.SetTrigger("Attack_Shot");
             return;
         }
 

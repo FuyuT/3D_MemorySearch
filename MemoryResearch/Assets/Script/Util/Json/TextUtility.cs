@@ -30,8 +30,7 @@ namespace MyUtil
             //指定したアドレスに保管されているCSVファイルから情報を読み取り、enemyDataに情報を文字列として格納するメソッド。
             //enemyData[i][j]はCSVファイルのi行、j列目のデータを表す。但し先頭行（タイトル部分）は0行目と考えるものとする。
             List<string[]> dataBuffer = new List<string[]>();
-            using(StreamReader reader = new StreamReader(dataPath,
-                System.Text.Encoding.GetEncoding("shift_jis")))
+            using (StreamReader reader = new StreamReader(dataPath))
             {
                 while (reader.Peek() != -1)
                 {
@@ -81,7 +80,5 @@ namespace MyUtil
                 }
             }
         }
-
-
     }
 }

@@ -6,23 +6,17 @@ using State = MyUtil.ActorState<EnemyFlog>;
 
 public class StateFlogIdle : State
 { 
-    /*******************************
-    * protected
-    *******************************/
     protected override void OnEnter(State prevState)
     {
-        Owner.animator.SetTrigger("Idle_1");
+        //アニメーションの更新をする前に、遷移できるステートがあるか確かめる
+        SelectNextState();
+
+        //アニメーションの更新
+        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle_1");
     }
 
     protected override void OnUpdate()
     {
-        //アニメーションが変更されていなければ処理終了
-        if (!Owner.animator.GetCurrentAnimatorStateInfo(0).IsName("Idle_1"))
-        {
-            Owner.animator.SetTrigger("Idle_1");
-            return;
-        }
-
         //探知範囲内にターゲットがいれば、そちらの方向を向く
         if(Owner.searchRange.InTarget)
         {
@@ -49,6 +43,9 @@ public class StateFlogIdle : State
 
     bool SelectAttack()
     {
+        //探知範囲内にターゲットがいないなら終了
+        if (!Owner.searchRange.InTarget) return false;
+
         //射撃のディレイが終わっていれば射撃へ
         if (Owner.delayShotTime > Owner.delayShotTimeMax)
         {

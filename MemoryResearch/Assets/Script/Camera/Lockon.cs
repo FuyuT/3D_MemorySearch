@@ -13,9 +13,6 @@ public class Lockon : MonoBehaviour
     GameObject target;
 
     [SerializeField]
-    IPlayer iPlayer;
-
-    [SerializeField]
     SearchMemory Search;
 
     [SerializeField]
@@ -31,7 +28,6 @@ public class Lockon : MonoBehaviour
 
     private void Awake()
     {
-        iPlayer = GameObject.FindWithTag("Player").GetComponent<Player>();
     }
 
     void Start()
@@ -112,9 +108,10 @@ public class Lockon : MonoBehaviour
         else
         {
             //現在のターゲットと、別のターゲットのどちらがプレイヤーに近いか判断する
-            Vector3 temp = iPlayer.GetPos() - target.transform.position;
+            Vector3 PlayerPos = Player.readPlayer.GetPos();
+            Vector3 temp = PlayerPos - target.transform.position;
             float targetDistance = temp.x + temp.y + temp.z;
-            temp = iPlayer.GetPos() - collision.transform.position;
+            temp = Player.readPlayer.GetPos() - collision.transform.position;
             float collisionDistance = temp.x + temp.y + temp.z;
 
             if (collisionDistance <= targetDistance)

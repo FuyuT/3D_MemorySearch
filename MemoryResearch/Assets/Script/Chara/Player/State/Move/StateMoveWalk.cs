@@ -42,7 +42,7 @@ public class StateMoveWalk : State
     protected override void SelectNextState()
     {
         //歩きモーションでなければ終了
-        if (!BehaviorAnimation.IsNameCheck(ref Owner.animator, "Move_Walk")) return;
+        if (!BehaviorAnimation.IsName(ref Owner.animator, "Move_Walk")) return;
 
         //ダッシュ系
         if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))
