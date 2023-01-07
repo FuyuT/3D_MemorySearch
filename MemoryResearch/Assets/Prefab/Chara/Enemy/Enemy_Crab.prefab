@@ -266,7 +266,7 @@ MonoBehaviour:
   attackRange: {fileID: 7577645779532491722}
   moveSpeed: 8.7
   rotateSpeed: 0.5
-  hpMax: 20
+  hpMax: 10
   delayGuardMax: 10
   delayGuard: 0
 --- !u!1 &7577645778877731684

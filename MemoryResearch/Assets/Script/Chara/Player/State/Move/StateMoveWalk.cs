@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = MyUtil.ActorState<Player>;
-
+using State = MyUtil.PlayerState;
 
 /// <summary>
 /// 移動
@@ -13,7 +12,7 @@ public class StateMoveWalk : State
     /*******************************
     * protected
     *******************************/
-    protected override void OnEnter(State prevState)
+    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
     }
 
@@ -44,38 +43,10 @@ public class StateMoveWalk : State
         //歩きモーションでなければ終了
         if (!BehaviorAnimation.IsName(ref Owner.animator, "Move_Walk")) return;
 
-        //ダッシュ系
-        if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))
+        //走る
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            if(Owner.isGround)
-            {
-                //タックル
-                stateMachine.Dispatch((int)Player.State.Attack_Tackle);
-            }
-            else
-            {
-                //空中ダッシュ
-                stateMachine.Dispatch((int)Player.State.Move_Dush);
-            }
-        }
-
-        //ジャンプ
-        if (Owner.isGround) //浮遊していない時
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                if (Owner.CheckPossesionMemory((int)Player.State.Jump) || Owner.CheckPossesionMemory((int)Player.State.Double_Jump)) //メモリを持っているか確認
-                {
-                    stateMachine.Dispatch((int)Player.State.Jump);
-                    return;
-                }
-            }
-        }
-
-        //パンチ
-        if (Input.GetMouseButtonDown(0) && !Owner.ChapterCamera.activeSelf)
-        {
-            stateMachine.Dispatch((int)Player.State.Attack_Punch);
+            stateMachine.Dispatch((int)Player.State.Move_Run);
             return;
         }
 
@@ -86,19 +57,12 @@ public class StateMoveWalk : State
             return;
         }
 
-        //走る
-        if(Input.GetKey(KeyCode.LeftShift))
-        {
-            stateMachine.Dispatch((int)Player.State.Move_Run);
-            return;
-        }
+        //装備から状態を選択
+        EquipmentSelectNextState();
+    }
 
-        //タックル
-        if (Input.GetKey(KeyCode.K))
-        {
-            stateMachine.Dispatch((int)Player.State.Attack_Tackle);
-            return;
-        }
-
+    protected override void OnExit(MyUtil.ActorState<Player> nextState)
+    {
+        Owner.animator.ResetTrigger("Idle");
     }
 }

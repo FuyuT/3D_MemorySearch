@@ -45,6 +45,8 @@ public class StateCrabAttack : State
     {
         //攻撃力初期化
         Owner.InitAttackPower();
+
+        Owner.animator.ResetTrigger("Attack");
     }
 
 }

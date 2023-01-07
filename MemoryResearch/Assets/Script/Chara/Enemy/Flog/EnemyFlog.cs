@@ -58,7 +58,7 @@ public class EnemyFlog : CharaBase
         {
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
             {
-                animator.SetTrigger("Damage_Dead");
+                BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
                 //ìñÇΩÇËîªíËÇè¡Ç∑
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;

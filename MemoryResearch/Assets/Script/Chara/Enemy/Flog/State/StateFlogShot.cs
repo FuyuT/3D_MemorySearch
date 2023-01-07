@@ -78,5 +78,6 @@ public class StateFlogShot : State
     protected override void OnExit(State nextState)
     {
         Owner.delayShotTime = 0;
+        Owner.animator.ResetTrigger("Attack_Shot");
     }
 }

@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = MyUtil.ActorState<Player>;
-
+using State = MyUtil.PlayerState;
 
 /// <summary>
 /// ガード
@@ -13,7 +12,7 @@ public class StateGuard : State
 {
     bool isReady;
 
-    protected override void OnEnter(State prevState)
+    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         isReady = true;
         Owner.SetDefencePower(5);
@@ -53,15 +52,20 @@ public class StateGuard : State
         if (!BehaviorAnimation.IsName(ref Owner.animator, "Guard_Guarding")) return;
 
         //待機
-        if (!Input.GetKey(KeyCode.H))
+        if (!Input.GetKey(Owner.equipmentMemories[Owner.currentEquipmentNo].GetKeyCode()))
         {
             stateMachine.Dispatch((int)Player.State.Idle);
             return;
         }
+
+        //装備から状態を選択
+        EquipmentSelectNextState();
     }
 
-    protected override void OnExit(ActorState<Player> nextState)
+    protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         Owner.InitDefencePower();
+
+        Owner.animator.ResetTrigger("Guard_Guarding");
     }
 }

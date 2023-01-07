@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = MyUtil.ActorState<Player>;
+using State = MyUtil.PlayerState;
 
 /// <summary>
 /// ダッシュ
@@ -13,7 +13,7 @@ public class StateDush : State
     Vector3 accelerateionVec;
     float   nowDushTime;
 
-    protected override void OnEnter(State prevState)
+    protected override void OnEnter(MyUtil.ActorState<Player> nextState)
     {
         //ダッシュベクトルを作成
         dushVelocity = BehaviorMoveToInput.GetDushVec(Owner.transform.forward);
@@ -58,13 +58,20 @@ public class StateDush : State
         if (nowDushTime < 0)
         {
             stateMachine.Dispatch((int)Player.State.Idle);
+            return;
         }
+
+        //装備から状態を選択
+        EquipmentSelectNextState();
     }
-    protected override void OnExit(State nextState)
+    protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         Owner.nowDushDelayTime = Owner.DushDelayTime;
 
         //重力を使用する
         Actor.IVelocity().SetUseGravity(true);
+
+        //アニメーションのトリガーを解除
+        Owner.animator.ResetTrigger("Move_Dush");
     }
 }

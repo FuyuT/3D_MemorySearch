@@ -25,14 +25,14 @@ public class GetMemoryUI : MonoBehaviour
 
      public void Play()
      {
-        //todo:アニメーションを再生する
+        //アニメーションを再生する
         gameObject.SetActive(true);
         ScanImgAnim.Play("ScanSuccessText");
      }
 
      public void Stop()
      {
-        //todo:アニメーションを非表示にする
+        //アニメーションを非表示にする
         gameObject.SetActive(false);
      }
     

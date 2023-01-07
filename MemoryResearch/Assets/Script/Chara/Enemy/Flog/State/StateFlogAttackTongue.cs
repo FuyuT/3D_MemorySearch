@@ -40,5 +40,7 @@ public class StateFlogAttackTongue : State
     {
         //UŒ‚—Í‰Šú‰»
         Owner.InitAttackPower();
+
+        Owner.animator.ResetTrigger("Attack_Tongue");
     }
 }

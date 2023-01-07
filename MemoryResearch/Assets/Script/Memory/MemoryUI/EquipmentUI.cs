@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EquipmentUI : MemoryUI
+public class EquipmentUI : MonoBehaviour
 {
     /*******************************
     * private

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = MyUtil.ActorState<Player>;
+using State = MyUtil.PlayerState;
 
 /// <summary>
 /// ジャンプ
@@ -11,7 +11,7 @@ public class StateJump : State
 {
     bool IsAcceleration;
 
-    protected override void OnEnter(State prevState)
+    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         //アニメーションの更新
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_Up");
@@ -47,7 +47,8 @@ public class StateJump : State
     void Jump()
     {
         //キー入力されていたら、ジャンプ速度を加速させる（飛距離を延ばす）
-        if (Input.GetKey(KeyCode.C) && IsAcceleration)
+        if (Input.GetKey(Owner.equipmentMemories[Owner.currentEquipmentNo].GetKeyCode())
+            && IsAcceleration)
         {
             Owner.nowJumpSpeed += Owner.JumpAcceleration * Time.timeScale;
         }
@@ -65,31 +66,25 @@ public class StateJump : State
 
     protected override void SelectNextState()
     {
-        //ダブルジャンプ
-        //todo:メモリを持っているか確認
-        if (Owner.CheckPossesionMemory((int)Player.State.Double_Jump))
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                stateMachine.Dispatch((int)Player.State.Double_Jump);
-            }
-        }
-
         //空中ダッシュ
         if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))
         {
             stateMachine.Dispatch((int)Player.State.Move_Dush);
+            return;
         }
 
         //ジャンプ中でない、かつ着地していたら待機状態へ
         if (!IsAcceleration && Owner.isGround)
         {
             stateMachine.Dispatch((int)Player.State.Idle);
+            return;
         }
 
+        //装備から状態を選択
+        EquipmentSelectNextState();
     }
 
-    protected override void OnExit(State nextState)
+    protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         Actor.Transform.IVelocity().SetVelocityY(0);
         Owner.nowJumpSpeed = 0;

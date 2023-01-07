@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = MyUtil.ActorState<Player>;
+using State = MyUtil.PlayerState;
 
 /// <summary>
 /// タックル
@@ -13,7 +13,7 @@ public class StateAttackTackle : State
     Vector3 accelerateionVec;
     float   nowTackleTime;
 
-    protected override void OnEnter(State prevState)
+    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         //アニメーションの更新
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Tackle");
@@ -64,12 +64,19 @@ public class StateAttackTackle : State
         if (nowTackleTime < 0)
         {
             stateMachine.Dispatch((int)Player.State.Idle);
+            return;
         }
+
+        //装備から状態を選択
+        EquipmentSelectNextState();
     }
-    protected override void OnExit(State nextState)
+
+    protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         Owner.nowTackleDelayTime = Owner.TackleDelayTime;
 
         Owner.SetAttackPower(0);
+
+        Owner.animator.ResetTrigger("Tackle_Move");
     }
 }

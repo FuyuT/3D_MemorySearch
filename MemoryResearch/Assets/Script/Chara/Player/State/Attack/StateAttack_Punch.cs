@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = MyUtil.ActorState<Player>;
+using State = MyUtil.PlayerState;
 
 /// <summary>
 /// 移動
 /// </summary>
 public class StateAttack_Punch : State
 {
-    protected override void OnEnter(State prevState)
+    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
-        //todo:攻撃力設定
+        //攻撃力設定
         Owner.SetAttackPower(5);
         //その場で停止
         Actor.Transform.IVelocity().InitVelocity();
@@ -35,11 +35,17 @@ public class StateAttack_Punch : State
         if (Owner.animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1)
         {
             stateMachine.Dispatch((int)Player.State.Idle);
+            return;
         }
+
+        //装備から状態を選択
+        EquipmentSelectNextState();
     }
 
-    protected override void OnExit(State nextState)
+    protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         Owner.SetAttackPower(0);
+
+        Owner.animator.ResetTrigger("Attack_Punch");
     }
 }

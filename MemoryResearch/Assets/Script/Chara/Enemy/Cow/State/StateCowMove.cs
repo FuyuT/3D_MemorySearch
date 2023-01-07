@@ -52,6 +52,6 @@ public class StateCowMove : State
 
     protected override void OnExit(State prevState)
     {
+        Owner.animator.ResetTrigger("Move_Walk");
     }
-
 }

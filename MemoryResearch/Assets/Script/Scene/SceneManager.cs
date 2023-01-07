@@ -50,6 +50,7 @@ public class SceneManager : MonoBehaviour
             ToGameOver();
         }
     }
+
     private void ToGameOver()
     {
         GameOverImage.SetActive(true);

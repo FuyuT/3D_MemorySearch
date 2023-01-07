@@ -20,11 +20,6 @@ public class MemoryPossesionUI : MonoBehaviour
 
         //取得した順番に、レベルで並べ替えて表示する
         SetPossesionMemoriesUI();
-        //todo:デバッグ用セーブ
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            DataManager.instance.Save();
-        }
     }
 
     private void OnEnable()

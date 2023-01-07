@@ -8,6 +8,13 @@ public class InventoryEquipmentUI : EquipmentUI
 
     [SerializeField] EquipmentUI gameEquipmentUI;
 
+    Player player;
+
+    private void Awake()
+    {
+        player = GameObject.FindWithTag("Player").GetComponent<Player>();
+    }
+
     private void Update()
     {
         //装備の変更があるか確認する
@@ -16,8 +23,12 @@ public class InventoryEquipmentUI : EquipmentUI
         {
             //装備が変わっていれば、データに反映
             DataManager.instance.IPlayerData().SetEquipmentMemory(no, MemoriesUI[no].GetMemoryType());
+
             //ゲーム画面の装備UIを変更
             gameEquipmentUI.SetEquipmentMemoriesUI();
+
+            //プレイヤーの装備データを変更
+            player.equipmentMemories[no].InitState((Player.State)(int)MemoriesUI[no].GetMemoryType());
         }
     }
 

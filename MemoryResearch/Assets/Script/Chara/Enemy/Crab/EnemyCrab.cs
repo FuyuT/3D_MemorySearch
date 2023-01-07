@@ -63,7 +63,7 @@ public class EnemyCrab : CharaBase
         {
             if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
             {
-                animator.SetTrigger("Dead");
+                BehaviorAnimation.UpdateTrigger(ref animator, "Dead");
                 //当たり判定を消す
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;

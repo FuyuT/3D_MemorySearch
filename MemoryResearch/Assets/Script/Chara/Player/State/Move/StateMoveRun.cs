@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = MyUtil.ActorState<Player>;
+using State = MyUtil.PlayerState;
 
 
 /// <summary>
@@ -12,7 +12,7 @@ public class StateMoveRun : State
 {
     bool isReady;
 
-    protected override void OnEnter(State prevState)
+    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         isReady = false;
     }
@@ -65,41 +65,6 @@ public class StateMoveRun : State
         //走るモーションに入っていなければ終了
         if (!BehaviorAnimation.IsName(ref Owner.animator, "Move_Run")) return;
 
-        //ダッシュ系
-        if (Owner.nowDushDelayTime < 0 && Input.GetKey(KeyCode.Z))
-        {
-            if(Owner.isGround)
-            {
-                //タックル
-                stateMachine.Dispatch((int)Player.State.Attack_Tackle);
-            }
-            else
-            {
-                //空中ダッシュ
-                stateMachine.Dispatch((int)Player.State.Move_Dush);
-            }
-        }
-
-        //ジャンプ
-        if (Owner.isGround) //浮遊していない時
-        {
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                if (Owner.CheckPossesionMemory((int)Player.State.Jump) || Owner.CheckPossesionMemory((int)Player.State.Double_Jump)) //メモリを持っているか確認
-                {
-                    stateMachine.Dispatch((int)Player.State.Jump);
-                    return;
-                }
-            }
-        }
-
-        //パンチ
-        if (Input.GetMouseButtonDown(0) && !Owner.ChapterCamera.activeSelf)
-        {
-            stateMachine.Dispatch((int)Player.State.Attack_Punch);
-            return;
-        }
-
         //待機状態
         if (!Input.GetKey(KeyCode.LeftShift) 
             || Actor.Transform.IVelocity().GetVelocity() == Vector3.zero)
@@ -107,5 +72,14 @@ public class StateMoveRun : State
             stateMachine.Dispatch((int)Player.State.Idle);
             return;
         }
+
+        //装備から状態を選択
+        EquipmentSelectNextState();
     }
+    protected override void OnExit(MyUtil.ActorState<Player> nextState)
+    {
+        //アニメーションのトリガーを解除
+        Owner.animator.ResetTrigger("Move_Run");
+    }
+
 }

@@ -83,5 +83,7 @@ public class StateCowTackle : State
         Owner.tackleTime  = 0;
 
         Owner.InitAttackPower();
+
+        Owner.animator.ResetTrigger("Move_Run");
     }
 }

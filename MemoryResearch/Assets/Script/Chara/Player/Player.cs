@@ -19,8 +19,26 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] float DirectionCheckHitGround;
     void Awake()
     {
+        EquipmentInit();
         Init();
         readPlayer = this;
+    }
+
+    void EquipmentInit()
+    {
+        equipmentMemories = new EquipmentMemory[Global.EquipmentMemoryMax];
+        //キーの設定
+        equipmentMemories[0] = new EquipmentMemory(KeyCode.I);
+        equipmentMemories[1] = new EquipmentMemory(KeyCode.J);
+        equipmentMemories[2] = new EquipmentMemory(KeyCode.K);
+        equipmentMemories[3] = new EquipmentMemory(KeyCode.L);
+
+        //装備の初期設定
+        IPlayerData plyaerData = DataManager.instance.IPlayerData();
+        for (int n = 0; n < equipmentMemories.Length; n++)
+        {
+            equipmentMemories[n].InitState((Player.State)plyaerData.GetEquipmentMemory(n));
+        }
     }
 
     private void Init()
@@ -50,31 +68,69 @@ public class Player : CharaBase, IReadPlayer
 
     void StateMachineInit()
     {
+        //待機
+        stateMachine.AddAnyTransition<StateIdle>((int)State.Idle);
+        stateMachine.GetOrAddState<StateIdle>().SetDispatchStates(new State[7]
+            { State.Move_Walk,State.Jump,State.Move_Dush,State.Attack_Punch,
+              State.Guard,State.Attack_Slam,State.Attack_Tackle});
+
         //歩く
         stateMachine.AddTransition<StateIdle, StateMoveWalk>((int)State.Move_Walk);
+        stateMachine.GetOrAddState<StateMoveWalk>().SetDispatchStates(new State[7]
+            { State.Move_Walk,State.Jump,State.Move_Dush,State.Attack_Punch,
+              State.Guard,State.Attack_Slam,State.Attack_Tackle});
+
         //走る
         stateMachine.AddAnyTransition<StateMoveRun>((int)State.Move_Run);
+        stateMachine.GetOrAddState<StateMoveRun>().SetDispatchStates(new State[7]
+            { State.Move_Walk,State.Jump,State.Move_Dush,State.Attack_Punch,
+              State.Guard,State.Attack_Slam,State.Attack_Tackle});
+
         //ガード
         stateMachine.AddAnyTransition<StateGuard>((int)State.Guard);
+        stateMachine.GetOrAddState<StateGuard>().SetDispatchStates(new State[1]
+        {
+            State.None
+        });
 
         //ダッシュ
         stateMachine.AddAnyTransition<StateDush>((int)State.Move_Dush);
+        stateMachine.GetOrAddState<StateDush>().SetDispatchStates(new State[1]
+        {
+            State.None
+        });
 
         //ジャンプ
         stateMachine.AddAnyTransition<StateJump>((int)State.Jump);
+        stateMachine.GetOrAddState<StateJump>().SetDispatchStates(new State[2]
+            { State.Double_Jump,State.Move_Dush});
+
         stateMachine.AddAnyTransition<StateDoubleJump>((int)State.Double_Jump);
+        stateMachine.GetOrAddState<StateDoubleJump>().SetDispatchStates(new State[1]
+        {
+            State.None
+        });
 
         //タックル
         stateMachine.AddAnyTransition<StateAttackTackle>((int)State.Attack_Tackle);
+        stateMachine.GetOrAddState<StateAttackTackle>().SetDispatchStates(new State[1]
+        {
+            State.None
+        });
 
         //パンチ
         stateMachine.AddAnyTransition<StateAttack_Punch>((int)State.Attack_Punch);
+        stateMachine.GetOrAddState<StateAttack_Punch>().SetDispatchStates(new State[1]
+        {
+            State.None
+        });
 
         //叩きつけ
         stateMachine.AddAnyTransition<StateAttack_Slam>((int)State.Attack_Slam);
-
-        //何も押されていないなら待機状態へ
-        stateMachine.AddAnyTransition<StateIdle>((int)State.Idle);
+        stateMachine.GetOrAddState<StateAttack_Slam>().SetDispatchStates(new State[1]
+        {
+            State.None
+        });
 
         //ステートマシンの開始　初期ステートは引数で指定
         stateMachine.Start(stateMachine.GetOrAddState<StateIdle>());
@@ -246,40 +302,45 @@ public class Player : CharaBase, IReadPlayer
 
     public bool isGround;
 
-    //アクター
-    /// <summary>
-    /// ステートenum
-    /// </summary>
     public enum State
     {
-        None,
-        Idle,
+        //メモリの種類
+        None = MemoryType.None,
+        Move_Dush = MemoryType.Dush,
+        //ジャンプ
+        Jump = MemoryType.Jump,
+        Double_Jump = MemoryType.DowbleJump,
+        //攻撃
+        Attack_Punch = MemoryType.Punch,
+        Attack_Slam = MemoryType.Slam,
+        Attack_Tackle = MemoryType.Tackle,
+        //防御
+        Guard = MemoryType.Guard,
+        //メモリの種類以外
+        Idle = MemoryType.Count,
         //移動
         Move_Walk,
         Move_Run,
-        Move_Dush,
-        //ジャンプ
-        Jump,
-        Double_Jump,
         Floating,
-        //攻撃
-        Attack_Punch,
-        Attack_Slam,
-        Attack_Tackle,
-        //防御
-        Guard,
     }
 
     public float nowJumpSpeed;
     public float jumpAcceleration;
 
-
     public int[] possessionMemory { get; private set; }
+
+    public EquipmentMemory[] equipmentMemories;
+    public int currentEquipmentNo;
 
     // getter
     public Vector3 GetPos()
     {
         return transform.position;
+    }
+
+    public int GetCurrentStateKey()
+    {
+        return stateMachine.currentStateKey;
     }
 
     //メモリを所持しているか確認する

@@ -1233,7 +1233,7 @@ MonoBehaviour:
   attackRange: {fileID: 5778342065819042977}
   moveSpeed: 12
   rotateSpeed: 5
-  HpMax: 10
+  HpMax: 5
   delayShotTimeMax: 10
   delayShotTime: 0
   ShotSpeed: 30

@@ -29,5 +29,6 @@ public class StateCrabIdle : State
 
     protected override void OnExit(State prevState)
     {
+        Owner.animator.ResetTrigger("Idle");
     }
 }
