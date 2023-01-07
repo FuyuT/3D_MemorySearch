@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<CameraManager>;
+using State = MyUtil.State<CameraManager>;
 
 public class StateCameraControlObject : State
 {
@@ -29,6 +29,5 @@ public class StateCameraControlObject : State
     {
         //オブジェクトのマテリアルを戻す
         Owner.colorChange.ChangeBeforeMaterial();
-        Owner.MoveObjCamScript.ChangFlg = false;
     }
 }

@@ -2,141 +2,137 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<EnemyFlog>;
+using State = MyUtil.ActorState<EnemyFlog>;
 
 public class EnemyFlog : CharaBase
 {
-    //////////////////////////////
-    /// private
+    /*******************************
+    * private
+    *******************************/
+    //アクター
+    MyUtil.Actor<EnemyFlog> actor;
+    //ステートマシン
+    MyUtil.ActorStateMachine<EnemyFlog> stateMachine;
 
-    StateMachine<EnemyFlog> stateMachine;
+    [Header("地面との当たり判定で使用するレイの長さ")]
+    [SerializeField] float DirectionCheckHitGround;
 
-    /// <summary>
-    /// MainStart
-    /// </summary>
-    void Start()
+    private void Awake()
     {
         Init();
+        StateMachineInit();
+        actor.Transform.Init();
     }
 
-    /// <summary>
-    /// 初期化
-    /// </summary>
     private void Init()
     {
-        situation = (int)Situation.None;
-
-        nowJumpDelayTime = JumpDelayTime;
-
         CharaBaseInit();
-        //todo:param消す dataManagerからの参照に変更
-        param.Add((int)Enemy.ParamKey.PossesionMemory, Player.Event.None);
-        param.Add((int)ParamKey.AttackPower, 0);
 
-        param.Add((int)Enemy.ParamKey.Hp, HpMax);
-        param.Set((int)Enemy.ParamKey.Hp, HpMax);
+        delayJumpTime = 0;
+        delayShotTime = 0;
+        charaParam.hp = HpMax;
 
-        StateMachineInit();
+        actor.IVelocity().SetUseGravity(true);
     }
-
-    /// <summary>
-    /// ステートマシンの初期化
-    /// </summary>
+    // ステートマシンの初期化
     void StateMachineInit()
     {
-        stateMachine = new StateMachine<EnemyFlog>(this);
-
-        stateMachine.AddAnyTransition<StateFlogMove>((int)Event.Move);
+        stateMachine.AddAnyTransition<StateFlogIdle>((int)State.Idle);
+        stateMachine.AddAnyTransition<StateFlogJump>((int)State.Jump);
+        stateMachine.AddAnyTransition<StateFlogShot>((int)State.Attack_Shot);
+        stateMachine.AddAnyTransition<StateFlogAttackTongue>((int)State.Attack_Tongue);
 
         //ステートマシンの開始　初期ステートは引数で指定
-        stateMachine.Start(stateMachine.GetOrAddState<StateFlogMove>());
+        stateMachine.Start(stateMachine.GetOrAddState<StateFlogIdle>());
     }
-
 
     void Update()
     {
-        if (param.Get<int>((int)Enemy.ParamKey.Hp) <= 0)
+        //プレイヤーの実体がなければ終了
+        if (Player.readPlayer == null)
         {
-            animator.SetBool("isDead", true);
+            return;
+        }
+
+        if (IsDead())
+        {
+            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
+            {
+                BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
+                //当たり判定を消す
+                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
+                this.gameObject.GetComponent<Rigidbody>().useGravity = false;
+                rigidbody.velocity = Vector3.zero;
+            }
             return;
         }
 
         //ステートマシン更新
         stateMachine.Update();
-        currentState = stateMachine.currentStateKey;
-
-        //ジャンプ待機時間の更新
-        if (nowJumpDelayTime > 0)
-        {
-            nowJumpDelayTime -= Time.deltaTime;
-        }
 
         //角度更新
         RotateUpdate();
 
         //位置更新
         PositionUpdate();
+
+        //Delayの更新
+        DelayUpdate();
+
+        //地面に着地しているか確認する
+        CheckCollisionGround();
+
+        CharaUpdate();
     }
 
-    /// <summary>
-    /// 角度の更新
-    /// </summary>
+    //角度の更新
     void RotateUpdate()
     {
-        RotateUpdateToMoveVec();
+        Vector3 temp = actor.IVelocity().GetVelocity();
+        temp.y = 0;
+        if (temp != Vector3.zero)
+        {
+            actor.Transform.RotateUpdateToVec(temp, rotateSpeed);
+        }
     }
 
-    /// <summary>
-    /// 位置の更新
-    /// </summary>
+    ///位置の更新
     void PositionUpdate()
     {
-        switch (situation)
-        {
-            //ジャンプ中は重力を使用しない
-            case (int)Situation.Jump:
-                objectParam.SetUseGravity(false);
-                break;
-            default:
-                objectParam.SetUseGravity(true);
-                break;
-        }
-
         //攻撃の時は移動を止める
-        if (stateMachine.currentStateKey == (int)Event.Attack_Shot)
+        if (stateMachine.currentStateKey == (int)State.Attack_Shot)
         {
-            objectParam.InitMoveVec();
+            actor.IVelocity().InitVelocity();
         }
 
         //移動
-        ObjectPositionUpdate(ObjectBase.MoveType.Rigidbody);
-
-        SetAnimatarComponent();
+        actor.Transform.PositionUpdate(MyUtil.MoveType.Rigidbody);
     }
 
-    //Animatar要素を設定
-    void SetAnimatarComponent()
+    void DelayUpdate()
     {
-        var rb = GetComponent<Rigidbody>();
-        float speed = 0;
-        if (Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.z) > 0)
+        //ジャンプ待機時間の更新
+        if (delayJumpTime < delayJumpTimeMax)
         {
-            speed = 1;
+            delayJumpTime += Time.deltaTime;
         }
 
-        animator.SetFloat("Speed", speed);
-        animator.SetFloat("Speed_Y", rb.velocity.y);
-        animator.SetInteger("StateNo", (int)stateMachine.currentStateKey);
+        //射撃待機時間の更新
+        if (delayShotTime < delayShotTimeMax)
+        {
+            delayShotTime += Time.deltaTime;
+        }
     }
 
 
-    //////////////////////////////
-    /// public
+    /*******************************
+    * public
+    *******************************/
 
     /// <summary>
     /// ステートenum
     /// </summary>
-    public enum Event
+    public enum State
     {
         Idle,
         //移動
@@ -148,141 +144,81 @@ public class EnemyFlog : CharaBase
         Defense,
         //攻撃
         Attack_Punch,
-        Attack_Tackle,
+        Attack_Tongue,
         Attack_Shot,
     }
 
-    public enum Situation
-    {
-        None,
-        Jump,
-        Jump_End,
-        Floating,
-        Dush,
-    }
+    [Header("範囲")]
+    [SerializeField] public MyUtil.TargetCollider searchRange;
+    [SerializeField] public MyUtil.TargetCollider attackRange;
 
-    [Header("アニメーター")]
-    [SerializeField] public Animator animator;
-
-    //スコープ小さくする
-    [SerializeField] public Transform TargetTransform;
-
-    //todo:ビヘイビアに持たせる
-    //ジャンプ関係
-    public float nowJumpDelayTime;
-
-    public float nowJumpSpeed;
-
-    public int situation;
-
+    [Header("速度")]
+    [SerializeField] public float moveSpeed;
+    [SerializeField] public float rotateSpeed;
 
     [Space]
-    [Header("Hp")]
+    [Header("HP")]
     [SerializeField] public int HpMax;
 
-    [Space]
-    [Header("移動")]
-    [SerializeField] public float MoveSpeed;
+    [Header("「射撃ステート」")]
+    [SerializeField] public float delayShotTimeMax;
+    public float delayShotTime;
 
-    [Header("ジャンプ")]
-    [Header("ジャンプに入るまでの時間")]
-    [SerializeField] public float JumpDelayTime;
+    [SerializeField] public float ShotSpeed;
+    [SerializeField] public int ShotDamage;
+    [SerializeField] public GameObject bullet;
+    [SerializeField] public float ShotInterval;
+
+    [Header("「ジャンプステート」")]
+    [SerializeField] public float delayJumpTimeMax;
     [Header("進む力")]
     [SerializeField] public float JumpToTargetPower;
 
     [Header("初速")]
     [SerializeField] public float JumpStartSpeed;
-    [Header("加速値")]
-    [SerializeField] public float JumpAcceleration;
 
-    [Space]
-    [Header("重力")]
-    [SerializeField] public float Gravity;
+    [Header("減速力")]
+    [SerializeField] public float JumpDecreaseValue;
 
-    [Space]
-    [Header("索敵距離")]
-    [SerializeField] public float SearchDistance;
+    public bool isGround;
+
+    //ジャンプ関係
+    public float delayJumpTime;
+
+    public float nowJumpSpeed;
 
 
-    private void OnCollisionEnter(Collision collision)
+    //コンストラクタ
+    public EnemyFlog()
     {
-        //地面
-        if (collision.gameObject.tag == "Ground")
-        {
-            animator.SetBool("IsLanding", true);
-            switch (situation)
-            {
-                case (int)Situation.Jump:
-                    situation = (int)Situation.Jump_End;
-
-                    nowJumpSpeed = 0.0f;
-                    break;
-                case (int)Situation.Floating:
-                    break;
-                default:
-                    break;
-            }
-        }
+        actor = new MyUtil.Actor<EnemyFlog>(this);
+        stateMachine = new MyUtil.ActorStateMachine<EnemyFlog>(this, ref actor);
     }
 
-    private void OnCollisionStay(Collision collision)
+    /*******************************
+    * 衝突判定
+    *******************************/
+
+    private void CheckCollisionGround()
     {
-        //地面
-        if (collision.gameObject.tag == "Ground")
+        Ray ray = new Ray(transform.position, Vector3.down);
+        RaycastHit hit;
+
+        Debug.DrawRay(ray.origin, ray.direction * DirectionCheckHitGround, Color.red);
+        if (Physics.Raycast(ray, out hit, DirectionCheckHitGround)) //速度が0の時に例が0にならないように+RayAdjustしている
         {
-            switch (situation)
+
+            //地面にレイが当たっていて、プレイヤーのVelocityが上昇していない時
+            if (hit.collider.gameObject.CompareTag("Ground")
+                && actor.IVelocity().GetState() != MyUtil.VelocityState.isUp)
             {
-                case (int)Situation.Jump:
-                    if (nowJumpSpeed < 0)
-                    {
-                        situation = (int)Situation.Jump_End;
-                        nowJumpSpeed = 0.0f;
-                    }
-                    break;
-                case (int)Situation.Floating:
-                    break;
-                default:
-                    break;
+                isGround = true;
             }
         }
-
-        //攻撃範囲
-        if (collision.gameObject.tag == "Player")
+        //何にも当たっていないなら
+        else
         {
-            param.Set((int)Enemy.ParamKey.PossesionMemory, true);
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        //地面
-        if (collision.gameObject.tag == "Ground")
-        {
-            animator.SetBool("IsLanding", false);
-
-            switch (situation)
-            {
-                case (int)Situation.None:
-                    //浮遊状態へ
-                    situation = (int)Situation.Floating;
-                    break;
-
-                case (int)Situation.Jump:
-                    break;
-                case (int)Situation.Jump_End:
-                    break;
-
-                case (int)Situation.Floating:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        //攻撃範囲
-        if (collision.gameObject.tag == "Player")
-        {
-            param.Set((int)Enemy.ParamKey.PossesionMemory, false);
+            isGround = false;
         }
     }
 }

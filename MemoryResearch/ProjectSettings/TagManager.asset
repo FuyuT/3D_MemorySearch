@@ -23,6 +23,7 @@ TagManager:
   - DataManager
   - Inventory
   - CameraManager
+  - Wall
   layers:
   - Default
   - TransparentFX

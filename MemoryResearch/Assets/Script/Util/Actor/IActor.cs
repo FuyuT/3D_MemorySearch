@@ -4,18 +4,6 @@ using UnityEngine;
 
 public interface IActor
 {
-    /// <summary>
-    /// アクターの更新処理
-    /// 位置の更新
-    /// 角度の更新を行う
-    /// </summary>
-    void TransformUpdate();
-
-    /// <summary>
-    /// パラメータ取得
-    /// </summary>
-    /// <returns>AnyParameterMap</returns>
-    ref AnyParameterMap GetParameterMap();
 
     #region 座標関係
     /// <summary>

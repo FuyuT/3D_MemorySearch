@@ -1,52 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum DamageType
-{
-   Once,
-   Continue,
-}
-
-public enum AttackSituation
-{
-    Possible,
-    End,
-}
-
-[System.Serializable]
-public class AttackInfo
-{
-    public  int          stateKey;
-    public  DamageType   type;
-}
 
 public class AttackRange : MonoBehaviour
 {
-    [SerializeField] AttackInfo[] OutsideAttackInfo;
-    public AttackSituation attackSituation { get; private set; }
-
-    System.Collections.Generic.Dictionary<int, DamageType> attackInfo;
-
+    /*******************************
+    * private
+    *******************************/
+    [SerializeField] CharaBase chara;
+    Dictionary<int, CharaBase> hitEnemies;
 
     string enemyTag;
-    CharaBase chara;
 
-    //////////////////////////////
-    /// setter
-    //////////////////////////////
-    public void SetAttackPossible()
+    private void Awake()
     {
-        attackSituation = AttackSituation.Possible;
+        SetEnemyTag();
     }
 
-    //////////////////////////////
-    /// 初期化
-    //////////////////////////////
-    void Awake()
+    void SetEnemyTag()
     {
-        chara = transform.root.gameObject.GetComponentInChildren<CharaBase>();
-        string tag = transform.root.gameObject.tag;
-        if (tag == "Player")
+        if (chara.gameObject.tag == "Player")
         {
             enemyTag = "Enemy";
         }
@@ -54,85 +27,63 @@ public class AttackRange : MonoBehaviour
         {
             enemyTag = "Player";
         }
+    }
 
-        attackSituation = AttackSituation.Possible;
-        attackInfo = new System.Collections.Generic.Dictionary<int, DamageType>();
-        for (int n = 0; n < OutsideAttackInfo.Length; n++)
+    private void OnDisable()
+    {
+        RemoveDamageInfo();
+    }
+
+    //当たっていた敵のダメージ情報から、自分を除外
+    void RemoveDamageInfo()
+    {
+        foreach (KeyValuePair<int, CharaBase> kvp in hitEnemies)
         {
-            attackInfo.Add(OutsideAttackInfo[n].stateKey, OutsideAttackInfo[n].type);
+            kvp.Value.RemoveDamageInfo(chara.GetAttackInfo().id);
         }
 
+        //攻撃状態を初期化
+        chara.GetAttackInfo().situation = AttackSituation.Possible;
     }
 
-    //////////////////////////////
-    /// 当たり判定
-    //////////////////////////////
-
-    private void OnTriggerEnter(Collider other)
+    /*******************************
+    * public
+    *******************************/
+    public AttackRange()
     {
+        hitEnemies = new Dictionary<int, CharaBase>();
     }
+
+    /*******************************
+    * 衝突判定
+    *******************************/
+
     private void OnTriggerStay(Collider other)
     {
-        if (!CheckAttackPossible()) return;
-
         if (other.tag == enemyTag)
         {
             Attack(other);
         }
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-    }
-
     /// <summary>
-    /// 攻撃可能か確認
-    /// </summary>
-    /// <returns>攻撃可能ならtrue,そうでなければfalse</returns>
-    bool CheckAttackPossible()
-    {
-        if (!CheckAttackState()) return false;
-
-        switch (attackInfo[chara.currentState])
-        {
-            case DamageType.Continue:
-                return true;
-            case DamageType.Once:
-                if (attackSituation == AttackSituation.Possible) return true;
-                break;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// 攻撃するステートか確認
-    /// </summary>
-    /// <returns>攻撃ステートならtrue,そうでなければfalse</returns>
-    bool CheckAttackState()
-    {
-        if (attackInfo.ContainsKey(chara.currentState))
-        {
-            return true;
-        }
-        return false;
-    }
-
-    /// <summary>
-    /// 攻撃処理
+    /// 敵のダメージ情報に自分を追加する
     /// </summary>
     /// <param name="other">当たったオブジェクト</param>
     void Attack(Collider other)
     {
         //攻撃力が0なら終了
-        int attackPower = chara.param.Get<int>((int)CharaBase.ParamKey.AttackPower);
-        Debug.Log(attackPower);
+        int attackPower = chara.GetAttackInfo().power;
 
         if (attackPower == 0) return;
-
-        //敵にダメージを与える
-        other.GetComponentInChildren<CharaBase>().Damage(attackPower);
-        attackSituation = AttackSituation.End;
-        return;
+        //敵のダメージ情報に追加する
+        CharaBase enemy = other.GetComponent<CharaBase>();
+        enemy.AddDamageInfo(chara.GetAttackInfo().id, chara.GetAttackInfo());
+        //当たった敵を記録しておく
+        if(!hitEnemies.ContainsKey(enemy.GetID()))
+        {
+            hitEnemies.Add(enemy.GetID(), other.GetComponentInChildren<CharaBase>());
+        }
     }
 
 }

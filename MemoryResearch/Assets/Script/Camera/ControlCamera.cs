@@ -9,23 +9,7 @@ public class ControlCamera : MonoBehaviour
     // カメラの回転速度を格納する変数
     public Vector2 rotationSpeed;
 
-    //ズーム用変数
-    public float ZoomSpeed;
-
     Vector2 clickPos;
-
-    //マウスホールドでズームイン・ズームアウト
-    void Zoom()
-    {
-        var scroll = Input.mouseScrollDelta.y;
-        //transform.position -= -transform.forward * scroll * ZoomSpeed;
-
-        ////一定以上ズームは出来なくする
-        //if (mainCamera.transform.position.y <= 0)
-        //{
-        //    ZoomSpeed = 0;
-        //}
-    }
 
     void Rotate()
     {
@@ -49,10 +33,20 @@ public class ControlCamera : MonoBehaviour
         transform.localEulerAngles = new Vector3(newAngle.x, newAngle.y, 0);
     }
 
+    //角度のリセット
+    void ResetRotate()
+    {
+        //Qを押した時に、PathFollowerの最終パスのRotationにリセットする
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+
+        }
+    }
+
     void Update()
     {
         Rotate();
-        Zoom();
+        ResetRotate();
     }
 }
 

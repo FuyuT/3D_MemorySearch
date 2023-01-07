@@ -5,170 +5,102 @@ using UnityEngine.UI;
 
 public class SearchMemory : MonoBehaviour
 {
-    public GameObject player;
-    //public float rotate_speed;
+    /*******************************
+    * private
+    *******************************/
 
-    public float high;
-    public float profound;
+    [SerializeField] GameObject player;
 
-    private const int ROTATE_BUTTON = 1;
-    private const float ANGLE_LIMIT_UP = 60f;
-    private const float ANGLE_LIMIT_DOWN = -60f;
-
-
-    //todo 後でテキストマネージャに移す
-    //テキスト関連
-    [Header("チャプター完了テキスト")]
     [SerializeField]
-    GameObject CompleteText;
-    public float timer;
+    float viewAngle;
+
+    //テキスト関連
+    [Header("チャプター完了UI")]
+    [SerializeField]
+    GetMemoryUI getMemoryUI;
+
+    //オプション関連/////////////////////////
 
     [Header("オプションスライダーX")]
-    public Slider sliderX;
+    [SerializeField] Slider sliderX;
     [Header("オプションスライダーY")]
-    public Slider sliderY;
-    [Header("チャプタースライダー")]
-    public Slider ChapterSlider;
-
-    GameObject mainCamera;
-
+    [SerializeField] Slider sliderY;
     //オプションの情報を取得
     [SerializeField] OptionManager optionManager;
+    ///////////////////////////////////////////
+
+    //SE関連/////////////////////////
+    [Header("サウンドマネージャー")]
+    [SerializeField]
+    SoundManager soundManager;
+    [SerializeField] AudioClip Successclip;
+
+    [SerializeField] AudioClip Missclip;
+
+    [SerializeField] AudioClip Chargeclip;
+
+    
+    ///////////////////////////////////////////
+
+    [Header("サーチスライダー")]
+    [SerializeField] Slider SearchSlider;
+    [SerializeField] float SearcCompleteSpeed;
 
     //Lockonのスクリプト
     [SerializeField]
     Lockon lockon;
 
-    GameObject lockOnTarget;
+    bool Successcomplete;
+    bool ScanStart;
+
+    public enum SEType
+    {
+        
+    }
 
     void Start()
     {
-        
+        //カーソル非表示
+        Cursor.lockState = CursorLockMode.Locked;
+
         player = GameObject.FindGameObjectWithTag("Player");
         transform.rotation = player.transform.rotation;
 
-        CompleteText.SetActive(false);
+        getMemoryUI.Stop();
 
-        mainCamera = Camera.main.gameObject;
-        player = GameObject.FindGameObjectWithTag("Player");
+        InitSearchSlider();
 
-        optionManager = GameObject.Find("Option").GetComponent<OptionManager>();
+        isScan = false;
+        ScanStart = false;
+        Successcomplete = false;
     }
 
-    public void Update()
+    void Update()
     {
+        transform.position = player.transform.position + new Vector3(0, 7, 0);
+
+        RotateCmaeraAngle(viewAngle);
+
+        Scan();
     }
 
-    private void FixedUpdate()
+    void RotateCmaeraAngle(float limit)
     {
 
-        transform.position = player.transform.position+new Vector3(0, 7, 0);
-        //transform.position = new Vector3(player.transform.position.x, player.transform.position.y + high, player.transform.position.z + profound);
-
-        GameObject target = lockon.getTarget();
-
-        //transform.position = player.transform.position;
-
-        if (target != null)
-        {
-            lockOnTarget = target;
-        }
-        else
-        {
-            lockOnTarget = null;
-        }
-
-        if (lockOnTarget)
-        {
-
-            lockOnTargetObject(lockOnTarget);
-            //左クリックしたときにメモリ（アクション）を登録
-            if (Input.GetMouseButton(0))
-            {
-                SetPossesionMemory(lockOnTarget);
-
-                //テキスト関連
-                CompleteText.SetActive(true);
-                timer = 5f;
-
-                if (Input.GetMouseButton(0))
-                {
-                    SetPossesionMemory(lockOnTarget);
-                }
-            }
-        }
-        if (CompleteText.activeSelf)
-        {
-            timer -= Time.deltaTime;
-            
-            if (timer <= 0)
-            {
-                CompleteText.SetActive(false);
-            }
-            //if (Input.GetMouseButton(ROTATE_BUTTON))
-            //{
-            rotateCmaeraAngle();
-            // }
-        }
-
-        rotateCmaeraAngle();
-
-        float angle_x = 180f <= transform.eulerAngles.x ? transform.eulerAngles.x - 360 : transform.eulerAngles.x;
-        transform.eulerAngles = new Vector3(
-            Mathf.Clamp(angle_x, ANGLE_LIMIT_DOWN, ANGLE_LIMIT_UP),
-            transform.eulerAngles.y,
-            transform.eulerAngles.z
-        );
-        
-    }
-    private void rotateCmaeraAngle()
-    {
-        //Y軸だけ反転
-        //if (aimx.XOnOff && !aimy.YOnOff)
-        //{
-        //    Vector3 angle = new Vector3(
-        //        Input.GetAxis("Mouse X") * sliderX.value,
-
-        //        Input.GetAxis("Mouse Y") * sliderY.value,
-        //        0
-        //    );
-        //    transform.eulerAngles += new Vector3(angle.y, angle.x);
-        //}
-        //X軸だけ反転
-        //else if (!aimx.XOnOff && aimy.YOnOff)
-        //{
-        //    Vector3 angle = new Vector3(
-        //        Input.GetAxis("Mouse X") * sliderX.value,
-        //        Input.GetAxis("Mouse Y") * sliderY.value,
-        //        0
-        //    );
-        //    Debug.Log(aimx.XOnOff);
-        //    transform.eulerAngles += new Vector3(angle.y, angle.x);
-        //}
-        //X,Y軸反転
-        //else if (aimx.OnOff && aimy.OnOff)
-        //{
-        //    Vector3 angle = new Vector3(
-        //        Input.GetAxis("Mouse X") * -sliderX.value,
-
-        //        Input.GetAxis("Mouse Y") * -sliderY.value,
-        //        0
-        //    );
-        //    transform.eulerAngles += new Vector3(angle.y, angle.x);
-        //}
-        //else
-        //{
-        Vector3 angle = new Vector3(
-            Input.GetAxis("Mouse X") * sliderX.value,
-            Input.GetAxis("Mouse Y") * -sliderY.value,
-            0
-        );
-        transform.eulerAngles += new Vector3(angle.y, angle.x);
-        //}
-    }
-    private void lockOnTargetObject(GameObject target)
-    {
-
+        float maxLimit = limit, minLimit = 360 - maxLimit;
+        var option = DataManager.instance.IOptionData().GetAimOption();
+        //X軸回転
+        var localAngle = transform.localEulerAngles;
+        localAngle.x -= Input.GetAxis("Mouse Y") * option.sensitivity.y;
+        if (localAngle.x > maxLimit && localAngle.x < 180)
+            localAngle.x = maxLimit;
+        if (localAngle.x < minLimit && localAngle.x > 180)
+            localAngle.x = minLimit;
+        transform.localEulerAngles = localAngle;
+        //Y軸回転
+        var angle = transform.eulerAngles;
+        angle.y += Input.GetAxis("Mouse X") * option.sensitivity.x;
+        transform.eulerAngles = angle;
     }
 
     /// <summary>
@@ -177,16 +109,135 @@ public class SearchMemory : MonoBehaviour
     /// <param name="target">サーチした敵</param>
     private void SetPossesionMemory(GameObject target)
     {
-        //todo:処理の位置調整したい
-        //取得したメモリをプレイヤーに設定
-        int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
+        //todo:処理の位置調整したい 取得したメモリをプレイヤーに設定
+
+        //int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
         //空いている配列番号があれば登録
-        var p = player.GetComponent<Player>();
-        int arrayValue = p.GetMemoryArrayNullValue(targetMemory);
-        if (arrayValue != -1)
+        //var p = player.GetComponent<Player>();
+        //int arrayValue = p.GetMemoryArrayNullValue(targetMemory);
+        //if (arrayValue != -1)
+        //{
+        //    //todo:登録配列番号を変更
+        //    p.SetPossesionMemory(targetMemory, arrayValue);
+        //}
+    }
+
+    //Activeになった時
+    void OnEnable()
+    {
+        //プレイヤーの角度に合わせる
+        transform.rotation = player.transform.rotation;
+    }
+
+
+    void Scan()
+    {
+        //メモリ取得時のUIを再生
+        if (lockon.GetTarget())
         {
-            //todo:登録配列番号を変更
-            p.SetPossesionMemory(targetMemory, arrayValue);
+
         }
+
+        if (Input.GetMouseButtonDown(1) && lockon.GetTarget())
+        {
+            isScan = true;
+        }
+
+        if (!isScan) return;
+
+        if (!lockon.GetTarget())
+        {
+            MissScan();
+            Successcomplete = false;
+            ScanStart = false;
+        }
+
+        ScanUpdate();
+    }
+
+    void ScanUpdate()
+    {
+        //チャージSEを流す
+        if (SearchSlider.value <1)
+        {
+            if (!ScanStart)
+            {
+                soundManager.PlaySe(Chargeclip);
+            }
+            SearchSlider.value += SearcCompleteSpeed;
+            ScanStart = true;
+
+
+            if (Input.GetMouseButtonUp(1) && !Successcomplete)
+            {
+                MissScan();
+                return;
+            }
+        }
+
+        if (!lockon.GetTarget())
+        {
+            MissScan();
+            ScanStart = false;
+        }
+
+        if (SearchSlider.value == 1 && !Successcomplete)
+        {
+            //スキャン成功音を流す
+            soundManager.StopSe(Chargeclip);
+            soundManager.PlaySe(Successclip);
+            SetPossesionMemory(lockon.GetTarget());
+            getMemoryUI.Play();
+            Successcomplete = true;
+        }
+
+    }
+
+    void MissScan()
+    {
+        isScan = false;
+        soundManager.StopSe(Chargeclip);
+        soundManager.PlaySe(Missclip);
+        SearchSlider.value = 0;
+    }
+
+    //void ChargeSE()
+    //{
+    //    //if (!soundManager.IsPlayingSe(Chargeclip))
+    //    //{
+    //    //    soundManager.StopSe(Missclip);
+    //    //    soundManager.PlaySe(Chargeclip);
+    //    //}
+    //}
+
+    //void MissSE()
+    //{
+    //    if (!soundManager.IsPlayingSe(Missclip))
+    //    {
+    //        soundManager.StopSe(Chargeclip);
+    //        soundManager.PlaySe(Missclip);
+    //    }
+    //}
+
+    //void SuccessSE()
+    //{
+    //    if (!soundManager.IsPlayingSe(Successclip))
+    //    {
+    //        soundManager.StopSe(Chargeclip);
+    //        //soundManager.StopSe(Missclip);
+    //        soundManager.PlaySe(Successclip);
+    //    }
+    //}
+    
+
+    /*******************************
+    * public
+    *******************************/
+    public bool isScan { get; private set; }
+
+    public void InitSearchSlider()
+    {
+        SearchSlider.value = 0;
     }
 }
+
