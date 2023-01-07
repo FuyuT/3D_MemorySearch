@@ -5,13 +5,18 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using CustomInputKey;
 
+
 public class TitleGame : MonoBehaviour
 {
+    [SerializeField]
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip;
 
     // Start is called before the first frame update
     void Start()
     {
-       
+        soundManager.PlayBgm(clip);
     }
 
     // Update is called once per frame
@@ -20,6 +25,7 @@ public class TitleGame : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             FadeManager.Instance.LoadScene("Game", 1.0f);
+            soundManager.StopBgm(clip);
         }
     }
 }

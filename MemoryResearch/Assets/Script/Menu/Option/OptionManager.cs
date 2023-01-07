@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class OptionManager : MonoBehaviour
 {
-
+    //ボタン類///////////////////////////////////
     [Header("オートセーブボタン")]
     [SerializeField] GameObject AutoSaveButton;
     [Header("BGMミュートボタン")]
@@ -18,7 +18,9 @@ public class OptionManager : MonoBehaviour
     [SerializeField] GameObject ReturnButton;
     [Header("リセットボタン")]
     [SerializeField] GameObject ResetButton;
+    //////////////////////////////////////////////
 
+    //スライダー類///////////////////////////////////
     [Header("BGMスライダー")]
     [SerializeField] Slider BGMslider;
     [Header("SEスライダー")]
@@ -29,7 +31,7 @@ public class OptionManager : MonoBehaviour
     [SerializeField] Slider AIMXslider;
     [Header("AIMYスライダー")]
     [SerializeField] Slider AIMYslider;
-
+    //////////////////////////////////////////////
 
     [Header("//キー入力で調整バーを動かすスピード")]
     [SerializeField]
@@ -43,9 +45,9 @@ public class OptionManager : MonoBehaviour
     [SerializeField]
     AudioSource SEAudio;
 
-    [Header("ライト")]
+    [Header("パネル")]
     [SerializeField]
-    Light light;
+    Image LightPanel;
 
     [Header("FPSカメラ")]
     [SerializeField]
@@ -90,18 +92,19 @@ public class OptionManager : MonoBehaviour
 
     public void Light()
     {
-        Lightslider.onValueChanged.AddListener(value => this.light.intensity = value);
-        Lightslider.value = light.GetComponent<Light>().intensity;
+        Lightslider.maxValue = 0.5f;
+        Lightslider.onValueChanged.AddListener(value => this.LightPanel.color = new Color(0, 0, 0, value));
+        Lightslider.value = LightPanel.color.a;
     }
 
     public void AimX()
     {
-        isAimReverseX = true;
+        isAimReverseX = false;
     }
 
     public void AimY()
     {
-        isAimReverseY = true;
+        isAimReverseY = false;
     }
     ///////////////////////////////////
 
@@ -132,9 +135,11 @@ public class OptionManager : MonoBehaviour
 
     void UpLight()
     {
-        light.intensity = Lightslider.GetComponent<Slider>().normalizedValue;
+        if (LightPanel.color.a >= 100)
+        {
+            LightPanel.color = new Color(0, 0, 0, Lightslider.GetComponent<Slider>().normalizedValue);
+        }
     }
-
 
     ///////////////////////////////////
 

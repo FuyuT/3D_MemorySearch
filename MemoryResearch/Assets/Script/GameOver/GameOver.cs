@@ -31,20 +31,13 @@ public class GameOver : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameOverImage.activeSelf)
+        {
+            return;
+        }
         MenuSelect();
         SelectProject();
 
-        if (CustomInput.Interval_InputKeydown(KeyCode.F1, 1))
-        {
-            if (!GameOverImage.activeSelf)
-            {
-                OnGameOver();
-            }
-            else
-            {
-                OffGameOver();
-            }
-        }
     }
 
     void MenuSelect()
@@ -72,6 +65,7 @@ public class GameOver : MonoBehaviour
 
     void SelectProject()
     {
+       
         if (Input.GetKeyDown("return") && select == 0)
         {
             Retry();

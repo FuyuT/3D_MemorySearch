@@ -20,11 +20,18 @@ public class SearchMemory : MonoBehaviour
     GetMemoryUI getMemoryUI;
 
     //オプション関連/////////////////////////
+     //スライダー///////////////////////////
+     [Header("オプションスライダーX")]
+     [SerializeField] Slider sliderX;
+     [Header("オプションスライダーY")]
+     [SerializeField] Slider sliderY;
 
-    [Header("オプションスライダーX")]
-    [SerializeField] Slider sliderX;
-    [Header("オプションスライダーY")]
-    [SerializeField] Slider sliderY;
+    //ボタン///////////////////////////
+    [Header("オプションボタンX")]
+    [SerializeField] GameObject ButtonX;
+    [Header("オプションボタンY")]
+    [SerializeField] GameObject ButtonY;
+
     //オプションの情報を取得
     [SerializeField] OptionManager optionManager;
     ///////////////////////////////////////////
@@ -86,21 +93,22 @@ public class SearchMemory : MonoBehaviour
 
     void RotateCmaeraAngle(float limit)
     {
-
-        float maxLimit = limit, minLimit = 360 - maxLimit;
-        //X軸回転
-        var localAngle = transform.localEulerAngles;
-        localAngle.x -= Input.GetAxis("Mouse Y") * sliderY.value;
-        if (localAngle.x > maxLimit && localAngle.x < 180)
-            localAngle.x = maxLimit;
-        if (localAngle.x < minLimit && localAngle.x > 180)
-            localAngle.x = minLimit;
-        transform.localEulerAngles = localAngle;
-        //Y軸回転
-        var angle = transform.eulerAngles;
-        angle.y += Input.GetAxis("Mouse X") * sliderX.value;
-        transform.eulerAngles = angle;
-
+        if (ButtonX==false && ButtonY==false)
+        {
+            float maxLimit = limit, minLimit = 360 - maxLimit;
+            //X軸回転
+            var localAngle = transform.localEulerAngles;
+            localAngle.x -= Input.GetAxis("Mouse Y") * sliderY.value;
+            if (localAngle.x > maxLimit && localAngle.x < 180)
+                localAngle.x = maxLimit;
+            if (localAngle.x < minLimit && localAngle.x > 180)
+                localAngle.x = minLimit;
+            transform.localEulerAngles = localAngle;
+            //Y軸回転
+            var angle = transform.eulerAngles;
+            angle.y += Input.GetAxis("Mouse X") * sliderX.value;
+            transform.eulerAngles = angle;
+        }
     }
 
     /// <summary>
