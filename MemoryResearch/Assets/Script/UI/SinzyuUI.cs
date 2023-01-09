@@ -17,6 +17,9 @@ public class SinzyuUI : MonoBehaviour
     Animator GimmickLordAnimator;
     //////////////////////////////////
 
+    [SerializeField]
+    GameObject ReturnUi;
+
     public bool  IsStart;
     public bool SinzyuAnimEnd;
 
@@ -26,6 +29,7 @@ public class SinzyuUI : MonoBehaviour
     {
         IsStart = true;
         SinzyuAnimEnd = false;
+        ReturnUi.SetActive(false);
     }
 
     // Update is called once per frame
@@ -50,6 +54,7 @@ public class SinzyuUI : MonoBehaviour
             BehaviorAnimation.UpdateTrigger(ref Fade, "FadeIn");
             this.gameObject.SetActive(false);
             CameraManager.instance.ToControllCamera();
+            ReturnUi.SetActive(true);
         }
       
 
