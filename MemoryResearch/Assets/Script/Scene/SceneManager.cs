@@ -71,6 +71,11 @@ public class SceneManager : MonoBehaviour
         FadeManager.Instance.LoadScene("Game", 1.0f);
     }
 
+    public static void ToClear()
+    {
+        FadeManager.Instance.LoadScene("Gameclear", 1.0f);
+    }
+
     public static void ToEnd()
     {
 #if UNITY_EDITOR

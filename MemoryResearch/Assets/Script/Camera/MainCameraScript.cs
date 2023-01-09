@@ -22,12 +22,24 @@ public class MainCameraScript : MonoBehaviour
 
     [Header("障害物のレイヤー")]
     [SerializeField]
-    private LayerMask obstacleLayer;
+    private LayerMask WallLayer;
+
+    [SerializeField]
+    private LayerMask CeilingLayer;
+
+    void Start()
+    {
+    }
+
+    void Update()
+    {
+    }
 
     void FixedUpdate()
     {
-      
-       
+
+        Cursor.visible = false;
+
         RaycastHit hit;
         //マウスで視点を変更
         updateAngle(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
@@ -35,12 +47,17 @@ public class MainCameraScript : MonoBehaviour
         updatePosition(lookAtPos);
         transform.LookAt(lookAtPos);
         //transform.RotateAround(target.transform.position, Vector3.up, lookAtPos);
-        if (Physics.Linecast(target.transform.position, transform.position, out hit, obstacleLayer))
+        if (Physics.Linecast(target.transform.position, transform.position, out hit, WallLayer))
         {
             transform.position = hit.point+new Vector3(0,10,0);
             transform.LookAt(target.transform);
         }
-      
+
+        if (Physics.Linecast(target.transform.position, transform.position, out hit, CeilingLayer))
+        {
+            transform.position = hit.point - new Vector3(0, 5, 0);
+            transform.LookAt(target.transform);
+        }
 
     }
 
