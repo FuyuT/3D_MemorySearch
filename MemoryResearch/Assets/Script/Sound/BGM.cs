@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class BGM : MonoBehaviour
 {
-    // Start is called before the first frame update
-    [SerializeField]
-    SoundManager soundManager;
     [SerializeField]
     AudioClip clip;
     void Start()
     {
-        soundManager.PlayBgm(clip);
-      
+        Debug.Log(SoundManager.instance);
+        SoundManager.instance.PlayBgm(clip);
     }
     // Update is called once per frame
     void Update()

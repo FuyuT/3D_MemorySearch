@@ -22,12 +22,16 @@ public class SoundManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+        instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
     /*******************************
     * public
     *******************************/
+
+    [SerializeField]
+    static public SoundManager instance;
 
     //‰¹—Ê
     public float BgmVolume

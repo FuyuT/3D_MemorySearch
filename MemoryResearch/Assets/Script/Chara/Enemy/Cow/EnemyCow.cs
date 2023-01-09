@@ -49,6 +49,14 @@ public class EnemyCow : CharaBase
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;
                 rigidbody.velocity = Vector3.zero;
             }
+            else if(BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
+            {
+                if(renderer.enabled)
+                {
+                    effectExplosion.Play();
+                    renderer.enabled = false;
+                }
+            }
             return;
         }
 
@@ -119,6 +127,13 @@ public class EnemyCow : CharaBase
     [SerializeField]  public float tackleTimeMax;
     [HideInInspector] public float tackleTime;
     [SerializeField]  public float tackleSpeed;
+
+    [Header("モデルのRenderer")]
+    [SerializeField] private Renderer renderer;
+
+    [Header("エフェクト")]
+    [SerializeField] public Effekseer.EffekseerEmitter effectTackle;
+    [SerializeField] public Effekseer.EffekseerEmitter effectExplosion;
 
     public EnemyCow()
     {

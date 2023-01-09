@@ -11,6 +11,8 @@ public class StateDoubleJump : State
 {
     bool IsAcceleration;
 
+    Vector3 jumpStartPos;
+
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         //アニメーションの更新
@@ -24,9 +26,16 @@ public class StateDoubleJump : State
         Actor.IVelocity().SetVelocityY(0);
         //初速を設定
         Owner.nowJumpSpeed = Owner.JumpStartSpeed;
+
+        jumpStartPos = Owner.transform.position;
+
+        Owner.effectJump.transform.position = jumpStartPos;
+        Owner.effectJump.Play();
     }
     protected override void OnUpdate()
     {
+        Owner.effectJump.transform.position = jumpStartPos;
+
         Move();
 
         Jump();

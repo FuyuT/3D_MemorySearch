@@ -145,16 +145,16 @@ public class Player : CharaBase, IReadPlayer
         }
 
         //TimeScaleが0以下の時は処理を終了
-        if(Time.timeScale <= 0) return;
+        if (Time.timeScale <= 0) return;
 
         //FPSカメラの時は、プレイヤーを非表示にする
         if (ChapterCamera.activeSelf)
         {
-            playerRenderer.enabled = false;
+            renderer.enabled = false;
         }
         else
         {
-            playerRenderer.enabled = true;
+            renderer.enabled = true;
         }
 
         //ステートマシン更新
@@ -296,7 +296,11 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] public float TackleTime;
 
     [Header("プレイヤーのRenderer")]
-    [SerializeField] Renderer playerRenderer;
+    [SerializeField] Renderer renderer;
+
+    [Header("エフェクト")]
+    [SerializeField] public Effekseer.EffekseerEmitter effectWind;
+    [SerializeField] public Effekseer.EffekseerEmitter effectJump;
 
     ChangeCamera changeCame;
 

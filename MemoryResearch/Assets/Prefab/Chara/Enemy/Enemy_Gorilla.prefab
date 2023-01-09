@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &474115125469472633
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2337441239829725872}
+  m_Layer: 0
+  m_Name: Effect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2337441239829725872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474115125469472633}
+  m_LocalRotation: {x: -0.25846007, y: -0.6581781, z: 0.25846007, w: -0.6581781}
+  m_LocalPosition: {x: -1.29758, y: -1.2173197, z: 0.000020971194}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8616783553999030653}
+  m_Father: {fileID: 7085459093458686217}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7085459092136674527
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,7 +916,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: a97e41cc60853674883708acac24beb3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
@@ -1256,6 +1287,7 @@ Transform:
   m_Children:
   - {fileID: 7085459092637493808}
   - {fileID: 7085459093361934148}
+  - {fileID: 2337441239829725872}
   m_Father: {fileID: 7085459093681088734}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.011576829, y: -179.9997, z: -45.82412}
@@ -1579,6 +1611,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 7085459092974246643}
+  renderer: {fileID: 7085459092935665534}
+  effectExplosion: {fileID: 1167102685220420431}
   searchRange: {fileID: 7085459093057782902}
   attackRange: {fileID: 7085459092200147177}
   moveSpeed: 12
@@ -1737,3 +1771,52 @@ Transform:
   m_Father: {fileID: 7085459092626825039}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -4.3334045, y: 4.368854, z: 9.831639}
+--- !u!1 &8862549155698294025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8616783553999030653}
+  - component: {fileID: 1167102685220420431}
+  m_Layer: 0
+  m_Name: Explosion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8616783553999030653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862549155698294025}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.4974866, y: 2.4974866, z: 2.4974866}
+  m_Children: []
+  m_Father: {fileID: 2337441239829725872}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1167102685220420431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8862549155698294025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d396bcb8480c24eb784eebe6096a99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimingOfUpdate: 0
+  EmitterScale: 0
+  TimeScale: 0
+  effectAsset: {fileID: 11400000, guid: a0656b5a421df5843b18abb371bf2d75, type: 2}
+  playOnStart: 0
+  isLooping: 0
