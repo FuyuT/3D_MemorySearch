@@ -25,6 +25,9 @@ public class SceneManager : MonoBehaviour
     [SerializeField]
     GameObject GameOverImage;
 
+    //SEŠÖ˜A///////////////
+    [SerializeField] AudioClip GameOverSE;
+    [SerializeField] AudioClip BGM;
     //////////////////////////////
     /// main
     //////////////////////////////
@@ -54,6 +57,10 @@ public class SceneManager : MonoBehaviour
     private void ToGameOver()
     {
         GameOverImage.SetActive(true);
+        SoundManager.instance.StopBgm(BGM);
+        SoundManager.instance.PlaySe(GameOverSE);
+        Cursor.visible = true;
+
     }
 
 

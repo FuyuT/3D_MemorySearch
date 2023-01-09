@@ -12,13 +12,23 @@ using CustomInputKey;
 public class MoveObjectConsoleRange : MonoBehaviour
 {
     //案内UI
-    [SerializeField] GameObject GuideUI;
-    [SerializeField] GameObject HPUI;
-    [SerializeField] GameObject EquipmentUi;
+    [SerializeField]
+    GameObject GuideUI;
+
+    //非表示UI類///////////////////////
+    [SerializeField]
+    GameObject HPUI;
+
+    [SerializeField]
+    GameObject EquipmentUi;
+    /////////////////////////////////////////
 
     //神獣UI
     [SerializeField]
     GameObject SinzyuUi;
+
+    [SerializeField]
+    GameObject ReturnUi;
 
     //フェード用
     [SerializeField]
@@ -40,6 +50,7 @@ public class MoveObjectConsoleRange : MonoBehaviour
     {
         InRange = false;
         GuideUI.SetActive(false);
+        ReturnUi.SetActive(false);
         a = false;
     }
 
@@ -58,6 +69,7 @@ public class MoveObjectConsoleRange : MonoBehaviour
                 GuideUI.SetActive(false);
                 HPUI.SetActive(false);
                 EquipmentUi.SetActive(false);
+             
             }
             else
             {
@@ -65,6 +77,7 @@ public class MoveObjectConsoleRange : MonoBehaviour
                 GuideUI.SetActive(true);
                 HPUI.SetActive(true);
                 EquipmentUi.SetActive(true);
+                ReturnUi.SetActive(false);
             }
         }
 

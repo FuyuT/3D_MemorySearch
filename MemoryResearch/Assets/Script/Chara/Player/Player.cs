@@ -140,7 +140,12 @@ public class Player : CharaBase, IReadPlayer
     {
         if (IsDead())
         {
+            SoundManager.instance.PlaySe(DownSE);
             BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
+            if(BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
+            {
+                SoundManager.instance.StopSe(DownSE);
+            }
             return;
         }
 
@@ -301,6 +306,9 @@ public class Player : CharaBase, IReadPlayer
     [Header("エフェクト")]
     [SerializeField] public Effekseer.EffekseerEmitter effectWind;
     [SerializeField] public Effekseer.EffekseerEmitter effectJump;
+
+    [SerializeField] AudioClip DownSE;
+
 
     ChangeCamera changeCame;
 
