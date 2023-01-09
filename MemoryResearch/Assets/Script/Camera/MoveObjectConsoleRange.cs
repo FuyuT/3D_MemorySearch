@@ -13,6 +13,8 @@ public class MoveObjectConsoleRange : MonoBehaviour
 {
     //àƒì‡UI
     [SerializeField] GameObject GuideUI;
+    [SerializeField] GameObject HPUI;
+    [SerializeField] GameObject EquipmentUi;
 
     //ê_èbUI
     [SerializeField]
@@ -54,11 +56,15 @@ public class MoveObjectConsoleRange : MonoBehaviour
                 a = true;
                 BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeOut");
                 GuideUI.SetActive(false);
+                HPUI.SetActive(false);
+                EquipmentUi.SetActive(false);
             }
             else
             {
                 CameraManager.instance.ToTpsCamera();
                 GuideUI.SetActive(true);
+                HPUI.SetActive(true);
+                EquipmentUi.SetActive(true);
             }
         }
 

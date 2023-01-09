@@ -7,10 +7,15 @@ using UnityEngine.UI;
 
 public class GameClear : MonoBehaviour
 {
+    [SerializeField]
+    SoundManager soundManager;
+    [SerializeField]
+    AudioClip clip;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        soundManager.PlayBgm(clip);
     }
 
     // Update is called once per frame
@@ -19,6 +24,7 @@ public class GameClear : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             SceneManager.ToTitle();
+            soundManager.StopBgm(clip);
         }
     }
 }

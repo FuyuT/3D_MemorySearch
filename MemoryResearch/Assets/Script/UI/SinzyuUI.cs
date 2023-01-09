@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class SinzyuUI : MonoBehaviour
 {
-    //メモ//////////////////////////////////////////////////
-    //神獣ギミックスタート時にパネルを暗くし
-    //ロードとステージ回転アニメーションスタート
-    //ロードが満タンになったら画面が明るくし神獣カメラを移動
 
     [SerializeField]
     Animator Fade;
