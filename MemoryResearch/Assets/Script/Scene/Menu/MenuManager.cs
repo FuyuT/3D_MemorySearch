@@ -42,6 +42,7 @@ public class MenuManager : MonoBehaviour
                 nowMenu = MenuType.None;
                 nextMenu = MenuType.Inventory;
                 Time.timeScale = 0f;
+                Cursor.visible = true;
             }
             isOpen = !isOpen;
         }

@@ -68,8 +68,18 @@ public class Lockon : MonoBehaviour
 
     void UpdateScanImgTransform()
     {
-        ScanImg.transform.position = target.transform.position + new Vector3(0, scanImagePosY, 0);
-        ScanImg.transform.rotation = Camera.main.transform.rotation;
+        Ray EnemyRay = new Ray(target.transform.position + new Vector3(0, 10, 0), new Vector3(0, -1, 0)); ;
+
+        ScanImg.transform.position = target.transform.position + new Vector3(0, 20, 0);
+        
+        foreach (RaycastHit hit in Physics.RaycastAll(EnemyRay))
+        {
+            if (hit.transform.CompareTag("Enemy"))
+            {
+               ScanImg.transform.position = hit.point + new Vector3(0,scanImagePosY,0);
+            }
+        }
+            ScanImg.transform.rotation = Camera.main.transform.rotation;
     }
 
     /*******************************
