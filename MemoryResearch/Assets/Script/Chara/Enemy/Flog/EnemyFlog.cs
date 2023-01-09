@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = MyUtil.ActorState<EnemyFlog>;
 
-public class EnemyFlog : CharaBase
+public class EnemyFlog : EnemyBase
 {
     /*******************************
     * private
@@ -31,6 +31,8 @@ public class EnemyFlog : CharaBase
         delayJumpTime = 0;
         delayShotTime = 0;
         charaParam.hp = HpMax;
+
+        mainMemory = MemoryType.Jump;
 
         actor.IVelocity().SetUseGravity(true);
     }

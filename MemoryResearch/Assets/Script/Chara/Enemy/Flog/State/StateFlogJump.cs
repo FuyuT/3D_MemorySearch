@@ -62,6 +62,7 @@ public class StateFlogJump : State
         Actor.IVelocity().InitVelocity();
         Actor.IVelocity().InitRigidBodyVelocity();
         Debug.Log("初期化後のy速度" + Actor.IVelocity().GetVelocityY());
+
         //重力の変更
         Actor.IVelocity().SetUseGravity(true);
     }

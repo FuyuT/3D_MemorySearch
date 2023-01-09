@@ -15,7 +15,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] GameObject Option;
 
     bool isOpen;
-
     MenuManager()
     {
         nowMenu = MenuType.None;
@@ -43,6 +42,7 @@ public class MenuManager : MonoBehaviour
                 nextMenu = MenuType.Inventory;
                 Time.timeScale = 0f;
                 Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
             }
             isOpen = !isOpen;
         }

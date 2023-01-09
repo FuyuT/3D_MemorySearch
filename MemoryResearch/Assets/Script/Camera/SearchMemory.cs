@@ -50,38 +50,35 @@ public class SearchMemory : MonoBehaviour
     [SerializeField]
     Lockon lockon;
 
-    bool Successcomplete;
-    bool ScanStart;
-
-    public enum SEType
-    {
-        
-    }
+    MemoryType scanMemory;
 
     void Start()
     {
-        //カーソル非表示
+        //カーソルロック
         Cursor.lockState = CursorLockMode.Locked;
 
         player = GameObject.FindGameObjectWithTag("Player");
         transform.rotation = player.transform.rotation;
 
-        getMemoryUI.Stop();
-
         InitSearchSlider();
 
         isScan = false;
-        ScanStart = false;
-        Successcomplete = false;
+
+        scanMemory = new MemoryType();
     }
 
     void Update()
     {
-        transform.position = player.transform.position + new Vector3(0, 7, 0);
+        UpdatePosition();
 
         RotateCmaeraAngle(viewAngle);
 
         Scan();
+    }
+
+    void UpdatePosition()
+    {
+        transform.position = player.transform.position + new Vector3(0, 7, 0);
     }
 
     void RotateCmaeraAngle(float limit)
@@ -103,25 +100,6 @@ public class SearchMemory : MonoBehaviour
         transform.eulerAngles = angle;
     }
 
-    /// <summary>
-    /// プレイヤーの所持しているメモリ配列に、サーチした敵から取得したメモリを格納する
-    /// </summary>
-    /// <param name="target">サーチした敵</param>
-    private void SetPossesionMemory(GameObject target)
-    {
-        //todo:処理の位置調整したい 取得したメモリをプレイヤーに設定
-
-        //int targetMemory = target.GetComponent<Enemy>().param.Get<int>((int)Enemy.ParamKey.PossesionMemory);
-        //空いている配列番号があれば登録
-        //var p = player.GetComponent<Player>();
-        //int arrayValue = p.GetMemoryArrayNullValue(targetMemory);
-        //if (arrayValue != -1)
-        //{
-        //    //todo:登録配列番号を変更
-        //    p.SetPossesionMemory(targetMemory, arrayValue);
-        //}
-    }
-
     //Activeになった時
     void OnEnable()
     {
@@ -129,27 +107,23 @@ public class SearchMemory : MonoBehaviour
         transform.rotation = player.transform.rotation;
     }
 
-
     void Scan()
     {
         //メモリ取得時のUIを再生
-        if (lockon.GetTarget())
-        {
-
-        }
 
         if (Input.GetMouseButtonDown(1) && lockon.GetTarget())
         {
             isScan = true;
+            scanMemory = lockon.GetTarget().GetComponent<EnemyBase>().GetMemory();
+            soundManager.PlaySe(Chargeclip);
         }
 
         if (!isScan) return;
 
+        //ターゲットがいなくなった時
         if (!lockon.GetTarget())
         {
             MissScan();
-            Successcomplete = false;
-            ScanStart = false;
         }
 
         ScanUpdate();
@@ -157,40 +131,23 @@ public class SearchMemory : MonoBehaviour
 
     void ScanUpdate()
     {
-        //チャージSEを流す
-        if (SearchSlider.value <1)
-        {
-            if (!ScanStart)
-            {
-                soundManager.PlaySe(Chargeclip);
-            }
-            SearchSlider.value += SearcCompleteSpeed;
-            ScanStart = true;
-
-
-            if (Input.GetMouseButtonUp(1) && !Successcomplete)
-            {
-                MissScan();
-                return;
-            }
-        }
-
-        if (!lockon.GetTarget())
+        //ボタンを離したらサーチ失敗、処理を終了
+        if (Input.GetMouseButtonUp(1))
         {
             MissScan();
-            ScanStart = false;
+            return;
         }
 
-        if (SearchSlider.value == 1 && !Successcomplete)
+        //サーチゲージを貯める
+        if (SearchSlider.value <1)
         {
-            //スキャン成功音を流す
-            soundManager.StopSe(Chargeclip);
-            soundManager.PlaySe(Successclip);
-            SetPossesionMemory(lockon.GetTarget());
-            getMemoryUI.Play();
-            Successcomplete = true;
+            SearchSlider.value += SearcCompleteSpeed;
         }
 
+        if (SearchSlider.value == 1)
+        {
+            SuccessScan();
+        }
     }
 
     void MissScan()
@@ -199,6 +156,20 @@ public class SearchMemory : MonoBehaviour
         soundManager.StopSe(Chargeclip);
         soundManager.PlaySe(Missclip);
         SearchSlider.value = 0;
+    }
+
+    void SuccessScan()
+    {
+        //スキャン成功音を流す
+        soundManager.StopSe(Chargeclip);
+        soundManager.PlaySe(Successclip);
+
+        //取得したメモリをプレイヤーデータに登録
+        DataManager.instance.IPlayerData().AddPossesionMemory(scanMemory);
+
+        getMemoryUI.Play();
+        InitSearchSlider();
+        isScan = false;
     }
 
     //void ChargeSE()
@@ -228,7 +199,7 @@ public class SearchMemory : MonoBehaviour
     //        soundManager.PlaySe(Successclip);
     //    }
     //}
-    
+
 
     /*******************************
     * public

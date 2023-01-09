@@ -49,6 +49,11 @@ public class Lockon : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        ScanImg.SetActive(false);
+    }
+
     void PlayScanImgAnim()
     {
         if (!Search.isScan && ScanImgAnim.speed == 0)

@@ -2,7 +2,7 @@
 
 using State = MyUtil.ActorState<EnemyCrab>;
 
-public class EnemyCrab : CharaBase
+public class EnemyCrab : EnemyBase
 {
     /*******************************
     * private
@@ -43,6 +43,8 @@ public class EnemyCrab : CharaBase
         delayGuard = 0;
 
         charaParam.hp = hpMax;
+
+        mainMemory = MemoryType.Guard;
     }
     void StateMachineInit()
     {

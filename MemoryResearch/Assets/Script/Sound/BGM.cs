@@ -8,7 +8,6 @@ public class BGM : MonoBehaviour
     AudioClip clip;
     void Start()
     {
-        Debug.Log(SoundManager.instance);
         SoundManager.instance.PlayBgm(clip);
     }
     // Update is called once per frame
