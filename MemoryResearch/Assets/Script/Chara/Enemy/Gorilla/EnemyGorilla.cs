@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = MyUtil.ActorState<EnemyGorilla>;
 
-public class EnemyGorilla : CharaBase
+public class EnemyGorilla : EnemyBase
 {
     /*******************************
     * private
@@ -24,6 +24,8 @@ public class EnemyGorilla : CharaBase
     {
         CharaBaseInit();
         charaParam.hp = hpMax;
+
+        mainMemory = MemoryType.Slam;
     }
     void StateMachineInit()
     {
@@ -48,6 +50,14 @@ public class EnemyGorilla : CharaBase
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;
                 rigidbody.velocity = Vector3.zero;
+            }
+            else if (BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
+            {
+                if (renderer.enabled)
+                {
+                    effectExplosion.Play();
+                    renderer.enabled = false;
+                }
             }
             return;
         }
@@ -90,6 +100,12 @@ public class EnemyGorilla : CharaBase
     /*******************************
     * public
     *******************************/
+    [Header("モデルのRenderer")]
+    [SerializeField] private Renderer renderer;
+
+    [Header("エフェクト")]
+    [SerializeField] public Effekseer.EffekseerEmitter effectExplosion;
+
     public enum State
     {
         Idle,

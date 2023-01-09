@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = MyUtil.ActorState<EnemyFlog>;
 
-public class EnemyFlog : CharaBase
+public class EnemyFlog : EnemyBase
 {
     /*******************************
     * private
@@ -20,8 +20,8 @@ public class EnemyFlog : CharaBase
     private void Awake()
     {
         Init();
-        StateMachineInit();
         actor.Transform.Init();
+        StateMachineInit();
     }
 
     private void Init()
@@ -32,6 +32,9 @@ public class EnemyFlog : CharaBase
         delayShotTime = 0;
         charaParam.hp = HpMax;
 
+        mainMemory = MemoryType.Jump;
+
+        actor.IVelocity().SetMaxVelocityY(35);
         actor.IVelocity().SetUseGravity(true);
     }
     // ステートマシンの初期化
@@ -63,6 +66,10 @@ public class EnemyFlog : CharaBase
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;
                 rigidbody.velocity = Vector3.zero;
+            }
+            else if (BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
+            {
+                renderer.enabled = false;
             }
             return;
         }
@@ -179,6 +186,12 @@ public class EnemyFlog : CharaBase
 
     [Header("減速力")]
     [SerializeField] public float JumpDecreaseValue;
+
+    [Header("モデルのRenderer")]
+    [SerializeField] private Renderer renderer;
+
+    [Header("エフェクト")]
+    [SerializeField] public Effekseer.EffekseerEmitter effect;
 
     public bool isGround;
 

@@ -47,6 +47,8 @@ public class ControlCamera : MonoBehaviour
     {
         Rotate();
         ResetRotate();
+        Cursor.visible = true;
+
     }
 }
 

@@ -13,12 +13,15 @@ public class StateFlogIdle : State
 
         //アニメーションの更新
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle_1");
+        Actor.IVelocity().InitVelocity();
+        Actor.IVelocity().InitRigidBodyVelocity();
     }
 
     protected override void OnUpdate()
     {
+
         //探知範囲内にターゲットがいれば、そちらの方向を向く
-        if(Owner.searchRange.InTarget)
+        if (Owner.searchRange.InTarget)
         {
             RotateToTarget();
         }

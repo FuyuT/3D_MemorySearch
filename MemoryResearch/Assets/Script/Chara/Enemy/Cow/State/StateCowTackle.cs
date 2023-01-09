@@ -46,6 +46,7 @@ public class StateCowTackle : State
         {
             isTackleReady = true;
             Owner.animator.SetTrigger("Move_Run");
+            Owner.effectTackle.Play();
         }
     }
 
@@ -83,6 +84,8 @@ public class StateCowTackle : State
         Owner.tackleTime  = 0;
 
         Owner.InitAttackPower();
+
+        Owner.effectTackle.Stop();
 
         Owner.animator.ResetTrigger("Move_Run");
     }

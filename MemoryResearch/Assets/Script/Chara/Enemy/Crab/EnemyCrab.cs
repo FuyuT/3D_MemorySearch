@@ -2,7 +2,7 @@
 
 using State = MyUtil.ActorState<EnemyCrab>;
 
-public class EnemyCrab : CharaBase
+public class EnemyCrab : EnemyBase
 {
     /*******************************
     * private
@@ -43,6 +43,8 @@ public class EnemyCrab : CharaBase
         delayGuard = 0;
 
         charaParam.hp = hpMax;
+
+        mainMemory = MemoryType.Guard;
     }
     void StateMachineInit()
     {
@@ -68,6 +70,13 @@ public class EnemyCrab : CharaBase
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;
                 rigidbody.velocity = Vector3.zero;
+            }
+            else if (BehaviorAnimation.IsPlayEnd(ref animator, "Dead"))
+            {
+                if (renderer.enabled)
+                {
+                    renderer.enabled = false;
+                }
             }
             return;
         }
@@ -112,6 +121,12 @@ public class EnemyCrab : CharaBase
     /*******************************
     * public
     *******************************/
+    [Header("モデルのRenderer")]
+    [SerializeField] private Renderer renderer;
+
+    [Header("エフェクト")]
+    [SerializeField] public Effekseer.EffekseerEmitter effect;
+
     public enum State
     {
         Idle,

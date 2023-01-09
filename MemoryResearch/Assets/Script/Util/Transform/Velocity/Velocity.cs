@@ -43,10 +43,12 @@ namespace MyUtil
             {
                 velocity.y += rigidbody.velocity.y;
             }
-
+            
             if (Mathf.Abs(velocity.y) > maxVelocity.y)
             {
+                float temp = velocity.y;
                 velocity.y = Mathf.Sign(velocity.y) == 1 ? maxVelocity.y : -maxVelocity.y;
+                Debug.Log("調整前" + temp + "調整後" + velocity.y);
             }
         }
 
@@ -86,7 +88,6 @@ namespace MyUtil
 
         public Velocity()
         {
-            velocity        = Vector3.zero;
             velocity        = Vector3.zero;
             maxVelocity     = new Vector3(100, 100, 100);
             isUseGravity    = false;

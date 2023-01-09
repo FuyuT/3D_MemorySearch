@@ -12,6 +12,8 @@ public class StateAttackTackle : State
     Vector3 tackleVelocity;
     Vector3 accelerateionVec;
     float   nowTackleTime;
+    bool    isMove;
+
 
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
@@ -32,18 +34,26 @@ public class StateAttackTackle : State
 
         //攻撃力設定
         Owner.SetAttackPower(8);
+
+        isMove = false;
     }
 
     protected override void OnUpdate()
     {
-
         //タックルの移動中で無ければ終了
         if (!Owner.animator.GetCurrentAnimatorStateInfo(0).IsName("Tackle_Move_Start")
             && !Owner.animator.GetCurrentAnimatorStateInfo(0).IsName("Tackle_Move"))
         {
             return;
         }
-
+        else if(BehaviorAnimation.IsName(ref Owner.animator, "Tackle_Move_Start"))
+        {
+            if(!isMove)
+            {
+                Owner.effectWind.Play();
+                isMove = true;
+            }
+        }
         //目標地点まで毎フレーム移動
         if (nowTackleTime > 0)
         {
@@ -53,6 +63,8 @@ public class StateAttackTackle : State
 
             //スピード設定
             Actor.IVelocity().SetVelocity(tackleVelocity);
+
+            Owner.effectWind.transform.position = Owner.transform.position;
         }
 
         SelectNextState();
@@ -78,5 +90,7 @@ public class StateAttackTackle : State
         Owner.SetAttackPower(0);
 
         Owner.animator.ResetTrigger("Tackle_Move");
+
+        Owner.effectWind.Stop();
     }
 }

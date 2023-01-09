@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = MyUtil.ActorState<EnemyCow>;
 
-public class EnemyCow : CharaBase
+public class EnemyCow : EnemyBase
 {
     /*******************************
     * private
@@ -24,6 +24,8 @@ public class EnemyCow : CharaBase
     {
         CharaBaseInit();
         charaParam.hp = hpMax;
+
+        mainMemory = MemoryType.Dush;
     }
     void StateMachineInit()
     {
@@ -48,6 +50,14 @@ public class EnemyCow : CharaBase
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;
                 rigidbody.velocity = Vector3.zero;
+            }
+            else if(BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
+            {
+                if(renderer.enabled)
+                {
+                    effectExplosion.Play();
+                    renderer.enabled = false;
+                }
             }
             return;
         }
@@ -119,6 +129,13 @@ public class EnemyCow : CharaBase
     [SerializeField]  public float tackleTimeMax;
     [HideInInspector] public float tackleTime;
     [SerializeField]  public float tackleSpeed;
+
+    [Header("モデルのRenderer")]
+    [SerializeField] private Renderer renderer;
+
+    [Header("エフェクト")]
+    [SerializeField] public Effekseer.EffekseerEmitter effectTackle;
+    [SerializeField] public Effekseer.EffekseerEmitter effectExplosion;
 
     public EnemyCow()
     {
