@@ -20,6 +20,7 @@ public class SoundManager : MonoBehaviour
         if (checkResult)
         {
             Destroy(gameObject);
+            return;
         }
 
         instance = this;
@@ -80,6 +81,7 @@ public class SoundManager : MonoBehaviour
     }
     public void StopSe(AudioClip clip)
     {
+        Debug.Log(seAudioSource);
         seAudioSource.clip = clip;
         if (clip == null) return;
         seAudioSource.Stop();

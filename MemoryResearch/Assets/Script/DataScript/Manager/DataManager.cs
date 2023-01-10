@@ -50,8 +50,8 @@ public class DataManager : MonoBehaviour
         try
         {
             SoundManager soundManager = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager>();
-            soundManager.BgmVolume = optionData.soundOption.bgmVolume;
-            soundManager.SeVolume = optionData.soundOption.seVolume;
+            soundManager.BgmVolume = optionData.soundOption.isMuteBGM ? 0 : optionData.soundOption.bgmVolume;
+            soundManager.SeVolume = optionData.soundOption.isMuteSE ? 0  : optionData.soundOption.seVolume;
         }
         catch
         {

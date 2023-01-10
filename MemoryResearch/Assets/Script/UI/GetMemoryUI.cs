@@ -6,18 +6,12 @@ public class GetMemoryUI : MonoBehaviour
 {
     [SerializeField] Animator ScanImgAnim;
 
-    private void Start()
-    {
-        gameObject.SetActive(false);
-    }
-
     void Update()
      {
         if (ScanImgAnim.GetCurrentAnimatorStateInfo(0).normalizedTime == 1)
         {
             Stop();
         }
-
     }
 
      public void Play()

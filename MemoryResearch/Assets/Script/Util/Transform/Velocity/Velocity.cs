@@ -41,14 +41,17 @@ namespace MyUtil
             //Yの上限値調整
             if (isUseGravity)
             {
-                velocity.y += rigidbody.velocity.y;
+                //負の数の時のみ、velocity.yに重力を加算する
+                if(Mathf.Sign(rigidbody.velocity.y) == -1)
+                {
+                    velocity.y += rigidbody.velocity.y;
+                }
             }
             
             if (Mathf.Abs(velocity.y) > maxVelocity.y)
             {
                 float temp = velocity.y;
                 velocity.y = Mathf.Sign(velocity.y) == 1 ? maxVelocity.y : -maxVelocity.y;
-                Debug.Log("調整前" + temp + "調整後" + velocity.y);
             }
         }
 

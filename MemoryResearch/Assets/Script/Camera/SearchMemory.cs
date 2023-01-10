@@ -30,9 +30,6 @@ public class SearchMemory : MonoBehaviour
     ///////////////////////////////////////////
 
     //SE関連/////////////////////////
-    [Header("サウンドマネージャー")]
-    [SerializeField]
-    SoundManager soundManager;
     [SerializeField] AudioClip Successclip;
 
     [SerializeField] AudioClip Missclip;
@@ -115,7 +112,7 @@ public class SearchMemory : MonoBehaviour
         {
             isScan = true;
             scanMemory = lockon.GetTarget().GetComponent<EnemyBase>().GetMemory();
-            soundManager.PlaySe(Chargeclip);
+            SoundManager.instance.PlaySe(Chargeclip);
         }
 
         if (!isScan) return;
@@ -153,16 +150,16 @@ public class SearchMemory : MonoBehaviour
     void MissScan()
     {
         isScan = false;
-        soundManager.StopSe(Chargeclip);
-        soundManager.PlaySe(Missclip);
+        SoundManager.instance.StopSe(Chargeclip);
+        SoundManager.instance.PlaySe(Missclip);
         SearchSlider.value = 0;
     }
 
     void SuccessScan()
     {
         //スキャン成功音を流す
-        soundManager.StopSe(Chargeclip);
-        soundManager.PlaySe(Successclip);
+        SoundManager.instance.StopSe(Chargeclip);
+        SoundManager.instance.PlaySe(Successclip);
 
         //取得したメモリをプレイヤーデータに登録
         DataManager.instance.IPlayerData().AddPossesionMemory(scanMemory);

@@ -17,9 +17,9 @@ MonoBehaviour:
   - path: ../Sample/01_Pierre02/Texture/Halo.png
     texture: {fileID: 2800000, guid: d66fb3a4f3be53f44847f6865b011941, type: 3}
   - path: ../Sample/03_Hanmado01/Texture/tex_eff_light02.png
-    texture: {fileID: 2800000, guid: 0a8a6d42f028a8043a01251c3007a58f, type: 3}
+    texture: {fileID: 2800000, guid: c63322c45469d9749865f74a5c524f03, type: 3}
   - path: ../Sample/01_Pierre01/Texture/ExperimentalNoise.png
-    texture: {fileID: 2800000, guid: deb1b006c87b53c46bd1295e4e0fcade, type: 3}
+    texture: {fileID: 2800000, guid: 0a8a6d42f028a8043a01251c3007a58f, type: 3}
   soundResources: []
   modelResources: []
   materialResources: []

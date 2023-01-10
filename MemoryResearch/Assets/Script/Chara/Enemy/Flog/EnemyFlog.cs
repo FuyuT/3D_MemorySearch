@@ -20,8 +20,8 @@ public class EnemyFlog : EnemyBase
     private void Awake()
     {
         Init();
-        StateMachineInit();
         actor.Transform.Init();
+        StateMachineInit();
     }
 
     private void Init()
@@ -34,6 +34,7 @@ public class EnemyFlog : EnemyBase
 
         mainMemory = MemoryType.Jump;
 
+        actor.IVelocity().SetMaxVelocityY(35);
         actor.IVelocity().SetUseGravity(true);
     }
     // ステートマシンの初期化
@@ -188,9 +189,6 @@ public class EnemyFlog : EnemyBase
 
     [Header("モデルのRenderer")]
     [SerializeField] private Renderer renderer;
-
-    [Header("エフェクト")]
-    [SerializeField] public Effekseer.EffekseerEmitter effect;
 
     public bool isGround;
 

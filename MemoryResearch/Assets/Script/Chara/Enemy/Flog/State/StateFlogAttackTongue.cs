@@ -15,6 +15,9 @@ public class StateFlogAttackTongue : State
         Owner.SetAttackPower(2);
 
         Owner.SetSubMemory(MemoryType.Punch);
+
+        Actor.IVelocity().InitVelocity();
+        Actor.IVelocity().InitRigidBodyVelocity();
     }
 
     protected override void OnUpdate()

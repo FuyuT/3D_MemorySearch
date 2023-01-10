@@ -18,6 +18,7 @@ public class StateFlogIdle : State
     protected override void OnUpdate()
     {
         Actor.IVelocity().InitVelocity();
+        Actor.IVelocity().InitRigidBodyVelocity();
 
         //探知範囲内にターゲットがいれば、そちらの方向を向く
         if (Owner.searchRange.InTarget)
