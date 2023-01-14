@@ -14,6 +14,16 @@ TagManager:
   - Enemy
   - Collide
   - Ground
+  - MemoryUIFrame
+  - SelectMemory
+  - CombineMaterial
+  - EuipmentMemory
+  - CombineMemory
+  - CombineManager
+  - DataManager
+  - Inventory
+  - CameraManager
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -22,11 +32,11 @@ TagManager:
   - Water
   - UI
   - Block
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Wall
+  - Animation
+  - Monitor
+  - MinMap
+  - Ceiling
   - 
   - 
   - 
