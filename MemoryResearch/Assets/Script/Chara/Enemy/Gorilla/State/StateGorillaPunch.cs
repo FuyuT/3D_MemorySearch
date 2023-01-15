@@ -11,6 +11,8 @@ public class StateGorillaPunch : State
     protected override void OnEnter(State prevState)
     {
         Owner.SetAttackPower(3);
+
+        SoundManager.instance.PlaySe(Owner.AttackSE, Owner.transform.position);
     }
 
     protected override void OnUpdate()
@@ -37,6 +39,8 @@ public class StateGorillaPunch : State
     protected override void OnExit(State prevState)
     {
         Owner.InitAttackPower();
+
         Owner.animator.ResetTrigger("Attack_Punch");
+        SoundManager.instance.StopSe(Owner.AttackSE);
     }
 }

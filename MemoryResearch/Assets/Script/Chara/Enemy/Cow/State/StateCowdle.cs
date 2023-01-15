@@ -7,6 +7,7 @@ public class StateCowIdle : State
 {
     protected override void OnEnter(State prevState)
     {
+        SoundManager.instance.PlaySe(Owner.AttackSE, Owner.transform.position);
     }
 
     protected override void OnUpdate()
@@ -29,6 +30,7 @@ public class StateCowIdle : State
         if (Owner.delayTackle >= Owner.delayTackleMax)
         {
             stateMachine.Dispatch((int)EnemyCow.State.Attack_Tackle);
+            SoundManager.instance.PlaySe(Owner.AttackSE,Owner.transform.position);
             return;
         }
         //移動へ遷移
@@ -42,5 +44,6 @@ public class StateCowIdle : State
     protected override void OnExit(State prevState)
     {
         Owner.animator.ResetTrigger("Idle");
+        SoundManager.instance.StopSe(Owner.AttackSE);
     }
 }

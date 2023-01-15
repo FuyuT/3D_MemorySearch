@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = MyUtil.ActorState<EnemyFlog>;
 
-public class EnemyFlog : CharaBase
+public class EnemyFlog : EnemyBase
 {
     /*******************************
     * private
@@ -31,6 +31,8 @@ public class EnemyFlog : CharaBase
         delayJumpTime = 0;
         delayShotTime = 0;
         charaParam.hp = HpMax;
+
+        mainMemory = MemoryType.Jump;
 
         actor.IVelocity().SetUseGravity(true);
     }
@@ -59,6 +61,7 @@ public class EnemyFlog : CharaBase
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
             {
                 BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
+                SoundManager.instance.PlaySe(DownSE, transform.position);
                 //当たり判定を消す
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;
@@ -66,6 +69,9 @@ public class EnemyFlog : CharaBase
             }
             else if (BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
             {
+                SoundManager.instance.StopSe(DownSE);
+               // SoundManager.instance.PlaySe(ExplosionSE, transform.position);
+
                 renderer.enabled = false;
             }
             return;
@@ -189,6 +195,14 @@ public class EnemyFlog : CharaBase
 
     [Header("エフェクト")]
     [SerializeField] public Effekseer.EffekseerEmitter effect;
+
+    [Space]
+    [Header("SE関連")]
+    [SerializeField] public AudioClip JumpSE;
+    [SerializeField] public AudioClip AttackSE;
+    [SerializeField] public AudioClip ShotSE;
+    [SerializeField] public AudioClip DownSE;
+    [SerializeField] public AudioClip ExplosionSE;
 
     public bool isGround;
 

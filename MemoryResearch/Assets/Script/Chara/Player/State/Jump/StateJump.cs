@@ -15,7 +15,8 @@ public class StateJump : State
     {
         //アニメーションの更新
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_Up");
-
+        //ジャンプSE
+        SoundManager.instance.PlaySe(Owner.JumpSE,Owner.transform.position);
         IsAcceleration = true;
 
         //y軸の速度を0にする
@@ -89,5 +90,6 @@ public class StateJump : State
         Actor.Transform.IVelocity().SetVelocityY(0);
         Owner.nowJumpSpeed = 0;
         Actor.Transform.IVelocity().InitRigidBodyVelocity();
+        SoundManager.instance.StopSe(Owner.JumpSE);
     }
 }

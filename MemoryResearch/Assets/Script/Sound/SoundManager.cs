@@ -64,11 +64,13 @@ public class SoundManager : MonoBehaviour
         if (clip == null) return;
         bgmAudioSource.Play();
     }
-    public void PlaySe(AudioClip clip)
+    public void PlaySe(AudioClip clip,Vector3 pos)
     {
         seAudioSource.clip = clip;
         if (clip == null) return;
         seAudioSource.PlayOneShot(clip);
+
+        seAudioSource.transform.position = pos;
     }
 
     //í‚é~
@@ -80,6 +82,7 @@ public class SoundManager : MonoBehaviour
     }
     public void StopSe(AudioClip clip)
     {
+        Debug.Log(seAudioSource);
         seAudioSource.clip = clip;
         if (clip == null) return;
         seAudioSource.Stop();

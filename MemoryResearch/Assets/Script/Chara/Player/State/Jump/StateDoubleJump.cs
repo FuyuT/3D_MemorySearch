@@ -17,6 +17,7 @@ public class StateDoubleJump : State
     {
         //アニメーションの更新
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_DowbleJump");
+        SoundManager.instance.PlaySe(Owner.DonbleJunpSE, Owner.transform.position);
 
         Owner.isGround = false;
 
@@ -95,5 +96,6 @@ public class StateDoubleJump : State
 
         //アニメーションのトリガーを解除
         Owner.animator.ResetTrigger("Jump_DowbleJump");
+        SoundManager.instance.StopSe(Owner.DonbleJunpSE);
     }
 }

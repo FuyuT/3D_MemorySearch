@@ -24,6 +24,8 @@ public class StateFlogJump : State
         Actor.IVelocity().SetUseGravity(false);
 
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_Start");
+        SoundManager.instance.PlaySe(Owner.JumpSE,Owner.transform.position);
+
     }
 
     protected override void OnUpdate()
@@ -62,7 +64,10 @@ public class StateFlogJump : State
         Actor.IVelocity().InitVelocity();
         Actor.IVelocity().InitRigidBodyVelocity();
         Debug.Log("初期化後のy速度" + Actor.IVelocity().GetVelocityY());
+
         //重力の変更
         Actor.IVelocity().SetUseGravity(true);
+
+        SoundManager.instance.StopSe(Owner.JumpSE);
     }
 }

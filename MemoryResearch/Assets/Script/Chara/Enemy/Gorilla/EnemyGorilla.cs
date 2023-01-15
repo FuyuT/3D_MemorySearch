@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = MyUtil.ActorState<EnemyGorilla>;
 
-public class EnemyGorilla : CharaBase
+public class EnemyGorilla : EnemyBase
 {
     /*******************************
     * private
@@ -24,6 +24,8 @@ public class EnemyGorilla : CharaBase
     {
         CharaBaseInit();
         charaParam.hp = hpMax;
+
+        mainMemory = MemoryType.Slam;
     }
     void StateMachineInit()
     {
@@ -44,6 +46,7 @@ public class EnemyGorilla : CharaBase
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
             {
                 BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
+                SoundManager.instance.PlaySe(DownSE,transform.position);
                 //ìñÇΩÇËîªíËÇè¡Ç∑
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;
@@ -54,6 +57,8 @@ public class EnemyGorilla : CharaBase
                 if (renderer.enabled)
                 {
                     effectExplosion.Play();
+                    SoundManager.instance.StopSe(DownSE);
+                    SoundManager.instance.PlaySe(ExplosionSE, transform.position);
                     renderer.enabled = false;
                 }
             }
@@ -121,6 +126,12 @@ public class EnemyGorilla : CharaBase
 
     [Header("HP")]
     [SerializeField] public int hpMax;
+
+    [Space]
+    [Header("SEä÷òA")]
+    [SerializeField] public AudioClip AttackSE;
+    [SerializeField] public AudioClip DownSE;
+    [SerializeField] public AudioClip ExplosionSE;
 
     public EnemyGorilla()
     {

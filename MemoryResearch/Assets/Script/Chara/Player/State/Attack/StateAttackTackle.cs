@@ -36,6 +36,9 @@ public class StateAttackTackle : State
         Owner.SetAttackPower(8);
 
         isMove = false;
+
+        //SE
+        SoundManager.instance.PlaySe(Owner.TackleSE, Owner.transform.position);
     }
 
     protected override void OnUpdate()
@@ -48,7 +51,7 @@ public class StateAttackTackle : State
         }
         else if(BehaviorAnimation.IsName(ref Owner.animator, "Tackle_Move_Start"))
         {
-            if(!isMove)
+            if (!isMove)
             {
                 Owner.effectWind.Play();
                 isMove = true;
@@ -92,5 +95,7 @@ public class StateAttackTackle : State
         Owner.animator.ResetTrigger("Tackle_Move");
 
         Owner.effectWind.Stop();
+
+        SoundManager.instance.StopSe(Owner.TackleSE);
     }
 }

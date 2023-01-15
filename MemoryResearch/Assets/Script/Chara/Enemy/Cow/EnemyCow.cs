@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = MyUtil.ActorState<EnemyCow>;
 
-public class EnemyCow : CharaBase
+public class EnemyCow : EnemyBase
 {
     /*******************************
     * private
@@ -24,6 +24,8 @@ public class EnemyCow : CharaBase
     {
         CharaBaseInit();
         charaParam.hp = hpMax;
+
+        mainMemory = MemoryType.Dush;
     }
     void StateMachineInit()
     {
@@ -44,6 +46,9 @@ public class EnemyCow : CharaBase
             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
             {
                 BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
+                //バラバラSE
+                SoundManager.instance.PlaySe(DownSE, transform.position);
+
                 //当たり判定を消す
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;
@@ -54,6 +59,8 @@ public class EnemyCow : CharaBase
                 if(renderer.enabled)
                 {
                     effectExplosion.Play();
+                    //爆発SE
+                    SoundManager.instance.PlaySe(ExplosionSE, transform.position);
                     renderer.enabled = false;
                 }
             }
@@ -134,6 +141,12 @@ public class EnemyCow : CharaBase
     [Header("エフェクト")]
     [SerializeField] public Effekseer.EffekseerEmitter effectTackle;
     [SerializeField] public Effekseer.EffekseerEmitter effectExplosion;
+
+    [Space]
+    [Header("SE関連")]
+    [SerializeField] public AudioClip AttackSE;
+    [SerializeField] public AudioClip DownSE;
+    [SerializeField] public AudioClip ExplosionSE;
 
     public EnemyCow()
     {

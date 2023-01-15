@@ -7,11 +7,25 @@ using CustomInputKey;
 
 public class TitleGame : MonoBehaviour
 {
+    //BGMÅESEä÷òA
+    [SerializeField]
+    AudioClip clip;
+    [SerializeField]
+    AudioClip BotannSE;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        SoundManager.instance.PlayBgm(clip);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown("space"))
         {
             SceneManager.ToGame();
+            SoundManager.instance.StopBgm(clip);
+            SoundManager.instance.PlaySe(BotannSE, transform.position);
         }
     }
 }

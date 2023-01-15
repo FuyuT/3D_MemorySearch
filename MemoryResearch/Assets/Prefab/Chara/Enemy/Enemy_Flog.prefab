@@ -1342,6 +1342,11 @@ MonoBehaviour:
   JumpDecreaseValue: 0.2
   renderer: {fileID: 4050930009263962949}
   effect: {fileID: 0}
+  JumpSE: {fileID: 8300000, guid: 95bbc5a004464074e8f92bab10c3c761, type: 3}
+  AttackSE: {fileID: 8300000, guid: 6c63ac69b35861a47b1f38a7881c64cf, type: 3}
+  ShotSE: {fileID: 8300000, guid: 8ff67b558bb2cd24db0a0927b534bfc9, type: 3}
+  DownSE: {fileID: 8300000, guid: db3feff9c67591143b6d9323368ebeaf, type: 3}
+  ExplosionSE: {fileID: 8300000, guid: 15e74fd4a3d9c484bb8ca15a538cdc8d, type: 3}
   isGround: 0
   delayJumpTime: 0
   nowJumpSpeed: 0

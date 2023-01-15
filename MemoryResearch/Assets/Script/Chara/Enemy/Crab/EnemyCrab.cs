@@ -2,7 +2,7 @@
 
 using State = MyUtil.ActorState<EnemyCrab>;
 
-public class EnemyCrab : CharaBase
+public class EnemyCrab : EnemyBase
 {
     /*******************************
     * private
@@ -22,6 +22,14 @@ public class EnemyCrab : CharaBase
     [Header("ディレイ")]
     [SerializeField] public float delayGuardMax;
     [HideInInspector]public float delayGuard;
+
+    [Space]
+    [Header("SE関連")]
+    [SerializeField] public AudioClip AttackSE;
+    [SerializeField] public AudioClip GuardSE;
+    [SerializeField] public AudioClip DownSE;
+    [SerializeField] public AudioClip ExplosionSE;
+
     //アクター
     MyUtil.Actor<EnemyCrab> actor;
     //ステートマシン
@@ -43,6 +51,8 @@ public class EnemyCrab : CharaBase
         delayGuard = 0;
 
         charaParam.hp = hpMax;
+
+        mainMemory = MemoryType.Guard;
     }
     void StateMachineInit()
     {
@@ -64,6 +74,8 @@ public class EnemyCrab : CharaBase
             if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
             {
                 BehaviorAnimation.UpdateTrigger(ref animator, "Dead");
+                //DownSE
+                SoundManager.instance.PlaySe(DownSE,transform.position);
                 //当たり判定を消す
                 this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
                 this.gameObject.GetComponent<Rigidbody>().useGravity = false;
@@ -73,6 +85,10 @@ public class EnemyCrab : CharaBase
             {
                 if (renderer.enabled)
                 {
+                    //SE関連
+                    SoundManager.instance.StopSe(DownSE);
+                    SoundManager.instance.PlaySe(ExplosionSE, transform.position);
+
                     renderer.enabled = false;
                 }
             }

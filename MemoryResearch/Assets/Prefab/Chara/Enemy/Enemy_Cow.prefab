@@ -622,6 +622,9 @@ MonoBehaviour:
   renderer: {fileID: 5168470871140640507}
   effectTackle: {fileID: 4520230228781225224}
   effectExplosion: {fileID: 1876060491518718616}
+  AttackSE: {fileID: 8300000, guid: 71ba827360e1e8c4c9e23d61e442b24b, type: 3}
+  DownSE: {fileID: 8300000, guid: 7a04913b8fb187449b48995aa7fd9503, type: 3}
+  ExplosionSE: {fileID: 8300000, guid: 15e74fd4a3d9c484bb8ca15a538cdc8d, type: 3}
 --- !u!1 &3536315635470507485
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +758,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3681373751448829132}
   - component: {fileID: 1281533835119471471}
+  - component: {fileID: 2791266934680382707}
   m_Layer: 0
   m_Name: Cow_Model
   m_TagString: Untagged
@@ -798,6 +802,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2791266934680382707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4061417009873528438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42d1b451f4ba58141823990fe53c9599, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WalkSE: {fileID: 8300000, guid: 5ad85336319f9c14aa349bcbae78481c, type: 3}
 --- !u!1 &4260664787168052724
 GameObject:
   m_ObjectHideFlags: 0

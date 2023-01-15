@@ -8,6 +8,8 @@ public class StateCrabDefense : State
     protected override void OnEnter(State prevState)
     {
         Owner.SetDefencePower(30);
+
+        SoundManager.instance.PlaySe(Owner.GuardSE, Owner.transform.position);
     }
 
     protected override void OnUpdate()
@@ -34,7 +36,10 @@ public class StateCrabDefense : State
     {
         Owner.delayGuard = 0;
         Owner.InitDefencePower();
+        Owner.InitSubMemory();
 
         Owner.animator.ResetTrigger("Defense1");
+
+        SoundManager.instance.StopSe(Owner.GuardSE);
     }
 }

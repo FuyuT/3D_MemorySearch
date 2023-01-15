@@ -10,9 +10,12 @@ public class StateFlogAttackTongue : State
     {
         //アニメーションの更新
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Tongue");
+        SoundManager.instance.PlaySe(Owner.AttackSE,Owner.transform.position);
 
         //攻撃力設定
         Owner.SetAttackPower(2);
+
+        Owner.SetSubMemory(MemoryType.Punch);
     }
 
     protected override void OnUpdate()
@@ -40,7 +43,9 @@ public class StateFlogAttackTongue : State
     {
         //攻撃力初期化
         Owner.InitAttackPower();
+        Owner.InitSubMemory();
 
         Owner.animator.ResetTrigger("Attack_Tongue");
+        SoundManager.instance.StopSe(Owner.AttackSE);
     }
 }

@@ -18,6 +18,8 @@ public class StateFlogShot : State
     {
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Shot");
 
+        SoundManager.instance.PlaySe(Owner.ShotSE, Owner.transform.position);
+
         delayShotTime = 0;
     }
 
@@ -79,5 +81,6 @@ public class StateFlogShot : State
     {
         Owner.delayShotTime = 0;
         Owner.animator.ResetTrigger("Attack_Shot");
+        SoundManager.instance.StopSe(Owner.ShotSE);
     }
 }

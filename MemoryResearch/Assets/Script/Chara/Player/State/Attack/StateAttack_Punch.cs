@@ -15,6 +15,9 @@ public class StateAttack_Punch : State
         Owner.SetAttackPower(5);
         //その場で停止
         Actor.Transform.IVelocity().InitVelocity();
+
+        //SE
+        SoundManager.instance.PlaySe(Owner.PunchSE, Owner.transform.position);
     }
 
     protected override void OnUpdate()
@@ -47,5 +50,7 @@ public class StateAttack_Punch : State
         Owner.SetAttackPower(0);
 
         Owner.animator.ResetTrigger("Attack_Punch");
+
+        SoundManager.instance.StopSe(Owner.PunchSE);
     }
 }
