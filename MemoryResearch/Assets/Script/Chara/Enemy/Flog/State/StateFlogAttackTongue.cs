@@ -13,11 +13,6 @@ public class StateFlogAttackTongue : State
 
         //UŒ‚—Íİ’è
         Owner.SetAttackPower(2);
-
-        Owner.SetSubMemory(MemoryType.Punch);
-
-        Actor.IVelocity().InitVelocity();
-        Actor.IVelocity().InitRigidBodyVelocity();
     }
 
     protected override void OnUpdate()
@@ -45,7 +40,6 @@ public class StateFlogAttackTongue : State
     {
         //UŒ‚—Í‰Šú‰»
         Owner.InitAttackPower();
-        Owner.InitSubMemory();
 
         Owner.animator.ResetTrigger("Attack_Tongue");
     }

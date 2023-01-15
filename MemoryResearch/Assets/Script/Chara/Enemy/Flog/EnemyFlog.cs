@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = MyUtil.ActorState<EnemyFlog>;
 
-public class EnemyFlog : EnemyBase
+public class EnemyFlog : CharaBase
 {
     /*******************************
     * private
@@ -20,8 +20,8 @@ public class EnemyFlog : EnemyBase
     private void Awake()
     {
         Init();
-        actor.Transform.Init();
         StateMachineInit();
+        actor.Transform.Init();
     }
 
     private void Init()
@@ -32,9 +32,6 @@ public class EnemyFlog : EnemyBase
         delayShotTime = 0;
         charaParam.hp = HpMax;
 
-        mainMemory = MemoryType.Jump;
-
-        actor.IVelocity().SetMaxVelocityY(35);
         actor.IVelocity().SetUseGravity(true);
     }
     // ステートマシンの初期化

@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class GetMemoryUI : MonoBehaviour
 {
-    [SerializeField] Animator ScanImgAnim;
+
+    Animator ScanImgAnim;
+    
 
     private void Start()
     {
         gameObject.SetActive(false);
+        ScanImgAnim = gameObject.GetComponent<Animator>();
     }
 
     void Update()

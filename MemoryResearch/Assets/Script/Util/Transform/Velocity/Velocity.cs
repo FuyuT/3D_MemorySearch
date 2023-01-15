@@ -160,6 +160,7 @@ namespace MyUtil
 
         public void InitRigidBodyVelocity()
         {
+            Debug.Log("ベクトル初期化");
             rigidbody.velocity = Vector3.zero;
         }
 

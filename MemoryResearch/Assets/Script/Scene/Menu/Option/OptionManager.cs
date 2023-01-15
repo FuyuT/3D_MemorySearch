@@ -109,7 +109,7 @@ public class OptionManager : MonoBehaviour
     {
         AutoSaveButton.GetComponent<UnityEngine.UI.Image>().enabled
             = DataManager.instance.IOptionData().IsAutoSave();
-        //Debug.Log(DataManager.instance.IOptionData().IsAutoSave());
+        Debug.Log(DataManager.instance.IOptionData().IsAutoSave());
     }
 
     void UpdateBGM()

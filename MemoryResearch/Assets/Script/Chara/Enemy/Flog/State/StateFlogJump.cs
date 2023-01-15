@@ -40,7 +40,7 @@ public class StateFlogJump : State
         //移動ベクトルに進行方向のベクトルとジャンプのベクトルを足す
         Actor.IVelocity().AddVelocity(moveVec + new Vector3(0, Owner.nowJumpSpeed, 0));
 
-        if (Actor.IVelocity().GetState() == MyUtil.VelocityState.isDown)
+        if(Actor.IVelocity().GetState() == MyUtil.VelocityState.isDown)
         {
             BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_Fall");
         }
@@ -64,8 +64,5 @@ public class StateFlogJump : State
         Debug.Log("初期化後のy速度" + Actor.IVelocity().GetVelocityY());
         //重力の変更
         Actor.IVelocity().SetUseGravity(true);
-
-        Owner.animator.ResetTrigger("Jump_Start");
-        Owner.animator.ResetTrigger("Jump_Fall");
     }
 }

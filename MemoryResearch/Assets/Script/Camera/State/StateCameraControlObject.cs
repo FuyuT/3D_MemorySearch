@@ -19,10 +19,10 @@ public class StateCameraControlObject : State
 
     protected override void SelectNextState()
     {
-        //if (Input.GetKeyDown("r"))
-        //{
-        //    stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
-        //}
+        if (Input.GetKeyDown("v"))
+        {
+            stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
+        }
     }
 
     protected override void OnExit(State nextState)

@@ -1339,7 +1339,7 @@ MonoBehaviour:
   delayJumpTimeMax: 0.5
   JumpToTargetPower: 1
   JumpStartSpeed: 3
-  JumpDecreaseValue: 0.8
+  JumpDecreaseValue: 0.2
   renderer: {fileID: 4050930009263962949}
   effect: {fileID: 0}
   isGround: 0

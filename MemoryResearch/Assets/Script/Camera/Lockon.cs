@@ -49,11 +49,6 @@ public class Lockon : MonoBehaviour
         }
     }
 
-    private void OnDisable()
-    {
-        ScanImg.SetActive(false);
-    }
-
     void PlayScanImgAnim()
     {
         if (!Search.isScan && ScanImgAnim.speed == 0)
@@ -73,16 +68,7 @@ public class Lockon : MonoBehaviour
 
     void UpdateScanImgTransform()
     {
-        Ray EnemyRay = new Ray(target.transform.position + new Vector3(0, 20, 0), new Vector3(0, -1, 0)); ;
-
-        RaycastHit hit;
-        if ( target.GetComponent<BoxCollider>(). Raycast(EnemyRay,out hit,30.0f))
-        {
-            if (hit.collider.CompareTag("Enemy"))
-            {
-               ScanImg.transform.position = hit.point + new Vector3(0,scanImagePosY,0);
-            }
-        }
+        ScanImg.transform.position = target.transform.position + new Vector3(0, scanImagePosY, 0);
         ScanImg.transform.rotation = Camera.main.transform.rotation;
     }
 

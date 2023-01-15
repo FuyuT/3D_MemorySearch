@@ -23,10 +23,10 @@ public class FadeManager : MonoBehaviour
             {
                 instance = (FadeManager)FindObjectOfType(typeof(FadeManager));
 
-                //if (instance == null)
-                //{
-                //    Debug.LogError(typeof(FadeManager) + "is nothing");
-                //}
+                if (instance == null)
+                {
+                    Debug.LogError(typeof(FadeManager) + "is nothing");
+                }
             }
 
             return instance;

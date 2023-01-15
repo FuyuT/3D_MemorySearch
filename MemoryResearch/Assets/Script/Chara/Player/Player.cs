@@ -108,7 +108,7 @@ public class Player : CharaBase, IReadPlayer
         stateMachine.AddAnyTransition<StateDoubleJump>((int)State.Double_Jump);
         stateMachine.GetOrAddState<StateDoubleJump>().SetDispatchStates(new State[1]
         {
-            State.Move_Dush
+            State.None
         });
 
         //タックル
@@ -140,12 +140,7 @@ public class Player : CharaBase, IReadPlayer
     {
         if (IsDead())
         {
-            SoundManager.instance.PlaySe(DownSE);
             BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
-            if(BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
-            {
-                SoundManager.instance.StopSe(DownSE);
-            }
             return;
         }
 
@@ -153,7 +148,7 @@ public class Player : CharaBase, IReadPlayer
         if (Time.timeScale <= 0) return;
 
         //FPSカメラの時は、プレイヤーを非表示にする
-        if (FPSCamera.activeSelf)
+        if (ChapterCamera.activeSelf)
         {
             renderer.enabled = false;
         }
@@ -184,9 +179,9 @@ public class Player : CharaBase, IReadPlayer
     void RotateUpdate()
     {
         //一人称時の角度変更
-        if (FPSCamera.activeSelf)
+        if (ChapterCamera.activeSelf)
         {
-            transform.eulerAngles = new Vector3(0, FPSCamera.transform.eulerAngles.y, 0);
+            transform.eulerAngles = new Vector3(0, ChapterCamera.transform.eulerAngles.y, 0);
         }
         else
         {
@@ -235,7 +230,7 @@ public class Player : CharaBase, IReadPlayer
         stateMachine = new MyUtil.ActorStateMachine<Player>(this, ref actor);
     }
     [Header("チャプターカメラ")]
-    [SerializeField] public GameObject FPSCamera;
+    [SerializeField] public GameObject ChapterCamera;
 
     [Space]
     [Header("攻撃範囲")]
@@ -306,9 +301,6 @@ public class Player : CharaBase, IReadPlayer
     [Header("エフェクト")]
     [SerializeField] public Effekseer.EffekseerEmitter effectWind;
     [SerializeField] public Effekseer.EffekseerEmitter effectJump;
-
-    [SerializeField] AudioClip DownSE;
-
 
     ChangeCamera changeCame;
 

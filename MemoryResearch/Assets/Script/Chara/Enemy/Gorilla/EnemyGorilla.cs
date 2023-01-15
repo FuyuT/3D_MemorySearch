@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = MyUtil.ActorState<EnemyGorilla>;
 
-public class EnemyGorilla : EnemyBase
+public class EnemyGorilla : CharaBase
 {
     /*******************************
     * private
@@ -24,8 +24,6 @@ public class EnemyGorilla : EnemyBase
     {
         CharaBaseInit();
         charaParam.hp = hpMax;
-
-        mainMemory = MemoryType.Slam;
     }
     void StateMachineInit()
     {

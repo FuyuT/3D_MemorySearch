@@ -9,8 +9,6 @@ public class StateCrabAttack : State
     {
         //攻撃力設定
         Owner.SetAttackPower(2);
-
-        Owner.SetSubMemory(MemoryType.Punch);
     }
 
     protected override void OnUpdate()
@@ -47,7 +45,6 @@ public class StateCrabAttack : State
     {
         //攻撃力初期化
         Owner.InitAttackPower();
-        Owner.InitSubMemory();
 
         Owner.animator.ResetTrigger("Attack");
     }

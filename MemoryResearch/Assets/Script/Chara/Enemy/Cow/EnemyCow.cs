@@ -4,7 +4,7 @@ using UnityEngine;
 
 using State = MyUtil.ActorState<EnemyCow>;
 
-public class EnemyCow : EnemyBase
+public class EnemyCow : CharaBase
 {
     /*******************************
     * private
@@ -24,8 +24,6 @@ public class EnemyCow : EnemyBase
     {
         CharaBaseInit();
         charaParam.hp = hpMax;
-
-        mainMemory = MemoryType.Dush;
     }
     void StateMachineInit()
     {

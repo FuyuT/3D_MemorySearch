@@ -34,6 +34,7 @@ public class StateCrabDefense : State
     {
         Owner.delayGuard = 0;
         Owner.InitDefencePower();
-        Owner.InitSubMemory();
+
+        Owner.animator.ResetTrigger("Defense1");
     }
 }

@@ -26,12 +26,9 @@ public class StateCameraTPS : State
         //}
 
         //Object移動カメラ
-
-        //if (Input.GetKeyDown("r") && Owner.ConsoleRange.InRange)
-        //{
-        //    Debug.Log("a");
-        //    Owner.AnimStart = true;
-        //}
-
+        if (Input.GetKeyDown("v") && Owner.ConsoleRange.InRange)
+        {
+            stateMachine.Dispatch((int)CameraManager.CameraType.Controller);
+        }
     }
 }

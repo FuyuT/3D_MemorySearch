@@ -16,21 +16,11 @@ public class CameraManager : MonoBehaviour
     [SerializeField] public GameObject OparationMoveObjectCamera;
 
     //オブジェクト操作用コンソールの範囲
-    //public MoveObjectConsoleRange ConsoleRange;
-
+    public MoveObjectConsoleRange ConsoleRange { get; private set; }
+    
     MyUtil.StateMachine<CameraManager> stateMachine;
     public int GetCurrentCameraType() {return stateMachine.currentStateKey; }
     [SerializeField] public StagecolorChange colorChange;
-
-    public void ToControllCamera()
-    {
-        stateMachine.Dispatch((int)CameraType.Controller);
-    }
-
-    public void ToTpsCamera()
-    {
-        stateMachine.Dispatch((int)CameraType.TPS);
-    }
 
     public enum CameraType
     {
