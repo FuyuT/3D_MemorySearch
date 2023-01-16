@@ -10,9 +10,12 @@ public interface IReadPlayer
 
     bool IsEndDeadMotion();
 
-    //座標の取得
+    //座標を取得
     Vector3 GetPos();
 
-    //HPの取得
+    //HPを取得
     int GetHP();
+
+    //バッテリーを取得
+    CombineBattery GetCombineBattery();
 }

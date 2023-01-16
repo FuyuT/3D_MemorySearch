@@ -197,6 +197,7 @@ namespace MyUtil
         public void SetUseGravity(bool flg)
         {
             isUseGravity = flg;
+            rigidbody.useGravity = flg;
         }
 
         public void SetRigidbody(ref Rigidbody rigidbody)

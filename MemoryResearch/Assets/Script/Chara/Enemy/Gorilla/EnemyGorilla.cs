@@ -32,6 +32,7 @@ public class EnemyGorilla : EnemyBase
         stateMachine.AddAnyTransition<StateGorillaIdle>((int)State.Idle);
         stateMachine.AddAnyTransition<StateGorillaMove>((int)State.Move);
         stateMachine.AddAnyTransition<StateGorillaPunch>((int)State.Attack_Punch);
+        stateMachine.AddAnyTransition<StateGorillaDead>((int)State.Dead);
 
         stateMachine.Start(stateMachine.GetOrAddState<StateGorillaIdle>());
     }
@@ -43,25 +44,11 @@ public class EnemyGorilla : EnemyBase
 
         if (IsDead())
         {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
+            if (stateMachine.currentStateKey != (int)State.Dead)
             {
-                BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
-                SoundManager.instance.PlaySe(DownSE,transform.position);
-                //当たり判定を消す
-                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
-                this.gameObject.GetComponent<Rigidbody>().useGravity = false;
-                rigidbody.velocity = Vector3.zero;
+                stateMachine.Dispatch((int)State.Dead);
             }
-            else if (BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
-            {
-                if (renderer.enabled)
-                {
-                    effectExplosion.Play();
-                    SoundManager.instance.StopSe(DownSE);
-                    SoundManager.instance.PlaySe(ExplosionSE, transform.position);
-                    renderer.enabled = false;
-                }
-            }
+            stateMachine.Update();
             return;
         }
 
@@ -104,7 +91,7 @@ public class EnemyGorilla : EnemyBase
     * public
     *******************************/
     [Header("モデルのRenderer")]
-    [SerializeField] private Renderer renderer;
+    [SerializeField] public Renderer renderer;
 
     [Header("エフェクト")]
     [SerializeField] public Effekseer.EffekseerEmitter effectExplosion;
@@ -114,6 +101,7 @@ public class EnemyGorilla : EnemyBase
         Idle,
         Move,
         Attack_Punch,
+        Dead,
     }
 
     [Header("範囲")]

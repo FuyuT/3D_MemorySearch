@@ -64,7 +64,7 @@ public class SearchMemory : MonoBehaviour
         scanMemory = new MemoryType();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         UpdatePosition();
 

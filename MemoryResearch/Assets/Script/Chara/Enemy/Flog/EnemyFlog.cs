@@ -19,9 +19,9 @@ public class EnemyFlog : EnemyBase
 
     private void Awake()
     {
-        Init();
         StateMachineInit();
         actor.Transform.Init();
+        Init();
     }
 
     private void Init()
@@ -43,6 +43,7 @@ public class EnemyFlog : EnemyBase
         stateMachine.AddAnyTransition<StateFlogJump>((int)State.Jump);
         stateMachine.AddAnyTransition<StateFlogShot>((int)State.Attack_Shot);
         stateMachine.AddAnyTransition<StateFlogAttackTongue>((int)State.Attack_Tongue);
+        stateMachine.AddAnyTransition<StateFlogDead>((int)State.Dead);
 
         //ステートマシンの開始　初期ステートは引数で指定
         stateMachine.Start(stateMachine.GetOrAddState<StateFlogIdle>());
@@ -58,22 +59,11 @@ public class EnemyFlog : EnemyBase
 
         if (IsDead())
         {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
+            if (stateMachine.currentStateKey != (int)State.Dead)
             {
-                BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
-                SoundManager.instance.PlaySe(DownSE, transform.position);
-                //当たり判定を消す
-                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
-                this.gameObject.GetComponent<Rigidbody>().useGravity = false;
-                rigidbody.velocity = Vector3.zero;
+                stateMachine.Dispatch((int)State.Dead);
             }
-            else if (BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
-            {
-                SoundManager.instance.StopSe(DownSE);
-               // SoundManager.instance.PlaySe(ExplosionSE, transform.position);
-
-                renderer.enabled = false;
-            }
+            stateMachine.Update();
             return;
         }
 
@@ -156,6 +146,8 @@ public class EnemyFlog : EnemyBase
         Attack_Punch,
         Attack_Tongue,
         Attack_Shot,
+
+        Dead,
     }
 
     [Header("範囲")]
@@ -191,10 +183,7 @@ public class EnemyFlog : EnemyBase
     [SerializeField] public float JumpDecreaseValue;
 
     [Header("モデルのRenderer")]
-    [SerializeField] private Renderer renderer;
-
-    [Header("エフェクト")]
-    [SerializeField] public Effekseer.EffekseerEmitter effect;
+    [SerializeField] public Renderer renderer;
 
     [Space]
     [Header("SE関連")]

@@ -85,6 +85,7 @@ public class StateCowTackle : State
 
         Owner.InitAttackPower();
 
+        Owner.animator.ResetTrigger("Idle");
         Owner.animator.ResetTrigger("Move_Run");
 
         Owner.effectTackle.Stop();

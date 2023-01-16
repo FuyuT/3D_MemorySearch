@@ -56,16 +56,16 @@ public class StateFlogShot : State
         else
         {
             CreateBullet();
+            delayShotTime = 0;
         }
     }
 
     void CreateBullet()
     {
         //弾丸を生成
-        Vector3 pos = Owner.transform.position + Owner.transform.forward * 4;
+        Vector3 pos = Owner.transform.position + Owner.transform.forward * 7;
         var bullet = Object.Instantiate(Owner.bullet);
         bullet.GetComponent<Bullet>().Init(pos, Owner.transform.forward, Owner.ShotSpeed, Owner.ShotDamage);
-        delayShotTime = 0;
     }
 
     protected override void SelectNextState()

@@ -5,24 +5,23 @@ using Effekseer;
 
 public class EffectPlayer : MonoBehaviour
 {
-    [SerializeField] Effekseer.EffekseerEmitter effect;
+    [SerializeField] Effekseer.EffekseerEmitter[] effect;
 
-    private void Update()
+    private void Awake()
     {
-        //再生が終わっていればエフェクトを終了する
-        if (!effect.exists)
-        {
-            effect.Stop();
-        }
     }
 
-    private void OnEnable()
+    public void PlayEffect(int no)
     {
-        effect.Play();
+        if (effect.Length < no) return;
+
+        effect[no].Play();
     }
 
-    private void OnDisable()
+    public void StopEffect(int no)
     {
-        effect.Stop();
+        if (effect.Length < no) return;
+
+        effect[no].Stop();
     }
 }

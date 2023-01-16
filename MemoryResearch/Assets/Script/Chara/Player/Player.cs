@@ -20,6 +20,7 @@ public class Player : CharaBase, IReadPlayer
     void Awake()
     {
         EquipmentInit();
+        combineBattery = new CombineBattery();
         Init();
         readPlayer = this;
     }
@@ -43,6 +44,8 @@ public class Player : CharaBase, IReadPlayer
 
     private void Init()
     {
+        actor.Transform.Init();
+
         nowJumpSpeed = 0.0f;
         nowDushDelayTime = DushDelayTime;
         isGround = false;
@@ -60,7 +63,6 @@ public class Player : CharaBase, IReadPlayer
         charaParam.hp = HpMax;
 
         StateMachineInit();
-        actor.Transform.Init();
 
         //速度の上限値を設定
         actor.IVelocity().SetMaxVelocityY(120);
@@ -292,7 +294,12 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] public float TackleDelayTime;
 
     public float nowTackleDelayTime;
+    [Space]
+    [Header("「叩きつけステート」")]
+    [Header("アニメーション位置")]
+    [SerializeField] public Transform animTransform;
 
+    [Space]
     [Header("初速")]
     [SerializeField] public float TackleStartSpeed;
     [Header("加速値")]
@@ -348,6 +355,7 @@ public class Player : CharaBase, IReadPlayer
     public int[] possessionMemory { get; private set; }
 
     public EquipmentMemory[] equipmentMemories;
+    public CombineBattery combineBattery;
     public int currentEquipmentNo;
 
     // getter
@@ -361,59 +369,9 @@ public class Player : CharaBase, IReadPlayer
         return stateMachine.currentStateKey;
     }
 
-    //メモリを所持しているか確認する
-    public bool CheckPossesionMemory(int memory)
+    public CombineBattery GetCombineBattery()
     {
-        for (int n = 0; n < MemoryMax; n++)
-        {
-            if(memory == possessionMemory[n])
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-
-    //todo:重複している強化メモリを先に検索する
-    //メモリを設定できる配列番号を取得する
-    public int GetMemoryArrayNullValue(int memory)
-    {
-        for (int n = 0; n < MemoryMax; n++)
-        {
-            if (possessionMemory[n] == memory)
-            {
-                return n;
-            }
-
-            if (possessionMemory[n] == 0)
-            {
-                return n;
-            }
-        }
-
-        return -1;
-    }
-
-    // setter
-    //メモリを設定する
-    public void SetPossesionMemory(int memory, int arrayValue)
-    {
-        //todo:デバッグ:設定した行動メモリ表示用
-        switch(memory)
-        {
-            case (int)State.Jump:
-                Debug.Log("ジャンプ登録");
-                break;
-            case (int)State.Double_Jump:
-                Debug.Log("ダブルジャンプ登録");
-                break;
-            default:
-                break;
-        }
-
-        possessionMemory[arrayValue] = memory;
+        return combineBattery;
     }
 
     /*******************************

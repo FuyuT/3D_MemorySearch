@@ -32,6 +32,7 @@ public class EnemyCow : EnemyBase
         stateMachine.AddAnyTransition<StateCowIdle>((int)State.Idle);
         stateMachine.AddAnyTransition<StateCowMove>((int)State.Move);
         stateMachine.AddAnyTransition<StateCowTackle>((int)State.Attack_Tackle);
+        stateMachine.AddAnyTransition<StateCowDead>((int)State.Dead);
 
         stateMachine.Start(stateMachine.GetOrAddState<StateCowIdle>());
     }
@@ -43,27 +44,11 @@ public class EnemyCow : EnemyBase
 
         if (IsDead())
         {
-            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Damage_Dead"))
+            if (stateMachine.currentStateKey != (int)State.Dead)
             {
-                BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
-                //バラバラSE
-                SoundManager.instance.PlaySe(DownSE, transform.position);
-
-                //当たり判定を消す
-                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
-                this.gameObject.GetComponent<Rigidbody>().useGravity = false;
-                rigidbody.velocity = Vector3.zero;
+                stateMachine.Dispatch((int)State.Dead);
             }
-            else if(BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
-            {
-                if(renderer.enabled)
-                {
-                    effectExplosion.Play();
-                    //爆発SE
-                    SoundManager.instance.PlaySe(ExplosionSE, transform.position);
-                    renderer.enabled = false;
-                }
-            }
+            stateMachine.Update();
             return;
         }
 
@@ -115,6 +100,7 @@ public class EnemyCow : EnemyBase
         Idle,
         Move,
         Attack_Tackle,
+        Dead,
     }
 
     [Header("範囲")]
@@ -136,7 +122,7 @@ public class EnemyCow : EnemyBase
     [SerializeField]  public float tackleSpeed;
 
     [Header("モデルのRenderer")]
-    [SerializeField] private Renderer renderer;
+    [SerializeField] public Renderer renderer;
 
     [Header("エフェクト")]
     [SerializeField] public Effekseer.EffekseerEmitter effectTackle;

@@ -9,6 +9,8 @@ using State = MyUtil.PlayerState;
 /// </summary>
 public class StateAttack_Slam : State
 {
+    BoxCollider boxCollider;
+
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         //その場で停止
@@ -16,6 +18,9 @@ public class StateAttack_Slam : State
 
         //攻撃力設定
         Owner.SetAttackPower(15);
+
+        boxCollider = Owner.GetComponent<BoxCollider>();
+        Actor.IVelocity().SetUseGravity(false);
     }
 
     protected override void OnUpdate()
@@ -26,6 +31,8 @@ public class StateAttack_Slam : State
             //アニメーションが変わっていなければ終了
             return;
         }
+
+        boxCollider.center = new Vector3(0, Owner.animTransform.localPosition.y, 0);
 
         SelectNextState();
     }
@@ -48,5 +55,9 @@ public class StateAttack_Slam : State
         Owner.SetAttackPower(0);
 
         Owner.animator.ResetTrigger("Attack_Slam");
+
+        Actor.IVelocity().SetUseGravity(true);
+
+        boxCollider.center = Vector3.zero;
     }
 }

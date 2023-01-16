@@ -14,6 +14,8 @@ public class StateCrabAttack : State
 
         //SE
         SoundManager.instance.PlaySe(Owner.AttackSE, Owner.transform.position);
+        Debug.Log("攻撃へ");
+
     }
 
     protected override void OnUpdate()

@@ -62,23 +62,24 @@ public class MoveObjectConsoleRange : MonoBehaviour
 
         if (Input.GetKeyDown("r") && InRange)
         {
-            if (CameraManager.instance.GetCurrentCameraType() != (int)CameraManager.CameraType.Controller)
+            switch(CameraManager.instance.GetCurrentCameraType())
             {
-                a = true;
-                BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeOut");
-                GuideUI.SetActive(false);
-                HPUI.SetActive(false);
-                EquipmentUi.SetActive(false);
-                Time.timeScale = 0;
-            }
-            else
-            {
-                CameraManager.instance.ToTpsCamera();
-                GuideUI.SetActive(true);
-                HPUI.SetActive(true);
-                EquipmentUi.SetActive(true);
-                ReturnUi.SetActive(false);
-                Time.timeScale = 1;
+                case (int)CameraManager.CameraType.Controller:
+                    //コントローラーカメラからTPSに戻す
+                    CameraManager.instance.ToTpsCamera();
+                    GuideUI.SetActive(true);
+                    HPUI.SetActive(true);
+                    EquipmentUi.SetActive(true);
+                    ReturnUi.SetActive(false);
+                    break;
+                default:
+                    //コントローラーカメラに遷移する為の準備
+                    a = true;
+                    BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeOut");
+                    GuideUI.SetActive(false);
+                    HPUI.SetActive(false);
+                    EquipmentUi.SetActive(false);
+                    break;
             }
         }
 

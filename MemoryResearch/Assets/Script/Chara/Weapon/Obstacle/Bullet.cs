@@ -22,18 +22,17 @@ public class Bullet : MonoBehaviour
         transform.position += moveVec * speed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionStay(Collision other)
     {
-        switch(other.tag)
+        Debug.Log(other.gameObject.tag);
+        switch (other.gameObject.tag)
         {
             case "Player":
-                other.GetComponentInChildren<CharaBase>().Damage(damage);
-                Destroy(this.gameObject);
+                other.gameObject.GetComponentInChildren<CharaBase>().Damage(damage);
                 break;
-            case "Ground":
-            case "Wall":
-                Destroy(this.gameObject);
-                break;
+            case "Untagged":
+                return;
         }
+        Destroy(this.gameObject);
     }
 }

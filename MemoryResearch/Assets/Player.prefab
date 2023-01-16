@@ -1281,7 +1281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 7076403892946759661}
   DirectionCheckHitGround: 3.7
-  ChapterCamera: {fileID: 0}
+  FPSCamera: {fileID: 0}
   Attack_Punch: {fileID: 7076403892859876954}
   Attack_Tackle: {fileID: 7076403892915145998}
   MemoryMax: 5
@@ -1299,12 +1299,19 @@ MonoBehaviour:
   DushTime: 0.3
   TackleDelayTime: 1
   nowTackleDelayTime: -0.017410222
+  animTransform: {fileID: 0}
   TackleStartSpeed: 80
   TackleAcceleration: 1
   TackleTime: 0.5
   renderer: {fileID: 8778344872656564382}
   effectWind: {fileID: 7076403894359268526}
   effectJump: {fileID: 7076403892631563834}
+  JumpSE: {fileID: 0}
+  DonbleJunpSE: {fileID: 0}
+  DownSE: {fileID: 0}
+  GuardSE: {fileID: 0}
+  TackleSE: {fileID: 0}
+  PunchSE: {fileID: 0}
   isGround: 1
   nowJumpSpeed: 0
   jumpAcceleration: 0
@@ -1471,7 +1478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2307a62c7896c9941a40dc27e9ddee66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 7076403893020345348}
+  effect:
+  - {fileID: 0}
 --- !u!1 &7076403893077666114
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,7 +1542,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2307a62c7896c9941a40dc27e9ddee66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 7076403893077666116}
+  effect:
+  - {fileID: 0}
 --- !u!1 &7076403893357436040
 GameObject:
   m_ObjectHideFlags: 0
@@ -1597,7 +1606,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2307a62c7896c9941a40dc27e9ddee66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect: {fileID: 7076403893357436045}
+  effect:
+  - {fileID: 0}
 --- !u!1 &7076403893783898056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1965,7 +1975,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7995303348905419203}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8532898378240340513}

@@ -37,9 +37,9 @@ public class EnemyCrab : EnemyBase
 
     private void Awake()
     {
+        actor.Transform.Init();
         Init();
         StateMachineInit();
-        actor.Transform.Init();
     }
     void Init()
     {
@@ -60,6 +60,7 @@ public class EnemyCrab : EnemyBase
         stateMachine.AddAnyTransition<StateCrabMove>((int)State.Move);
         stateMachine.AddAnyTransition<StateCrabAttack>((int)State.Attack);
         stateMachine.AddAnyTransition<StateCrabDefense>((int)State.Defense);
+        stateMachine.AddAnyTransition<StateCrabDead>((int)State.Dead);
 
         stateMachine.Start(stateMachine.GetOrAddState<StateCrabIdle>());
     }
@@ -71,27 +72,11 @@ public class EnemyCrab : EnemyBase
 
         if (IsDead())
         {
-            if(!animator.GetCurrentAnimatorStateInfo(0).IsName("Dead"))
+            if (stateMachine.currentStateKey != (int)State.Dead)
             {
-                BehaviorAnimation.UpdateTrigger(ref animator, "Dead");
-                //DownSE
-                SoundManager.instance.PlaySe(DownSE,transform.position);
-                //当たり判定を消す
-                this.gameObject.GetComponent<BoxCollider>().isTrigger = true;
-                this.gameObject.GetComponent<Rigidbody>().useGravity = false;
-                rigidbody.velocity = Vector3.zero;
+                stateMachine.Dispatch((int)State.Dead);
             }
-            else if (BehaviorAnimation.IsPlayEnd(ref animator, "Dead"))
-            {
-                if (renderer.enabled)
-                {
-                    //SE関連
-                    SoundManager.instance.StopSe(DownSE);
-                    SoundManager.instance.PlaySe(ExplosionSE, transform.position);
-
-                    renderer.enabled = false;
-                }
-            }
+            stateMachine.Update();
             return;
         }
 
@@ -136,10 +121,7 @@ public class EnemyCrab : EnemyBase
     * public
     *******************************/
     [Header("モデルのRenderer")]
-    [SerializeField] private Renderer renderer;
-
-    [Header("エフェクト")]
-    [SerializeField] public Effekseer.EffekseerEmitter effect;
+    [SerializeField] public Renderer renderer;
 
     public enum State
     {
@@ -147,6 +129,7 @@ public class EnemyCrab : EnemyBase
         Move,
         Attack,
         Defense,
+        Dead,
     }
 
 
