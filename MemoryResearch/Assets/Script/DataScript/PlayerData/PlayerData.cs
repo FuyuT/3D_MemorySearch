@@ -11,10 +11,13 @@ public class PlayerData : IPlayerData
 
     public MemoryType[] equipmentMemory;
 
+    public float possesionCombineCost;
+
     public PlayerData()
     {
         possesionMemories = new List<MemoryType>();
-        equipmentMemory = new MemoryType[Global.EquipmentMemoryMax];
+        equipmentMemory   = new MemoryType[Global.EquipmentMemoryMax];
+        possesionCombineCost = 0;
     }
 
     //所持メモリ
@@ -54,5 +57,20 @@ public class PlayerData : IPlayerData
     public void SetEquipmentMemory(int n, MemoryType type)
     {
         equipmentMemory[n] = type;
+    }
+
+    public float GetPossesionCombineCost()
+    {
+        return possesionCombineCost;
+    }
+
+    public void SetPossesionCombineCost(float cost)
+    {
+        possesionCombineCost = cost;
+    }
+
+    public void AddPossesionCombineCost(float add)
+    {
+        possesionCombineCost += add;
     }
 }

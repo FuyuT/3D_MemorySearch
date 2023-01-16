@@ -48,7 +48,7 @@ public class TPSCamera : MonoBehaviour
 
         Cursor.visible = false;
         UpdateAngle();
-        Debug.Log(XAngle);
+        //Debug.Log(XAngle);
 
     }
 

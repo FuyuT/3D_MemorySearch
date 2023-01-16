@@ -17,6 +17,7 @@ public static class SaveDataProcess
         Possesion_Memory_Count,
         Possesion_Memory,
         Equipment_Memory,
+        Combine_Cost,
         Option_BGM,
         Option_SE,
         Option_Brightness,
@@ -78,6 +79,9 @@ public static class SaveDataProcess
             playerData.equipmentMemory[n] = (MemoryType)int.Parse(dataBuffer[(int)SaveDataLine.Equipment_Memory][n]);
         }
 
+        //合成コスト
+        playerData.possesionCombineCost = float.Parse(dataBuffer[(int)SaveDataLine.Combine_Cost][0]);
+
         //BGM音量
         optionData.soundOption.bgmVolume = float.Parse(dataBuffer[(int)SaveDataLine.Option_BGM][0]);
         optionData.soundOption.isMuteBGM = bool.Parse(dataBuffer[(int)SaveDataLine.Option_BGM][1]);
@@ -129,6 +133,10 @@ public static class SaveDataProcess
             int memoryNo = (int)playerData.equipmentMemory[n];
             writeData.Add(memoryNo.ToString() + ",");
         }
+        writeData.Add("\n");
+
+        //合成コスト
+        writeData.Add(playerData.possesionCombineCost + ",");
         writeData.Add("\n");
 
         //BGM音量

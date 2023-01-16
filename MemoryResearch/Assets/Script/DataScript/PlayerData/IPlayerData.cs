@@ -17,4 +17,14 @@ public interface IPlayerData
 
     //装備を設定
     public void SetEquipmentMemory(int n, MemoryType type);
+
+    //合成コストを取得
+    public float GetPossesionCombineCost();
+
+    //合成コストを設定
+    public void SetPossesionCombineCost(float cost);
+
+    //合成コストを追加
+    public void AddPossesionCombineCost(float add);
+
 }

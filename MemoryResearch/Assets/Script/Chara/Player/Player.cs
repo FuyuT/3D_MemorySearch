@@ -140,6 +140,8 @@ public class Player : CharaBase, IReadPlayer
 
     void Update()
     {
+        batteryCountUI.SetBatteryCount(DataManager.instance.IPlayerData().GetPossesionCombineCost());
+
         if (IsDead())
         {
             SoundManager.instance.PlaySe(DownSE,transform.position);
@@ -323,7 +325,7 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] public AudioClip TackleSE;
     [SerializeField] public AudioClip PunchSE;
 
-    ChangeCamera changeCame;
+    [SerializeField] public BatteryCountUI batteryCountUI;
 
     public bool isGround;
 

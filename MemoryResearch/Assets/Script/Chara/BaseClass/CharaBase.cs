@@ -13,6 +13,9 @@ public class CharaBase : MonoBehaviour
     {
         Debug.Log("死亡しました。");
         transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        //合成コストを増加させる
+        DataManager.instance.IPlayerData().AddPossesionCombineCost(1);
     }
 
     /*******************************

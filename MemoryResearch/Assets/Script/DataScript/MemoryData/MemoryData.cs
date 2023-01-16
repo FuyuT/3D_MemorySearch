@@ -35,6 +35,7 @@ public class MemoryData : IMemoryData
         const int MaterialNo_0  = 3;
         const int MaterialNo_1  = 4;
         const int MaterialNo_2  = 5;
+        const int Combine_Cost  = 6;
 
         //読み込んだデータを設定
         //0行目はタイトルなので飛ばすためにlineNoを1で初期化している
@@ -50,7 +51,7 @@ public class MemoryData : IMemoryData
             memory.materialType[0] = (MemoryType)int.Parse(dataBuffer[lineNo][MaterialNo_0]);
             memory.materialType[1] = (MemoryType)int.Parse(dataBuffer[lineNo][MaterialNo_1]);
             memory.materialType[2] = (MemoryType)int.Parse(dataBuffer[lineNo][MaterialNo_2]);
-
+            memory.combineCost     = float.Parse(dataBuffer[lineNo][Combine_Cost]);
             //合成メモリか判断する
             isCombineMemory[memory.type] = false;
             for (int mat = 0; mat < Global.MemoryMaterialMax; mat++)
