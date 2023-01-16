@@ -14,8 +14,12 @@ public class CharaBase : MonoBehaviour
         Debug.Log("死亡しました。");
         transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
-        //合成コストを増加させる
-        DataManager.instance.IPlayerData().AddPossesionCombineCost(1);
+        if (gameObject.CompareTag("Player")) return;
+
+        var batteryItem = (GameObject)Resources.Load("Item/Item_Battery");
+        var pos = transform.position + transform.GetComponent<BoxCollider>().center;
+        Debug.Log("生成位置" + pos);
+        batteryItem.GetComponent<BatteryItem>().Create(pos, 1.0f);
     }
 
     /*******************************

@@ -49,7 +49,7 @@ public class StateJump : State
     {
         //キー入力されていたら、ジャンプ速度を加速させる（飛距離を延ばす）
         if (Input.GetKey(Owner.equipmentMemories[Owner.currentEquipmentNo].GetKeyCode())
-            && IsAcceleration)
+            && IsAcceleration && Owner.nowJumpSpeed > 0)
         {
             Owner.nowJumpSpeed += Owner.JumpAcceleration * Time.timeScale;
         }
