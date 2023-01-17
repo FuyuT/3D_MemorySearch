@@ -31,6 +31,7 @@ public class Memory
     public string       explanation;
     public MemoryType[] materialType;
     public float        combineCost;
+
     public Memory()
     {
         type = new MemoryType();

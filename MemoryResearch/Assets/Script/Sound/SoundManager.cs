@@ -71,6 +71,13 @@ public class SoundManager : MonoBehaviour
         seAudioSource.transform.position = pos;
         seAudioSource.PlayOneShot(clip);
     }
+    
+    //TODOŒã‚Å•Ï‚¦‚é
+    public void PlaySE2(AudioClip clip)
+    {
+        if (clip == null) return;
+        seAudioSource.PlayOneShot(clip);
+    }
 
     //’âŽ~
     public void StopBgm(AudioClip clip)
