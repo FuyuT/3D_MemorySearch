@@ -1,1 +1,9 @@
-﻿D:\fuyu2\GameCreate\メモリサーチ\MemoryResearch/SaveData/SaveData.txt
+﻿0,
+
+0,0,0,0,
+0.1216276,False,
+0.1299647,False,
+0.5,
+5,False,
+5,False,
+False,

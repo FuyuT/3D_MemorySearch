@@ -4,26 +4,33 @@ using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
+    public static CameraManager instance;
+
     [Header("FPSカメラ")]
     [SerializeField] GameObject FPSCamera;
 
     [Header("TPSカメラ")]
     [SerializeField] GameObject TPSCamera;
 
-    [Header("コントロールカメラ")]
-    [SerializeField] public GameObject ControllerCamera;
+    [Header("オブジェクト操作カメラ")]
+    [SerializeField] public GameObject OparationMoveObjectCamera;
 
-    //コントロールカメラ関連
-    public ChangeMoveObjectCamera MoveObjCamScript;
-    public StageGimmick stageGimmick;
-    
-    [SerializeField] GameObject Operation;
+    //オブジェクト操作用コンソールの範囲
+    //public MoveObjectConsoleRange ConsoleRange;
 
-    int floorNo;
-
-    StateMachine<CameraManager> stateMachine;
+    MyUtil.StateMachine<CameraManager> stateMachine;
     public int GetCurrentCameraType() {return stateMachine.currentStateKey; }
     [SerializeField] public StagecolorChange colorChange;
+
+    public void ToControllCamera()
+    {
+        stateMachine.Dispatch((int)CameraType.Controller);
+    }
+
+    public void ToTpsCamera()
+    {
+        stateMachine.Dispatch((int)CameraType.TPS);
+    }
 
     public enum CameraType
     {
@@ -35,21 +42,21 @@ public class CameraManager : MonoBehaviour
 
     CameraType nowCamera;
 
+    CameraManager()
+    {
+        instance = this;
+    }
+
     void Start()
     {
-        MoveObjCamScript = Operation.GetComponent<ChangeMoveObjectCamera>();
-        stageGimmick = Operation.GetComponent<StageGimmick>();
-
         StateMachineInit();
 
         ChangeMainCamara();
-
-        floorNo = 1;
     }
 
     void StateMachineInit()
     {
-        stateMachine = new StateMachine<CameraManager>(this);
+        stateMachine = new MyUtil.StateMachine<CameraManager>(this);
 
         stateMachine.AddAnyTransition<StateCameraTPS>((int)CameraType.TPS);
         stateMachine.AddAnyTransition<StateCameraFPS>((int)CameraType.FPS);
@@ -72,7 +79,7 @@ public class CameraManager : MonoBehaviour
     {
         FPSCamera.SetActive(false);
         TPSCamera.SetActive(false);
-        ControllerCamera.SetActive(false);
+        OparationMoveObjectCamera.SetActive(false);
     }
 
     void ChangeMainCamara()
@@ -85,17 +92,14 @@ public class CameraManager : MonoBehaviour
         switch (stateMachine.currentStateKey)
         {
             case (int)CameraType.FPS:
-                FPSCamera.SetActive(true);
-                
+                FPSCamera.SetActive(true); 
                 break;
-
             case (int)CameraType.TPS:
                 TPSCamera.SetActive(true);
                 break;
 
             case (int)CameraType.Controller:
-                ControllerCamera.SetActive(true);
-                MoveObjCamScript.ChangFlg = true;
+                OparationMoveObjectCamera.SetActive(true);
                 break;
         }
         nowCamera = (CameraType)stateMachine.currentStateKey;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<CameraManager>;
+using State = MyUtil.State<CameraManager>;
 
 public class StateCameraTPS : State
 {
@@ -26,9 +26,12 @@ public class StateCameraTPS : State
         //}
 
         //Object移動カメラ
-        if (Input.GetKeyDown("v") && Owner.MoveObjCamScript.RangeInFlg)
-        {
-            stateMachine.Dispatch((int)CameraManager.CameraType.Controller);
-        }
+
+        //if (Input.GetKeyDown("r") && Owner.ConsoleRange.InRange)
+        //{
+        //    Debug.Log("a");
+        //    Owner.AnimStart = true;
+        //}
+
     }
 }

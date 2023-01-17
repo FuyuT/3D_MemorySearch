@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<CameraManager>;
+using State = MyUtil.State<CameraManager>;
 
 public class StateCameraControlObject : State
 {
@@ -19,16 +19,15 @@ public class StateCameraControlObject : State
 
     protected override void SelectNextState()
     {
-        if (Input.GetKeyDown("v"))
-        {
-            stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
-        }
+        //if (Input.GetKeyDown("r"))
+        //{
+        //    stateMachine.Dispatch((int)CameraManager.CameraType.TPS);
+        //}
     }
 
     protected override void OnExit(State nextState)
     {
         //オブジェクトのマテリアルを戻す
         Owner.colorChange.ChangeBeforeMaterial();
-        Owner.MoveObjCamScript.ChangFlg = false;
     }
 }

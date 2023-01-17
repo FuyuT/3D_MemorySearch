@@ -23,6 +23,7 @@ TagManager:
   - DataManager
   - Inventory
   - CameraManager
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -35,7 +36,7 @@ TagManager:
   - Animation
   - Monitor
   - MinMap
-  - 
+  - Ceiling
   - 
   - 
   - 

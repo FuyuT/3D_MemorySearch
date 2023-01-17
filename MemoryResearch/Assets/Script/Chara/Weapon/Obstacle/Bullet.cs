@@ -22,20 +22,17 @@ public class Bullet : MonoBehaviour
         transform.position += moveVec * speed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionStay(Collision other)
     {
-        if(other.tag == "Enemy")
+        Debug.Log(other.gameObject.tag);
+        switch (other.gameObject.tag)
         {
-            return;
+            case "Player":
+                other.gameObject.GetComponentInChildren<CharaBase>().Damage(damage);
+                break;
+            case "Untagged":
+                return;
         }
-        if(other.tag == "Player")
-        {
-            other.GetComponentInChildren<CharaBase>().Damage(damage);
-            Destroy(this.gameObject);
-        }
-        if (other.tag == "Ground")
-        {
-            Destroy(this.gameObject);
-        }
+        Destroy(this.gameObject);
     }
 }

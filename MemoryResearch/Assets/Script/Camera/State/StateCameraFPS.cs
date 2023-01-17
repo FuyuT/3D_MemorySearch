@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using State = State<CameraManager>;
+using State = MyUtil.State<CameraManager>;
 
 public class StateCameraFPS : State
 {

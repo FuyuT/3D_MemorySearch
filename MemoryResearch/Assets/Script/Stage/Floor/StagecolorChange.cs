@@ -5,15 +5,6 @@ using UnityEngine.UI;
 
 public class StagecolorChange : MonoBehaviour
 {
-    [Header("カメラマネージャー")]
-    [SerializeField] CameraManager camemana;
-    //
-    [SerializeField]
-    GameObject ControlScript;
-
-    //ControlCameraのスクリプトを取得
-    ControlCamera Script;
-
     //動かせないオブジェクト
     [SerializeField]
     GameObject NotMoveObject;
@@ -35,8 +26,6 @@ public class StagecolorChange : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        Script = ControlScript.GetComponent<ControlCamera>();
-
         //要素分メモリ確保
         NotMoveObjectChildrenBeforeMaterial = new Material[NotMoveObject.transform.childCount];
         MoveObjectChildrenBeforeMaterial = new Material[MoveObject.transform.childCount];
