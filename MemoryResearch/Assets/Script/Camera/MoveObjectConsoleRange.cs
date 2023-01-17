@@ -17,10 +17,8 @@ public class MoveObjectConsoleRange : MonoBehaviour
 
     //非表示UI類///////////////////////
     [SerializeField]
-    GameObject HPUI;
+    GameObject GameUI;
 
-    [SerializeField]
-    GameObject EquipmentUi;
     /////////////////////////////////////////
 
     //神獣UI
@@ -68,8 +66,7 @@ public class MoveObjectConsoleRange : MonoBehaviour
                     //コントローラーカメラからTPSに戻す
                     CameraManager.instance.ToTpsCamera();
                     GuideUI.SetActive(true);
-                    HPUI.SetActive(true);
-                    EquipmentUi.SetActive(true);
+                    GameUI.SetActive(true);
                     ReturnUi.SetActive(false);
                     break;
                 default:
@@ -77,8 +74,7 @@ public class MoveObjectConsoleRange : MonoBehaviour
                     a = true;
                     BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeOut");
                     GuideUI.SetActive(false);
-                    HPUI.SetActive(false);
-                    EquipmentUi.SetActive(false);
+                    GameUI.SetActive(false);
                     break;
             }
         }
