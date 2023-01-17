@@ -19,6 +19,8 @@ public class CombineManager : MonoBehaviour
     [SerializeField] Color             buttonInitColor;
     [SerializeField] Color             buttonChangeColor;
 
+    [SerializeField] CombineLightAnimManager lightAnimManager;
+
     /*******************************
     * private
     *******************************/
@@ -82,6 +84,8 @@ public class CombineManager : MonoBehaviour
         }
 
         ButtonColorUpdate();
+
+        lightAnimManager.LightChange();
     }
 
     void CostUpdate(MemoryType combineMemory)
