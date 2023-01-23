@@ -1,51 +1,150 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Lockon : MonoBehaviour
 {
+    /*******************************
+    * private
+    *******************************/
 
     [SerializeField]
-    private GameObject target;
+    GameObject target;
 
-    //[SerializeField]
-    // Camera ca;
+    [SerializeField]
+    SearchMemory Search;
 
-    protected void OnTriggerEnter(Collider c)
+    [SerializeField]
+    GameObject ScanImg;
+
+    Animator ScanImgAnim;
+
+    [SerializeField]
+    float scanImagePosY;
+
+    [SerializeField]
+    Slider SearcSlider;
+
+    private void Awake()
     {
-        if (c.gameObject.tag == "Enemy")
+    }
+
+    void Start()
+    {
+        ScanImg.SetActive(false);
+        ScanImgAnim = ScanImg.GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        if (target == null) return;
+        UpdateScanImgTransform();
+
+        PlayScanImgAnim();
+
+        if (Search.isScan)
         {
-            target = c.gameObject;
+            StopScanImgAnim();
         }
     }
 
-    protected void OnTriggerExit(Collider c)
+    private void OnDisable()
     {
-        if (c.gameObject.tag == "Enemy")
+        ScanImg.SetActive(false);
+    }
+
+    void PlayScanImgAnim()
+    {
+        if (!Search.isScan && ScanImgAnim.speed == 0)
         {
-            target = null;
+            ScanImgAnim.speed = 1;
         }
     }
 
-    public GameObject getTarget()
+    void StopScanImgAnim()
+    {
+        if (Search.isScan)
+        {
+            ScanImgAnim.speed = 0;
+            ScanImgAnim.Play("ScanPossible", 0, 0);
+        }
+    }
+
+    void UpdateScanImgTransform()
+    {
+        Ray EnemyRay = new Ray(target.transform.position + new Vector3(0, 20, 0), new Vector3(0, -1, 0)); ;
+
+        RaycastHit hit;
+        if ( target.GetComponent<BoxCollider>(). Raycast(EnemyRay,out hit,30.0f))
+        {
+            if (hit.collider.CompareTag("Enemy"))
+            {
+               ScanImg.transform.position = hit.point + new Vector3(0,scanImagePosY,0);
+            }
+        }
+        ScanImg.transform.rotation = Camera.main.transform.rotation;
+    }
+
+    /*******************************
+    * public
+    *******************************/
+
+    public GameObject GetTarget()
     {
         return target;
     }
 
-   // Start is called before the first frame update
-    void Start()
-    {
+    /*******************************
+    * 衝突処理
+    *******************************/
 
+    private void OnTriggerStay(Collider collision)
+    {
+        if (collision.gameObject.tag != "Enemy") return;
+
+        if (target == null)
+        {
+            target = collision.gameObject;
+            SearcSlider.value = 0;
+            ScanImg.SetActive(true);
+
+            return;
+        }
+        //スキャンしてる時は、ターゲットを切り替えない
+        if (Search.isScan)
+        {
+            if (target != null)
+            {
+                return;
+            }
+        }
+        else
+        {
+            //現在のターゲットと、別のターゲットのどちらがプレイヤーに近いか判断する
+            Vector3 PlayerPos = Player.readPlayer.GetPos();
+            Vector3 temp = PlayerPos - target.transform.position;
+            float targetDistance = temp.x + temp.y + temp.z;
+            temp = Player.readPlayer.GetPos() - collision.transform.position;
+            float collisionDistance = temp.x + temp.y + temp.z;
+
+            if (collisionDistance <= targetDistance)
+            {
+                target = collision.gameObject;
+
+                ScanImg.SetActive(true);
+            }
+        }
     }
 
-    //Update is called once per frame
-    void Update()
+    private void OnTriggerExit(Collider collision)
     {
-   
+        if (collision.gameObject.tag != "Enemy") return;
+        if (collision.gameObject == target)
+        {
+            ScanImg.SetActive(false);
+            target = null;
+        }
+      
     }
-
-    // void FixedUpdate()
-    //{
-    //    transform.rotation = Quaternion.LookRotation(ca.transform.forward);
-    //}
 }
