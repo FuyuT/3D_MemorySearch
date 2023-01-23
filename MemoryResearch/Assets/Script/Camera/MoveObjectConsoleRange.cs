@@ -13,7 +13,7 @@ public class MoveObjectConsoleRange : MonoBehaviour
 {
     //案内UI
     [SerializeField]
-    GameObject GuideUI;
+    GameObject IsUseGuideUI;
 
     //非表示UI類///////////////////////
     [SerializeField]
@@ -23,7 +23,7 @@ public class MoveObjectConsoleRange : MonoBehaviour
 
     //神獣UI
     [SerializeField]
-    GameObject SinzyuUi;
+    GameObject StageLoadAnim;
 
     [SerializeField]
     GameObject ReturnUi;
@@ -37,7 +37,7 @@ public class MoveObjectConsoleRange : MonoBehaviour
     //範囲に入ったか
     public bool InRange;
 
-    bool a;
+    bool isFirstControl;
 
     void Awake()
     {
@@ -46,45 +46,55 @@ public class MoveObjectConsoleRange : MonoBehaviour
     void Start()
     {
         InRange = false;
-        GuideUI.SetActive(false);
+        IsUseGuideUI.SetActive(false);
         ReturnUi.SetActive(false);
-        a = false;
+        isFirstControl = true;
     }
 
  
-    void FixedUpdate()
+    void Update()
     {
         //神獣アニメーションスタート
-        if (SinzyuUi.activeSelf) return;
+        //StageLoadAnimはステージ読み込みアニメーション
+        if (StageLoadAnim.activeSelf) return;
        
-
         if (Input.GetKeyDown("r") && InRange)
         {
-            switch(CameraManager.instance.GetCurrentCameraType())
+            switch (CameraManager.instance.GetCurrentCameraType())
             {
                 case (int)CameraManager.CameraType.Controller:
                     //コントローラーカメラからTPSに戻す
                     CameraManager.instance.ToTpsCamera();
-                    GuideUI.SetActive(true);
+                    IsUseGuideUI.SetActive(true);
                     GameUI.SetActive(true);
                     ReturnUi.SetActive(false);
+                    Debug.Log("TPSへ");
                     break;
                 default:
                     //コントローラーカメラに遷移する為の準備
-                    a = true;
                     BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeOut");
-                    GuideUI.SetActive(false);
+                    IsUseGuideUI.SetActive(false);
                     GameUI.SetActive(false);
                     break;
             }
         }
 
-        if (!a) return;
-
-        if (BehaviorAnimation.IsPlayEnd(ref FadeAnimator, "FadeOut"))
+        if (isFirstControl)
         {
-            SinzyuUi.SetActive(true);
-            a = false;
+            if (BehaviorAnimation.IsPlayEnd(ref FadeAnimator, "FadeOut"))
+            {
+                StageLoadAnim.SetActive(true);
+                isFirstControl = false;
+            }
+        }
+        else
+        {
+            if (BehaviorAnimation.IsPlayEnd(ref FadeAnimator, "FadeOut"))
+            {
+                BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeIn");
+                CameraManager.instance.ToControllCamera();
+                ReturnUi.SetActive(true);
+            }
         }
     }
 
@@ -93,7 +103,7 @@ public class MoveObjectConsoleRange : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            GuideUI.SetActive(true);
+            IsUseGuideUI.SetActive(true);
             InRange = true;
         }
     }
@@ -102,7 +112,7 @@ public class MoveObjectConsoleRange : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            GuideUI.SetActive(false);
+            IsUseGuideUI.SetActive(false);
             InRange = false;
         }
     }

@@ -35,7 +35,7 @@ public class SceneManager : MonoBehaviour
     bool Show;
     private void Awake()
     {
-        GameOverImage.SetActive(false);
+        //GameOverImage.SetActive(false);
         Show = false;
     }
 
