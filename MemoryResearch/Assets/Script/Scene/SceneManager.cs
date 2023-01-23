@@ -78,13 +78,13 @@ public class SceneManager : MonoBehaviour
     public static void ToTitle()
     {
         Time.timeScale = 1.0f;
-        FadeManager.Instance.LoadScene("Titel", 1.0f*Time.deltaTime);
+        FadeManager.Instance.LoadScene("Titel", 1.0f);
     }
 
     public static void ToGame()
     {
         Time.timeScale = 1.0f;
-        FadeManager.Instance.LoadScene("Game", 1.0f * Time.deltaTime);
+        FadeManager.Instance.LoadScene("Game", 1.0f);
     }
 
     public static void ToClear()

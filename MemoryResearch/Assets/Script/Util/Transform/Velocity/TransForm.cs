@@ -36,7 +36,7 @@ namespace MyUtil
         //速度
         private MyUtil.Velocity velocity;
         private MyUtil.Rotate<TOwner> rotate;
-
+        
         /*******************************
         * public
         *******************************/

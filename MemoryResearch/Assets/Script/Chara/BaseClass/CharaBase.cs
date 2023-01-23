@@ -82,6 +82,8 @@ public class CharaBase : MonoBehaviour
         //死んでいたら終了
         if (IsDead()) return;
 
+        if (!IsPossibleDamage()) return;
+
         //同じものが登録されていたら終了
         if (damageInfo.ContainsKey(id)) return;
         Debug.Log("add" + id);
@@ -102,15 +104,27 @@ public class CharaBase : MonoBehaviour
     //ダメージ処理
     public void Damage(int attackPower)
     {
+        if (!IsPossibleDamage()) return;
+
+        AddDamageProcess();
+
         int damage = attackPower - charaParam.defencePower < 0 ? 0 : attackPower - charaParam.defencePower;
-        
-        Debug.Log(damage + "ダメージ");
+        //Debug.Log(damage + "ダメージ");
 
         charaParam.hp -= damage;
         if (IsDead())
         {
             Dead();
         }
+    }
+
+    virtual protected bool IsPossibleDamage()
+    {
+        return true;
+    }
+
+    virtual protected void AddDamageProcess()
+    {
     }
 
     //死んでいるかの確認

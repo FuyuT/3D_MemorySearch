@@ -8,12 +8,14 @@ public class DataManager : MonoBehaviour
     * private
     *******************************/
     [SerializeField] TextAsset memoryDataTxt;
+    [SerializeField] TextAsset enemyDataTxt;
 
     [Header("memorySpriteには、メモリの画像を「Memory.cs MemoryType」の順番に配置してください。")]
     [SerializeField] Sprite[] memorySprite;
 
     MemoryData memoryData;
     PlayerData playerData;
+    EnemyData  enemyData;
     OptionData optionData;
 
     string saveDataPath;
@@ -26,6 +28,7 @@ public class DataManager : MonoBehaviour
 
             memoryData = new MemoryData();
             playerData = new PlayerData();
+            enemyData  = new EnemyData();
             optionData = new OptionData();
             Load();
         }

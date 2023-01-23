@@ -8,6 +8,14 @@ public class Player : CharaBase, IReadPlayer
     /*******************************
     * private
     *******************************/
+
+    [Header("無敵時間")]
+    [SerializeField] float InvincibleTimeMax;
+    float nowInvincibleTime;
+    [Header("描画を切る間隔時間")]
+    [SerializeField] float DrawCancelTimeMax;
+    float nowDrawCancelTime;
+
     //アクター
     MyUtil.Actor<Player> actor;
     //ステートマシン
@@ -45,6 +53,9 @@ public class Player : CharaBase, IReadPlayer
     private void Init()
     {
         actor.Transform.Init();
+
+        nowInvincibleTime = 0;
+        nowDrawCancelTime = 0;
 
         nowJumpSpeed = 0.0f;
         nowDushDelayTime = DushDelayTime;
@@ -142,6 +153,9 @@ public class Player : CharaBase, IReadPlayer
     {
         batteryCountUI.SetBatteryCount(DataManager.instance.IPlayerData().GetPossesionCombineCost());
 
+        //Delayの更新
+        DelayTimeUpdate();
+
         if (IsDead())
         {
             SoundManager.instance.PlaySe(DownSE,transform.position);
@@ -175,8 +189,6 @@ public class Player : CharaBase, IReadPlayer
         //位置更新
         PositionUpdate();
 
-        //Delayの更新
-        DelayTimeUpdate();
 
         //地面に着地しているか確認する
         CheckCollisionGround();
@@ -216,17 +228,60 @@ public class Player : CharaBase, IReadPlayer
     //ディレイ時間の更新
     void DelayTimeUpdate()
     {
+        //ダッシュ
         if (nowDushDelayTime > 0)
         {
             nowDushDelayTime -= Time.deltaTime;
         }
-
+        //タックル
         if (nowTackleDelayTime > 0)
         {
             nowTackleDelayTime -= Time.deltaTime;
         }
+
+        UpdateInvincibleTime();
+
     }
 
+    void UpdateInvincibleTime()
+    {
+        //無敵時間更新
+        if (nowInvincibleTime > 0)
+        {
+            nowInvincibleTime -= Time.deltaTime;
+        }
+        else
+        {
+            renderer.enabled = true;
+            return;
+        }
+
+        //描画キャンセル時間更新
+        if (nowDrawCancelTime > 0)
+        {
+            nowDrawCancelTime -= Time.deltaTime;
+        }
+        else
+        {
+            //renderer.enabled = !renderer.enabled;
+            nowDrawCancelTime = DrawCancelTimeMax;
+        }
+    }
+
+    //CharaBaseで定義しているダメージ処理中の関数を上書き
+    override protected bool IsPossibleDamage()
+    {
+        return nowInvincibleTime <= 0 ? true : false;
+    }
+
+    override protected void AddDamageProcess()
+    {
+        nowInvincibleTime = InvincibleTimeMax;
+        nowDrawCancelTime = DrawCancelTimeMax;
+        Debug.Log("通った");
+
+        renderer.enabled = false;
+    }
     /*******************************
     * public
     *******************************/
@@ -379,7 +434,6 @@ public class Player : CharaBase, IReadPlayer
     /*******************************
     * 衝突判定
     *******************************/
-
     private void CheckCollisionGround()
     {
         Ray ray = new Ray(transform.position, Vector3.down);

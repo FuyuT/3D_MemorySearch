@@ -24,7 +24,6 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionStay(Collision other)
     {
-        Debug.Log(other.gameObject.tag);
         switch (other.gameObject.tag)
         {
             case "Player":

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.IO;//情報を読み込むStringReaderを使用するために導入
 
 [System.Serializable]
 public class MemoryData : IMemoryData
@@ -9,13 +8,11 @@ public class MemoryData : IMemoryData
     /*******************************
     * private
     *******************************/
-    [SerializeField] TextAsset memoryDataTxt;
     Dictionary<MemoryType, Memory> dictionary;
     Dictionary<MemoryType, bool>   isCombineMemory; //合成用のメモリかどうか判断するための配列
     /*******************************
     * public 
     *******************************/
-
     public MemoryData()
     {
         dictionary = new Dictionary<MemoryType, Memory>();

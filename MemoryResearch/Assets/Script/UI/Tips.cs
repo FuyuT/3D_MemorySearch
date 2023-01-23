@@ -41,6 +41,7 @@ public class Tips : MonoBehaviour
     {
         if (Input.GetKeyUp(KeyCode.Return))
         {
+            Debug.Log("a");
             TipsCount += 1;
         }
         DipsUpdate();
