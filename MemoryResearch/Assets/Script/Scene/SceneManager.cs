@@ -35,7 +35,7 @@ public class SceneManager : MonoBehaviour
     bool Show;
     private void Awake()
     {
-        GameOverImage.SetActive(false);
+        //GameOverImage.SetActive(false);
         Show = false;
     }
 
@@ -97,10 +97,7 @@ public class SceneManager : MonoBehaviour
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
-                Application.Quit();//ゲームプレイ終了
+        Application.Quit();//ゲームプレイ終了
 #endif               
-
     }
-
-
 }

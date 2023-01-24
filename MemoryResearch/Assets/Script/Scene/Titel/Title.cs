@@ -5,25 +5,31 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using CustomInputKey;
 
+
+//メモ
+//space押すまでボタンは非表示
+//押したらボタン表示してアニメーション開始
+
 public class Title : MonoBehaviour
 {
-    //パネル類///////////////
-    [Header("タイトルパネル")]
+  
+    [Header("プッシュロゴ")]
     [SerializeField]
-    GameObject TitlePanel;
+    GameObject PushLogo;
 
-    [Header("メニューパネル")]
+    [Header("ボタン類")]
     [SerializeField]
-    GameObject MenuPanel;
+    GameObject[] Buttons;
 
-    [Header("オプションパネル")]
+    [Header("ゲーム終了パネル")]
     [SerializeField]
-    GameObject OptionPanel;
-    ///////////////////////////
+    GameObject GameExitPanel;
 
-    //メニューパネル関連
-    public MenuSELECT Menuselect;
-    [SerializeField] GameObject Menu;
+    ////BGM・SE関連
+    //[SerializeField]
+    //AudioClip clip;
+    //[SerializeField]
+    //AudioClip BotannSE;
 
 
     MyUtil.StateMachine<Title> stateMachine;
@@ -41,9 +47,14 @@ public class Title : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //Menuselect = Menu.GetComponent<MenuSELECT>();
         StateMachineInit();
-        ChangePanel();
+
+        for (int i = 0; i < Buttons.Length; i++)
+        {
+            Buttons[i].SetActive(false);
+        }
+
+        GameExitPanel.SetActive(false);
     }
 
     void StateMachineInit()
@@ -61,37 +72,30 @@ public class Title : MonoBehaviour
     void Update()
     {
         stateMachine.Update();
-        ChangePanel();
+        PushSpase();
     }
 
-    void AllPanelInit()
+    void PushSpase()
     {
-        TitlePanel.SetActive(false);
-        MenuPanel.SetActive(false);
-        OptionPanel.SetActive(false);
-    }
-
-    void ChangePanel()
-    {
-        if ((int)nowPanel == stateMachine.currentStateKey)
-            return;
-
-        AllPanelInit();
-
-        switch (stateMachine.currentStateKey)
+        if (!PushLogo.activeSelf) return;
+        
+        if (Input.GetKeyDown("space"))
         {
-            case (int)PanelType.Titel:
-                TitlePanel.SetActive(true);
-                break;
-
-            case (int)PanelType.Menu:
-                MenuPanel.SetActive(true);
-                break;
-
-            case (int)PanelType.Option:
-              OptionPanel.SetActive(true);
-                break;
+            PushLogo.SetActive(false);
+            for(int i=0;i< Buttons.Length;i++)
+            {
+                Buttons[i].SetActive(true);
+            }
         }
-        nowPanel = (PanelType)stateMachine.currentStateKey;
     }
+
+    public void ExitPanel()
+    {
+        if(!GameExitPanel.activeSelf)
+        {
+            GameExitPanel.SetActive(true);
+        }
+    }
+
+   
 }

@@ -16,16 +16,28 @@ public class TitleGame : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SoundManager.instance.PlayBgm(clip);
+       
     }
 
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            SceneManager.ToGame();
-            SoundManager.instance.StopBgm(clip);
-            SoundManager.instance.PlaySe(BotannSE, transform.position);
-        }
+        
+    }
+
+    public void OnBGM()
+    {
+        SoundManager.instance.PlayBgm(clip);
+
+    }
+
+    public void StopBGM()
+    {
+        SoundManager.instance.StopBgm(clip);
+    }
+
+    public void OnSE()
+    {
+        SoundManager.instance.PlaySe(BotannSE, transform.position);
+
     }
 }

@@ -68,10 +68,6 @@ public class CameraManager : MonoBehaviour
     void Update()
     {
         stateMachine.Update();
-    }
-
-    void FixedUpdate()
-    {
         ChangeMainCamara();
     }
 
