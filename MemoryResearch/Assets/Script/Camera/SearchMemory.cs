@@ -47,6 +47,10 @@ public class SearchMemory : MonoBehaviour
     [SerializeField]
     Lockon lockon;
 
+    //アニメーション
+    [SerializeField]
+    Animator ScanOnAnimator;
+
     MemoryType scanMemory;
 
     void Start()
@@ -62,6 +66,16 @@ public class SearchMemory : MonoBehaviour
         isScan = false;
 
         scanMemory = new MemoryType();
+        BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanOnStart");
+
+        // Time.timeScale = 0;
+
+    }
+
+    private void Update()
+    {
+        ScanAnimStart();
+        ScanAnimEnd();
     }
 
     void FixedUpdate()
@@ -169,34 +183,6 @@ public class SearchMemory : MonoBehaviour
         isScan = false;
     }
 
-    //void ChargeSE()
-    //{
-    //    //if (!soundManager.IsPlayingSe(Chargeclip))
-    //    //{
-    //    //    soundManager.StopSe(Missclip);
-    //    //    soundManager.PlaySe(Chargeclip);
-    //    //}
-    //}
-
-    //void MissSE()
-    //{
-    //    if (!soundManager.IsPlayingSe(Missclip))
-    //    {
-    //        soundManager.StopSe(Chargeclip);
-    //        soundManager.PlaySe(Missclip);
-    //    }
-    //}
-
-    //void SuccessSE()
-    //{
-    //    if (!soundManager.IsPlayingSe(Successclip))
-    //    {
-    //        soundManager.StopSe(Chargeclip);
-    //        //soundManager.StopSe(Missclip);
-    //        soundManager.PlaySe(Successclip);
-    //    }
-    //}
-
 
     /*******************************
     * public
@@ -206,6 +192,20 @@ public class SearchMemory : MonoBehaviour
     public void InitSearchSlider()
     {
         SearchSlider.value = 0;
+    }
+
+    public void ScanAnimStart()
+    {
+    }
+
+    public void ScanAnimEnd()
+    {
+        if (BehaviorAnimation.IsPlayEnd(ref ScanOnAnimator, "ScanOnStart"))
+        {
+            BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanOnEnd");
+            Debug.Log("a");
+            Time.timeScale = 1;
+        }
     }
 }
 
