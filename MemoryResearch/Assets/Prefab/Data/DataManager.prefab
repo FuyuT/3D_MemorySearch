@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1998395740371288953}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 570.2898, y: 270.44556, z: -132.2427}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   memoryDataTxt: {fileID: 4900000, guid: f5297c5674e78664684ebafcf4def43d, type: 3}
+  enemyDataTxt: {fileID: 4900000, guid: 3c738edb4e3e26f40b33b18de1bb3fea, type: 3}
   memorySprite:
   - {fileID: 21300000, guid: cb29a6867cc5c61448f08a3b6b2f90b0, type: 3}
   - {fileID: 21300000, guid: 9522adc27cc71064d9f0e9cb2e2ae38e, type: 3}

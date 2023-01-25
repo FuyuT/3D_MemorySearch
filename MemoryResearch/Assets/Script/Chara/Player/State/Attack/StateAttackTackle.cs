@@ -92,7 +92,7 @@ public class StateAttackTackle : State
 
         Owner.SetAttackPower(0);
 
-        Owner.animator.ResetTrigger("Tackle_Move");
+        Owner.animator.ResetTrigger("Attack_Tackle");
 
         Owner.effectWind.Stop();
 
