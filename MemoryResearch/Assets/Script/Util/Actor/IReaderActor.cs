@@ -4,14 +4,6 @@ using UnityEngine;
 
 public interface IReaderActor
 {
-    //todo:パラメータへのアクセス権限を厳しくする
-
-    /// <summary>
-    /// パラメータ取得
-    /// </summary>
-    /// <returns>AnyParameterMap</returns>
-    ref AnyParameterMap GetParameterMap();
-
     #region 座標関係
     /// <summary>
     /// 座標取得
