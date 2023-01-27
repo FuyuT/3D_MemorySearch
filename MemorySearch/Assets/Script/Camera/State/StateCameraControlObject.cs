@@ -9,7 +9,7 @@ public class StateCameraControlObject : State
     protected override void OnEnter(State prevState)
     {
         //オブジェクトのマテリアル変更
-        Owner.colorChange.ChangeAfterMaterial();
+       // Owner.colorChange.ChangeAfterMaterial();
     }
 
     protected override void OnUpdate()
@@ -28,6 +28,6 @@ public class StateCameraControlObject : State
     protected override void OnExit(State nextState)
     {
         //オブジェクトのマテリアルを戻す
-        Owner.colorChange.ChangeBeforeMaterial();
+       // Owner.colorChange.ChangeBeforeMaterial();
     }
 }
