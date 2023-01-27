@@ -20,7 +20,7 @@ public class CameraManager : MonoBehaviour
 
     MyUtil.StateMachine<CameraManager> stateMachine;
     public int GetCurrentCameraType() {return stateMachine.currentStateKey; }
-    [SerializeField] public StagecolorChange colorChange;
+   // [SerializeField] public StagecolorChange colorChange;
 
     public void ToControllCamera()
     {
