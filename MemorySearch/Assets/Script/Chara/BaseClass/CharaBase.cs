@@ -18,7 +18,7 @@ public class CharaBase : MonoBehaviour
 
         var batteryItem = (GameObject)Resources.Load("Item/Item_Battery");
         var pos = transform.position + transform.GetComponent<BoxCollider>().center;
-        Debug.Log("生成位置" + pos);
+
         batteryItem.GetComponent<BatteryItem>().Create(pos, 1.0f);
     }
 

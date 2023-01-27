@@ -47,9 +47,9 @@ public class SearchMemory : MonoBehaviour
     [SerializeField]
     Lockon lockon;
 
-    //アニメーション
-    [SerializeField]
-    Animator ScanOnAnimator;
+    ////アニメーション
+    //[SerializeField]
+    //Animator ScanOnAnimator;
 
     MemoryType scanMemory;
 
@@ -66,17 +66,17 @@ public class SearchMemory : MonoBehaviour
         isScan = false;
 
         scanMemory = new MemoryType();
-        BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanOnStart");
+       // BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanOnStart");
 
         // Time.timeScale = 0;
 
     }
 
-    private void Update()
-    {
-        ScanAnimStart();
-        ScanAnimEnd();
-    }
+    //private void Update()
+    //{
+    //    ScanAnimStart();
+    //    ScanAnimEnd();
+    //}
 
     void FixedUpdate()
     {
@@ -198,14 +198,14 @@ public class SearchMemory : MonoBehaviour
     {
     }
 
-    public void ScanAnimEnd()
-    {
-        if (BehaviorAnimation.IsPlayEnd(ref ScanOnAnimator, "ScanOnStart"))
-        {
-            BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanOnEnd");
-            Debug.Log("a");
-            Time.timeScale = 1;
-        }
-    }
+    //public void ScanAnimEnd()
+    //{
+    //    if (BehaviorAnimation.IsPlayEnd(ref ScanOnAnimator, "ScanOnStart"))
+    //    {
+    //        BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanOnEnd");
+    //        Debug.Log("a");
+    //        Time.timeScale = 1;
+    //    }
+    //}
 }
 

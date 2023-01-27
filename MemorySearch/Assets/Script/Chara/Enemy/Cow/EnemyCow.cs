@@ -62,6 +62,7 @@ public class EnemyCow : EnemyBase
 
         CharaUpdate();
     }
+
     //角度更新
     void UpdateRotate()
     {
@@ -72,6 +73,7 @@ public class EnemyCow : EnemyBase
             actor.Transform.RotateUpdateToVec(temp, rotateSpeed);
         }
     }
+
     //位置更新
     void UpdatePosition()
     {
@@ -81,6 +83,7 @@ public class EnemyCow : EnemyBase
         //velocityを初期化
         actor.IVelocity().InitVelocity();
     }
+
     void UpdateDelay()
     {
         //探知範囲にターゲットが入っていなければ終了

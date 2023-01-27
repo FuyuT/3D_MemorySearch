@@ -92,7 +92,7 @@ namespace MyUtil
         public Velocity()
         {
             velocity        = Vector3.zero;
-            maxVelocity     = new Vector3(100, 100, 100);
+            maxVelocity     = new Vector3(1000, 1000, 1000);
             isUseGravity    = false;
         }
 
