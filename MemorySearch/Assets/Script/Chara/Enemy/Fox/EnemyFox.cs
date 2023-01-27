@@ -50,7 +50,6 @@ public class EnemyFox : EnemyBase
         stateMachine.AddAnyTransition<StateFoxAttack_Tackle>((int)State.Attack_Tackle);
         stateMachine.AddAnyTransition<StateFoxDead>((int)State.Dead);
 
-
         //ステートマシンの開始　初期ステートは引数で指定
         stateMachine.Start(stateMachine.GetOrAddState<StateFoxIdle>());
     }
