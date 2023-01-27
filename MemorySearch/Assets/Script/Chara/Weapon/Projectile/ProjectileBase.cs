@@ -20,6 +20,16 @@ public class ProjectileBase : MonoBehaviour
         speed    = 0.0f;
         damage   = 0;
     }
+    public void Init(Vector3 pos, Quaternion rot, Vector3 moveVec, float speed, int damage)
+    {
+        transform.position = pos;
+        transform.rotation = rot;
+        isPrefab = false;
+        this.moveVec = moveVec;
+        this.speed = speed;
+        this.damage = damage;
+        this.gameObject.SetActive(true);
+    }
 
     public void Init(Vector3 pos, Quaternion rot, Vector3 scale, Vector3 moveVec, float speed, int damage)
     {

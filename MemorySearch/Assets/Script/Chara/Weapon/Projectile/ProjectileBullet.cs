@@ -22,7 +22,6 @@ public class ProjectileBullet : ProjectileBase
             this.transform.rotation, transform.lossyScale, moveVec, speed, damage);
 
         projectile.gameObject.SetActive(true);
-        Debug.Log(projectile.transform.position);
     }
 
 }
