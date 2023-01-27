@@ -17,12 +17,14 @@ public class EnemyFox : EnemyBase
     [Header("地面との当たり判定で使用するレイの長さ")]
     [SerializeField] float DirectionCheckHitGround;
 
+    bool isEngagement;
     private void Awake()
     {
         boxCollider = GetComponent<BoxCollider>();
         StateMachineInit();
         actor.Transform.Init();
         Init();
+        isEngagement = false;
     }
 
     private void Init()
@@ -57,6 +59,15 @@ public class EnemyFox : EnemyBase
     {
         //プレイヤーの実体がなければ終了
         if (Player.readPlayer == null) return;
+
+        if (!isEngagement)
+        {
+            if (searchRange.InTarget)
+            {
+                isEngagement = true;
+            }
+            return;
+        }
 
         if (IsDead())
         {
