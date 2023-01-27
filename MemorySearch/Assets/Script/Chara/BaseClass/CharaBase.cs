@@ -86,7 +86,7 @@ public class CharaBase : MonoBehaviour
 
         //同じものが登録されていたら終了
         if (damageInfo.ContainsKey(id)) return;
-        Debug.Log("add" + id);
+        //Debug.Log("add" + id);
 
         damageInfo.Add(id, attackInfo);
     }
@@ -96,7 +96,7 @@ public class CharaBase : MonoBehaviour
     {
         //idが登録されていなければ終了
         if (!damageInfo.ContainsKey(id)) return;
-        Debug.Log("remove" + id);
+        //Debug.Log("remove" + id);
 
         damageInfo.Remove(id);
     }
@@ -106,7 +106,7 @@ public class CharaBase : MonoBehaviour
     {
         if (!IsPossibleDamage()) return;
 
-        AddDamageProcess();
+        AddDamageProcess(attackPower);
 
         int damage = attackPower - charaParam.defencePower < 0 ? 0 : attackPower - charaParam.defencePower;
         //Debug.Log(damage + "ダメージ");
@@ -123,7 +123,7 @@ public class CharaBase : MonoBehaviour
         return true;
     }
 
-    virtual protected void AddDamageProcess()
+    virtual protected void AddDamageProcess(int attackPower)
     {
     }
 

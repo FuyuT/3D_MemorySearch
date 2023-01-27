@@ -29,7 +29,7 @@ public class EnemyFlog : EnemyBase
         CharaBaseInit();
 
         delayJumpTime = 0;
-        delayShotTime = 0;
+        projectileDelay = 0;
         charaParam.hp = HpMax;
 
         mainMemory = MemoryType.Jump;
@@ -118,9 +118,9 @@ public class EnemyFlog : EnemyBase
         }
 
         //射撃待機時間の更新
-        if (delayShotTime < delayShotTimeMax)
+        if (projectileDelay < projectileDelayMax)
         {
-            delayShotTime += Time.deltaTime;
+            projectileDelay += Time.deltaTime;
         }
     }
 
@@ -163,13 +163,12 @@ public class EnemyFlog : EnemyBase
     [SerializeField] public int HpMax;
 
     [Header("「射撃ステート」")]
-    [SerializeField] public float delayShotTimeMax;
-    public float delayShotTime;
+    [SerializeField] public ProjectileBullet projectileBullet;
+    public float projectileDelay;
+    [SerializeField] public float projectileDelayMax;
 
-    [SerializeField] public float ShotSpeed;
-    [SerializeField] public int ShotDamage;
-    [SerializeField] public GameObject bullet;
-    [SerializeField] public float ShotInterval;
+    [SerializeField] public float projectileSpeed;
+    [SerializeField] public int projectileDamage;
 
     [Header("「ジャンプステート」")]
     [SerializeField] public float delayJumpTimeMax;

@@ -12,7 +12,7 @@ public class StateAttack_Punch : State
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         //攻撃力設定
-        Owner.SetAttackPower(5);
+        Owner.SetAttackPower(1);
         //その場で停止
         Actor.Transform.IVelocity().InitVelocity();
 

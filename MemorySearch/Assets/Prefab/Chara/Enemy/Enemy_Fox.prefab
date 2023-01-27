@@ -1531,7 +1531,7 @@ Transform:
   m_GameObject: {fileID: 5745734226732765666}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -910.3003, y: 46.54685, z: -88.26935}
-  m_LocalScale: {x: 15.103196, y: 15.103196, z: 15.103196}
+  m_LocalScale: {x: 15.103194, y: 15.103196, z: 15.103194}
   m_Children:
   - {fileID: 103495568301945605}
   m_Father: {fileID: 0}
@@ -1579,20 +1579,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 730814624110651838}
+  hpUI: {fileID: 0}
   DirectionCheckHitGround: 3.7
   renderer: {fileID: 3054084746112490060}
-  searchRange: {fileID: 0}
+  searchRange: {fileID: 5745734225577029703}
   attackRange: {fileID: 5745734227355160725}
   moveSpeed: 10
   rotateSpeed: 6
-  HpMax: 30
+  HpMax: 10
   isGround: 0
   closeAttackDamage: 0
   closeAttackDelay: 0
   closeAttackDelayMax: 2
   projectileSlash: {fileID: 5745734225581405727}
   projectileSpeed: 60
-  projectileDamage: 0
+  projectileDamage: 1
   projectileDelay: 0
   projectileDelayMax: 8
   tackleDamage: 3

@@ -42,6 +42,8 @@ public class StateFoxAttack_2 : State
 
     protected override void OnExit(State prevState)
     {
+        Owner.InitAttackPower();
+
         Owner.animator.ResetTrigger("Attack_2");
         Owner.closeAttackDelay = 0;
     }

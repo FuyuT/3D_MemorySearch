@@ -11,6 +11,9 @@ public class StateFoxAttack_Tackle : State
 
     protected override void OnEnter(State prevState)
     {
+        //攻撃力設定
+        Owner.SetAttackPower(3);
+
         isTackleReady = false;
         isTackleEnd   = false;
         Owner.SetAttackPower(Owner.tackleDamage);

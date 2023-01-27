@@ -25,8 +25,8 @@ public class ProjectileSlash : ProjectileBase
     {
         var projectile = Object.Instantiate(this);
 
-        projectile.GetComponent<ProjectileSlash>().Init(this.transform.position,
-            this.transform.rotation, moveVec, speed, damage);
+        projectile.GetComponent<ProjectileBase>().Init(this.transform.position,
+            this.transform.rotation, this.transform.lossyScale, moveVec, speed, damage);
 
         projectile.GetComponent<ProjectileSlash>().PlayEffect();
     }
