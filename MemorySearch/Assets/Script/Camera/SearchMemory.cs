@@ -47,9 +47,9 @@ public class SearchMemory : MonoBehaviour
     [SerializeField]
     Lockon lockon;
 
-    ////アニメーション
-    //[SerializeField]
-    //Animator ScanOnAnimator;
+    //ScanMemoryUI
+    [SerializeField]
+    MemoryUI memoryUI;
 
     MemoryType scanMemory;
 
@@ -59,30 +59,24 @@ public class SearchMemory : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         player = GameObject.FindGameObjectWithTag("Player");
-        //transform.rotation = player.transform.rotation;
+        transform.rotation = player.transform.rotation;
 
         InitSearchSlider();
 
         isScan = false;
 
         scanMemory = new MemoryType();
-        //BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanAnimStart");
+       // BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanOnStart");
 
         // Time.timeScale = 0;
 
     }
 
-     void Update()
-     {
-        //if (BehaviorAnimation.IsPlayEnd(ref ScanOnAnimator, "ScanAnimStart"))
-        //{
-        //    BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanAnimEnd");
-        //    Debug.Log("a");
-        //    Time.timeScale = 1;
-        //}
-                transform.rotation = player.transform.rotation;
-
-     }
+    //private void Update()
+    //{
+    //    ScanAnimStart();
+    //    ScanAnimEnd();
+    //}
 
     void FixedUpdate()
     {
@@ -200,15 +194,15 @@ public class SearchMemory : MonoBehaviour
         SearchSlider.value = 0;
     }
 
-    //public void ScanAnimStart()
-    //{
-    //}
+    public void ScanAnimStart()
+    {
+    }
 
     //public void ScanAnimEnd()
     //{
-    //    if (BehaviorAnimation.IsPlayEnd(ref ScanOnAnimator, "ScanAnimStart"))
+    //    if (BehaviorAnimation.IsPlayEnd(ref ScanOnAnimator, "ScanOnStart"))
     //    {
-    //        BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanAnimEnd");
+    //        BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanOnEnd");
     //        Debug.Log("a");
     //        Time.timeScale = 1;
     //    }

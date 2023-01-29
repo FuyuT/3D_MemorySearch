@@ -9,6 +9,9 @@ public class Player : CharaBase, IReadPlayer
     * private
     *******************************/
 
+    [Header("HPのUI")]
+    [SerializeField] HpUI hpUI;
+
     [Header("無敵時間")]
     [SerializeField] float InvincibleTimeMax;
     float nowInvincibleTime;
@@ -268,20 +271,6 @@ public class Player : CharaBase, IReadPlayer
         }
     }
 
-    //CharaBaseで定義しているダメージ処理中の関数を上書き
-    override protected bool IsPossibleDamage()
-    {
-        return nowInvincibleTime <= 0 ? true : false;
-    }
-
-    override protected void AddDamageProcess()
-    {
-        nowInvincibleTime = InvincibleTimeMax;
-        nowDrawCancelTime = DrawCancelTimeMax;
-        Debug.Log("通った");
-
-        renderer.enabled = false;
-    }
     /*******************************
     * public
     *******************************/
@@ -430,6 +419,26 @@ public class Player : CharaBase, IReadPlayer
     {
         return combineBattery;
     }
+
+    /*******************************
+    * override
+    *******************************/
+    override protected bool IsPossibleDamage()
+    {
+        return nowInvincibleTime <= 0 ? true : false;
+    }
+
+    override protected void AddDamageProcess(int damage)
+    {
+        //hpUIの再生
+        hpUI.Damage(damage);
+
+        //無敵の更新
+        nowInvincibleTime = InvincibleTimeMax;
+        nowDrawCancelTime = DrawCancelTimeMax;
+        renderer.enabled = false;
+    }
+
 
     /*******************************
     * 衝突判定

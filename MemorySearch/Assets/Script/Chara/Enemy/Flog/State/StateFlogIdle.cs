@@ -49,7 +49,7 @@ public class StateFlogIdle : State
         if (!Owner.searchRange.InTarget) return false;
 
         //射撃のディレイが終わっていれば射撃へ
-        if (Owner.delayShotTime > Owner.delayShotTimeMax)
+        if (Owner.projectileDelay > Owner.projectileDelayMax)
         {
             stateMachine.Dispatch((int)EnemyFlog.State.Attack_Shot);
             return true;
