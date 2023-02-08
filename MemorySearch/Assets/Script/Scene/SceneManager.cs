@@ -13,12 +13,12 @@ public enum SceneType
     End,
 }
 
-public class SceneManager : MyUtil.SingletonMonoBehavior<SceneManager>
+public class SceneManager : MonoBehaviour
 {
     /*******************************
     * private
     *******************************/
-    SceneType currentScene;
+    SceneType nowScene;
     SceneType nextScene;
 
     //ゲームオーバーパネル
@@ -28,17 +28,24 @@ public class SceneManager : MyUtil.SingletonMonoBehavior<SceneManager>
     //SE関連///////////////
     [SerializeField] AudioClip GameOverSE;
     [SerializeField] AudioClip BGM;
-    bool isGameOver;
+    //////////////////////////////
+    /// main
+    //////////////////////////////
+    ///
+    bool Show;
     private void Awake()
     {
         //GameOverImage.SetActive(false);
-        isGameOver = false;
+        Show = false;
     }
 
     void Update()
     {
+        if (nowScene == SceneType.Title) return;
+        
         CheckGameOver();
     }
+      
 
     //ゲームオーバーか確認して、ゲームオーバーなら次のシーンをゲームオーバーに設定
     void CheckGameOver()
@@ -46,39 +53,30 @@ public class SceneManager : MyUtil.SingletonMonoBehavior<SceneManager>
         //プレイヤーの実体がなければ終了
         if (Player.readPlayer == null) return;
 
-
         if (Player.readPlayer.IsEndDeadMotion())
         {
+            
             ToGameOver();
         }
     }
 
     private void ToGameOver()
     {
-        if (!isGameOver)
+        if (!Show)
         {
             GameOverImage.SetActive(true);
             SoundManager.instance.StopBgm(BGM);
             SoundManager.instance.PlaySe(GameOverSE, Player.readPlayer.GetPos());
             Cursor.visible = true;
-            isGameOver = true;
+            Show = true;
             Time.timeScale = 0;
         }
     }
 
-    /*******************************
-    * protected
-    *******************************/
-    protected override bool dontDestroyOnLoad { get { return true; } }
 
     /*******************************
     * public
     *******************************/
-
-    public SceneType GetCurrentSceneType()
-    {
-        return currentScene;
-    }
 
     public static void ToTitle()
     {

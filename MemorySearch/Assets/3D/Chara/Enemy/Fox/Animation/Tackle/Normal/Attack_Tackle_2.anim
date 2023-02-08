@@ -107467,6 +107467,7 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
+<<<<<<< HEAD
   - time: 0.016666668
     functionName: PlayEffect
     data: 
@@ -107474,6 +107475,8 @@ AnimationClip:
     floatParameter: 0
     intParameter: 3
     messageOptions: 0
+=======
+>>>>>>> origin/色々修正
   - time: 0.05
     functionName: SetActive
     data: 
@@ -107481,6 +107484,7 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
+<<<<<<< HEAD
   - time: 0.06666667
     functionName: PlayEffect
     data: 
@@ -107496,6 +107500,9 @@ AnimationClip:
     intParameter: 3
     messageOptions: 0
   - time: 0.25
+=======
+  - time: 0.16666667
+>>>>>>> origin/色々修正
     functionName: SetNotActive
     data: 
     objectReferenceParameter: {fileID: 0}

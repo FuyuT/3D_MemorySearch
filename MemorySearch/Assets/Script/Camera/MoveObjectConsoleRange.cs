@@ -27,6 +27,9 @@ public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectCon
     //コントロールカメラ
     [SerializeField]
     GameObject ReturnUi;
+    //ガイド矢印UI
+    [SerializeField]
+    GameObject[] ArrowDragUi;
 
     //フェード用
     [SerializeField]
@@ -48,6 +51,10 @@ public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectCon
         isUseControleCamera = false;
         IsUseGuideUI.SetActive(false);
         ReturnUi.SetActive(false);
+        for (int i = 0; i < ArrowDragUi.Length; i++)
+        {
+            ArrowDragUi[i].SetActive(false);
+        }
         isFirstControl = true;
     }
 
@@ -72,6 +79,10 @@ public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectCon
                 GameUI.SetActive(true);
                 ReturnUi.SetActive(false);
                 isUseControleCamera = false;
+                for (int i = 0; i < ArrowDragUi.Length; i++)
+                {
+                    ArrowDragUi[i].SetActive(false);
+                }
                 break;
             default:
                 if (!InRange) break;
@@ -103,6 +114,10 @@ public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectCon
             BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeIn");
             CameraManager.instance.ToControllCamera();
             ReturnUi.SetActive(true);
+            for (int i = 0; i < ArrowDragUi.Length; i++)
+            {
+                ArrowDragUi[i].SetActive(true);
+            }
         }
     }
     /*******************************
@@ -138,5 +153,4 @@ public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectCon
             InRange = false;
         }
     }
-
 }

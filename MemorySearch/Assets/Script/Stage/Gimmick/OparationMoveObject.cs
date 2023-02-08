@@ -10,7 +10,12 @@ public class OparationMoveObject : MonoBehaviour
 {
     CameraManager cameraManager;
 
+    [SerializeField]
+    GameObject[] MoveObject;
+
     public float moveSpeed;
+
+
     private void Awake()
     {
         cameraManager = GameObject.FindGameObjectWithTag("CameraManager").GetComponent<CameraManager>();
@@ -18,6 +23,7 @@ public class OparationMoveObject : MonoBehaviour
 
     void Update()
     {
+
         if (cameraManager.GetCurrentCameraType() != (int)CameraManager.CameraType.Controller) return;
 
         if (!Input.GetMouseButton(0)) return;
@@ -25,11 +31,14 @@ public class OparationMoveObject : MonoBehaviour
          Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
          foreach (RaycastHit hit in Physics.RaycastAll(ray))
          {
-             if (hit.transform.name == "Dore")
-             {
-                 Vector3 objPos = Camera.main.WorldToScreenPoint(transform.position);
-                 transform.position += new Vector3(0, Input.GetAxis("Mouse Y") * moveSpeed, 0);
-             }
+            if (hit.transform.gameObject==gameObject)
+            {
+                for (int i = 0; i < MoveObject.Length; i++)
+                {
+                    Vector3 objPos = Camera.main.WorldToScreenPoint(MoveObject[i].transform.position);
+                    MoveObject[i].transform.position += new Vector3(0, Input.GetAxis("Mouse Y") * moveSpeed, 0);
+                }
+            }
          }
     }
 }

@@ -5,10 +5,12 @@ using UnityEngine;
 public class GetMemoryUI : MonoBehaviour
 {
     [SerializeField] Animator ScanImgAnim;
+    public bool s; 
 
     private void Start()
     {
         gameObject.SetActive(false);
+        s = false;
     }
 
     void Update()
@@ -25,12 +27,15 @@ public class GetMemoryUI : MonoBehaviour
         //アニメーションを再生する
         gameObject.SetActive(true);
         ScanImgAnim.Play("ScanSuccessText");
-     }
+        s = false;
 
-     public void Stop()
+    }
+
+    public void Stop()
      {
         //アニメーションを非表示にする
         gameObject.SetActive(false);
+        s = true;
      }
     
     

@@ -33,23 +33,54 @@ public class TPSCamera : MonoBehaviour
     //////////////////////////////////////////////////////////
     public float BaseRotationSpeed;
 
-    public float a;
+    //Lockon関連/////////////////////////////////////////////
+    [SerializeField]
+    TPSLockon lockon;
+    bool ToLockon;
+    [SerializeField]
+    GameObject Locontarget;
+
+    [Header("ロックオン枠")]
+    [SerializeField]
+    GameObject LockonImg;
+    //////////////////////////////////////////////////////////
+
+    private void Start()
+    {
+        ToLockon = false;
+        LockonImg.SetActive(false);
+    }
+
+    void Update()
+    {
+        //ロックオン機能
+        //1,Qキー入力で起動
+        //2,もし敵が範囲に入ったら敵の方を向き続ける
+        //3,そうでなければプレイヤーが向いている方向にカメラを向ける
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            if (!ToLockon)
+            {
+                ToLockon = true;
+            }
+            else
+            {
+                ToLockon = false;
+                LockonImg.SetActive(false);
+
+            }
+            return;
+        }
+        if (!ToLockon) return;
+        LockonUpdate();
+    }
 
     void FixedUpdate()
     {
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    XAngle = Mathf.Repeat(Mathf.Abs(target.transform.rotation.y + 270), 360);
-        //    UpdatePosition(target.transform.position + offset);
-        //    transform.LookAt(target.transform.position);
-
-        //    return;
-        //}
-
+        if (ToLockon) return;
         Cursor.visible = false;
         UpdateAngle();
-        //Debug.Log(XAngle);
-
+      
     }
 
     void UpdateAngle()
@@ -108,13 +139,15 @@ public class TPSCamera : MonoBehaviour
         //ステージの壁、天井に当たっていたら
         if (Physics.Linecast(target.transform.position, transform.position, out hit, WallLayer))
         {
-            transform.position = hit.point + new Vector3(0, 10, 0);
+            transform.position = hit.point + new Vector3(0, 20, 0);
             isHitStage = true;
+            Debug.Log("当たり");
         }
         if (Physics.Linecast(target.transform.position, transform.position, out hit, CeilingLayer))
         {
             transform.position = hit.point - new Vector3(0, 5, 0);
             isHitStage = true;
+            Debug.Log("当たり");
         }
 
         //注視点を変更
@@ -134,5 +167,44 @@ public class TPSCamera : MonoBehaviour
             lookAtPos.x + distance * Mathf.Sin(dp) * Mathf.Cos(da),
             lookAtPos.y + distance * Mathf.Cos(dp),
             lookAtPos.z + distance * Mathf.Sin(dp) * Mathf.Sin(da));
+    }
+
+    void LockonUpdate()
+    {
+        Locontarget = lockon.GetTarget();
+
+        var lookAtPos = target.transform.position + offset;
+        UpdatePosition(lookAtPos);
+        transform.LookAt(lookAtPos);
+
+        if (!ToLockon) return;
+
+        GameObject lockOnTarget;
+        if (target != null)
+        {
+            lockOnTarget = Locontarget;
+            LockonImg.SetActive(true);
+            //LockonImg.transform.position = lockOnTarget.gameObject.transform.position;
+           // LockonImg.transform.rotation = Camera.main.transform.rotation;
+        }
+        else
+        {
+            lockOnTarget = null;
+           // LockonImg.SetActive(false);
+        }
+
+
+        if (lockOnTarget)
+        {
+            lockOnTargetObject(lockOnTarget);
+        }
+        //XAngle = Mathf.Repeat(Mathf.Abs(target.transform.rotation.y + 270), 360);
+        //UpdatePosition(target.transform.position + offset);
+        //transform.LookAt(target.transform.position);
+    }
+
+    private void lockOnTargetObject(GameObject target)
+    {
+        transform.LookAt(target.transform, Vector3.up);
     }
 }
