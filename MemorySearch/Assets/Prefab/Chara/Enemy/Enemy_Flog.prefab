@@ -382,10 +382,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1937765241976131359}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2307a62c7896c9941a40dc27e9ddee66, type: 3}
+  m_Script: {fileID: 11500000, guid: b3cf71afd537342429dbc97df3433572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect:
+  effects:
   - {fileID: 2623675049627329554}
   - {fileID: 1283732556861495267}
 --- !u!114 &3018155004750561606
@@ -401,6 +401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 7423011394420158201}
+  collisionExclusionChara: {fileID: 5778342065088892445}
 --- !u!1 &1949203181407868027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,7 +1368,7 @@ GameObject:
   - component: {fileID: 5778342065088892444}
   - component: {fileID: 5778342065088892445}
   - component: {fileID: 5778342065088892442}
-  - component: {fileID: 5778342065088892443}
+  - component: {fileID: 4889311992993706512}
   m_Layer: 0
   m_Name: Enemy_Flog
   m_TagString: Enemy
@@ -1403,12 +1404,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 3832604674891622318}
+  animTransform: {fileID: 8780210723891577099}
   DirectionCheckHitGround: 3.7
   searchRange: {fileID: 5778342064349852125}
   attackRange: {fileID: 5778342065819042977}
   moveSpeed: 12
   rotateSpeed: 5
-  HpMax: 5
+  HpMax: 2
   projectileBullet: {fileID: 7423011394420158201}
   projectileDelay: 0
   projectileDelayMax: 2
@@ -1443,19 +1445,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &5778342065088892443
-BoxCollider:
+--- !u!135 &4889311992993706512
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5778342065088892447}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 72e928da43a2c5b4b9744db02835c3c0, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.9530616, y: 7.041313, z: 5.8731055}
-  m_Center: {x: 0.24562359, y: -0.05, z: 0.09899318}
+  m_Radius: 3.72
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5778342065425459532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2356,6 +2358,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6060829769596982621, guid: 700a22aa882685b4f8a46056b9d74be3, type: 3}
   m_PrefabInstance: {fileID: 3068348880506212594}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &567557449
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9117699746410694060}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.0000002, y: 0.99999994, z: 1.0000002}
+  m_Center: {x: 0.0000019073486, y: 0.0000038146973, z: -0.00012207031}
 --- !u!114 &7423011394420158201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2368,16 +2383,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee0381596bf242478b3e4bf4efc1b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!65 &567557449
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9117699746410694060}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.0000002, y: 0.99999994, z: 1.0000002}
-  m_Center: {x: 0.0000019073486, y: 0.0000038146973, z: -0.00012207031}

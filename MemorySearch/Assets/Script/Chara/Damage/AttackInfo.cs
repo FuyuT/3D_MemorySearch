@@ -4,6 +4,11 @@ public enum DamageType
     Once,
     Continue,
 }
+public enum AttackSituation
+{
+    Possible,
+    End,
+}
 
 [System.Serializable]
 public class AttackInfo
@@ -15,6 +20,8 @@ public class AttackInfo
     public int power;
     public DamageType type;
     public AttackSituation situation;
+    public GameObject attacker;
+    public Vector3 attackPos;
 
     public AttackInfo()
     {
@@ -28,11 +35,4 @@ public class AttackInfo
         type = DamageType.Once;
         situation = AttackSituation.Possible;
     }
-}
-
-//todo:ダメージ判定のところに移動
-public enum AttackSituation
-{
-    Possible,
-    End,
 }

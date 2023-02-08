@@ -25,7 +25,6 @@ public class StateGorillaPunch : State
         SelectNextState();
     }
 
-
     protected override void SelectNextState()
     {
         //攻撃モーションが終了したら待機へ

@@ -13,12 +13,12 @@ public enum SceneType
     End,
 }
 
-public class SceneManager : MonoBehaviour
+public class SceneManager : MyUtil.SingletonMonoBehavior<SceneManager>
 {
     /*******************************
     * private
     *******************************/
-    SceneType nowScene;
+    SceneType currentScene;
     SceneType nextScene;
 
     //ゲームオーバーパネル
@@ -28,15 +28,11 @@ public class SceneManager : MonoBehaviour
     //SE関連///////////////
     [SerializeField] AudioClip GameOverSE;
     [SerializeField] AudioClip BGM;
-    //////////////////////////////
-    /// main
-    //////////////////////////////
-    ///
-    bool Show;
+    bool isGameOver;
     private void Awake()
     {
         //GameOverImage.SetActive(false);
-        Show = false;
+        isGameOver = false;
     }
 
     void Update()
@@ -59,21 +55,30 @@ public class SceneManager : MonoBehaviour
 
     private void ToGameOver()
     {
-        if (!Show)
+        if (!isGameOver)
         {
             GameOverImage.SetActive(true);
             SoundManager.instance.StopBgm(BGM);
             SoundManager.instance.PlaySe(GameOverSE, Player.readPlayer.GetPos());
             Cursor.visible = true;
-            Show = true;
+            isGameOver = true;
             Time.timeScale = 0;
         }
     }
 
+    /*******************************
+    * protected
+    *******************************/
+    protected override bool dontDestroyOnLoad { get { return true; } }
 
     /*******************************
     * public
     *******************************/
+
+    public SceneType GetCurrentSceneType()
+    {
+        return currentScene;
+    }
 
     public static void ToTitle()
     {

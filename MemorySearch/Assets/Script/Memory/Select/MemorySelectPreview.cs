@@ -12,6 +12,7 @@ public class MemorySelectPreview : MemoryUI
     {
         None,
         Drag_Preview,
+        Drop_Failed,
         Replace_Memory,
         Set_Memory,
         Remove_Memory,
@@ -57,8 +58,10 @@ public class MemorySelectPreview : MemoryUI
         switch (situation)
         {
             case SituationType.Drag_Preview:
-                Init();
+                situation = SituationType.Drop_Failed;
                 break;
+
+            case SituationType.Drop_Failed:
             default:
                 break;
         }

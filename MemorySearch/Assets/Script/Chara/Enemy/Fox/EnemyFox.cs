@@ -84,6 +84,8 @@ public class EnemyFox : EnemyBase
             return;
         }
 
+        if (!UpdateCharaBase()) return;
+
         stateMachine.Update();
 
         PositionUpdate();
@@ -91,8 +93,6 @@ public class EnemyFox : EnemyBase
         DelayUpdate();
 
         CheckCollisionGround();
-
-        CharaUpdate();
     }
 
 
@@ -182,8 +182,6 @@ public class EnemyFox : EnemyBase
 
     [HideInInspector]
     public BoxCollider boxCollider;
-
-    public Transform   animTransform;
     //コンストラクタ
     public EnemyFox()
     {

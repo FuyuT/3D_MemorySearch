@@ -9,7 +9,7 @@ public class StateFoxDead : State
     protected override void OnEnter(State prevState)
     {
         //当たり判定を消す
-        Owner.gameObject.GetComponent<BoxCollider>().isTrigger = true;
+        Owner.gameObject.GetComponent<CapsuleCollider>().isTrigger = true;
         Owner.gameObject.GetComponent<Rigidbody>().useGravity = false;
         Owner.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
         //SoundManager.instance.PlaySe(Owner.DownSE, Owner.transform.position);

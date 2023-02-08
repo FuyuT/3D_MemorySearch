@@ -71,9 +71,6 @@ public class PlayerData : IPlayerData
 
     public void AddPossesionCombineCost(float add)
     {
-        Debug.Log(add);
-
         possesionCombineCost += add;
-        Debug.Log(possesionCombineCost);
     }
 }

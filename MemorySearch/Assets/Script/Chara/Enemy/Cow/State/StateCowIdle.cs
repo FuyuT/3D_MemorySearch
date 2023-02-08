@@ -7,7 +7,7 @@ public class StateCowIdle : State
 {
     protected override void OnEnter(State prevState)
     {
-        SoundManager.instance.PlaySe(Owner.AttackSE, Owner.transform.position);
+        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle");
     }
 
     protected override void OnUpdate()
@@ -17,12 +17,6 @@ public class StateCowIdle : State
 
     protected override void SelectNextState()
     {
-        //アニメーションが変更されていなければ変更
-        if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle"))
-        {
-            return;
-        }
-
         //探知範囲にいなければ処理終了
         if (!Owner.searchRange.InTarget) return;
 
@@ -44,6 +38,5 @@ public class StateCowIdle : State
     protected override void OnExit(State prevState)
     {
         Owner.animator.ResetTrigger("Idle");
-        SoundManager.instance.StopSe(Owner.AttackSE);
     }
 }

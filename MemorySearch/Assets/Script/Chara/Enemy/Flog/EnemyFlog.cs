@@ -67,6 +67,15 @@ public class EnemyFlog : EnemyBase
             return;
         }
 
+        if (!UpdateCharaBase())
+        {
+            if (stateMachine.currentStateKey != (int)State.Idle)
+            {
+                stateMachine.Dispatch((int)State.Idle);
+            }
+            return;
+        }
+
         //ステートマシン更新
         stateMachine.Update();
 
@@ -81,8 +90,6 @@ public class EnemyFlog : EnemyBase
 
         //地面に着地しているか確認する
         CheckCollisionGround();
-
-        CharaUpdate();
     }
 
     //角度の更新

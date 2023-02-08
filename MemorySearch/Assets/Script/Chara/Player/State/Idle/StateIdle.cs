@@ -11,6 +11,7 @@ public class StateIdle : State
 {
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
+        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle");
     }
 
     protected override void OnUpdate()
@@ -20,9 +21,6 @@ public class StateIdle : State
 
     protected override void SelectNextState()
     {
-        //アニメーションが変更されていなければ処理終了
-        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle");
-
         //移動
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {

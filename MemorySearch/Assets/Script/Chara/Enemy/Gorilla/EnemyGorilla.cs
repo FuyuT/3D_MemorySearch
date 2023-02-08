@@ -52,6 +52,15 @@ public class EnemyGorilla : EnemyBase
             return;
         }
 
+        if (!UpdateCharaBase())
+        {
+            if (stateMachine.currentStateKey != (int)State.Idle)
+            {
+                stateMachine.Dispatch((int)State.Idle);
+            }
+            return;
+        }
+
         stateMachine.Update();
 
         UpdateRotate();
@@ -59,8 +68,6 @@ public class EnemyGorilla : EnemyBase
         UpdatePosition();
 
         UpdateDelay();
-
-        CharaUpdate();
     }
     //äpìxçXêV
     void UpdateRotate()

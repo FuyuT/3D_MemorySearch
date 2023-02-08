@@ -84,7 +84,6 @@ public class CameraManager : MonoBehaviour
             return;
 
         AllCameraInit();
-
         switch (stateMachine.currentStateKey)
         {
             case (int)CameraType.FPS:

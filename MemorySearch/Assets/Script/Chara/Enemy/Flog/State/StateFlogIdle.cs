@@ -8,17 +8,12 @@ public class StateFlogIdle : State
 { 
     protected override void OnEnter(State prevState)
     {
-        //アニメーションの更新をする前に、遷移できるステートがあるか確かめる
-        SelectNextState();
-
         //アニメーションの更新
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle_1");
     }
 
     protected override void OnUpdate()
     {
-        Actor.IVelocity().InitVelocity();
-
         //探知範囲内にターゲットがいれば、そちらの方向を向く
         if (Owner.searchRange.InTarget)
         {

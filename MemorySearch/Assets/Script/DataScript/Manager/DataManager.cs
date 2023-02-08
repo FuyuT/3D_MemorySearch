@@ -10,7 +10,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] TextAsset memoryDataTxt;
     [SerializeField] TextAsset enemyDataTxt;
 
-    [Header("memorySpriteには、メモリの画像を「Memory.cs MemoryType」の順番に配置してください。")]
+    [Header("memorySpriteには、メモリの画像を「Script/Memory/Memory.cs MemoryType」の順番に配置してください。")]
     [SerializeField] Sprite[] memorySprite;
 
     MemoryData memoryData;
@@ -31,6 +31,7 @@ public class DataManager : MonoBehaviour
             enemyData  = new EnemyData();
             optionData = new OptionData();
             Load();
+            DontDestroyOnLoad(this);
         }
         else
         {
@@ -40,8 +41,10 @@ public class DataManager : MonoBehaviour
 
     void Load()
     {
-        //メモリーデータの読み込み
+        //メモリーデータ
         memoryData.Load(memoryDataTxt);
+        //敵データ
+        enemyData.Load(enemyDataTxt);
 
         //セーブデータパスの取得
         saveDataPath = SaveDataProcess.GetSaveDataPath();
@@ -53,8 +56,9 @@ public class DataManager : MonoBehaviour
         try
         {
             SoundManager soundManager = GameObject.FindWithTag("SoundManager").GetComponent<SoundManager>();
-            soundManager.BgmVolume = optionData.soundOption.bgmVolume;
-            soundManager.SeVolume = optionData.soundOption.seVolume;
+            soundManager.BgmVolume = optionData.soundOption.isMuteBGM ? 0 : optionData.soundOption.bgmVolume;
+           
+            soundManager.SeVolume = optionData.soundOption.isMuteSE ? 0 : optionData.soundOption.seVolume;
         }
         catch
         {
@@ -68,19 +72,25 @@ public class DataManager : MonoBehaviour
     *******************************/
     public static DataManager instance;
 
-    //メモリデータのインターフェイスを取得
+    //メモリデータのインターフェイス
     public IMemoryData IMemoryData()
     {
         return memoryData;
     }
 
-    //プレイヤーデータのインターフェイスを取得
+    //敵データインターフェイス
+    public IEnemyData IEnemyData()
+    {
+        return enemyData;
+    }
+
+    //プレイヤーデータのインターフェイス
     public IPlayerData IPlayerData()
     {
         return playerData;
     }
 
-    //オプションデータのインターフェイスを取得
+    //オプションデータのインターフェイス
     public IOptionData IOptionData()
     {
         return optionData;

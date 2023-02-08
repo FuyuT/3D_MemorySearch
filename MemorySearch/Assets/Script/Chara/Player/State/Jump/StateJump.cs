@@ -27,7 +27,6 @@ public class StateJump : State
 
     protected override void OnUpdate()
     {
-
         Move();
 
         Jump();
@@ -44,7 +43,6 @@ public class StateJump : State
         Actor.Transform.IVelocity().AddVelocity(moveAdd * Owner.MoveSpeed);
     }
 
-    //ジャンプ
     void Jump()
     {
         //キー入力されていたら、ジャンプ速度を加速させる（飛距離を延ばす）

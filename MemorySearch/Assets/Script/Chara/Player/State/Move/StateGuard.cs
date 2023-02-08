@@ -15,7 +15,7 @@ public class StateGuard : State
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         isReady = true;
-        Owner.SetDefencePower(5);
+        Owner.SetDefencePower(1);
     }
 
     protected override void OnUpdate()

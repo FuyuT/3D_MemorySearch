@@ -78,12 +78,15 @@ public class AttackRange : MonoBehaviour
         if (attackPower == 0) return;
         //“G‚Ìƒ_ƒ[ƒWî•ñ‚É’Ç‰Á‚·‚é
         CharaBase enemy = other.GetComponent<CharaBase>();
-        enemy.AddDamageInfo(chara.GetAttackInfo().id, chara.GetAttackInfo());
+
+        AttackInfo attackInfo = chara.GetAttackInfo();
+        attackInfo.attacker = chara.gameObject;
+        attackInfo.attackPos = chara.gameObject.transform.position;
+        enemy.AddDamageInfo(chara.GetAttackInfo().id, attackInfo);
         //“–‚½‚Á‚½“G‚ğ‹L˜^‚µ‚Ä‚¨‚­
         if(!hitEnemies.ContainsKey(enemy.GetID()))
         {
             hitEnemies.Add(enemy.GetID(), other.GetComponentInChildren<CharaBase>());
         }
     }
-
 }

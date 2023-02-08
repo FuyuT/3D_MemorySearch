@@ -543,8 +543,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3418350831459271605}
   - component: {fileID: 3418350830929913164}
-  - component: {fileID: 3418350830929913163}
   - component: {fileID: 3418350830929913162}
+  - component: {fileID: 4111802324926694845}
   m_Layer: 0
   m_Name: Enemy_Cow
   m_TagString: Enemy
@@ -583,19 +583,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!65 &3418350830929913163
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3418350830929913161}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 8.498471, y: 13.310223, z: 15.339506}
-  m_Center: {x: -0.056497097, y: 6.53158, z: 2.2696629}
 --- !u!114 &3418350830929913162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,11 +596,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1281533835119471471}
+  animTransform: {fileID: 3270260761840390653}
   searchRange: {fileID: 3418350830577639534}
   attackRange: {fileID: 3418350830307733507}
   moveSpeed: 25
   rotateSpeed: 3
-  hpMax: 10
+  hpMax: 3
   delayTackleMax: 6
   delayTackle: 0
   tackleTimeMax: 2
@@ -621,10 +609,23 @@ MonoBehaviour:
   tackleSpeed: 60
   renderer: {fileID: 5168470871140640507}
   effectTackle: {fileID: 4520230228781225224}
-  effectExplosion: {fileID: 0}
   AttackSE: {fileID: 8300000, guid: 71ba827360e1e8c4c9e23d61e442b24b, type: 3}
   DownSE: {fileID: 8300000, guid: 7a04913b8fb187449b48995aa7fd9503, type: 3}
   ExplosionSE: {fileID: 8300000, guid: 15e74fd4a3d9c484bb8ca15a538cdc8d, type: 3}
+--- !u!136 &4111802324926694845
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3418350830929913161}
+  m_Material: {fileID: 13400000, guid: 72e928da43a2c5b4b9744db02835c3c0, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 6.2792187
+  m_Height: 12.558437
+  m_Direction: 1
+  m_Center: {x: 0, y: 5.887473, z: -0.33803463}
 --- !u!1 &3536315635470507485
 GameObject:
   m_ObjectHideFlags: 0
@@ -857,12 +858,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4061417009873528438}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2307a62c7896c9941a40dc27e9ddee66, type: 3}
+  m_Script: {fileID: 11500000, guid: b3cf71afd537342429dbc97df3433572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effect:
+  effects:
   - {fileID: 8349097023794964224}
-  - {fileID: 4520230228781225224}
 --- !u!1 &4260664787168052724
 GameObject:
   m_ObjectHideFlags: 0

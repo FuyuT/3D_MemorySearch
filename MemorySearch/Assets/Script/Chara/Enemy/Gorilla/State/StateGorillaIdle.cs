@@ -7,17 +7,12 @@ public class StateGorillaIdle : State
 {
     protected override void OnEnter(State prevState)
     {
-        SelectNextState();
-
+        //アニメーションが変更されていなければ処理終了
+        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle_1");
     }
 
     protected override void OnUpdate()
     {
-        //アニメーションが変更されていなければ処理終了
-        if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle_1"))
-        {
-            return;
-        }
 
         SelectNextState();
     }

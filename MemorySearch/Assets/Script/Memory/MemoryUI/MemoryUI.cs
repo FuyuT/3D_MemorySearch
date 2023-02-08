@@ -17,6 +17,20 @@ public class MemoryUI : MonoBehaviour
     * public
     *******************************/
 
+    //ìßñæâª
+    public void Transparent()
+    {
+        Color beforeColor = gameObject.GetComponent<Image>().color;
+        gameObject.GetComponent<Image>().color = new Color(beforeColor.r, beforeColor.g, beforeColor.b,0);
+    }
+
+    //îÒìßñæâª
+    public void Opaque()
+    {
+        Color beforeColor = gameObject.GetComponent<Image>().color;
+        gameObject.GetComponent<Image>().color = new Color(beforeColor.r, beforeColor.g, beforeColor.b, 255);
+    }
+
     //getter
 
     public MemorySelectManager.MoveType GetMoveType()
@@ -40,7 +54,6 @@ public class MemoryUI : MonoBehaviour
         memoryType = type;
         //âÊëúÇïœçX
         GetComponent<Image>().sprite = DataManager.instance.GetMemorySprite(memoryType);
-
     }
 
 }

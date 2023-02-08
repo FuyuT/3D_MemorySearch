@@ -65,8 +65,6 @@ public class StateMoveWalk : State
 
     protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
-        Owner.animator.ResetTrigger("Idle");
-        //•à‚­SE‚ð—¬‚·
-       // SoundManager.instance.StopSe(Owner.WalkSE);
+        Owner.animator.ResetTrigger("Move_Walk");
     }
 }

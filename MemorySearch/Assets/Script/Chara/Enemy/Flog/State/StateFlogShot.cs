@@ -21,7 +21,7 @@ public class StateFlogShot : State
     {
         //ターゲットへのベクトルを計算
         Vector3 vec = Vector3.Normalize(Player.readPlayer.GetPos() - Actor.IPosition().GetPosition()) * Owner.moveSpeed;
-
+        vec.y = 0;
         Actor.Transform.RotateUpdateToVec(vec, Owner.rotateSpeed);
 
         //弾丸が飛ぶ方向を更新

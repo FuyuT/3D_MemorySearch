@@ -19,9 +19,9 @@ public class ProjectileBullet : ProjectileBase
         var projectile = Object.Instantiate(this);
 
         projectile.GetComponent<ProjectileBase>().Init(this.transform.position,
-            this.transform.rotation, transform.lossyScale, moveVec, speed, damage);
+            this.transform.rotation, transform.lossyScale, moveVec, speed, attackInfo.power);
+        projectile.GetComponent<ProjectileBase>().SetCollisionExclusionID(collisionExclusionID);
 
         projectile.gameObject.SetActive(true);
     }
-
 }

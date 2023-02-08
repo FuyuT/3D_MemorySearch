@@ -78,7 +78,7 @@ public class SearchMemory : MonoBehaviour
     //    ScanAnimEnd();
     //}
 
-    void FixedUpdate()
+    void Update()
     {
         UpdatePosition();
 

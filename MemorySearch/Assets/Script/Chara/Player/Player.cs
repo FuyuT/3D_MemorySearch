@@ -86,21 +86,24 @@ public class Player : CharaBase, IReadPlayer
     {
         //待機
         stateMachine.AddAnyTransition<StateIdle>((int)State.Idle);
-        stateMachine.GetOrAddState<StateIdle>().SetDispatchStates(new State[7]
-            { State.Move_Walk,State.Jump,State.Move_Dush,State.Attack_Punch,
-              State.Guard,State.Attack_Slam,State.Attack_Tackle});
+        stateMachine.GetOrAddState<StateIdle>().SetDispatchStates(new State[9]
+            { State.Move_Walk,    State.Jump,              State.Move_Dush, 
+              State.Attack_Punch, State.Attack_Rush_Three, State.Attack_Rush_Five,
+              State.Guard,        State.Attack_Slam,       State.Attack_Tackle});
 
         //歩く
         stateMachine.AddTransition<StateIdle, StateMoveWalk>((int)State.Move_Walk);
-        stateMachine.GetOrAddState<StateMoveWalk>().SetDispatchStates(new State[7]
-            { State.Move_Walk,State.Jump,State.Move_Dush,State.Attack_Punch,
-              State.Guard,State.Attack_Slam,State.Attack_Tackle});
+        stateMachine.GetOrAddState<StateMoveWalk>().SetDispatchStates(new State[9]
+            { State.Move_Walk,    State.Jump,              State.Move_Dush,
+              State.Attack_Punch, State.Attack_Rush_Three, State.Attack_Rush_Five,
+              State.Guard,        State.Attack_Slam,       State.Attack_Tackle});
 
         //走る
         stateMachine.AddAnyTransition<StateMoveRun>((int)State.Move_Run);
-        stateMachine.GetOrAddState<StateMoveRun>().SetDispatchStates(new State[7]
-            { State.Move_Walk,State.Jump,State.Move_Dush,State.Attack_Punch,
-              State.Guard,State.Attack_Slam,State.Attack_Tackle});
+        stateMachine.GetOrAddState<StateMoveRun>().SetDispatchStates(new State[9]
+            { State.Move_Walk,    State.Jump,              State.Move_Dush,
+              State.Attack_Punch, State.Attack_Rush_Three, State.Attack_Rush_Five,
+              State.Guard,        State.Attack_Slam,       State.Attack_Tackle});
 
         //ガード
         stateMachine.AddAnyTransition<StateGuard>((int)State.Guard);
@@ -119,8 +122,9 @@ public class Player : CharaBase, IReadPlayer
         //ジャンプ
         stateMachine.AddAnyTransition<StateJump>((int)State.Jump);
         stateMachine.GetOrAddState<StateJump>().SetDispatchStates(new State[2]
-            { State.Double_Jump,State.Move_Dush});
+        { State.Double_Jump,State.Move_Dush});
 
+        //ダブルジャンプ
         stateMachine.AddAnyTransition<StateDoubleJump>((int)State.Double_Jump);
         stateMachine.GetOrAddState<StateDoubleJump>().SetDispatchStates(new State[1]
         {
@@ -140,12 +144,31 @@ public class Player : CharaBase, IReadPlayer
         {
             State.None
         });
+        //ラッシュ３連撃
+        stateMachine.AddAnyTransition<StateAttack_Rush_Three>((int)State.Attack_Rush_Three);
+        stateMachine.GetOrAddState<StateAttack_Rush_Three>().SetDispatchStates(new State[1]
+        {
+            State.None
+        });
+        //ラッシュ５連撃
+        stateMachine.AddAnyTransition<StateAttack_Rush_Five>((int)State.Attack_Rush_Five);
+        stateMachine.GetOrAddState<StateAttack_Rush_Five>().SetDispatchStates(new State[1]
+        {
+            State.None
+        });
 
         //叩きつけ
         stateMachine.AddAnyTransition<StateAttack_Slam>((int)State.Attack_Slam);
         stateMachine.GetOrAddState<StateAttack_Slam>().SetDispatchStates(new State[1]
         {
             State.None
+        });
+
+        //落下
+        stateMachine.AddAnyTransition<StateFall>((int)State.Fall);
+        stateMachine.GetOrAddState<StateFall>().SetDispatchStates(new State[1]
+        {
+            State.Move_Dush
         });
 
         //ステートマシンの開始　初期ステートは引数で指定
@@ -183,6 +206,18 @@ public class Player : CharaBase, IReadPlayer
             renderer.enabled = true;
         }
 
+        if (!UpdateCharaBase())
+        {
+            if(stateMachine.currentStateKey != (int)State.Idle)
+            {
+                stateMachine.Dispatch((int)State.Idle);
+            }
+            return;
+        }
+
+        //落下状態への遷移
+        StateDispatchFall();
+
         //ステートマシン更新
         stateMachine.Update();
 
@@ -192,11 +227,21 @@ public class Player : CharaBase, IReadPlayer
         //位置更新
         PositionUpdate();
 
-
         //地面に着地しているか確認する
-        CheckCollisionGround();
+        CheckCollisionLowerObject();
+    }
 
-        CharaUpdate();
+    void StateDispatchFall()
+    {
+        if (isGround) return;
+        if (actor.IVelocity().GetState() != MyUtil.VelocityState.isDown) return;
+
+        if(stateMachine.currentStateKey != (int)State.Fall
+            && stateMachine.currentStateKey != (int)State.Jump
+            && stateMachine.currentStateKey != (int)State.Double_Jump)
+        {
+            stateMachine.Dispatch((int)State.Fall);
+        }
     }
 
     //角度更新
@@ -342,8 +387,6 @@ public class Player : CharaBase, IReadPlayer
     public float nowTackleDelayTime;
     [Space]
     [Header("「叩きつけステート」")]
-    [Header("アニメーション位置")]
-    [SerializeField] public Transform animTransform;
 
     [Space]
     [Header("初速")]
@@ -383,6 +426,8 @@ public class Player : CharaBase, IReadPlayer
         Double_Jump = MemoryType.DowbleJump,
         //攻撃
         Attack_Punch = MemoryType.Punch,
+        Attack_Rush_Three = MemoryType.Rush_Three,
+        Attack_Rush_Five = MemoryType.Rush_Five,
         Attack_Slam = MemoryType.Slam,
         Attack_Tackle = MemoryType.Tackle,
         //防御
@@ -392,7 +437,7 @@ public class Player : CharaBase, IReadPlayer
         //移動
         Move_Walk,
         Move_Run,
-        Floating,
+        Fall,
     }
 
     public float nowJumpSpeed;
@@ -443,19 +488,23 @@ public class Player : CharaBase, IReadPlayer
     /*******************************
     * 衝突判定
     *******************************/
-    private void CheckCollisionGround()
+    private void CheckCollisionLowerObject()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
 
         Debug.DrawRay(ray.origin, ray.direction * DirectionCheckHitGround, Color.red);
-        if (Physics.Raycast(ray,out hit, DirectionCheckHitGround)) //速度が0の時に例が0にならないように+RayAdjustしている
+        if (Physics.Raycast(ray,out hit, DirectionCheckHitGround))
         {
             //地面にレイが当たっていて、プレイヤーのVelocityが上昇していない時
-            if (hit.collider.CompareTag("Ground")
-                && actor.IVelocity().GetState() != MyUtil.VelocityState.isUp)
+            switch(hit.transform.tag)
             {
-                isGround = true;
+                case "Ground":
+                    if(actor.IVelocity().GetState() != MyUtil.VelocityState.isUp)
+                    {
+                        isGround = true;
+                    }
+                    break;
             }
         }
         //何にも当たっていないなら

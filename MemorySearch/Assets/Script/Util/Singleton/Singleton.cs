@@ -2,7 +2,7 @@
 
 namespace MyUtil
 {
-    public class Singleton<T> where T : class, new()
+    public abstract class Singleton<T> where T : class, new()
     {
         /*******************************
         * private
@@ -16,7 +16,6 @@ namespace MyUtil
         {
             instance = new T();
         }
-
         /*******************************
         * public
         *******************************/
@@ -33,10 +32,5 @@ namespace MyUtil
 
             return instance;
         }
-
-        /*******************************
-        * protected
-        *******************************/
-        protected Singleton() { }
     }
 }
