@@ -25,7 +25,7 @@ public class OparationMoveObject : MonoBehaviour
          Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
          foreach (RaycastHit hit in Physics.RaycastAll(ray))
          {
-             if (hit.transform.name == "Dore")
+             if (hit.transform.name == "Dore" || hit.transform.name == "MoveWall")
              {
                  Vector3 objPos = Camera.main.WorldToScreenPoint(transform.position);
                  transform.position += new Vector3(0, Input.GetAxis("Mouse Y") * moveSpeed, 0);

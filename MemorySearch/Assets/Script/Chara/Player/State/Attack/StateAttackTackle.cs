@@ -33,7 +33,7 @@ public class StateAttackTackle : State
         nowTackleTime = Owner.TackleTime;
 
         //UŒ‚—Íİ’è
-        Owner.SetAttackPower(8);
+        Owner.SetAttackPower(2);
 
         isMove = false;
 

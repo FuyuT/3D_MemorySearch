@@ -20,10 +20,10 @@ public class ProjectileBase : MonoBehaviour
         speed    = 0.0f;
         damage   = 0;
     }
-
-    public void Init(Vector3 pos, Vector3 moveVec, float speed, int damage)
+    public void Init(Vector3 pos, Quaternion rot, Vector3 moveVec, float speed, int damage)
     {
         transform.position = pos;
+        transform.rotation = rot;
         isPrefab = false;
         this.moveVec = moveVec;
         this.speed = speed;
@@ -31,10 +31,11 @@ public class ProjectileBase : MonoBehaviour
         this.gameObject.SetActive(true);
     }
 
-    public void Init(Vector3 pos, Quaternion rot, Vector3 moveVec, float speed, int damage)
+    public void Init(Vector3 pos, Quaternion rot, Vector3 scale, Vector3 moveVec, float speed, int damage)
     {
         transform.position = pos;
         transform.rotation = rot;
+        transform.localScale = scale;
         isPrefab = false;
         this.moveVec = moveVec;
         this.speed = speed;
@@ -63,7 +64,7 @@ public class ProjectileBase : MonoBehaviour
         var projectile = Object.Instantiate(this);
 
         projectile.Init(transform.position,
-            transform.rotation, transform.forward, speed, damage);
+            transform.rotation, transform.lossyScale, transform.forward, speed, damage);
     }
 
     /*******************************

@@ -14,7 +14,7 @@ public class StateCowTackle : State
         Owner.animator.SetTrigger("Idle");
         isTackleReady = false;
 
-        Owner.SetAttackPower(3);
+        Owner.SetAttackPower(2);
     }
 
     protected override void OnUpdate()

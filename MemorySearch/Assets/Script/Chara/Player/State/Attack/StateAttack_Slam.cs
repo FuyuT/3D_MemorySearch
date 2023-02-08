@@ -17,7 +17,7 @@ public class StateAttack_Slam : State
         Actor.Transform.IVelocity().InitVelocity();
 
         //攻撃力設定
-        Owner.SetAttackPower(15);
+        Owner.SetAttackPower(3);
 
         boxCollider = Owner.GetComponent<BoxCollider>();
         Actor.IVelocity().SetUseGravity(false);

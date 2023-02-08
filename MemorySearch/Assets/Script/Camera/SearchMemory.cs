@@ -43,15 +43,23 @@ public class SearchMemory : MonoBehaviour
     [SerializeField] Slider SearchSlider;
     [SerializeField] float SearcCompleteSpeed;
 
+     [Header("ゲットしたメモリー")]
+    [SerializeField]
+    GameObject IsGetMemoryImg;
+    [SerializeField]
+    public Vector3 IsGetMemoryImgPos;
+
     //Lockonのスクリプト
     [SerializeField]
     Lockon lockon;
 
-    ////アニメーション
-    //[SerializeField]
-    //Animator ScanOnAnimator;
+    //ScanMemoryUI
+    [SerializeField]
+    MemoryUI memoryUI;
 
     MemoryType scanMemory;
+
+    public bool isScan { get; private set; }
 
     void Start()
     {
@@ -59,30 +67,16 @@ public class SearchMemory : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
 
         player = GameObject.FindGameObjectWithTag("Player");
-        //transform.rotation = player.transform.rotation;
+        transform.rotation = player.transform.rotation;
 
         InitSearchSlider();
 
         isScan = false;
 
         scanMemory = new MemoryType();
-        //BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanAnimStart");
 
-        // Time.timeScale = 0;
-
+        IsGetMemoryImg.SetActive(false);
     }
-
-     void Update()
-     {
-        //if (BehaviorAnimation.IsPlayEnd(ref ScanOnAnimator, "ScanAnimStart"))
-        //{
-        //    BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanAnimEnd");
-        //    Debug.Log("a");
-        //    Time.timeScale = 1;
-        //}
-                transform.rotation = player.transform.rotation;
-
-     }
 
     void FixedUpdate()
     {
@@ -185,6 +179,11 @@ public class SearchMemory : MonoBehaviour
         DataManager.instance.IPlayerData().AddPossesionMemory(scanMemory);
 
         getMemoryUI.Play();
+        IsGetMemoryImg.SetActive(true);
+        IsGetMemoryImg.GetComponent<Image>().sprite = DataManager.instance.GetMemorySprite(scanMemory);
+
+       
+
         InitSearchSlider();
         isScan = false;
     }
@@ -193,25 +192,17 @@ public class SearchMemory : MonoBehaviour
     /*******************************
     * public
     *******************************/
-    public bool isScan { get; private set; }
+   
 
     public void InitSearchSlider()
     {
         SearchSlider.value = 0;
     }
 
-    //public void ScanAnimStart()
-    //{
-    //}
+    public void ScanAnimStart()
+    {
+    }
 
-    //public void ScanAnimEnd()
-    //{
-    //    if (BehaviorAnimation.IsPlayEnd(ref ScanOnAnimator, "ScanAnimStart"))
-    //    {
-    //        BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanAnimEnd");
-    //        Debug.Log("a");
-    //        Time.timeScale = 1;
-    //    }
-    //}
+    
 }
 

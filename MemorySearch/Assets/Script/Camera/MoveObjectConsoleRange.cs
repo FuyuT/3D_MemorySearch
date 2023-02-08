@@ -68,7 +68,6 @@ public class MoveObjectConsoleRange : MonoBehaviour
                     IsUseGuideUI.SetActive(true);
                     GameUI.SetActive(true);
                     ReturnUi.SetActive(false);
-                    Debug.Log("TPSへ");
                     break;
                 default:
                     //コントローラーカメラに遷移する為の準備
