@@ -41,8 +41,11 @@ public class SceneManager : MonoBehaviour
 
     void Update()
     {
+        if (nowScene == SceneType.Title) return;
+        
         CheckGameOver();
     }
+      
 
     //ゲームオーバーか確認して、ゲームオーバーなら次のシーンをゲームオーバーに設定
     void CheckGameOver()
@@ -50,9 +53,9 @@ public class SceneManager : MonoBehaviour
         //プレイヤーの実体がなければ終了
         if (Player.readPlayer == null) return;
 
-
         if (Player.readPlayer.IsEndDeadMotion())
         {
+            
             ToGameOver();
         }
     }

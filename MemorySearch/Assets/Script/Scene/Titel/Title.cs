@@ -73,7 +73,7 @@ public class Title : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Time.timeScale = 1.0f;
+        Time.timeScale = 1.0f;
         stateMachine.Update();
         PushSpase();
     }

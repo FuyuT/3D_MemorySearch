@@ -26,9 +26,10 @@ public class Lockon : MonoBehaviour
     [SerializeField]
     float scanImagePosY;
 
-    [Header("スキャンゲージ")]
+    [Header("スキャン不可枠")]
     [SerializeField]
-    Slider SearcSlider;
+    GameObject ScanGetedImg;
+    Animator ScanGetedImgAnim;
 
     [Header("ゲットできるメモリー")]
     [SerializeField]
@@ -36,10 +37,9 @@ public class Lockon : MonoBehaviour
     [SerializeField]
     public Vector3 GetMemoryImgPos;
 
-   
+
 
     /////////////////////////////////////////////////
-
 
     MemoryType currentScanMemory;
 
@@ -55,10 +55,9 @@ public class Lockon : MonoBehaviour
             ScanImg.SetActive(false);
             ScanImgAnim = ScanImg.GetComponent<Animator>();
 
-            GetMemoryImg.SetActive(false);
+            ScanGetedImg.SetActive(false);
+            ScanGetedImgAnim = ScanGetedImg.GetComponent<Animator>();
         }
-
-
     }
 
     void Update()
@@ -78,6 +77,7 @@ public class Lockon : MonoBehaviour
         if (!Search.isScan && ScanImgAnim.speed == 0)
         {
             ScanImgAnim.speed = 1;
+            ScanGetedImgAnim.speed = 1;
         }
     }
 
@@ -99,12 +99,14 @@ public class Lockon : MonoBehaviour
         {
             if (hit.collider.CompareTag("Enemy"))
             {
-                ScanImg.transform.position = hit.point + new Vector3(0, scanImagePosY, 0);
-                //GetMemoryImg.transform.position = hit.point + new Vector3(GetMemoryImgPos.x, GetMemoryImgPos.y, GetMemoryImgPos.z);
+               
+                        ScanGetedImg.transform.position = hit.point + new Vector3(0, scanImagePosY, 0);
+                  
+                        ScanImg.transform.position = hit.point + new Vector3(0, scanImagePosY, 0);
             }
         }
         ScanImg.transform.rotation = Camera.main.transform.rotation;
-        //GetMemoryImg.transform.rotation = ScanImg.transform.rotation;
+        ScanGetedImg.transform.rotation = Camera.main.transform.rotation;
     }
 
     /*******************************
@@ -120,6 +122,23 @@ public class Lockon : MonoBehaviour
     * 衝突処理
     *******************************/
 
+    private void UpdateCuurentScanMemory()
+    {
+        currentScanMemory = target.gameObject.GetComponent<EnemyBase>().GetMemory();
+        if (DataManager.instance.IPlayerData().PossesionMemoryIsContain(currentScanMemory))
+        {
+            ScanImg.SetActive(false);
+            ScanGetedImg.SetActive(true);
+            return;
+        }         
+        else
+        {
+            ScanImg.SetActive(true);
+            ScanGetedImg.SetActive(false);
+            GetMemoryImg.GetComponent<Image>().sprite = DataManager.instance.GetMemorySprite(currentScanMemory);
+        }
+    }
+
     private void OnTriggerStay(Collider collision)
     {
         if (collision.gameObject.tag != "Enemy") return;
@@ -127,13 +146,7 @@ public class Lockon : MonoBehaviour
         if (target == null)
         {
             target = collision.gameObject;
-            SearcSlider.value = 0;
-            ScanImg.SetActive(true);
-            GetMemoryImg.SetActive(true);
-
-            currentScanMemory = target.GetComponent<EnemyBase>().GetMemory();
-            GetMemoryImg.GetComponent<Image>().sprite = DataManager.instance.GetMemorySprite(currentScanMemory);
-
+            UpdateCuurentScanMemory();
             return;
         }
         //スキャンしてる時は、ターゲットを切り替えない
@@ -156,12 +169,13 @@ public class Lockon : MonoBehaviour
             if (collisionDistance <= targetDistance)
             {
                 target = collision.gameObject;
-
-                ScanImg.SetActive(true);
-                GetMemoryImg.SetActive(true);
-                currentScanMemory = target.GetComponent<EnemyBase>().GetMemory();
-                GetMemoryImg.GetComponent<Image>().sprite = DataManager.instance.GetMemorySprite(currentScanMemory);
+                UpdateCuurentScanMemory();
             }
+            else
+            {
+                UpdateCuurentScanMemory();
+            }
+
         }
     }
 
@@ -171,12 +185,9 @@ public class Lockon : MonoBehaviour
         if (collision.gameObject == target)
         {
             ScanImg.SetActive(false);
-            GetMemoryImg.SetActive(true);
+            ScanGetedImg.SetActive(false);
 
             target = null;
-
-            currentScanMemory = MemoryType.None;
-            GetMemoryImg.GetComponent<Image>().sprite = DataManager.instance.GetMemorySprite(currentScanMemory);
         }
 
     }

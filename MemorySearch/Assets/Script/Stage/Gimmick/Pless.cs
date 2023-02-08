@@ -113,4 +113,13 @@ public class Pless : MonoBehaviour
                 break;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag=="Player")
+        {
+            //ƒ_ƒ[ƒWˆ—
+
+        }
+    }
 }

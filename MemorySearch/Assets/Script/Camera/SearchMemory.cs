@@ -78,12 +78,15 @@ public class SearchMemory : MonoBehaviour
         IsGetMemoryImg.SetActive(false);
     }
 
+    private void Update()
+    {
+        ScanStartUpdate();
+    }
+
     void FixedUpdate()
     {
-        UpdatePosition();
-
         RotateCmaeraAngle(viewAngle);
-
+        UpdatePosition();
         Scan();
     }
 
@@ -118,17 +121,21 @@ public class SearchMemory : MonoBehaviour
         transform.rotation = player.transform.rotation;
     }
 
-    void Scan()
+    void  ScanStartUpdate()
     {
-        //メモリ取得時のUIを再生
-
-        if (Input.GetMouseButtonDown(1) && lockon.GetTarget())
+        if (!lockon.GetTarget()) return;
+        if (DataManager.instance.IPlayerData().PossesionMemoryIsContain(lockon.GetTarget().GetComponent<EnemyBase>().GetMemory())) return;
+           
+        if (Input.GetMouseButtonDown(1))
         {
             isScan = true;
             scanMemory = lockon.GetTarget().GetComponent<EnemyBase>().GetMemory();
-            SoundManager.instance.PlaySe(Chargeclip,transform.position);
+            SoundManager.instance.PlaySe(Chargeclip, transform.position);
         }
+    }
 
+    void Scan()
+    {
         if (!isScan) return;
 
         //ターゲットがいなくなった時
@@ -182,9 +189,9 @@ public class SearchMemory : MonoBehaviour
         IsGetMemoryImg.SetActive(true);
         IsGetMemoryImg.GetComponent<Image>().sprite = DataManager.instance.GetMemorySprite(scanMemory);
 
-       
-
-        InitSearchSlider();
+        
+            InitSearchSlider();
+        
         isScan = false;
     }
 

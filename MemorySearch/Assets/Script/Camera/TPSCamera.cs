@@ -40,15 +40,15 @@ public class TPSCamera : MonoBehaviour
     [SerializeField]
     GameObject Locontarget;
 
-    //[Header("ロックオン枠")]
-    //[SerializeField]
-    //GameObject LockonImg;
+    [Header("ロックオン枠")]
+    [SerializeField]
+    GameObject LockonImg;
     //////////////////////////////////////////////////////////
 
     private void Start()
     {
         ToLockon = false;
-        //LockonImg.SetActive(false);
+        LockonImg.SetActive(false);
     }
 
     void Update()
@@ -59,18 +59,19 @@ public class TPSCamera : MonoBehaviour
         //3,そうでなければプレイヤーが向いている方向にカメラを向ける
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if(!ToLockon)
+            if (!ToLockon)
             {
                 ToLockon = true;
             }
             else
             {
                 ToLockon = false;
-                //LockonImg.SetActive(false);
+                LockonImg.SetActive(false);
 
             }
             return;
         }
+        if (!ToLockon) return;
         LockonUpdate();
     }
 
@@ -138,13 +139,15 @@ public class TPSCamera : MonoBehaviour
         //ステージの壁、天井に当たっていたら
         if (Physics.Linecast(target.transform.position, transform.position, out hit, WallLayer))
         {
-            transform.position = hit.point + new Vector3(0, 10, 0);
+            transform.position = hit.point + new Vector3(0, 20, 0);
             isHitStage = true;
+            Debug.Log("当たり");
         }
         if (Physics.Linecast(target.transform.position, transform.position, out hit, CeilingLayer))
         {
             transform.position = hit.point - new Vector3(0, 5, 0);
             isHitStage = true;
+            Debug.Log("当たり");
         }
 
         //注視点を変更
@@ -180,7 +183,7 @@ public class TPSCamera : MonoBehaviour
         if (target != null)
         {
             lockOnTarget = Locontarget;
-            //LockonImg.SetActive(true);
+            LockonImg.SetActive(true);
             //LockonImg.transform.position = lockOnTarget.gameObject.transform.position;
            // LockonImg.transform.rotation = Camera.main.transform.rotation;
         }

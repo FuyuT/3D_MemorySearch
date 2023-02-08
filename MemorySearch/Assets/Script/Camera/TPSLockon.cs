@@ -15,8 +15,6 @@ public class TPSLockon : MonoBehaviour
     void Start()
     {
        
-            LockonImg.SetActive(false);
-        
     }
 
     void Update()
@@ -64,7 +62,7 @@ public class TPSLockon : MonoBehaviour
         {
             target = collision.gameObject;
 
-            LockonImg.SetActive(true);
+          
 
             return;
         }
@@ -81,7 +79,7 @@ public class TPSLockon : MonoBehaviour
             {
                 target = collision.gameObject;
 
-                LockonImg.SetActive(true);
+              
             }
         
     }
@@ -91,7 +89,7 @@ public class TPSLockon : MonoBehaviour
         if (collision.gameObject.tag != "Enemy") return;
         if (collision.gameObject == target)
         {
-            LockonImg.SetActive(false);
+         
 
             target = null;
 

@@ -25,8 +25,13 @@ public class MoveObjectConsoleRange : MonoBehaviour
     [SerializeField]
     GameObject StageLoadAnim;
 
+    //戻るUI
     [SerializeField]
     GameObject ReturnUi;
+
+    //神獣矢印UI
+    [SerializeField]
+    GameObject[] ArrowDragUi;
 
     //フェード用
     [SerializeField]
@@ -39,45 +44,58 @@ public class MoveObjectConsoleRange : MonoBehaviour
 
     bool isFirstControl;
 
-    void Awake()
-    {
-    }
-
     void Start()
     {
         InRange = false;
         IsUseGuideUI.SetActive(false);
         ReturnUi.SetActive(false);
+        for (int i = 0; i < ArrowDragUi.Length; i++)
+        {
+            ArrowDragUi[i].SetActive(false);
+        }
         isFirstControl = true;
     }
 
- 
+
     void Update()
     {
-        //神獣アニメーションスタート
-        //StageLoadAnimはステージ読み込みアニメーション
+        //StageLoadAnimが起動している時は処理を終了
         if (StageLoadAnim.activeSelf) return;
-       
-        if (Input.GetKeyDown("r") && InRange)
-        {
-            switch (CameraManager.instance.GetCurrentCameraType())
-            {
-                case (int)CameraManager.CameraType.Controller:
-                    //コントローラーカメラからTPSに戻す
-                    CameraManager.instance.ToTpsCamera();
-                    IsUseGuideUI.SetActive(true);
-                    GameUI.SetActive(true);
-                    ReturnUi.SetActive(false);
-                    break;
-                default:
-                    //コントローラーカメラに遷移する為の準備
-                    BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeOut");
-                    IsUseGuideUI.SetActive(false);
-                    GameUI.SetActive(false);
-                    break;
-            }
-        }
 
+        ChangeCamera();
+        ChangeCameraUpdate();
+    }
+
+    void ChangeCamera()
+    {
+        if (!Input.GetKeyDown(KeyCode.R)) return;
+
+        switch (CameraManager.instance.GetCurrentCameraType())
+        {
+            case (int)CameraManager.CameraType.Controller:
+                if (!InRange) break;
+                //コントローラーカメラからTPSに戻す
+                CameraManager.instance.ToTpsCamera();
+                IsUseGuideUI.SetActive(true);
+                GameUI.SetActive(true);
+                ReturnUi.SetActive(false);
+                for (int i = 0; i < ArrowDragUi.Length; i++)
+                {
+                    ArrowDragUi[i].SetActive(false);
+                }
+                Debug.Log("TPSへ");
+                break;
+            default:
+                //コントローラーカメラに遷移する為の準備
+                BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeOut");
+                IsUseGuideUI.SetActive(false);
+                GameUI.SetActive(false);
+                break;
+        }
+    }
+
+    void ChangeCameraUpdate()
+    {
         if (isFirstControl)
         {
             if (BehaviorAnimation.IsPlayEnd(ref FadeAnimator, "FadeOut"))
@@ -93,6 +111,10 @@ public class MoveObjectConsoleRange : MonoBehaviour
                 BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeIn");
                 CameraManager.instance.ToControllCamera();
                 ReturnUi.SetActive(true);
+                for (int i = 0; i < ArrowDragUi.Length; i++)
+                {
+                    ArrowDragUi[i].SetActive(true);
+                }
             }
         }
     }
