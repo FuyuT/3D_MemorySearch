@@ -9,8 +9,14 @@ using State = MyUtil.PlayerState;
 /// </summary>
 public class StateAttack_Slam : State
 {
-    BoxCollider boxCollider;
+    /*******************************
+    * private
+    *******************************/
+    CapsuleCollider collider;
 
+    /*******************************
+    * private
+    *******************************/
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         //その場で停止
@@ -19,10 +25,9 @@ public class StateAttack_Slam : State
         //攻撃力設定
         Owner.SetAttackPower(3);
 
-        boxCollider = Owner.GetComponent<BoxCollider>();
+        collider = Owner.GetComponent<CapsuleCollider>();
         Actor.IVelocity().SetUseGravity(false);
     }
-
     protected override void OnUpdate()
     {
         //アニメーションを更新
@@ -32,11 +37,10 @@ public class StateAttack_Slam : State
             return;
         }
 
-        boxCollider.center = new Vector3(0, Owner.animTransform.localPosition.y, 0);
+        collider.center = new Vector3(0, Owner.animTransform.localPosition.y, 0);
 
         SelectNextState();
     }
-
     protected override void SelectNextState()
     {
         //アニメーションが終了していたら待機へ
@@ -49,7 +53,6 @@ public class StateAttack_Slam : State
         //装備から状態を選択
         EquipmentSelectNextState();
     }
-
     protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         Owner.SetAttackPower(0);
@@ -58,6 +61,6 @@ public class StateAttack_Slam : State
 
         Actor.IVelocity().SetUseGravity(true);
 
-        boxCollider.center = Vector3.zero;
+        collider.center = Vector3.zero;
     }
 }

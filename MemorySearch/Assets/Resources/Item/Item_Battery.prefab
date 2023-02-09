@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a7702eb43b2d9540846099208ae4585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayTimeMax: 0.5
-  speed: 1.5
-  startUpSpeed: 15
-  upDecreaseSpeed: 0.4
+  delayTimeMax: 1
+  speed: 2
+  startUpSpeed: 60
+  upDecreaseSpeed: 3
 --- !u!1 &7255234766358955259
 GameObject:
   m_ObjectHideFlags: 0

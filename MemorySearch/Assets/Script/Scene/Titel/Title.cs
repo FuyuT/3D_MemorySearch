@@ -76,6 +76,13 @@ public class Title : MonoBehaviour
         Time.timeScale = 1.0f;
         stateMachine.Update();
         PushSpase();
+
+        if(Input.GetKeyDown(KeyCode.Backspace) 
+            && Input.GetKey(KeyCode.LeftControl))
+        {
+            DataManager.instance.IniPossesiontMemoryData();
+            DataManager.instance.Save();
+        }
     }
 
     void PushSpase()

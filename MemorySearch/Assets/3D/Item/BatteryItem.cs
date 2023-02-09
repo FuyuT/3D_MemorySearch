@@ -10,32 +10,31 @@ public class BatteryItem : MonoBehaviour
 
     [SerializeField] float startUpSpeed;
     [SerializeField] float upDecreaseSpeed;
-    float startDistance;
 
     float nowTime = 0;
     float batteryPower;
 
-    void Update()
+    private void FixedUpdate()
     {
-        if(nowTime <= delayTimeMax)
+        if (nowTime <= delayTimeMax)
         {
             nowTime += Time.deltaTime;
             return;
         }
 
         Vector3 targetPos = Player.readPlayer.GetPos();
-        if(startUpSpeed > 0)
+        if (startUpSpeed > 0)
         {
             targetPos.y += startUpSpeed;
             startUpSpeed -= upDecreaseSpeed;
         }
-        
+
         transform.position = Vector3.MoveTowards(transform.position, targetPos, speed);
     }
+
     /*******************************
     * public
     *******************************/
-    
     public void Create(Vector3 pos ,float batteryPower)
     {
         var battery = Instantiate(this);

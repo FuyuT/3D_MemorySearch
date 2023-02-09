@@ -15,7 +15,7 @@ public class GameClear : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        soundManager.PlayBgm(clip);
+        //soundManager.PlayBgm(clip);
     }
 
     // Update is called once per frame

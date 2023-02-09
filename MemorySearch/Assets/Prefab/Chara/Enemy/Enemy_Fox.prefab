@@ -2035,7 +2035,7 @@ MonoBehaviour:
   tackleSpeed: 200
   tackleDelay: 0
   tackleDelayMax: 20
-  boxCollider: {fileID: 0}
+  capsuleCollider: {fileID: 0}
 --- !u!136 &877384661830490842
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2148,7 +2148,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3cf71afd537342429dbc97df3433572, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effects: []
+  effects:
+  - {fileID: 2358086800985566565}
+  - {fileID: 4084075486343909661}
+  - {fileID: 4336709662258715061}
+  - {fileID: 3789217814341021054}
+  - {fileID: 2175294620653866418}
+  - {fileID: 2676064224681274964}
 --- !u!1 &2676064224598783253
 GameObject:
   m_ObjectHideFlags: 0

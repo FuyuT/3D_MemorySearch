@@ -37,8 +37,6 @@ public class Lockon : MonoBehaviour
     [SerializeField]
     public Vector3 GetMemoryImgPos;
 
-
-
     /////////////////////////////////////////////////
 
     MemoryType currentScanMemory;
@@ -46,6 +44,12 @@ public class Lockon : MonoBehaviour
     private void Awake()
     {
         currentScanMemory = new MemoryType();
+    }
+
+    private void OnDisable()
+    {
+        ScanImg.SetActive(false);
+        ScanGetedImg.SetActive(false);
     }
 
     void Start()
@@ -92,17 +96,16 @@ public class Lockon : MonoBehaviour
 
     void UpdateScanImgTransform()
     {
-        Ray EnemyRay = new Ray(target.transform.position + new Vector3(0, 20, 0), new Vector3(0, -1, 0)); ;
+        Ray EnemyRay = new Ray(target.transform.position + new Vector3(0, 50, 0), new Vector3(0, -1, 0)); ;
 
-        RaycastHit hit;
-        if (target.GetComponent<BoxCollider>().Raycast(EnemyRay, out hit, 30.0f))
+        foreach (RaycastHit hit in Physics.RaycastAll(EnemyRay))
         {
-            if (hit.collider.CompareTag("Enemy"))
+            if (hit.collider.gameObject == target)
             {
-               
-                        ScanGetedImg.transform.position = hit.point + new Vector3(0, scanImagePosY, 0);
-                  
-                        ScanImg.transform.position = hit.point + new Vector3(0, scanImagePosY, 0);
+                Debug.Log(target.name + hit.point);
+                ScanGetedImg.transform.position = hit.point + new Vector3(0, scanImagePosY, 0);
+
+                ScanImg.transform.position = hit.point + new Vector3(0, scanImagePosY, 0);
             }
         }
         ScanImg.transform.rotation = Camera.main.transform.rotation;
@@ -181,7 +184,6 @@ public class Lockon : MonoBehaviour
 
     private void OnTriggerExit(Collider collision)
     {
-        if (collision.gameObject.tag != "Enemy") return;
         if (collision.gameObject == target)
         {
             ScanImg.SetActive(false);

@@ -150,10 +150,17 @@ public class CharaBase : MonoBehaviour
         }
     }
 
-    //死んでいるかの確認
-    public bool IsDead()
+    /// <summary>
+    /// 死んでいるかの確認
+    /// 引数には、与えるダメージを入力（初期値は0）
+    /// 入力しなければ、現在のhpで確認
+    /// 入力すれば、引数のダメージを与えた時に死ぬか確認
+    /// </summary>
+    /// <param name="damage">与えるダメージを入力</param>
+    /// <returns></returns>
+    public bool IsDead(int damage = 0)
     {
-        return charaParam.hp <= 0 ? true : false;
+        return charaParam.hp - damage <= 0 ? true : false;
     }
 
     public bool IsEndDeadMotion()

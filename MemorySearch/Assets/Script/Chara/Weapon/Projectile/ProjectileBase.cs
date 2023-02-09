@@ -85,7 +85,40 @@ public class ProjectileBase : MonoBehaviour
     * colision
     *******************************/
 
-    private void OnTriggerStay(Collider other)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (isPrefab) return;
+
+        switch (collision.gameObject.tag)
+        {
+            case "Player":
+                AttackInfo attackInfo = this.attackInfo;
+                attackInfo.attacker = gameObject;
+                attackInfo.attackPos = transform.position;
+                collision.gameObject.GetComponentInChildren<CharaBase>().AddDamageInfo(attackInfo.id, attackInfo);
+                break;
+            case "Untagged":
+                return;
+        }
+
+        //親IDが設定されていたら
+        if (collisionExclusionID != -1)
+        {
+            //オブジェクトの親に当たっていたら終了
+            try
+            {
+                if (collision.gameObject.GetComponent<CharaBase>().GetID() == collisionExclusionID) return;
+            }
+            catch
+            {
+
+            }
+        }
+
+        Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
     {
         if (isPrefab) return;
 

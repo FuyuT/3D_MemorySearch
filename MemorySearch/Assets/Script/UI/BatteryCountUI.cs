@@ -22,14 +22,19 @@ public class BatteryCountUI : MonoBehaviour
     }
 
     private void OnEnable()
-    {
-        switch(type)
+    {        
+        switch (type)
         {
             case Type.Possesion:
-                text.text = DataManager.instance.IPlayerData().GetPossesionCombineCost().ToString();
+                text.text = ToUpper(DataManager.instance.IPlayerData().GetPossesionCombineCost().ToString());
                 break;
         }
+    }
 
+    string ToUpper(string value)
+    {
+        value = StringWidthConverter.ConvertToFullWidth(value);
+        return value.Replace("ÅD", ".");
     }
 
     /*******************************
@@ -37,26 +42,25 @@ public class BatteryCountUI : MonoBehaviour
     *******************************/
     public void SetBatteryCount(float count)
     {
-        text.text = count.ToString();
+        text.text = ToUpper(count.ToString());
     }
 
     public void InitToCost(float to)
     {
-        text.text = to.ToString();
+        SetBatteryCount(to);
         text.color = Color.black;
     }
 
     public void UpdateToCost(float to)
     {
-        text.text = to.ToString();
-
+        SetBatteryCount(to);
         if(to < 0)
         {
             text.color = Color.red;
         }
         else
         {
-            text.color = Color.black;
+            text.color = Color.red;
         }
     }
 }

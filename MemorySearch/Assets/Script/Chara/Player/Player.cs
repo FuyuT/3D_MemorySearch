@@ -14,10 +14,12 @@ public class Player : CharaBase, IReadPlayer
 
     [Header("無敵時間")]
     [SerializeField] float InvincibleTimeMax;
-    float nowInvincibleTime;
+    public float nowInvincibleTime;
     [Header("描画を切る間隔時間")]
     [SerializeField] float DrawCancelTimeMax;
     float nowDrawCancelTime;
+
+    [SerializeField] PhysicMaterial physicMaterial;
 
     //アクター
     MyUtil.Actor<Player> actor;
@@ -80,6 +82,8 @@ public class Player : CharaBase, IReadPlayer
 
         //速度の上限値を設定
         actor.IVelocity().SetMaxVelocityY(120);
+
+        isPossibleDush = true;
     }
 
     void StateMachineInit()
@@ -181,6 +185,8 @@ public class Player : CharaBase, IReadPlayer
 
         //Delayの更新
         DelayTimeUpdate();
+        //無敵の更新
+        UpdateInvincible();
 
         if (IsDead())
         {
@@ -195,16 +201,6 @@ public class Player : CharaBase, IReadPlayer
 
         //TimeScaleが0以下の時は処理を終了
         if (Time.timeScale <= 0) return;
-
-        //FPSカメラの時は、プレイヤーを非表示にする
-        if (FPSCamera.activeSelf)
-        {
-            renderer.enabled = false;
-        }
-        else
-        {
-            renderer.enabled = true;
-        }
 
         if (!UpdateCharaBase())
         {
@@ -221,27 +217,41 @@ public class Player : CharaBase, IReadPlayer
         //ステートマシン更新
         stateMachine.Update();
 
+        //地面に着地しているか確認する
+        CheckCollisionLowerObject();
+    }
+
+    private void FixedUpdate()
+    {
+        if (IsDead())
+        {
+            return;
+        }
+
+        //ステートマシン更新
+        stateMachine.FiexdUpdate();
+
         //角度更新
         RotateUpdate();
 
         //位置更新
         PositionUpdate();
-
-        //地面に着地しているか確認する
-        CheckCollisionLowerObject();
     }
 
-    void StateDispatchFall()
+    public bool StateDispatchFall()
     {
-        if (isGround) return;
-        if (actor.IVelocity().GetState() != MyUtil.VelocityState.isDown) return;
+        if (isGround) return false;
+        if (actor.IVelocity().GetState() != MyUtil.VelocityState.isDown) return false;
 
         if(stateMachine.currentStateKey != (int)State.Fall
             && stateMachine.currentStateKey != (int)State.Jump
             && stateMachine.currentStateKey != (int)State.Double_Jump)
         {
             stateMachine.Dispatch((int)State.Fall);
+            return true;
         }
+
+        return false;
     }
 
     //角度更新
@@ -286,12 +296,9 @@ public class Player : CharaBase, IReadPlayer
         {
             nowTackleDelayTime -= Time.deltaTime;
         }
-
-        UpdateInvincibleTime();
-
     }
 
-    void UpdateInvincibleTime()
+    void UpdateInvincible()
     {
         //無敵時間更新
         if (nowInvincibleTime > 0)
@@ -311,7 +318,7 @@ public class Player : CharaBase, IReadPlayer
         }
         else
         {
-            //renderer.enabled = !renderer.enabled;
+            renderer.enabled = !renderer.enabled;
             nowDrawCancelTime = DrawCancelTimeMax;
         }
     }
@@ -416,11 +423,15 @@ public class Player : CharaBase, IReadPlayer
 
     public bool isGround;
 
+    public bool isPossibleDush;
+
     public enum State
     {
         //メモリの種類
         None = MemoryType.None,
+        //ダッシュ
         Move_Dush = MemoryType.Dush,
+        Move_Air_Dush = MemoryType.AirDush,
         //ジャンプ
         Jump = MemoryType.Jump,
         Double_Jump = MemoryType.DowbleJump,
@@ -472,18 +483,19 @@ public class Player : CharaBase, IReadPlayer
     {
         return nowInvincibleTime <= 0 ? true : false;
     }
-
     override protected void AddDamageProcess(int damage)
     {
         //hpUIの再生
         hpUI.Damage(damage);
 
         //無敵の更新
-        nowInvincibleTime = InvincibleTimeMax;
-        nowDrawCancelTime = DrawCancelTimeMax;
-        renderer.enabled = false;
+        if(!IsDead(damage))
+        {
+            nowInvincibleTime = InvincibleTimeMax;
+            nowDrawCancelTime = DrawCancelTimeMax;
+            renderer.enabled = false;
+        }
     }
-
 
     /*******************************
     * 衝突判定
@@ -503,6 +515,8 @@ public class Player : CharaBase, IReadPlayer
                     if(actor.IVelocity().GetState() != MyUtil.VelocityState.isUp)
                     {
                         isGround = true;
+                        isPossibleDush = true;
+                        gameObject.GetComponent<CapsuleCollider>().material = null;
                     }
                     break;
             }
@@ -510,6 +524,7 @@ public class Player : CharaBase, IReadPlayer
         //何にも当たっていないなら
         else
         {
+            gameObject.GetComponent<CapsuleCollider>().material = physicMaterial;
             isGround = false;
         }
     }

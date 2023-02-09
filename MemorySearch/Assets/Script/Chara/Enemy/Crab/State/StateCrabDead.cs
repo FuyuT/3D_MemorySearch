@@ -31,8 +31,8 @@ public class StateCrabDead : State
                 //SE関連
                 SoundManager.instance.StopSe(Owner.DownSE);
                 SoundManager.instance.PlaySe(Owner.ExplosionSE, Owner.transform.position);
-                Owner.renderer.enabled = false;
                 Owner.DropBattery(EnemyType.Crab);
+                Owner.gameObject.SetActive(false);
             }
         }
     }

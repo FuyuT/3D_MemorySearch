@@ -10,12 +10,26 @@ using State = MyUtil.PlayerState;
 public class StateMoveWalk : State
 {
     /*******************************
+    * private
+    *******************************/
+    Vector3 moveAdd;
+
+    void MoveInput()
+    {
+        //方向キーの入力値とカメラの向きから、移動方向を決定
+        moveAdd = BehaviorMoveToInput.GetInputVec();
+        BehaviorMoveToInput.ParseToCameraVec(ref moveAdd);
+    }
+
+    void Move()
+    {
+        Actor.Transform.IVelocity().AddVelocity(moveAdd * Owner.MoveSpeed);
+    }
+    /*******************************
     * protected
     *******************************/
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
-        //歩くSEを流す
-       // SoundManager.instance.PlaySe(Owner.WalkSE, Owner.transform.position);
     }
 
     protected override void OnUpdate()
@@ -23,21 +37,14 @@ public class StateMoveWalk : State
         //アニメーションの更新
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Move_Walk");
 
-        Move();
+        MoveInput();
 
         SelectNextState();
     }
 
-    void Move()
-    {       
-        //方向キーの入力値とカメラの向きから、移動方向を決定
-        Vector3 moveAdd = BehaviorMoveToInput.GetInputVec();
-        BehaviorMoveToInput.ParseToCameraVec(ref moveAdd);
-
-        //移動スピードを掛ける
-        moveAdd *= Owner.MoveSpeed;
-
-        Actor.Transform.IVelocity().AddVelocity(moveAdd);
+    protected override void OnFiexdUpdate()
+    {
+        Move();
     }
 
     protected override void SelectNextState()
@@ -53,7 +60,7 @@ public class StateMoveWalk : State
         }
 
         //待機状態
-        if (Actor.Transform.IVelocity().GetVelocity() == Vector3.zero)
+        if (moveAdd == Vector3.zero)
         {
             stateMachine.Dispatch((int)Player.State.Idle);
             return;

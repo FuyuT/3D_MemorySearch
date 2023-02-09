@@ -9,16 +9,22 @@ using State = MyUtil.PlayerState;
 /// </summary>
 public class StateIdle : State
 {
+    /*******************************
+    * protected
+    *******************************/
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
+        if(Owner.StateDispatchFall())
+        {
+            return;
+        }
+
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle");
     }
-
     protected override void OnUpdate()
     {
         SelectNextState();
     }
-
     protected override void SelectNextState()
     {
         //移動
@@ -31,7 +37,6 @@ public class StateIdle : State
         //装備から次の状態を選択
         EquipmentSelectNextState();
     }
-
     protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         //アニメーションのトリガーを解除

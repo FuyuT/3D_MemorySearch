@@ -23,11 +23,13 @@ public class EnemyFox : EnemyBase
     bool isEngagement;
     private void Awake()
     {
-        boxCollider = GetComponent<BoxCollider>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
         StateMachineInit();
         actor.Transform.Init();
         Init();
         isEngagement = false;
+
+        mainMemory = MemoryType.Rush_Three;
     }
 
     private void Init()
@@ -181,7 +183,7 @@ public class EnemyFox : EnemyBase
     [SerializeField] public float tackleDelayMax;
 
     [HideInInspector]
-    public BoxCollider boxCollider;
+    public CapsuleCollider capsuleCollider;
     //コンストラクタ
     public EnemyFox()
     {

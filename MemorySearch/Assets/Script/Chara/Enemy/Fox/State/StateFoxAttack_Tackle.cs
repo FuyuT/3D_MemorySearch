@@ -18,6 +18,8 @@ public class StateFoxAttack_Tackle : State
         isTackleEnd   = false;
         Owner.SetAttackPower(Owner.tackleDamage);
         Owner.animator.SetTrigger("Attack_Tackle_1");
+
+        Owner.SetSubMemory(MemoryType.Tackle);
     }
 
     protected override void OnUpdate()
@@ -85,5 +87,7 @@ public class StateFoxAttack_Tackle : State
         Owner.animator.ResetTrigger("Attack_Tackle_1");
         Owner.animator.ResetTrigger("Attack_Tackle_2");
         Owner.animator.ResetTrigger("Attack_Tackle_3");
+
+        Owner.InitSubMemory();
     }
 }

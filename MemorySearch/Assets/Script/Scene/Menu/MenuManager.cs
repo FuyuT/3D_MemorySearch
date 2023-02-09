@@ -35,6 +35,10 @@ public class MenuManager : MonoBehaviour
             if (isOpen)
             {
                 CloseMenu();
+                if(CameraManager.instance.GetCurrentCameraType() == (int)CameraManager.CameraType.FPS)
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
             }
             else
             {

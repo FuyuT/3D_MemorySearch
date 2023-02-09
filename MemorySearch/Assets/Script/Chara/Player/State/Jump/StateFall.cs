@@ -9,28 +9,40 @@ using State = MyUtil.PlayerState;
 /// </summary>
 public class StateFall : State
 {
+    /*******************************
+    * private
+    *******************************/
+    Vector3 moveAdd;
+
+    void MoveInput()
+    {
+        //方向キーの入力値とカメラの向きから、移動方向を決定
+        moveAdd = BehaviorMoveToInput.GetInputVec();
+        BehaviorMoveToInput.ParseToCameraVec(ref moveAdd);
+    }
+    void Move()
+    {
+        Actor.Transform.IVelocity().AddVelocity(moveAdd * Owner.MoveSpeed);
+    }
+    /*******************************
+    * protected
+    *******************************/
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
-        //アニメーションの更新   todo
+        //アニメーションの更新
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_Fall");
-        Debug.Log("落下");
     }
 
     protected override void OnUpdate()
     {
-        Move();
+        MoveInput();
         SelectNextState();
     }
 
-    void Move()
+    protected override void OnFiexdUpdate()
     {
-        //方向キーの入力値とカメラの向きから、移動方向を決定
-        Vector3 moveAdd = BehaviorMoveToInput.GetInputVec();
-        BehaviorMoveToInput.ParseToCameraVec(ref moveAdd);
-
-        Actor.Transform.IVelocity().AddVelocity(moveAdd * Owner.MoveSpeed);
+        Move();
     }
-
 
     protected override void SelectNextState()
     {

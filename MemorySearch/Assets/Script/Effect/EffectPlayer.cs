@@ -49,4 +49,14 @@ public class EffectPlayer : MonoBehaviour
 
         effects[no].Stop();
     }
+
+    /// <summary>
+    /// Ä¶‚µ‚Ä‚¢‚é‚©‚ğ•Ô‚·
+    /// </summary>
+    /// <param name="no"></param>
+    /// <returns></returns>
+    public bool IsPlay(int no = 0)
+    {
+        return effects[no].exists;
+    }
 }

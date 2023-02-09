@@ -92,6 +92,10 @@ public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectCon
                 IsUseGuideUI.SetActive(false);
                 GameUI.SetActive(false);
                 isUseControleCamera = true;
+                for (int i = 0; i < ArrowDragUi.Length; i++)
+                {
+                    ArrowDragUi[i].SetActive(true);
+                }
                 break;
         }
     }
@@ -114,10 +118,6 @@ public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectCon
             BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeIn");
             CameraManager.instance.ToControllCamera();
             ReturnUi.SetActive(true);
-            for (int i = 0; i < ArrowDragUi.Length; i++)
-            {
-                ArrowDragUi[i].SetActive(true);
-            }
         }
     }
     /*******************************
@@ -138,6 +138,8 @@ public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectCon
     *******************************/
     private void OnTriggerStay(Collider other)
     {
+        if (isUseControleCamera) return;
+
         if (other.gameObject.tag == "Player")
         {
             IsUseGuideUI.SetActive(true);

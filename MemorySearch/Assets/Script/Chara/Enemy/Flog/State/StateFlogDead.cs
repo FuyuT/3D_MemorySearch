@@ -31,8 +31,15 @@ public class StateFlogDead : State
                 //SE関連
                 SoundManager.instance.StopSe(Owner.DownSE);
                 SoundManager.instance.PlaySe(Owner.ExplosionSE, Owner.transform.position);
-                Owner.renderer.enabled = false;
                 Owner.DropBattery(EnemyType.Flog);
+                Owner.renderer.enabled = false;
+            }
+        }
+        else
+        {
+            if (!Owner.effectPlayer.IsPlay(0))
+            {
+                Owner.gameObject.SetActive(false);
             }
         }
     }

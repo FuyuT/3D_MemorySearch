@@ -6,45 +6,14 @@ using State = MyUtil.PlayerState;
 
 public class StateAttack_Punch : State
 {
+    /*******************************
+    * private
+    *******************************/
     const float Move_Time_Max = 0.2f;
     const float Move_Speed = 50.0f;
     Vector3 moveVec;
     float moveTime;
 
-    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
-    {
-        //攻撃力設定
-        Owner.SetAttackPower(1);
-        //その場で停止
-        Actor.Transform.IVelocity().InitVelocity();
-
-        //SE
-        SoundManager.instance.PlaySe(Owner.PunchSE, Owner.transform.position);
-
-        InitMove();
-    }
-
-    protected override void OnUpdate()
-    {
-        //アニメーションを更新
-        if(!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Punch_1"))
-        {
-            return;
-        }
-
-        Move();
-
-        SelectNextState();
-    }
-
-    private void Move()
-    {
-        if (moveTime < Move_Time_Max)
-        {
-            moveTime += Time.deltaTime;
-            Actor.IVelocity().AddVelocity(moveVec * Move_Speed);
-        }
-    }
     private void InitMove()
     {
         //移動時間を初期化
@@ -60,7 +29,58 @@ public class StateAttack_Punch : State
         //カメラの向きを考慮する
         BehaviorMoveToInput.ParseToCameraVec(ref moveVec);
     }
+    private void UpdateMoveTime()
+    {
+        if (moveTime < Move_Time_Max)
+        {
+            moveTime += Time.deltaTime;
+        }
+    }
+    private void Move()
+    {
+        if (moveTime < Move_Time_Max)
+        {
+            Actor.IVelocity().AddVelocity(moveVec * Move_Speed);
+        }
+    }
 
+    /*******************************
+    * protected
+    *******************************/
+    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
+    {
+        //攻撃力設定
+        Owner.SetAttackPower(1);
+        //その場で停止
+        Actor.Transform.IVelocity().InitVelocity();
+
+        //SE
+        SoundManager.instance.PlaySe(Owner.PunchSE, Owner.transform.position);
+
+        InitMove();
+    }
+    protected override void OnUpdate()
+    {
+        //アニメーションを更新
+        if(!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Punch_1"))
+        {
+            return;
+        }
+
+        UpdateMoveTime();
+
+        SelectNextState();
+    }
+    protected override void OnFiexdUpdate()
+    {
+        //アニメーションを更新
+        if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Punch_1"))
+        {
+            return;
+        }
+
+        Move();
+    }
     protected override void SelectNextState()
     {
         //アニメーションが終了していたら待機へ

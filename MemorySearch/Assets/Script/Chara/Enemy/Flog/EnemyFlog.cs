@@ -79,18 +79,36 @@ public class EnemyFlog : EnemyBase
         //ステートマシン更新
         stateMachine.Update();
 
-        //角度更新
-        RotateUpdate();
-
-        //位置更新
-        PositionUpdate();
-
         //Delayの更新
         DelayUpdate();
 
         //地面に着地しているか確認する
         CheckCollisionGround();
     }
+
+    private void FixedUpdate()
+    {
+        //プレイヤーの実体がなければ終了
+        if (Player.readPlayer == null)
+        {
+            return;
+        }
+
+        if (IsDead())
+        {
+            stateMachine.FiexdUpdate();
+            return;
+        }
+
+        stateMachine.FiexdUpdate();
+
+        //角度更新
+        RotateUpdate();
+
+        //位置更新
+        PositionUpdate();
+    }
+
 
     //角度の更新
     void RotateUpdate()
@@ -199,6 +217,9 @@ public class EnemyFlog : EnemyBase
     [SerializeField] public AudioClip DownSE;
     [SerializeField] public AudioClip ExplosionSE;
 
+    [Space]
+    [Header("エフェクト")]
+    [SerializeField] public EffectPlayer effectPlayer;
     public bool isGround;
 
     //ジャンプ関係

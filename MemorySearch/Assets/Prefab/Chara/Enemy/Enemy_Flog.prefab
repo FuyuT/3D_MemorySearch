@@ -1405,7 +1405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 3832604674891622318}
   animTransform: {fileID: 8780210723891577099}
-  DirectionCheckHitGround: 3.7
+  DirectionCheckHitGround: 4.5
   searchRange: {fileID: 5778342064349852125}
   attackRange: {fileID: 5778342065819042977}
   moveSpeed: 12
@@ -1413,19 +1413,20 @@ MonoBehaviour:
   HpMax: 2
   projectileBullet: {fileID: 7423011394420158201}
   projectileDelay: 0
-  projectileDelayMax: 2
+  projectileDelayMax: 5
   projectileSpeed: 3
   projectileDamage: 1
   delayJumpTimeMax: 0.55
   JumpToTargetPower: 1
-  JumpStartSpeed: 3
-  JumpDecreaseValue: 0.2
+  JumpStartSpeed: 5
+  JumpDecreaseValue: 0.4
   renderer: {fileID: 4050930009263962949}
   JumpSE: {fileID: 8300000, guid: 95bbc5a004464074e8f92bab10c3c761, type: 3}
   AttackSE: {fileID: 8300000, guid: 6c63ac69b35861a47b1f38a7881c64cf, type: 3}
   ShotSE: {fileID: 8300000, guid: 8ff67b558bb2cd24db0a0927b534bfc9, type: 3}
   DownSE: {fileID: 8300000, guid: db3feff9c67591143b6d9323368ebeaf, type: 3}
   ExplosionSE: {fileID: 8300000, guid: 15e74fd4a3d9c484bb8ca15a538cdc8d, type: 3}
+  effectPlayer: {fileID: 4409214338396621105}
   isGround: 0
   delayJumpTime: 0
   nowJumpSpeed: 0
@@ -1452,7 +1453,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5778342065088892447}
-  m_Material: {fileID: 13400000, guid: 72e928da43a2c5b4b9744db02835c3c0, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
@@ -2348,16 +2349,32 @@ PrefabInstance:
     - {fileID: 6060829769596982689, guid: 700a22aa882685b4f8a46056b9d74be3, type: 3}
     - {fileID: 6060829769596982620, guid: 700a22aa882685b4f8a46056b9d74be3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 700a22aa882685b4f8a46056b9d74be3, type: 3}
---- !u!1 &9117699746410694060 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6060829769596982622, guid: 700a22aa882685b4f8a46056b9d74be3, type: 3}
-  m_PrefabInstance: {fileID: 3068348880506212594}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9117699746410694063 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6060829769596982621, guid: 700a22aa882685b4f8a46056b9d74be3, type: 3}
   m_PrefabInstance: {fileID: 3068348880506212594}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9117699746410694060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6060829769596982622, guid: 700a22aa882685b4f8a46056b9d74be3, type: 3}
+  m_PrefabInstance: {fileID: 3068348880506212594}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &7912424828604922176
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9117699746410694060}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &567557449
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2366,7 +2383,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9117699746410694060}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.0000002, y: 0.99999994, z: 1.0000002}

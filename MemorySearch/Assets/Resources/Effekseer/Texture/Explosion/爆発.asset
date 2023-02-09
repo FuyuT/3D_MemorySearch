@@ -17,7 +17,7 @@ MonoBehaviour:
   - path: ../../Effekseer170Win/Sample/01_AndrewFM01/Texture/smoke_tex.png
     texture: {fileID: 2800000, guid: e25173540cbc7784db47613707dd6c41, type: 3}
   - path: ../../Effekseer170Win/Sample/01_Pierre01/Texture/Burst_2.png
-    texture: {fileID: 2800000, guid: b77b4e25b2c3af944be06204fb6d6bb5, type: 3}
+    texture: {fileID: 2800000, guid: f9a1b6c0376556c4c8b89cdf187d41f5, type: 3}
   - path: ../../Effekseer170Win/Sample/01_Pierre02/Texture/Glass.png
     texture: {fileID: 2800000, guid: 1ebb91ac234f2ae439a7040c09f0509c, type: 3}
   - path: ../../Effekseer170Win/Sample/03_Hanmado01/Texture/ef_common_flashlight01_t.png

@@ -9,10 +9,50 @@ using State = MyUtil.PlayerState;
 /// </summary>
 public class StateDoubleJump : State
 {
+    /*******************************
+    * private
+    *******************************/
     bool IsAcceleration;
-
+    Vector3 moveAdd;
     Vector3 jumpStartPos;
 
+    void MoveInput()
+    {
+        //方向キーの入力値とカメラの向きから、移動方向を決定
+        moveAdd = BehaviorMoveToInput.GetInputVec();
+        BehaviorMoveToInput.ParseToCameraVec(ref moveAdd);
+    }
+    void Move()
+    {
+        Actor.Transform.IVelocity().AddVelocity(moveAdd * Owner.MoveSpeed);
+    }
+
+    void JumpInput()
+    {
+        //キー入力されていたら、ジャンプ速度を加速させる（飛距離を延ばす）
+        if (Input.GetKey(Owner.equipmentMemories[Owner.currentEquipmentNo].GetKeyCode())
+            && IsAcceleration && Owner.nowJumpSpeed > 0)
+        {
+        }
+        else
+        {
+            IsAcceleration = false;
+        }
+    }
+    void Jump()
+    {
+        if (IsAcceleration)
+        {
+            Owner.nowJumpSpeed += Owner.JumpAcceleration * Time.timeScale;
+        }
+        //ジャンプの速度を減少させる
+        Owner.nowJumpSpeed -= Owner.JumpDecreaseValue * Time.timeScale;
+        //ジャンプベクトルを格納
+        Actor.Transform.IVelocity().AddVelocityY(Owner.nowJumpSpeed);
+    }
+    /*******************************
+    * protected
+    *******************************/
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         //アニメーションの更新
@@ -35,46 +75,18 @@ public class StateDoubleJump : State
     }
     protected override void OnUpdate()
     {
-        Owner.effectJump.transform.position = jumpStartPos;
+        MoveInput();
 
-        Move();
-
-        Jump();
+        JumpInput();
 
         SelectNextState();
     }
-
-    //移動
-    void Move()
+    protected override void OnFiexdUpdate()
     {
-        //方向キーの入力値とカメラの向きから、移動方向を決定
-        Vector3 moveAdd = BehaviorMoveToInput.GetInputVec();
-        BehaviorMoveToInput.ParseToCameraVec(ref moveAdd);
+        Move();
 
-        Actor.IVelocity().AddVelocity(moveAdd * Owner.MoveSpeed);
+        Jump();
     }
-
-    //ジャンプ
-    void Jump()
-    {
-        //キー入力されていたら、ジャンプ速度を加速させる（飛距離を延ばす）
-        if (Input.GetKey(Owner.equipmentMemories[Owner.currentEquipmentNo].GetKeyCode())
-            && IsAcceleration)
-        {
-            Owner.nowJumpSpeed += Owner.JumpAcceleration * Time.timeScale;
-        }
-        else
-        {
-            IsAcceleration = false;
-        }
-
-        //ジャンプの速度を減少させる
-        Owner.nowJumpSpeed -= Owner.JumpDecreaseValue * Time.timeScale;
-
-        //ジャンプベクトルを格納
-        Actor.Transform.IVelocity().AddVelocityY(Owner.nowJumpSpeed);
-    }
-
     protected override void SelectNextState()
     {
         //ジャンプ中でない、かつ着地していたら待機状態へ
@@ -87,7 +99,6 @@ public class StateDoubleJump : State
         //装備から状態を選択
         EquipmentSelectNextState();
     }
-
     protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         Actor.IVelocity().SetVelocityY(0);

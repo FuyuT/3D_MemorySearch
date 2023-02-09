@@ -14,7 +14,7 @@ public class TPSLockon : MonoBehaviour
 
     void Start()
     {
-       
+        target = null;
     }
 
     void Update()
@@ -22,21 +22,20 @@ public class TPSLockon : MonoBehaviour
         if (target == null) return;
 
         UpdateScanImgTransform();
-    
     }
 
     void UpdateScanImgTransform()
     {
         Ray EnemyRay = new Ray(target.transform.position + new Vector3(0, 20, 0), new Vector3(0, -1, 0)); ;
 
-        RaycastHit hit;
-        if (target.GetComponent<BoxCollider>().Raycast(EnemyRay, out hit, 30.0f))
+        foreach (RaycastHit hit in Physics.RaycastAll(EnemyRay))
         {
-            if (hit.collider.CompareTag("Enemy"))
+            if (hit.collider.gameObject == target)
             {
                 LockonImg.transform.position = hit.point + new Vector3(0, LockonImagePosY, 0);
             }
         }
+
         LockonImg.transform.rotation = Camera.main.transform.rotation;
     }
 
@@ -57,43 +56,32 @@ public class TPSLockon : MonoBehaviour
     {
         if (collision.gameObject.tag != "Enemy") return;
 
-        
         if (target == null)
         {
             target = collision.gameObject;
-
-          
-
             return;
         }
-        //スキャンしてる時は、ターゲットを切り替えない
+        //現在のターゲットと、別のターゲットのどちらがプレイヤーに近いか判断する
+        Vector3 PlayerPos = Player.readPlayer.GetPos();
+        Vector3 temp = PlayerPos - target.transform.position;
+        float targetDistance = temp.x + temp.y + temp.z;
+        temp = Player.readPlayer.GetPos() - collision.transform.position;
+        float collisionDistance = temp.x + temp.y + temp.z;
        
-            //現在のターゲットと、別のターゲットのどちらがプレイヤーに近いか判断する
-            Vector3 PlayerPos = Player.readPlayer.GetPos();
-            Vector3 temp = PlayerPos - target.transform.position;
-            float targetDistance = temp.x + temp.y + temp.z;
-            temp = Player.readPlayer.GetPos() - collision.transform.position;
-            float collisionDistance = temp.x + temp.y + temp.z;
-
-            if (collisionDistance <= targetDistance)
-            {
-                target = collision.gameObject;
-
-              
-            }
-        
+        //近い方にターゲットを切り替える
+        if (collisionDistance <= targetDistance)
+        {
+            target = collision.gameObject;
+        }     
     }
 
     private void OnTriggerExit(Collider collision)
     {
+        //ターゲットがエリアから外れたら、ターゲットをnullにする
         if (collision.gameObject.tag != "Enemy") return;
         if (collision.gameObject == target)
         {
-         
-
             target = null;
-
         }
-
     }
 }

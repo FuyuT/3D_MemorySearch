@@ -10,25 +10,14 @@ using State = MyUtil.PlayerState;
 /// </summary>
 public class StateGuard : State
 {
+    /*******************************
+    * private
+    *******************************/
     bool isReady;
 
-    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
-    {
-        isReady = true;
-        Owner.SetDefencePower(1);
-    }
-
-    protected override void OnUpdate()
-    {
-        AnimUpdate();
-
-        SelectNextState();
-    }
-
-    //アニメーションの更新
     void AnimUpdate()
     {
-        if(isReady)
+        if (isReady)
         {
             //再生できていなければ再生する
             BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Guard_Guarding");
@@ -46,7 +35,20 @@ public class StateGuard : State
             }
         }
     }
-    
+    /*******************************
+    * protected
+    *******************************/
+    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
+    {
+        isReady = true;
+        Owner.SetDefencePower(1);
+    }
+    protected override void OnUpdate()
+    {
+        AnimUpdate();
+
+        SelectNextState();
+    }
     protected override void SelectNextState()
     {
         //ガードモーションに入っていなければ終了
@@ -62,7 +64,6 @@ public class StateGuard : State
         //装備から状態を選択
         EquipmentSelectNextState();
     }
-
     protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         Owner.InitDefencePower();

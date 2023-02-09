@@ -15,6 +15,8 @@ public class StateFlogShot : State
         Owner.projectileBullet.SetDamage(Owner.projectileDamage);
         Owner.projectileBullet.SetSpeed(Owner.projectileSpeed);
         Owner.projectileBullet.SetMoveVec(Owner.transform.forward);
+
+        Owner.SetSubMemory(MemoryType.Punch);
     }
 
     void RotateToTarget()
@@ -64,6 +66,8 @@ public class StateFlogShot : State
 
     protected override void OnExit(State nextState)
     {
+        Owner.InitSubMemory();
+
         Owner.projectileDelay = 0;
         Owner.animator.ResetTrigger("Attack_Shot");
         SoundManager.instance.StopSe(Owner.ShotSE);

@@ -30,9 +30,17 @@ public class StateFlogJump : State
 
     protected override void OnUpdate()
     {
-        Jump();
+        if (Actor.IVelocity().GetState() == MyUtil.VelocityState.isDown)
+        {
+            BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_Fall");
+        }
 
         SelectNextState();
+    }
+
+    protected override void OnFiexdUpdate()
+    {
+        Jump();
     }
 
     void Jump()
@@ -41,11 +49,6 @@ public class StateFlogJump : State
         Owner.nowJumpSpeed -= Owner.JumpDecreaseValue * Time.timeScale;
         //移動ベクトルに進行方向のベクトルとジャンプのベクトルを足す
         Actor.IVelocity().AddVelocity(moveVec + new Vector3(0, Owner.nowJumpSpeed, 0));
-
-        if(Actor.IVelocity().GetState() == MyUtil.VelocityState.isDown)
-        {
-            BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_Fall");
-        }
     }
 
 

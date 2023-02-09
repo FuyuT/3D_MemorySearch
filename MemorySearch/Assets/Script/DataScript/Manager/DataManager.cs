@@ -102,6 +102,21 @@ public class DataManager : MonoBehaviour
         SaveDataProcess.Save(saveDataPath, ref playerData, ref optionData);
     }
 
+    //所持しているメモリデータの初期化を行う
+    public void IniPossesiontMemoryData()
+    {
+        //所持しているメモリの数
+        playerData.possesionMemories.Clear();
+        //装備しているメモリ
+        for (int n = 0; n < Global.EquipmentMemoryMax; n++)
+        {
+            playerData.equipmentMemory[n] = MemoryType.None;
+        }
+        //合成コスト
+        playerData.possesionCombineCost = 0;
+        Debug.Log("メモリデータを初期化");
+    }
+
     //メモリの画像を取得
     public Sprite GetMemorySprite(MemoryType type)
     {

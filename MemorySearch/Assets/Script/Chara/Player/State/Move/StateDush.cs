@@ -9,12 +9,29 @@ using State = MyUtil.PlayerState;
 /// </summary>
 public class StateDush : State
 {
+    /*******************************
+    * private
+    *******************************/
     Vector3 dushVelocity;
     Vector3 accelerateionVec;
     float   nowDushTime;
 
+
+    /*******************************
+    * protected
+    *******************************/
     protected override void OnEnter(MyUtil.ActorState<Player> nextState)
     {
+        if(!Owner.isPossibleDush)
+        {
+            stateMachine.Dispatch((int)Player.State.Idle);
+            return;
+        }
+        else
+        {
+            Owner.isPossibleDush = false;
+        }
+
         //ダッシュベクトルを作成
         dushVelocity = BehaviorMoveToInput.GetDushVec(Owner.transform.forward);
 
@@ -27,29 +44,40 @@ public class StateDush : State
         //時間を設定
         nowDushTime = Owner.DushTime;
 
-        //攻撃力設定
-
         //重力を使用しない
         Actor.IVelocity().SetUseGravity(false);
+
     }
 
     protected override void OnUpdate()
     {
-        //アニメーションの更新
-        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Move_Dush");
+        if(!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Move_Dush"))
+        {
+            return;
+        }
 
-        //目標地点まで毎フレーム移動
         if (nowDushTime > 0)
         {
             nowDushTime -= Time.deltaTime;
+        }
 
+        SelectNextState();
+    }
+
+    protected override void OnFiexdUpdate()
+    {
+        if (!BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Move_Dush"))
+        {
+            return;
+        }
+
+        if (nowDushTime > 0)
+        {
             dushVelocity += accelerateionVec;
 
             //スピード設定
             Actor.IVelocity().SetVelocity(dushVelocity);
         }
-
-        SelectNextState();
     }
 
     protected override void SelectNextState()

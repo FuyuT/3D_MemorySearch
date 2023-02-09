@@ -138,6 +138,14 @@ namespace MyUtil
         }
 
         /// <summary>
+        /// ステートを更新する
+        /// </summary>
+        public void FiexdUpdate()
+        {
+            CurrentState.FiexdUpdate();
+        }
+
+        /// <summary>
         /// イベントを発行する
         /// </summary>
         /// <param name="eventId">イベントID</param>

@@ -61,13 +61,14 @@ public class SearchMemory : MonoBehaviour
 
     public bool isScan { get; private set; }
 
+    private void OnEnable()
+    {
+        transform.rotation = player.transform.rotation;
+    }
+
     void Start()
     {
-        //カーソルロック
-        Cursor.lockState = CursorLockMode.Locked;
-
         player = GameObject.FindGameObjectWithTag("Player");
-        transform.rotation = player.transform.rotation;
 
         InitSearchSlider();
 
@@ -112,13 +113,6 @@ public class SearchMemory : MonoBehaviour
         var angle = transform.eulerAngles;
         angle.y += Input.GetAxis("Mouse X") * option.sensitivity.x;
         transform.eulerAngles = angle;
-    }
-
-    //Activeになった時
-    void OnEnable()
-    {
-        //プレイヤーの角度に合わせる
-        transform.rotation = player.transform.rotation;
     }
 
     void  ScanStartUpdate()
@@ -189,8 +183,7 @@ public class SearchMemory : MonoBehaviour
         IsGetMemoryImg.SetActive(true);
         IsGetMemoryImg.GetComponent<Image>().sprite = DataManager.instance.GetMemorySprite(scanMemory);
 
-        
-            InitSearchSlider();
+        InitSearchSlider();
         
         isScan = false;
     }
@@ -199,7 +192,6 @@ public class SearchMemory : MonoBehaviour
     /*******************************
     * public
     *******************************/
-   
 
     public void InitSearchSlider()
     {
@@ -209,7 +201,5 @@ public class SearchMemory : MonoBehaviour
     public void ScanAnimStart()
     {
     }
-
-    
 }
 

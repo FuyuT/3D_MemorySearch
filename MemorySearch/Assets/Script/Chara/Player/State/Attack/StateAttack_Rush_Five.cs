@@ -6,6 +6,9 @@ using State = MyUtil.PlayerState;
 
 public class StateAttack_Rush_Five : State
 {
+    /*******************************
+    * private
+    *******************************/
     int currentPunchNo;
     bool isChangeNextPunch;
     const int Punch_No_Max = 5;
@@ -14,40 +17,6 @@ public class StateAttack_Rush_Five : State
     Vector3 moveVec;
     float moveTime;
 
-    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
-    {
-        //攻撃力設定
-        Owner.SetAttackPower(1);
-        //その場で停止
-        Actor.Transform.IVelocity().InitVelocity();
-
-        //SE
-        SoundManager.instance.PlaySe(Owner.PunchSE, Owner.transform.position);
-
-        currentPunchNo = 1;
-        isChangeNextPunch = false;
-        Owner.animator.SetTrigger("Attack_Punch_1");
-
-        InitMove();
-    }
-
-    protected override void OnUpdate()
-    {
-        Move();
-
-        NextPunch();
-
-        SelectNextState();
-    }
-
-    private void Move()
-    {
-        if(moveTime < Move_Time_Max)
-        {
-            moveTime += Time.deltaTime;
-            Actor.IVelocity().AddVelocity(moveVec * Move_Speed);
-        }
-    }
     private void InitMove()
     {
         //移動時間を初期化
@@ -55,13 +24,27 @@ public class StateAttack_Rush_Five : State
         //移動方向を設定
         moveVec = BehaviorMoveToInput.GetInputVec();
         //移動方向が0なら、キャラクターの前方方向を移動方向にする
-        if(moveVec == Vector3.zero)
+        if (moveVec == Vector3.zero)
         {
             moveVec = Owner.transform.forward;
             return;
         }
         //カメラの向きを考慮する
         BehaviorMoveToInput.ParseToCameraVec(ref moveVec);
+    }
+    private void UpdateMoveTime()
+    {
+        if (moveTime < Move_Time_Max)
+        {
+            moveTime += Time.deltaTime;
+        }
+    }
+    private void Move()
+    {
+        if (moveTime < Move_Time_Max)
+        {
+            Actor.IVelocity().AddVelocity(moveVec * Move_Speed);
+        }
     }
 
     private void NextPunch()
@@ -84,6 +67,38 @@ public class StateAttack_Rush_Five : State
 
             InitMove();
         }
+    }
+    /*******************************
+    * protected
+    *******************************/
+    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
+    {
+        //攻撃力設定
+        Owner.SetAttackPower(1);
+        //その場で停止
+        Actor.Transform.IVelocity().InitVelocity();
+
+        //SE
+        SoundManager.instance.PlaySe(Owner.PunchSE, Owner.transform.position);
+
+        currentPunchNo = 1;
+        isChangeNextPunch = false;
+        Owner.animator.SetTrigger("Attack_Punch_1");
+
+        InitMove();
+    }
+
+    protected override void OnUpdate()
+    {
+        UpdateMoveTime();
+
+        NextPunch();
+
+        SelectNextState();
+    }
+    protected override void OnFiexdUpdate()
+    {
+        Move();
     }
 
     protected override void SelectNextState()
