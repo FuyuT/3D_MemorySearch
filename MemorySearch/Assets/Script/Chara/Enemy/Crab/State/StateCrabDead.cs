@@ -29,7 +29,6 @@ public class StateCrabDead : State
             if (BehaviorAnimation.IsPlayEnd(ref Owner.animator, "Damage_Dead"))
             {
                 //SE関連
-                SoundManager.instance.StopSe(Owner.DownSE);
                 SoundManager.instance.PlaySe(Owner.ExplosionSE, Owner.transform.position);
                 Owner.DropBattery(EnemyType.Crab);
                 Owner.gameObject.SetActive(false);

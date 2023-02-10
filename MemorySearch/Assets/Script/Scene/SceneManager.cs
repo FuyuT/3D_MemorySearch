@@ -32,11 +32,13 @@ public class SceneManager : MonoBehaviour
     /// main
     //////////////////////////////
     ///
-    bool Show;
+
+    bool IsGameOver;
+
     private void Awake()
     {
-        //GameOverImage.SetActive(false);
-        Show = false;
+        ToClear();
+        IsGameOver = false;
     }
 
     void Update()
@@ -62,13 +64,13 @@ public class SceneManager : MonoBehaviour
 
     private void ToGameOver()
     {
-        if (!Show)
+        if (!IsGameOver)
         {
             GameOverImage.SetActive(true);
-            SoundManager.instance.StopBgm(BGM);
+            SoundManager.instance.StopBgm();
             SoundManager.instance.PlaySe(GameOverSE, Player.readPlayer.GetPos());
             Cursor.visible = true;
-            Show = true;
+            IsGameOver = true;
             Time.timeScale = 0;
         }
     }
@@ -82,6 +84,7 @@ public class SceneManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         FadeManager.Instance.LoadScene("Titel", 1.0f);
+        SoundManager.instance.StopBgm();
     }
 
     public static void ToGame()

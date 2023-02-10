@@ -105,7 +105,5 @@ public class StateAttackTackle : State
         Owner.animator.ResetTrigger("Attack_Tackle");
 
         Owner.effectWind.Stop();
-
-        SoundManager.instance.StopSe(Owner.TackleSE);
     }
 }

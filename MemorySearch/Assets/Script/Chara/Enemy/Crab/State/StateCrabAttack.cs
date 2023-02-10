@@ -54,7 +54,5 @@ public class StateCrabAttack : State
         Owner.InitSubMemory();
 
         Owner.animator.ResetTrigger("Attack");
-
-        SoundManager.instance.StopSe(Owner.AttackSE);
     }
 }

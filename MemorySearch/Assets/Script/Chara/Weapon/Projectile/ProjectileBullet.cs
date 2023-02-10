@@ -5,12 +5,17 @@ public class ProjectileBullet : ProjectileBase
     /*******************************
     * private
     *******************************/
+    [SerializeField]
+    AudioClip ShotSE;
+    private void Awake()
+    {
+        SoundManager.instance.PlaySe(ShotSE, transform.position);
+    }
     private void Update()
     {
         if (isPrefab) return;
         transform.position += moveVec * speed * Time.deltaTime;
     }
-
     /*******************************
     * override
     *******************************/

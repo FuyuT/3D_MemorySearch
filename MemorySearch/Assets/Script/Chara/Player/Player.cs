@@ -175,6 +175,9 @@ public class Player : CharaBase, IReadPlayer
             State.Move_Dush
         });
 
+        //死亡
+        stateMachine.AddAnyTransition<StatePlayerDead>((int)State.Dead);
+
         //ステートマシンの開始　初期ステートは引数で指定
         stateMachine.Start(stateMachine.GetOrAddState<StateIdle>());
     }
@@ -190,12 +193,11 @@ public class Player : CharaBase, IReadPlayer
 
         if (IsDead())
         {
-            SoundManager.instance.PlaySe(DownSE,transform.position);
-            BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
-            if(BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
+            if (stateMachine.currentStateKey != (int)State.Dead)
             {
-                SoundManager.instance.StopSe(DownSE);
+                stateMachine.Dispatch((int)State.Dead);
             }
+            stateMachine.Update();
             return;
         }
 
@@ -404,7 +406,7 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] public float TackleTime;
 
     [Header("プレイヤーのRenderer")]
-    [SerializeField] Renderer renderer;
+    [SerializeField] public Renderer renderer;
 
     [Header("エフェクト")]
     [SerializeField] public Effekseer.EffekseerEmitter effectWind;
@@ -418,6 +420,7 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] public AudioClip GuardSE;
     [SerializeField] public AudioClip TackleSE;
     [SerializeField] public AudioClip PunchSE;
+    [SerializeField] public AudioClip ExplosionSE;
 
     [SerializeField] public BatteryCountUI batteryCountUI;
 
@@ -449,6 +452,8 @@ public class Player : CharaBase, IReadPlayer
         Move_Walk,
         Move_Run,
         Fall,
+        //死亡
+        Dead,
     }
 
     public float nowJumpSpeed;

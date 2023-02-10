@@ -45,10 +45,18 @@ public class TPSCamera : MonoBehaviour
     GameObject LockonImg;
     //////////////////////////////////////////////////////////
 
+    ///クイックカメラ関連//////////////////////////////////// 
+    [SerializeField]
+    GameObject DirectionObject;
+    bool RotetionFrg;
+    /////////////////////////////////////////////////////////
+
     private void Start()
     {
         isLockon = false;
         LockonImg.SetActive(false);
+
+        RotetionFrg = false;
     }
 
     void Update()
@@ -59,9 +67,19 @@ public class TPSCamera : MonoBehaviour
         //3,そうでなければプレイヤーが向いている方向にカメラを向ける
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            if (!lockon.GetTarget()) return;
-            isLockon = !isLockon;
-            ChangeIsLockOn();
+
+            if (lockon.GetTarget())
+            {
+                Debug.Log("a");
+
+                isLockon = !isLockon;
+                ChangeIsLockOn();
+            }
+            else if(lockon.GetTarget()==null)
+            {
+                RotetionFrg = !RotetionFrg;
+                PlayerDirectionCamera();
+            }
         }
     }
 
@@ -189,5 +207,14 @@ public class TPSCamera : MonoBehaviour
             isLockon = false;
             ChangeIsLockOn();
         }
+    }
+
+    void PlayerDirectionCamera()
+    {
+
+       // XAngle = Mathf.Repeat(x, 360);
+        YAngle = Mathf.Repeat(90, 360);
+        var lookAtPos = DirectionObject.transform.position + offset;
+        UpdatePosition(lookAtPos);
     }
 }

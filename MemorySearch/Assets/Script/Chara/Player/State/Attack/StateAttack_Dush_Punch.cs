@@ -90,7 +90,5 @@ public class StateAttack_Dush_Punch : State
         Owner.SetAttackPower(0);
 
         Owner.animator.ResetTrigger("Attack_Punch_1");
-
-        SoundManager.instance.StopSe(Owner.PunchSE);
     }
 }

@@ -40,6 +40,5 @@ public class StateGorillaPunch : State
         Owner.InitAttackPower();
 
         Owner.animator.ResetTrigger("Attack_Punch");
-        SoundManager.instance.StopSe(Owner.AttackSE);
     }
 }

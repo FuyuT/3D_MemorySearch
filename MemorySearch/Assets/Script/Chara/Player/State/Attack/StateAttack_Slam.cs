@@ -27,6 +27,7 @@ public class StateAttack_Slam : State
 
         collider = Owner.GetComponent<CapsuleCollider>();
         Actor.IVelocity().SetUseGravity(false);
+
     }
     protected override void OnUpdate()
     {

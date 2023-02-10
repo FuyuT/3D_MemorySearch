@@ -64,7 +64,7 @@ public class StateAttack_Rush_Five : State
         {
             Owner.animator.SetTrigger("Attack_Punch_" + currentPunchNo);
             isChangeNextPunch = false;
-
+            SoundManager.instance.PlaySe(Owner.PunchSE, Owner.transform.position);
             InitMove();
         }
     }
@@ -77,10 +77,10 @@ public class StateAttack_Rush_Five : State
         Owner.SetAttackPower(1);
         //その場で停止
         Actor.Transform.IVelocity().InitVelocity();
-
+           
         //SE
         SoundManager.instance.PlaySe(Owner.PunchSE, Owner.transform.position);
-
+            
         currentPunchNo = 1;
         isChangeNextPunch = false;
         Owner.animator.SetTrigger("Attack_Punch_1");
@@ -122,7 +122,5 @@ public class StateAttack_Rush_Five : State
         {
             Owner.animator.ResetTrigger("Attack_Punch_" + n);
         }
-
-        SoundManager.instance.StopSe(Owner.PunchSE);
     }
 }

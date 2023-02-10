@@ -2400,3 +2400,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ee0381596bf242478b3e4bf4efc1b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShotSE: {fileID: 8300000, guid: 8ff67b558bb2cd24db0a0927b534bfc9, type: 3}

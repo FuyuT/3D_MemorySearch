@@ -16,7 +16,7 @@ public class PlayerData : IPlayerData
     public PlayerData()
     {
         possesionMemories = new List<MemoryType>();
-        equipmentMemory   = new MemoryType[Global.EquipmentMemoryMax];
+        equipmentMemory = new MemoryType[Global.EquipmentMemoryMax];
         possesionCombineCost = 0;
     }
 
@@ -29,9 +29,9 @@ public class PlayerData : IPlayerData
     //所持メモリに引数の値が存在するか確認
     public bool PossesionMemoryIsContain(MemoryType type)
     {
-        for(int n = 0; n < possesionMemories.Count; n++)
+        for (int n = 0; n < possesionMemories.Count; n++)
         {
-            if(possesionMemories[n] == type)
+            if (possesionMemories[n] == type)
             {
                 return true;
             }

@@ -36,9 +36,6 @@ public class StateFlogShot : State
     protected override void OnEnter(State prevState)
     {
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Shot");
-
-        SoundManager.instance.PlaySe(Owner.ShotSE, Owner.transform.position);
-
         UpdateParameter();
     }
 
@@ -70,6 +67,5 @@ public class StateFlogShot : State
 
         Owner.projectileDelay = 0;
         Owner.animator.ResetTrigger("Attack_Shot");
-        SoundManager.instance.StopSe(Owner.ShotSE);
     }
 }

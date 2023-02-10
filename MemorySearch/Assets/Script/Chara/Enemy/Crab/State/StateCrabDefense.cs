@@ -39,7 +39,5 @@ public class StateCrabDefense : State
         Owner.InitSubMemory();
 
         Owner.animator.ResetTrigger("Defense1");
-
-        SoundManager.instance.StopSe(Owner.GuardSE);
     }
 }

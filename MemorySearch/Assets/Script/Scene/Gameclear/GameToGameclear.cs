@@ -11,7 +11,7 @@ public class GameToGameclear : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             SceneManager.ToClear();
-            SoundManager.instance.StopBgm(BGM);
+            SoundManager.instance.StopBgm();
         }
     }
 }

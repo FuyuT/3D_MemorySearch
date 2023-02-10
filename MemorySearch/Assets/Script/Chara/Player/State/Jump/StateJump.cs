@@ -105,6 +105,5 @@ public class StateJump : State
         Actor.Transform.IVelocity().SetVelocityY(0);
         Owner.nowJumpSpeed = 0;
         Actor.Transform.IVelocity().InitRigidBodyVelocity();
-        SoundManager.instance.StopSe(Owner.JumpSE);
     }
 }

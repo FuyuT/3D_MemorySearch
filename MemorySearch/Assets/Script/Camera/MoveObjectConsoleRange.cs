@@ -35,6 +35,11 @@ public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectCon
     [SerializeField]
     Animator FadeAnimator;
 
+    //ƒ{ƒ^ƒ“SE
+    [SerializeField]
+    public AudioClip BuutionSE;
+
+
     SinzyuUI sinzyu;
 
     bool InRange;
@@ -91,6 +96,7 @@ public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectCon
                 BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeOut");
                 IsUseGuideUI.SetActive(false);
                 GameUI.SetActive(false);
+                SoundManager.instance.PlaySe(BuutionSE,transform.position);
                 isUseControleCamera = true;
                 for (int i = 0; i < ArrowDragUi.Length; i++)
                 {

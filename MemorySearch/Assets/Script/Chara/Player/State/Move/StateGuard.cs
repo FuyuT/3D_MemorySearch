@@ -21,7 +21,6 @@ public class StateGuard : State
         {
             //Ä¶‚Å‚«‚Ä‚¢‚È‚¯‚ê‚ÎÄ¶‚·‚é
             BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Guard_Guarding");
-            SoundManager.instance.PlaySe(Owner.GuardSE, Owner.transform.position);
         }
         else
         {
@@ -42,6 +41,9 @@ public class StateGuard : State
     {
         isReady = true;
         Owner.SetDefencePower(1);
+
+        //•ÏX::AnimUpdate‚©‚çˆÚ“®‚µ‚Ä—ˆ‚½
+        SoundManager.instance.PlaySe(Owner.GuardSE, Owner.transform.position);
     }
     protected override void OnUpdate()
     {
@@ -69,6 +71,5 @@ public class StateGuard : State
         Owner.InitDefencePower();
 
         Owner.animator.ResetTrigger("Guard_Guarding");
-        SoundManager.instance.StopSe(Owner.GuardSE);
     }
 }

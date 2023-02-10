@@ -32,7 +32,7 @@ public class TitleGame : MonoBehaviour
 
     public void StopBGM()
     {
-        SoundManager.instance.StopBgm(clip);
+        SoundManager.instance.StopBgm();
     }
 
     public void OnSE()

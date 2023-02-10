@@ -69,7 +69,5 @@ public class StateFlogJump : State
 
         //重力の変更
         Actor.IVelocity().SetUseGravity(true);
-
-        SoundManager.instance.StopSe(Owner.JumpSE);
     }
 }

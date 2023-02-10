@@ -107,6 +107,5 @@ public class StateDoubleJump : State
 
         //アニメーションのトリガーを解除
         Owner.animator.ResetTrigger("Jump_DowbleJump");
-        SoundManager.instance.StopSe(Owner.DonbleJunpSE);
     }
 }

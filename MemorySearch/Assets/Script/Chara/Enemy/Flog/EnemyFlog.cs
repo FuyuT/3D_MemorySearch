@@ -213,7 +213,6 @@ public class EnemyFlog : EnemyBase
     [Header("SEŠÖ˜A")]
     [SerializeField] public AudioClip JumpSE;
     [SerializeField] public AudioClip AttackSE;
-    [SerializeField] public AudioClip ShotSE;
     [SerializeField] public AudioClip DownSE;
     [SerializeField] public AudioClip ExplosionSE;
 

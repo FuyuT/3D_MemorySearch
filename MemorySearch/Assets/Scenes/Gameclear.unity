@@ -351,19 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08d53bcfc6f8437448d505f4c18934a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundManager: {fileID: 1345625527}
   clip: {fileID: 8300000, guid: ae21b0679fa997940959cff40a8b9bb0, type: 3}
---- !u!114 &1345625527 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8109754701371785098, guid: b14f108a7ec7363438951870a5931402, type: 3}
-  m_PrefabInstance: {fileID: 1697002657}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 876efc6ed2755e641bf32db3058c70df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1697002657
 PrefabInstance:
   m_ObjectHideFlags: 0
