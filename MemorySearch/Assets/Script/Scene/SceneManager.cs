@@ -32,24 +32,28 @@ public class SceneManager : MonoBehaviour
     /// main
     //////////////////////////////
     ///
-    bool Show;
+
+    bool IsGameOver;
+
     private void Awake()
     {
-        //GameOverImage.SetActive(false);
-        Show = false;
+        ToClear();
+        IsGameOver = false;
     }
 
     void Update()
     {
+        if (nowScene == SceneType.Title) return;
+        
         CheckGameOver();
     }
+      
 
     //ゲームオーバーか確認して、ゲームオーバーなら次のシーンをゲームオーバーに設定
     void CheckGameOver()
     {
         //プレイヤーの実体がなければ終了
         if (Player.readPlayer == null) return;
-
 
         if (Player.readPlayer.IsEndDeadMotion())
         {
@@ -59,13 +63,13 @@ public class SceneManager : MonoBehaviour
 
     private void ToGameOver()
     {
-        if (!Show)
+        if (!IsGameOver)
         {
             GameOverImage.SetActive(true);
-            SoundManager.instance.StopBgm(BGM);
+            SoundManager.instance.StopBgm();
             SoundManager.instance.PlaySe(GameOverSE, Player.readPlayer.GetPos());
             Cursor.visible = true;
-            Show = true;
+            IsGameOver = true;
             Time.timeScale = 0;
         }
     }
@@ -79,6 +83,7 @@ public class SceneManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         FadeManager.Instance.LoadScene("Titel", 1.0f);
+        SoundManager.instance.StopBgm();
     }
 
     public static void ToGame()

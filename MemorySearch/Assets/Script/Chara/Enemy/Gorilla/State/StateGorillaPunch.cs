@@ -25,7 +25,6 @@ public class StateGorillaPunch : State
         SelectNextState();
     }
 
-
     protected override void SelectNextState()
     {
         //攻撃モーションが終了したら待機へ
@@ -41,6 +40,5 @@ public class StateGorillaPunch : State
         Owner.InitAttackPower();
 
         Owner.animator.ResetTrigger("Attack_Punch");
-        SoundManager.instance.StopSe(Owner.AttackSE);
     }
 }

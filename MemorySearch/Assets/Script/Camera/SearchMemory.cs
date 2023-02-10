@@ -33,9 +33,6 @@ public class SearchMemory : MonoBehaviour
     [SerializeField] AudioClip Successclip;
 
     [SerializeField] AudioClip Missclip;
-
-    [SerializeField] AudioClip Chargeclip;
-
     
     ///////////////////////////////////////////
 
@@ -43,53 +40,51 @@ public class SearchMemory : MonoBehaviour
     [SerializeField] Slider SearchSlider;
     [SerializeField] float SearcCompleteSpeed;
 
+     [Header("ゲットしたメモリー")]
+    [SerializeField]
+    GameObject IsGetMemoryImg;
+    [SerializeField]
+    public Vector3 IsGetMemoryImgPos;
+
     //Lockonのスクリプト
     [SerializeField]
     Lockon lockon;
 
-    ////アニメーション
-    //[SerializeField]
-    //Animator ScanOnAnimator;
+    //ScanMemoryUI
+    [SerializeField]
+    MemoryUI memoryUI;
 
     MemoryType scanMemory;
 
+    public bool isScan { get; private set; }
+
+    private void OnEnable()
+    {
+        transform.rotation = player.transform.rotation;
+    }
+
     void Start()
     {
-        //カーソルロック
-        Cursor.lockState = CursorLockMode.Locked;
-
         player = GameObject.FindGameObjectWithTag("Player");
-        //transform.rotation = player.transform.rotation;
 
         InitSearchSlider();
 
         isScan = false;
 
         scanMemory = new MemoryType();
-        //BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanAnimStart");
 
-        // Time.timeScale = 0;
-
+        IsGetMemoryImg.SetActive(false);
     }
 
-     void Update()
-     {
-        //if (BehaviorAnimation.IsPlayEnd(ref ScanOnAnimator, "ScanAnimStart"))
-        //{
-        //    BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanAnimEnd");
-        //    Debug.Log("a");
-        //    Time.timeScale = 1;
-        //}
-                transform.rotation = player.transform.rotation;
-
-     }
+    private void Update()
+    {
+        ScanStartUpdate();
+    }
 
     void FixedUpdate()
     {
-        UpdatePosition();
-
         RotateCmaeraAngle(viewAngle);
-
+        UpdatePosition();
         Scan();
     }
 
@@ -117,24 +112,20 @@ public class SearchMemory : MonoBehaviour
         transform.eulerAngles = angle;
     }
 
-    //Activeになった時
-    void OnEnable()
+    void  ScanStartUpdate()
     {
-        //プレイヤーの角度に合わせる
-        transform.rotation = player.transform.rotation;
+        if (!lockon.GetTarget()) return;
+        if (DataManager.instance.IPlayerData().PossesionMemoryIsContain(lockon.GetTarget().GetComponent<EnemyBase>().GetMemory())) return;
+           
+        if (Input.GetMouseButtonDown(1))
+        {
+            isScan = true;
+            scanMemory = lockon.GetTarget().GetComponent<EnemyBase>().GetMemory();
+        }
     }
 
     void Scan()
     {
-        //メモリ取得時のUIを再生
-
-        if (Input.GetMouseButtonDown(1) && lockon.GetTarget())
-        {
-            isScan = true;
-            scanMemory = lockon.GetTarget().GetComponent<EnemyBase>().GetMemory();
-            SoundManager.instance.PlaySe(Chargeclip,transform.position);
-        }
-
         if (!isScan) return;
 
         //ターゲットがいなくなった時
@@ -170,7 +161,6 @@ public class SearchMemory : MonoBehaviour
     void MissScan()
     {
         isScan = false;
-        SoundManager.instance.StopSe(Chargeclip);
         SoundManager.instance.PlaySe(Missclip, transform.position);
         SearchSlider.value = 0;
     }
@@ -178,14 +168,17 @@ public class SearchMemory : MonoBehaviour
     void SuccessScan()
     {
         //スキャン成功音を流す
-        SoundManager.instance.StopSe(Chargeclip);
         SoundManager.instance.PlaySe(Successclip, transform.position);
 
         //取得したメモリをプレイヤーデータに登録
         DataManager.instance.IPlayerData().AddPossesionMemory(scanMemory);
 
         getMemoryUI.Play();
+        IsGetMemoryImg.SetActive(true);
+        IsGetMemoryImg.GetComponent<Image>().sprite = DataManager.instance.GetMemorySprite(scanMemory);
+
         InitSearchSlider();
+        
         isScan = false;
     }
 
@@ -193,25 +186,15 @@ public class SearchMemory : MonoBehaviour
     /*******************************
     * public
     *******************************/
-    public bool isScan { get; private set; }
 
     public void InitSearchSlider()
     {
         SearchSlider.value = 0;
     }
 
-    //public void ScanAnimStart()
-    //{
-    //}
+    public void ScanAnimStart()
+    {
 
-    //public void ScanAnimEnd()
-    //{
-    //    if (BehaviorAnimation.IsPlayEnd(ref ScanOnAnimator, "ScanAnimStart"))
-    //    {
-    //        BehaviorAnimation.UpdateTrigger(ref ScanOnAnimator, "ScanAnimEnd");
-    //        Debug.Log("a");
-    //        Time.timeScale = 1;
-    //    }
-    //}
+    }
 }
 

@@ -34,15 +34,22 @@ public class MemorySelectManager : MonoBehaviour
             //メモリを削除
             case MemorySelectPreview.SituationType.Remove_Memory:
                 selectMemory.ChangeMemoryType(MemoryType.None);
-                break;       
+                break;
+            //ドロップ失敗
+            case MemorySelectPreview.SituationType.Drop_Failed:
+                break;
             default:
                 return;
         }
         preview.EndPreview();
+
+        //透明化の解除
+        selectMemory.Opaque();
     }
 
-    //////////////////////////////
-    /// public
+    /*******************************
+    * public
+    *******************************/
     public enum MoveType
     {
         None,
@@ -72,6 +79,10 @@ public class MemorySelectManager : MonoBehaviour
 
         //ドラッグ状態に移行する
         preview.GetComponent<MemorySelectPreview>().DispatchDrag();
+
+        //UIが入れ替えの処理だった時、UIを透明化
+        if (memoryUi.GetMoveType() != MoveType.Replace) return;
+        memoryUi.Transparent();
     }
 
     //メモリの削除

@@ -5,30 +5,24 @@ public class ProjectileBase : MonoBehaviour
     /*******************************
     * protected
     *******************************/
+    protected AttackInfo attackInfo;
     protected bool    isPrefab;
     protected Vector3 moveVec;
     protected float   speed;
-    protected int     damage;
+
+    protected int collisionExclusionID;
 
     /*******************************
     * public
     *******************************/
     public ProjectileBase()
     {
+        attackInfo = new AttackInfo();
         isPrefab = true;
         moveVec  = Vector3.zero;
         speed    = 0.0f;
-        damage   = 0;
-    }
-
-    public void Init(Vector3 pos, Vector3 moveVec, float speed, int damage)
-    {
-        transform.position = pos;
-        isPrefab = false;
-        this.moveVec = moveVec;
-        this.speed = speed;
-        this.damage = damage;
-        this.gameObject.SetActive(true);
+        attackInfo.power = 0;
+        collisionExclusionID = -1;
     }
 
     public void Init(Vector3 pos, Quaternion rot, Vector3 moveVec, float speed, int damage)
@@ -38,8 +32,25 @@ public class ProjectileBase : MonoBehaviour
         isPrefab = false;
         this.moveVec = moveVec;
         this.speed = speed;
-        this.damage = damage;
+        this.attackInfo.power = damage;
         this.gameObject.SetActive(true);
+    }
+
+    public void Init(Vector3 pos, Quaternion rot, Vector3 scale, Vector3 moveVec, float speed, int damage)
+    {
+        transform.position = pos;
+        transform.rotation = rot;
+        transform.localScale = scale;
+        isPrefab = false;
+        this.moveVec = moveVec;
+        this.speed = speed;
+        this.attackInfo.power = damage;
+        this.gameObject.SetActive(true);
+    }
+
+    public void SetColliderSize(Vector3 scale)
+    {
+        gameObject.GetComponent<BoxCollider>().size = scale;
     }
 
     public void SetMoveVec(Vector3 moveVec)
@@ -52,7 +63,11 @@ public class ProjectileBase : MonoBehaviour
     }
     public void SetDamage(int damage)
     {
-        this.damage = damage;
+        this.attackInfo.power = damage;
+    }
+    public void SetCollisionExclusionID(int id)
+    {
+        this.collisionExclusionID = id;
     }
 
     /*******************************
@@ -63,22 +78,76 @@ public class ProjectileBase : MonoBehaviour
         var projectile = Object.Instantiate(this);
 
         projectile.Init(transform.position,
-            transform.rotation, transform.forward, speed, damage);
+            transform.rotation, transform.lossyScale, transform.forward, speed, attackInfo.power);
     }
 
     /*******************************
     * colision
     *******************************/
-    public void OnCollisionStay(Collision other)
+
+    private void OnCollisionEnter(Collision collision)
     {
-        switch (other.gameObject.tag)
+        if (isPrefab) return;
+
+        switch (collision.gameObject.tag)
         {
             case "Player":
-                other.gameObject.GetComponentInChildren<CharaBase>().Damage(damage);
+                AttackInfo attackInfo = this.attackInfo;
+                attackInfo.attacker = gameObject;
+                attackInfo.attackPos = transform.position;
+                collision.gameObject.GetComponentInChildren<CharaBase>().AddDamageInfo(attackInfo.id, attackInfo);
                 break;
             case "Untagged":
                 return;
         }
+
+        //親IDが設定されていたら
+        if (collisionExclusionID != -1)
+        {
+            //オブジェクトの親に当たっていたら終了
+            try
+            {
+                if (collision.gameObject.GetComponent<CharaBase>().GetID() == collisionExclusionID) return;
+            }
+            catch
+            {
+
+            }
+        }
+
+        Destroy(this.gameObject);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (isPrefab) return;
+
+        switch (other.gameObject.tag)
+        {
+            case "Player":
+                AttackInfo attackInfo = this.attackInfo;
+                attackInfo.attacker = gameObject;
+                attackInfo.attackPos = transform.position;
+                other.gameObject.GetComponentInChildren<CharaBase>().AddDamageInfo(attackInfo.id, attackInfo);
+                break;
+            case "Untagged":
+                return;
+        }
+
+        //親IDが設定されていたら
+        if (collisionExclusionID != -1)
+        {
+            //オブジェクトの親に当たっていたら終了
+            try
+            {
+                if (other.gameObject.GetComponent<CharaBase>().GetID() == collisionExclusionID) return;
+            }
+            catch
+            {
+
+            }
+        }
+
         Destroy(this.gameObject);
     }
 }

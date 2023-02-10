@@ -25,7 +25,7 @@ public class StateFoxAttack_2 : State
         }
 
         //当たり判定の位置を修正
-        Owner.boxCollider.center = new Vector3(Owner.animTransform.localPosition.x, Owner.boxCollider.center.y, Owner.animTransform.localPosition.z);
+        Owner.capsuleCollider.center = new Vector3(Owner.animTransform.localPosition.x, Owner.capsuleCollider.center.y, Owner.animTransform.localPosition.z);
 
         SelectNextState();
     }
@@ -42,6 +42,8 @@ public class StateFoxAttack_2 : State
 
     protected override void OnExit(State prevState)
     {
+        Owner.InitAttackPower();
+
         Owner.animator.ResetTrigger("Attack_2");
         Owner.closeAttackDelay = 0;
     }

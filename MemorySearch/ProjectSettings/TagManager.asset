@@ -24,6 +24,7 @@ TagManager:
   - Inventory
   - CameraManager
   - Wall
+  - MoveObject
   layers:
   - Default
   - TransparentFX
@@ -37,7 +38,7 @@ TagManager:
   - Monitor
   - MinMap
   - Ceiling
-  - 
+  - Player
   - 
   - 
   - 

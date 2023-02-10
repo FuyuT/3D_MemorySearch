@@ -5,14 +5,32 @@ using UnityEngine;
 public class BGM : MonoBehaviour
 {
     [SerializeField]
-    AudioClip clip;
+    AudioClip StageClip;
+
+    [SerializeField]
+    AudioClip BossClip;
+
+    [SerializeField]
+    GameObject Player;
+
     void Start()
     {
-        SoundManager.instance.PlayBgm(clip);
+        SoundManager.instance.PlayBgm(StageClip);
     }
-    // Update is called once per frame
-    void Update()
+ 
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.gameObject.CompareTag("Player"))
+        {
+            SoundManager.instance.PlayBgm(BossClip);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            SoundManager.instance.PlayBgm(StageClip);
+        }
     }
 }

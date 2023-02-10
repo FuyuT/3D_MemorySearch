@@ -17,10 +17,8 @@ public enum MemoryType
     Slam,
     Tackle,
     Guard,
-    Boost,
-    JetPack,
-    BigPunch,
-    InvisibleGuard,
+    Rush_Three,
+    Rush_Five,
     Count,
 }
 

@@ -9,34 +9,41 @@ using CustomInputKey;
 /// オブジェクトを動かせるカメラを起動させる
 /// コンソールの当たり判定に入っているかを検知する
 /// </summary>
-public class MoveObjectConsoleRange : MonoBehaviour
+public class MoveObjectConsoleRange : MyUtil.SingletonMonoBehavior<MoveObjectConsoleRange>
 {
+    /*******************************
+    * private
+    *******************************/
     //案内UI
     [SerializeField]
     GameObject IsUseGuideUI;
-
-    //非表示UI類///////////////////////
+    //非表示にするUI
     [SerializeField]
     GameObject GameUI;
 
-    /////////////////////////////////////////
-
-    //神獣UI
+    //ステージ読み込みアニメーション
     [SerializeField]
     GameObject StageLoadAnim;
-
+    //コントロールカメラ
     [SerializeField]
     GameObject ReturnUi;
+    //ガイド矢印UI
+    [SerializeField]
+    GameObject[] ArrowDragUi;
 
     //フェード用
     [SerializeField]
     Animator FadeAnimator;
 
+    //ボタンSE
+    [SerializeField]
+    public AudioClip BuutionSE;
+
+
     SinzyuUI sinzyu;
 
-    //範囲に入ったか
-    public bool InRange;
-
+    bool InRange;
+    bool isUseControleCamera;
     bool isFirstControl;
 
     void Awake()
@@ -46,61 +53,99 @@ public class MoveObjectConsoleRange : MonoBehaviour
     void Start()
     {
         InRange = false;
+        isUseControleCamera = false;
         IsUseGuideUI.SetActive(false);
         ReturnUi.SetActive(false);
+        for (int i = 0; i < ArrowDragUi.Length; i++)
+        {
+            ArrowDragUi[i].SetActive(false);
+        }
         isFirstControl = true;
     }
 
  
     void Update()
     {
-        //神獣アニメーションスタート
-        //StageLoadAnimはステージ読み込みアニメーション
+        //StageLoadAnimが起動している時は処理を終了
         if (StageLoadAnim.activeSelf) return;
-       
-        if (Input.GetKeyDown("r") && InRange)
-        {
-            switch (CameraManager.instance.GetCurrentCameraType())
-            {
-                case (int)CameraManager.CameraType.Controller:
-                    //コントローラーカメラからTPSに戻す
-                    CameraManager.instance.ToTpsCamera();
-                    IsUseGuideUI.SetActive(true);
-                    GameUI.SetActive(true);
-                    ReturnUi.SetActive(false);
-                    Debug.Log("TPSへ");
-                    break;
-                default:
-                    //コントローラーカメラに遷移する為の準備
-                    BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeOut");
-                    IsUseGuideUI.SetActive(false);
-                    GameUI.SetActive(false);
-                    break;
-            }
-        }
+        ChangeCamera();
+        ChangeCameraUpdate();
+    }
 
-        if (isFirstControl)
+    void ChangeCamera()
+    {
+        if (!Input.GetKeyDown(KeyCode.R)) return;
+
+        switch (CameraManager.instance.GetCurrentCameraType())
         {
-            if (BehaviorAnimation.IsPlayEnd(ref FadeAnimator, "FadeOut"))
-            {
-                StageLoadAnim.SetActive(true);
-                isFirstControl = false;
-            }
-        }
-        else
-        {
-            if (BehaviorAnimation.IsPlayEnd(ref FadeAnimator, "FadeOut"))
-            {
-                BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeIn");
-                CameraManager.instance.ToControllCamera();
-                ReturnUi.SetActive(true);
-            }
+            case (int)CameraManager.CameraType.Controller:
+                //コントローラーカメラからTPSに戻す
+                CameraManager.instance.ToTpsCamera();
+                GameUI.SetActive(true);
+                ReturnUi.SetActive(false);
+                isUseControleCamera = false;
+                for (int i = 0; i < ArrowDragUi.Length; i++)
+                {
+                    ArrowDragUi[i].SetActive(false);
+                }
+                break;
+            default:
+                if (!InRange) break;
+
+                //コントローラーカメラに遷移する為の準備
+                BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeOut");
+                IsUseGuideUI.SetActive(false);
+                GameUI.SetActive(false);
+                SoundManager.instance.PlaySe(BuutionSE,transform.position);
+                isUseControleCamera = true;
+                for (int i = 0; i < ArrowDragUi.Length; i++)
+                {
+                    ArrowDragUi[i].SetActive(true);
+                }
+                break;
         }
     }
 
-    //装置に近づくと表示
-    private void OnTriggerEnter(Collider other)
+    void ChangeCameraUpdate()
     {
+        //フェードアウトが終わっていなければ処理終了
+        if (!BehaviorAnimation.IsPlayEnd(ref FadeAnimator, "FadeOut")) return;
+
+        //カメラがコントロールカメラなら処理終了
+        if (CameraManager.instance.GetCurrentCameraType() == (int)CameraManager.CameraType.Controller) return;
+
+        if (isFirstControl)
+        {
+            StageLoadAnim.SetActive(true);
+            isFirstControl = false;
+        }
+        else
+        {
+            BehaviorAnimation.UpdateTrigger(ref FadeAnimator, "FadeIn");
+            CameraManager.instance.ToControllCamera();
+            ReturnUi.SetActive(true);
+        }
+    }
+    /*******************************
+    * protected
+    *******************************/
+    protected override bool dontDestroyOnLoad { get { return false; } }
+
+    /*******************************
+    * public
+    *******************************/
+    public bool IsUseControleCamera()
+    {
+        return isUseControleCamera;
+    }
+
+    /*******************************
+    * 衝突判定
+    *******************************/
+    private void OnTriggerStay(Collider other)
+    {
+        if (isUseControleCamera) return;
+
         if (other.gameObject.tag == "Player")
         {
             IsUseGuideUI.SetActive(true);

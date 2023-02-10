@@ -102,6 +102,7 @@ public class CombineManager : MonoBehaviour
         {
             //コストの数を変更
             combineCostUI.SetBatteryCount(combineCost);
+
             //コストを使用した後の値を設定
             toCostUI.UpdateToCost(toCost);
         }

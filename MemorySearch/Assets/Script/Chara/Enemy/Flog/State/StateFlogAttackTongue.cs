@@ -46,6 +46,5 @@ public class StateFlogAttackTongue : State
         Owner.InitSubMemory();
 
         Owner.animator.ResetTrigger("Attack_Tongue");
-        SoundManager.instance.StopSe(Owner.AttackSE);
     }
 }

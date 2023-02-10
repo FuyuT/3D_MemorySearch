@@ -10,26 +10,15 @@ using State = MyUtil.PlayerState;
 /// </summary>
 public class StateMoveRun : State
 {
+    /*******************************
+    * private
+    *******************************/
     bool isReady;
+    Vector3 moveAdd;
 
-    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
-    {
-        isReady = false;
-    }
-
-    protected override void OnUpdate()
-    {
-        AnimUpdate();
-
-        Run();
-
-        SelectNextState();
-    }
-
-    //アニメーションの更新
     void AnimUpdate()
     {
-        if(isReady)
+        if (isReady)
         {
             //再生できていなければ再生する
             BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Move_Run");
@@ -46,18 +35,37 @@ public class StateMoveRun : State
             }
         }
     }
-    
+    void RunInput()
+    {
+        //方向キーの入力値とカメラの向きから、移動方向を決定
+        moveAdd = BehaviorMoveToInput.GetInputVec();
+        BehaviorMoveToInput.ParseToCameraVec(ref moveAdd);
+    }
+
     void Run()
     {
+        Actor.Transform.IVelocity().AddVelocity(moveAdd * Owner.RunSpeed);
+    }
+    /*******************************
+    * protected
+    *******************************/
+    protected override void OnEnter(MyUtil.ActorState<Player> prevState)
+    {
+        isReady = false;
+    }
 
-        //方向キーの入力値とカメラの向きから、移動方向を決定
-        Vector3 moveAdd = BehaviorMoveToInput.GetInputVec();
-        BehaviorMoveToInput.ParseToCameraVec(ref moveAdd);
+    protected override void OnUpdate()
+    {
+        AnimUpdate();
 
-        //移動スピードを掛ける
-        moveAdd *= Owner.RunSpeed;
+        RunInput();
 
-        Actor.Transform.IVelocity().AddVelocity(moveAdd);
+        SelectNextState();
+    }
+
+    protected override void OnFiexdUpdate()
+    {
+        Run();
     }
 
     protected override void SelectNextState()
@@ -67,7 +75,7 @@ public class StateMoveRun : State
 
         //待機状態
         if (!Input.GetKey(KeyCode.LeftShift) 
-            || Actor.Transform.IVelocity().GetVelocity() == Vector3.zero)
+            || moveAdd == Vector3.zero)
         {
             stateMachine.Dispatch((int)Player.State.Idle);
             return;
@@ -81,5 +89,4 @@ public class StateMoveRun : State
         //アニメーションのトリガーを解除
         Owner.animator.ResetTrigger("Move_Run");
     }
-
 }

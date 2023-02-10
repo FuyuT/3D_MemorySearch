@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class TPSCamera : MonoBehaviour
 {
-    public GameObject target; // an object to follow
+    public GameObject user; // an object to follow
     public Vector3 offset; // offset form the target object
 
     [SerializeField] private float distance = 4.0f; // distance from following object
@@ -17,8 +17,10 @@ public class TPSCamera : MonoBehaviour
     //キー入力関連///////////////////////////////////////////
     [SerializeField] public KeyCode RightKeyCord;
     [SerializeField] public KeyCode LeftKeyCord;
+    [SerializeField] public KeyCode UpKeyCord;
+    [SerializeField] public KeyCode DownKeyCord;
+
     float angle;
-    public float KeyRotationSpeed;
     /////////////////////////////////////////////////////////
 
     //レイ関連///////////////////////////////////////////////
@@ -33,31 +35,86 @@ public class TPSCamera : MonoBehaviour
     //////////////////////////////////////////////////////////
     public float BaseRotationSpeed;
 
-    public float a;
+    //Lockon関連/////////////////////////////////////////////
+    [SerializeField]
+    TPSLockon lockon;
+    bool isLockon;
+
+    [Header("ロックオン枠")]
+    [SerializeField]
+    GameObject LockonImg;
+    //////////////////////////////////////////////////////////
+
+    ///クイックカメラ関連//////////////////////////////////// 
+    [SerializeField]
+    GameObject DirectionObject;
+    bool RotetionFrg;
+    /////////////////////////////////////////////////////////
+
+    private void Start()
+    {
+        isLockon = false;
+        LockonImg.SetActive(false);
+
+        RotetionFrg = false;
+    }
+
+    void Update()
+    {
+        //ロックオン機能
+        //1,Qキー入力で起動
+        //2,もし敵が範囲に入ったら敵の方を向き続ける
+        //3,そうでなければプレイヤーが向いている方向にカメラを向ける
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+
+            if (lockon.GetTarget())
+            {
+                Debug.Log("a");
+
+                isLockon = !isLockon;
+                ChangeIsLockOn();
+            }
+            else if(lockon.GetTarget()==null)
+            {
+                RotetionFrg = !RotetionFrg;
+                PlayerDirectionCamera();
+            }
+        }
+    }
 
     void FixedUpdate()
     {
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    XAngle = Mathf.Repeat(Mathf.Abs(target.transform.rotation.y + 270), 360);
-        //    UpdatePosition(target.transform.position + offset);
-        //    transform.LookAt(target.transform.position);
-
-        //    return;
-        //}
-
-        Cursor.visible = false;
-        UpdateAngle();
-        //Debug.Log(XAngle);
-
+        if (isLockon)
+        {
+            LockonUpdate();
+        }
+        else
+        {
+            Cursor.visible = false;
+            UpdateAngle();
+        }
     }
+
+    void ChangeIsLockOn()
+    {
+        if (isLockon)
+        {
+            LockonImg.SetActive(true);
+        }
+        else
+        {
+            LockonImg.SetActive(false);
+        }
+    }
+
 
     void UpdateAngle()
     {
         //入力で視点を変更
         AngleChangeForInput();
 
-        var lookAtPos = target.transform.position + offset;
+        var lookAtPos = user.transform.position + offset;
         UpdatePosition(lookAtPos);
         if (!AdjustAngle())
         {
@@ -69,9 +126,10 @@ public class TPSCamera : MonoBehaviour
     {
         Vector2 input = Vector2.zero;
         //キー入力をinputに反映
-        input.x = Input.GetKey(LeftKeyCord) ? -KeyRotationSpeed : input.x;
-        input.x = Input.GetKey(RightKeyCord) ? KeyRotationSpeed : input.x;
-
+        input.x = Input.GetKey(LeftKeyCord)  ? -1  : input.x;
+        input.x = Input.GetKey(RightKeyCord) ? 1   : input.x;
+        input.y = Input.GetKey(UpKeyCord)    ? 1   : input.y;
+        input.y = Input.GetKey(DownKeyCord)  ? -1  : input.y;
         //キー入力が無ければ、マウスの入力を入れる
         if (input == Vector2.zero)
         {
@@ -106,12 +164,12 @@ public class TPSCamera : MonoBehaviour
         bool isHitStage = false;
 
         //ステージの壁、天井に当たっていたら
-        if (Physics.Linecast(target.transform.position, transform.position, out hit, WallLayer))
+        if (Physics.Linecast(user.transform.position, transform.position, out hit, WallLayer))
         {
-            transform.position = hit.point + new Vector3(0, 10, 0);
+            transform.position = hit.point + new Vector3(0, 20, 0);
             isHitStage = true;
         }
-        if (Physics.Linecast(target.transform.position, transform.position, out hit, CeilingLayer))
+        if (Physics.Linecast(user.transform.position, transform.position, out hit, CeilingLayer))
         {
             transform.position = hit.point - new Vector3(0, 5, 0);
             isHitStage = true;
@@ -120,7 +178,7 @@ public class TPSCamera : MonoBehaviour
         //注視点を変更
         if (isHitStage)
         {
-            transform.LookAt(target.transform);
+            transform.LookAt(user.transform);
         }
 
         return isHitStage;
@@ -134,5 +192,29 @@ public class TPSCamera : MonoBehaviour
             lookAtPos.x + distance * Mathf.Sin(dp) * Mathf.Cos(da),
             lookAtPos.y + distance * Mathf.Cos(dp),
             lookAtPos.z + distance * Mathf.Sin(dp) * Mathf.Sin(da));
+    }
+
+    void LockonUpdate()
+    {
+        if (lockon.GetTarget())
+        {
+            var lookAtPos = user.transform.position + offset;
+            UpdatePosition(lookAtPos);
+            transform.LookAt(lockon.GetTarget().transform, Vector3.up);
+        }
+        else
+        {
+            isLockon = false;
+            ChangeIsLockOn();
+        }
+    }
+
+    void PlayerDirectionCamera()
+    {
+
+       // XAngle = Mathf.Repeat(x, 360);
+        YAngle = Mathf.Repeat(90, 360);
+        var lookAtPos = DirectionObject.transform.position + offset;
+        UpdatePosition(lookAtPos);
     }
 }

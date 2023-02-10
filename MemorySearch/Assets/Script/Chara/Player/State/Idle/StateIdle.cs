@@ -9,20 +9,24 @@ using State = MyUtil.PlayerState;
 /// </summary>
 public class StateIdle : State
 {
+    /*******************************
+    * protected
+    *******************************/
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
-    }
+        if(Owner.StateDispatchFall())
+        {
+            return;
+        }
 
+        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle");
+    }
     protected override void OnUpdate()
     {
         SelectNextState();
     }
-
     protected override void SelectNextState()
     {
-        //アニメーションが変更されていなければ処理終了
-        BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle");
-
         //移動
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A))
         {
@@ -33,7 +37,6 @@ public class StateIdle : State
         //装備から次の状態を選択
         EquipmentSelectNextState();
     }
-
     protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         //アニメーションのトリガーを解除

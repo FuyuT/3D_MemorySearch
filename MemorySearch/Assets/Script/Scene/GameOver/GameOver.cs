@@ -22,6 +22,7 @@ public class GameOver : MonoBehaviour
     void Start()
     {
         select = 0;
+        Cursor.visible = true;
     }
 
     void Update()

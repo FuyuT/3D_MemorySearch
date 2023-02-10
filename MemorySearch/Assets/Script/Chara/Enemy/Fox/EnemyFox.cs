@@ -14,17 +14,22 @@ public class EnemyFox : EnemyBase
     //ステートマシン
     MyUtil.ActorStateMachine<EnemyFox> stateMachine;
 
+    [Header("HPのUI")]
+    [SerializeField] HpUI hpUI;
+
     [Header("地面との当たり判定で使用するレイの長さ")]
     [SerializeField] float DirectionCheckHitGround;
 
     bool isEngagement;
     private void Awake()
     {
-        boxCollider = GetComponent<BoxCollider>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
         StateMachineInit();
         actor.Transform.Init();
         Init();
         isEngagement = false;
+
+        mainMemory = MemoryType.Rush_Three;
     }
 
     private void Init()
@@ -64,6 +69,9 @@ public class EnemyFox : EnemyBase
             if (searchRange.InTarget)
             {
                 isEngagement = true;
+                hpUI.gameObject.SetActive(true);
+                hpUI.SetCurrentHP(0);
+                hpUI.Heal(HpMax);
             }
             return;
         }
@@ -78,6 +86,8 @@ public class EnemyFox : EnemyBase
             return;
         }
 
+        if (!UpdateCharaBase()) return;
+
         stateMachine.Update();
 
         PositionUpdate();
@@ -85,8 +95,6 @@ public class EnemyFox : EnemyBase
         DelayUpdate();
 
         CheckCollisionGround();
-
-        CharaUpdate();
     }
 
 
@@ -175,9 +183,7 @@ public class EnemyFox : EnemyBase
     [SerializeField] public float tackleDelayMax;
 
     [HideInInspector]
-    public BoxCollider boxCollider;
-
-    public Transform   animTransform;
+    public CapsuleCollider capsuleCollider;
     //コンストラクタ
     public EnemyFox()
     {
@@ -186,7 +192,16 @@ public class EnemyFox : EnemyBase
     }
 
     /*******************************
-    * 衝突判定
+    * override
+    *******************************/
+    override protected void AddDamageProcess(int damage)
+    {
+        //hpUIの再生
+        hpUI.Damage(damage);
+    }
+
+    /*******************************
+    * collision
     *******************************/
 
     private void CheckCollisionGround()

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class CharaBase : MonoBehaviour
 {
@@ -11,25 +12,34 @@ public class CharaBase : MonoBehaviour
     //死亡処理
     void Dead()
     {
-        Debug.Log("死亡しました。");
         transform.GetComponent<Rigidbody>().velocity = Vector3.zero;
+    }
 
-        if (gameObject.CompareTag("Player")) return;
+    //ヒットエフェクトを再生
+    void PlayHitEffect(Vector3 attackPos)
+    {
+        if (attackPos == null) return;
 
-        var batteryItem = (GameObject)Resources.Load("Item/Item_Battery");
-        var pos = transform.position + transform.GetComponent<BoxCollider>().center;
+        //レイを攻撃してきた相手から自分に向けて飛ばして、当たった場所にエフェクトを再生させる
+        Ray ray = new Ray(attackPos, Vector3.Normalize(transform.position - attackPos));
 
-        batteryItem.GetComponent<BatteryItem>().Create(pos, 1.0f);
+        foreach(RaycastHit hit in Physics.RaycastAll(ray, 50))
+        {
+            if(hit.collider.gameObject == this.gameObject)
+            {
+                HitEffectPlayer.Instance().PlayEffect(hit.point);
+                return;
+            }
+        }
+
+        HitEffectPlayer.Instance().PlayEffect(transform.position);
     }
 
     /*******************************
     * protected
     *******************************/
-
     //パラメータ
     protected ParameterForChara charaParam;
-
-    protected Rigidbody rigidbody;
 
     Dictionary<int, AttackInfo> damageInfo;
 
@@ -42,7 +52,6 @@ public class CharaBase : MonoBehaviour
     protected void CharaBaseInit()
     {
         charaParam.Init();
-        rigidbody = gameObject.GetComponent<Rigidbody>();
     }
 
     protected void UpdateDamage()
@@ -53,21 +62,39 @@ public class CharaBase : MonoBehaviour
             //ダメージ判定が終了していれば次の値へ
             if (kvp.Value.situation == AttackSituation.End) continue;
             Damage(kvp.Value.power);
-
             //一度だけ判定する攻撃なら、攻撃状態を終了に変更
-            if(kvp.Value.type == DamageType.Once)
+            if (kvp.Value.type == DamageType.Once)
             {
                 damageInfo[kvp.Key].situation = AttackSituation.End;
+                //ヒットエフェクトを再生
+                PlayHitEffect(kvp.Value.attackPos);
             }
         }
     }
 
     /// <summary>
-    /// ダメージの更新を行う
+    /// CharaBaseの更新
+    /// 更新を続けるべきではない時にfalseを返す
     /// </summary>
-    protected void CharaUpdate()
+    protected bool UpdateCharaBase()
     {
         UpdateDamage();
+
+        if((CameraManager.CameraType)CameraManager.instance.GetCurrentCameraType() == CameraManager.CameraType.Controller
+            || MoveObjectConsoleRange.Instance().IsUseControleCamera())
+        {
+            return false;
+        }
+        return true;
+    }
+
+    virtual protected bool IsPossibleDamage()
+    {
+        return true;
+    }
+
+    virtual protected void AddDamageProcess(int attackPower)
+    {
     }
 
     /*******************************
@@ -75,6 +102,9 @@ public class CharaBase : MonoBehaviour
     *******************************/
     [Header("アニメーター")]
     [SerializeField] public Animator animator;
+
+    [Header("アニメーション位置")]
+    [SerializeField] public Transform animTransform;
 
     //ダメージ情報を追加する
     public void AddDamageInfo(int id, AttackInfo attackInfo)
@@ -86,7 +116,7 @@ public class CharaBase : MonoBehaviour
 
         //同じものが登録されていたら終了
         if (damageInfo.ContainsKey(id)) return;
-        Debug.Log("add" + id);
+        //Debug.Log("add" + id);
 
         damageInfo.Add(id, attackInfo);
     }
@@ -96,7 +126,6 @@ public class CharaBase : MonoBehaviour
     {
         //idが登録されていなければ終了
         if (!damageInfo.ContainsKey(id)) return;
-        Debug.Log("remove" + id);
 
         damageInfo.Remove(id);
     }
@@ -106,32 +135,34 @@ public class CharaBase : MonoBehaviour
     {
         if (!IsPossibleDamage()) return;
 
-        AddDamageProcess();
+        //ダメージの計算を行う
+        int damage = attackPower - charaParam.defencePower;
+        damage = damage < 0 ? 0 : damage;
 
-        int damage = attackPower - charaParam.defencePower < 0 ? 0 : attackPower - charaParam.defencePower;
-        //Debug.Log(damage + "ダメージ");
+        //ダメージ処理を行う際の追加プロセス
+        AddDamageProcess(damage);
 
         charaParam.hp -= damage;
+
         if (IsDead())
         {
             Dead();
         }
     }
 
-    virtual protected bool IsPossibleDamage()
+    /// <summary>
+    /// 死んでいるかの確認
+    /// 引数には、与えるダメージを入力（初期値は0）
+    /// 入力しなければ、現在のhpで確認
+    /// 入力すれば、引数のダメージを与えた時に死ぬか確認
+    /// </summary>
+    /// <param name="damage">与えるダメージを入力</param>
+    /// <returns></returns>
+    public bool IsDead(int damage = 0)
     {
-        return true;
+        return charaParam.hp - damage <= 0 ? true : false;
     }
 
-    virtual protected void AddDamageProcess()
-    {
-    }
-
-    //死んでいるかの確認
-    public bool IsDead()
-    {
-        return charaParam.hp <= 0 ? true : false;
-    }
     public bool IsEndDeadMotion()
     {
         if (BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))

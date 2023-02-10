@@ -55,6 +55,8 @@ public class Title : MonoBehaviour
         }
 
         GameExitPanel.SetActive(false);
+
+        Cursor.visible = true;
     }
 
     void StateMachineInit()
@@ -71,8 +73,16 @@ public class Title : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Time.timeScale = 1.0f;
         stateMachine.Update();
         PushSpase();
+
+        if(Input.GetKeyDown(KeyCode.Backspace) 
+            && Input.GetKey(KeyCode.LeftControl))
+        {
+            DataManager.instance.IniPossesiontMemoryData();
+            DataManager.instance.Save();
+        }
     }
 
     void PushSpase()

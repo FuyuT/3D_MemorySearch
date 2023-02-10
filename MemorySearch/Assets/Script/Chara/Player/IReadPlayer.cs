@@ -6,7 +6,7 @@ public interface IReadPlayer
     /// 死んでいるかを返す
     /// </summary>
     /// <returns>死んでいればtrue、そうでなければfalse</returns>
-    bool IsDead();
+    bool IsDead(int damage = 0);
 
     bool IsEndDeadMotion();
 

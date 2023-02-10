@@ -7,8 +7,6 @@ public class StateCrabIdle : State
 {
     protected override void OnEnter(State prevState)
     {
-        SelectNextState();
-
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Idle");
     }
 

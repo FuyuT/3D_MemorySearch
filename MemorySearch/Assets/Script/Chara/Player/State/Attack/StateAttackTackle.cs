@@ -9,12 +9,17 @@ using State = MyUtil.PlayerState;
 /// </summary>
 public class StateAttackTackle : State
 {
+    /*******************************
+    * private
+    *******************************/
     Vector3 tackleVelocity;
     Vector3 accelerateionVec;
     float   nowTackleTime;
     bool    isMove;
 
-
+    /*******************************
+    * protected
+    *******************************/
     protected override void OnEnter(MyUtil.ActorState<Player> prevState)
     {
         //アニメーションの更新
@@ -33,14 +38,13 @@ public class StateAttackTackle : State
         nowTackleTime = Owner.TackleTime;
 
         //攻撃力設定
-        Owner.SetAttackPower(8);
+        Owner.SetAttackPower(2);
 
         isMove = false;
 
         //SE
         SoundManager.instance.PlaySe(Owner.TackleSE, Owner.transform.position);
     }
-
     protected override void OnUpdate()
     {
         //タックルの移動中で無ければ終了
@@ -57,22 +61,29 @@ public class StateAttackTackle : State
                 isMove = true;
             }
         }
+
         //目標地点まで毎フレーム移動
         if (nowTackleTime > 0)
         {
             nowTackleTime -= Time.deltaTime;
-
-            tackleVelocity += accelerateionVec;
-
-            //スピード設定
-            Actor.IVelocity().SetVelocity(tackleVelocity);
 
             Owner.effectWind.transform.position = Owner.transform.position;
         }
 
         SelectNextState();
     }
+    protected override void OnFiexdUpdate()
+    {
+        if (!isMove) return;
 
+        if (nowTackleTime > 0)
+        {
+            tackleVelocity += accelerateionVec;
+
+            //スピード設定
+            Actor.IVelocity().SetVelocity(tackleVelocity);
+        }
+    }
     protected override void SelectNextState()
     {
         //移動が終了していたら待機へ
@@ -85,7 +96,6 @@ public class StateAttackTackle : State
         //装備から状態を選択
         EquipmentSelectNextState();
     }
-
     protected override void OnExit(MyUtil.ActorState<Player> nextState)
     {
         Owner.nowTackleDelayTime = Owner.TackleDelayTime;
@@ -95,7 +105,5 @@ public class StateAttackTackle : State
         Owner.animator.ResetTrigger("Attack_Tackle");
 
         Owner.effectWind.Stop();
-
-        SoundManager.instance.StopSe(Owner.TackleSE);
     }
 }

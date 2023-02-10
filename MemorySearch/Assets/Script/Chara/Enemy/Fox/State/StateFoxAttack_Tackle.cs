@@ -11,10 +11,15 @@ public class StateFoxAttack_Tackle : State
 
     protected override void OnEnter(State prevState)
     {
+        //攻撃力設定
+        Owner.SetAttackPower(3);
+
         isTackleReady = false;
         isTackleEnd   = false;
         Owner.SetAttackPower(Owner.tackleDamage);
         Owner.animator.SetTrigger("Attack_Tackle_1");
+
+        Owner.SetSubMemory(MemoryType.Tackle);
     }
 
     protected override void OnUpdate()
@@ -82,5 +87,7 @@ public class StateFoxAttack_Tackle : State
         Owner.animator.ResetTrigger("Attack_Tackle_1");
         Owner.animator.ResetTrigger("Attack_Tackle_2");
         Owner.animator.ResetTrigger("Attack_Tackle_3");
+
+        Owner.InitSubMemory();
     }
 }

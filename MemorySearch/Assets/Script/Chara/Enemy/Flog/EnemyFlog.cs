@@ -29,7 +29,7 @@ public class EnemyFlog : EnemyBase
         CharaBaseInit();
 
         delayJumpTime = 0;
-        delayShotTime = 0;
+        projectileDelay = 0;
         charaParam.hp = HpMax;
 
         mainMemory = MemoryType.Jump;
@@ -67,23 +67,48 @@ public class EnemyFlog : EnemyBase
             return;
         }
 
+        if (!UpdateCharaBase())
+        {
+            if (stateMachine.currentStateKey != (int)State.Idle)
+            {
+                stateMachine.Dispatch((int)State.Idle);
+            }
+            return;
+        }
+
         //ステートマシン更新
         stateMachine.Update();
-
-        //角度更新
-        RotateUpdate();
-
-        //位置更新
-        PositionUpdate();
 
         //Delayの更新
         DelayUpdate();
 
         //地面に着地しているか確認する
         CheckCollisionGround();
-
-        CharaUpdate();
     }
+
+    private void FixedUpdate()
+    {
+        //プレイヤーの実体がなければ終了
+        if (Player.readPlayer == null)
+        {
+            return;
+        }
+
+        if (IsDead())
+        {
+            stateMachine.FiexdUpdate();
+            return;
+        }
+
+        stateMachine.FiexdUpdate();
+
+        //角度更新
+        RotateUpdate();
+
+        //位置更新
+        PositionUpdate();
+    }
+
 
     //角度の更新
     void RotateUpdate()
@@ -118,9 +143,9 @@ public class EnemyFlog : EnemyBase
         }
 
         //射撃待機時間の更新
-        if (delayShotTime < delayShotTimeMax)
+        if (projectileDelay < projectileDelayMax)
         {
-            delayShotTime += Time.deltaTime;
+            projectileDelay += Time.deltaTime;
         }
     }
 
@@ -163,13 +188,12 @@ public class EnemyFlog : EnemyBase
     [SerializeField] public int HpMax;
 
     [Header("「射撃ステート」")]
-    [SerializeField] public float delayShotTimeMax;
-    public float delayShotTime;
+    [SerializeField] public ProjectileBullet projectileBullet;
+    public float projectileDelay;
+    [SerializeField] public float projectileDelayMax;
 
-    [SerializeField] public float ShotSpeed;
-    [SerializeField] public int ShotDamage;
-    [SerializeField] public GameObject bullet;
-    [SerializeField] public float ShotInterval;
+    [SerializeField] public float projectileSpeed;
+    [SerializeField] public int projectileDamage;
 
     [Header("「ジャンプステート」")]
     [SerializeField] public float delayJumpTimeMax;
@@ -189,10 +213,12 @@ public class EnemyFlog : EnemyBase
     [Header("SE関連")]
     [SerializeField] public AudioClip JumpSE;
     [SerializeField] public AudioClip AttackSE;
-    [SerializeField] public AudioClip ShotSE;
     [SerializeField] public AudioClip DownSE;
     [SerializeField] public AudioClip ExplosionSE;
 
+    [Space]
+    [Header("エフェクト")]
+    [SerializeField] public EffectPlayer effectPlayer;
     public bool isGround;
 
     //ジャンプ関係

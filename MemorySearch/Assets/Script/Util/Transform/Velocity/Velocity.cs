@@ -57,27 +57,25 @@ namespace MyUtil
 
         void StateUpdate(MyUtil.MoveType moveType)
         {
-            switch (System.Math.Sign(velocity.y))
+            if(velocity.y < -1)
             {
-                case 0:
-                    velocityState = VelocityState.isNone;
-                    break;
-                case -1:
-                    velocityState = VelocityState.isDown;
-                    break;
-                case 1:
-                    velocityState = VelocityState.isUp;
-                    break;
+                velocityState = VelocityState.isDown;
+            }
+            else if(velocity.y > 1)
+            {
+                velocityState = VelocityState.isUp;
+            }
+            else
+            {
+                velocityState = VelocityState.isNone;
             }
 
             switch (moveType)
             {
                 case MoveType.Rigidbody:
-                    switch (System.Math.Sign(rigidbody.velocity.y))
+                    if (rigidbody.velocity.y < -1)
                     {
-                        case -1:
-                            velocityState = VelocityState.isDown;
-                            break;
+                        velocityState = VelocityState.isDown;
                     }
                     break;
                 case MoveType.Transform:

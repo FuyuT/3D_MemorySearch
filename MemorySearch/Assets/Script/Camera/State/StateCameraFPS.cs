@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using MyUtil;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class StateCameraFPS : State
 {
     protected override void OnEnter(State prevState)
     {
+        //カーソルロック
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     protected override void OnUpdate()
@@ -32,5 +35,11 @@ public class StateCameraFPS : State
             //    stateMachine.Dispatch((int)CameraManager.CameraType.Floor);
             //    break;
         }
+    }
+
+    protected override void OnExit(State<CameraManager> nextState)
+    {
+        //カーソルロック
+        Cursor.lockState = CursorLockMode.None;
     }
 }

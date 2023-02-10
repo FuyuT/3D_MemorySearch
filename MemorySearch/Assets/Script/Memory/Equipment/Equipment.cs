@@ -2,13 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum InputKeyType
-{
-    Keep,
-    Down,
-    Up,
-}
-
 public class EquipmentMemory
 {
     /*******************************

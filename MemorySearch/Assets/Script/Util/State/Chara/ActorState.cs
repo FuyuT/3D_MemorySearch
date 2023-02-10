@@ -50,10 +50,20 @@ namespace MyUtil
         {
             OnUpdate();
         }
+        public void FiexdUpdate()
+        {
+            OnFiexdUpdate();
+        }
+
         /// <summary>
         /// 毎フレーム呼ばれる
         /// </summary>
         protected virtual void OnUpdate() { }
+
+        /// <summary>
+        /// 一定間隔で呼ばれる
+        /// </summary>
+        protected virtual void OnFiexdUpdate() { }
 
         /// <summary>
         /// 次のステートへ遷移する処理を書く関数

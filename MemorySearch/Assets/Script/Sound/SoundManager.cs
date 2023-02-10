@@ -19,7 +19,7 @@ public class SoundManager : MonoBehaviour
         bool checkResult = soundManager != null && soundManager != gameObject;
         if (checkResult)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
             return;
         }
 
@@ -71,24 +71,14 @@ public class SoundManager : MonoBehaviour
         seAudioSource.transform.position = pos;
         seAudioSource.PlayOneShot(clip);
     }
-    
-    //TODOŒã‚Å•Ï‚¦‚é
-    public void PlaySE2(AudioClip clip)
-    {
-        if (clip == null) return;
-        seAudioSource.PlayOneShot(clip);
-    }
-
+ 
     //’âŽ~
-    public void StopBgm(AudioClip clip)
+    public void StopBgm()
     {
-        bgmAudioSource.clip = clip;
-        if (clip == null) return;
         bgmAudioSource.Stop();
     }
-    public void StopSe(AudioClip clip)
+    public void StopSe()
     {
-        if (clip == null) return;
         seAudioSource.Stop();
     }
 

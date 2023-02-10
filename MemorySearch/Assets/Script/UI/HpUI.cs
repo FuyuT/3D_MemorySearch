@@ -4,50 +4,71 @@ using UnityEngine;
 
 public class HpUI : MonoBehaviour
 {
+    /*******************************
+    * private
+    *******************************/
     [SerializeField] Animator[] hpAnimator;
 
-    int beforeHp;
+    int currentHP;
 
     void Awake()
     {
-        beforeHp = 5;
+       currentHP = hpAnimator.Length;
     }
 
-    void Update()
+    /*******************************
+    * public
+    *******************************/
+    public void Damage(int damage)
     {
-        if (beforeHp <= 0) return;
-        Damage();
-        Heal();
-    }
-
-    void Damage()
-    {
-        //プレイヤーのHPに変更があれば、UIのアニメーションを再生する
-        if (Player.readPlayer.GetHP() < beforeHp)
+        //UIを減少させるアニメーションを再生
+        for (int n = currentHP; n > currentHP - damage; n--)
         {
-            //UIを減少させるアニメーションを再生
+            if (n <= 0) break;
+            BehaviorAnimation.UpdateTrigger(ref hpAnimator[n - 1], "Damage"); //HPの要素数は０から始まるので-1
+        }
+        currentHP -= damage;
+    }
 
-            for (int n = beforeHp; n > Player.readPlayer.GetHP(); n--)
-            {
-                if (n <= 0) break;
-                BehaviorAnimation.UpdateTrigger(ref hpAnimator[n - 1], "Damage"); //HPの要素数は０から始まるので-1
-            }
-            beforeHp = Player.readPlayer.GetHP();
+    public void Heal(int healValue)
+    {
+        //UIを上昇させるアニメーションを再生
+        for (int n = currentHP; n <= currentHP + healValue; n++)
+        {
+            if (n > hpAnimator.Length) break;
+            if (n <= 0) continue;
+            BehaviorAnimation.UpdateTrigger(ref hpAnimator[n - 1], "Heal"); //HPの要素数は０から始まるので-1
+        }
+
+        currentHP += healValue;
+
+        if(currentHP > hpAnimator.Length)
+        {
+            currentHP = hpAnimator.Length;
         }
     }
 
-    void Heal()
+    public void InitHp(int healValue)
     {
-        //プレイヤーのHPに変更があれば、UIのアニメーションを再生する
-        if (Player.readPlayer.GetHP() > beforeHp)
+        //UIを上昇させるアニメーションを再生
+        for (int n = currentHP; n <= currentHP + healValue; n++)
         {
-            //UIを上昇させるアニメーションを再生
-
-            for (int n = beforeHp; n < Player.readPlayer.GetHP(); n++)
-            {
-                BehaviorAnimation.UpdateTrigger(ref hpAnimator[n - 1], "Heal"); //HPの要素数は０から始まるので-1
-            }
-            beforeHp = Player.readPlayer.GetHP();
+            if (n > hpAnimator.Length) break;
+            if (n <= 0) continue;
+            BehaviorAnimation.UpdateTrigger(ref hpAnimator[n - 1], "Heal"); //HPの要素数は０から始まるので-1
         }
+
+        currentHP += healValue;
+
+        if (currentHP > hpAnimator.Length)
+        {
+            currentHP = hpAnimator.Length;
+        }
+    }
+
+
+    public void SetCurrentHP(int hp)
+    {
+        currentHP = hp;
     }
 }

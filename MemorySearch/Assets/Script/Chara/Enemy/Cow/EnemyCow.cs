@@ -52,6 +52,15 @@ public class EnemyCow : EnemyBase
             return;
         }
 
+        if (!UpdateCharaBase())
+        {
+            if (stateMachine.currentStateKey != (int)State.Idle)
+            {
+                stateMachine.Dispatch((int)State.Idle);
+            }
+            return;
+        }
+
         stateMachine.Update();
 
         UpdateRotate();
@@ -59,8 +68,6 @@ public class EnemyCow : EnemyBase
         UpdatePosition();
 
         UpdateDelay();
-
-        CharaUpdate();
     }
 
     //角度更新
@@ -129,7 +136,6 @@ public class EnemyCow : EnemyBase
 
     [Header("エフェクト")]
     [SerializeField] public Effekseer.EffekseerEmitter effectTackle;
-    [SerializeField] public Effekseer.EffekseerEmitter effectExplosion;
 
     [Space]
     [Header("SE関連")]

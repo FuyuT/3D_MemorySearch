@@ -9,7 +9,26 @@ public class StateFlogShot : State
     /*******************************
     * private
     *******************************/
-    float delayShotTime;
+    private void UpdateParameter()
+    {
+        //飛ばす斬撃のパラメータを設定
+        Owner.projectileBullet.SetDamage(Owner.projectileDamage);
+        Owner.projectileBullet.SetSpeed(Owner.projectileSpeed);
+        Owner.projectileBullet.SetMoveVec(Owner.transform.forward);
+
+        Owner.SetSubMemory(MemoryType.Punch);
+    }
+
+    void RotateToTarget()
+    {
+        //ターゲットへのベクトルを計算
+        Vector3 vec = Vector3.Normalize(Player.readPlayer.GetPos() - Actor.IPosition().GetPosition()) * Owner.moveSpeed;
+        vec.y = 0;
+        Actor.Transform.RotateUpdateToVec(vec, Owner.rotateSpeed);
+
+        //弾丸が飛ぶ方向を更新
+        Owner.projectileBullet.SetMoveVec(vec);
+    }
 
     /*******************************
     * protected
@@ -17,10 +36,7 @@ public class StateFlogShot : State
     protected override void OnEnter(State prevState)
     {
         BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Attack_Shot");
-
-        SoundManager.instance.PlaySe(Owner.ShotSE, Owner.transform.position);
-
-        delayShotTime = 0;
+        UpdateParameter();
     }
 
     protected override void OnUpdate()
@@ -33,39 +49,7 @@ public class StateFlogShot : State
 
         RotateToTarget();
 
-        Shot();
-
         SelectNextState();
-    }
-
-    void RotateToTarget()
-    {
-        //ターゲットへのベクトルを計算
-        Vector3 vec = Vector3.Normalize(Player.readPlayer.GetPos() - Actor.IPosition().GetPosition()) * Owner.moveSpeed;
-
-        Actor.Transform.RotateUpdateToVec(vec, Owner.rotateSpeed);
-    }
-
-    void Shot()
-    {
-        //インターバルを更新    
-        if (delayShotTime < Owner.ShotInterval)
-        {
-            delayShotTime += Time.deltaTime;
-        }
-        else
-        {
-            CreateBullet();
-            delayShotTime = 0;
-        }
-    }
-
-    void CreateBullet()
-    {
-        //弾丸を生成
-        Vector3 pos = Owner.transform.position + Owner.transform.forward * 7;
-        var bullet = Object.Instantiate(Owner.bullet);
-        bullet.GetComponent<ProjectileBullet>().Init(pos, Owner.transform.forward, Owner.ShotSpeed, Owner.ShotDamage);
     }
 
     protected override void SelectNextState()
@@ -79,8 +63,9 @@ public class StateFlogShot : State
 
     protected override void OnExit(State nextState)
     {
-        Owner.delayShotTime = 0;
+        Owner.InitSubMemory();
+
+        Owner.projectileDelay = 0;
         Owner.animator.ResetTrigger("Attack_Shot");
-        SoundManager.instance.StopSe(Owner.ShotSE);
     }
 }

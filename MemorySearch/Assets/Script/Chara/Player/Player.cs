@@ -9,12 +9,17 @@ public class Player : CharaBase, IReadPlayer
     * private
     *******************************/
 
+    [Header("HPのUI")]
+    [SerializeField] HpUI hpUI;
+
     [Header("無敵時間")]
     [SerializeField] float InvincibleTimeMax;
-    float nowInvincibleTime;
+    public float nowInvincibleTime;
     [Header("描画を切る間隔時間")]
     [SerializeField] float DrawCancelTimeMax;
     float nowDrawCancelTime;
+
+    [SerializeField] PhysicMaterial physicMaterial;
 
     //アクター
     MyUtil.Actor<Player> actor;
@@ -77,27 +82,32 @@ public class Player : CharaBase, IReadPlayer
 
         //速度の上限値を設定
         actor.IVelocity().SetMaxVelocityY(120);
+
+        isPossibleDush = true;
     }
 
     void StateMachineInit()
     {
         //待機
         stateMachine.AddAnyTransition<StateIdle>((int)State.Idle);
-        stateMachine.GetOrAddState<StateIdle>().SetDispatchStates(new State[7]
-            { State.Move_Walk,State.Jump,State.Move_Dush,State.Attack_Punch,
-              State.Guard,State.Attack_Slam,State.Attack_Tackle});
+        stateMachine.GetOrAddState<StateIdle>().SetDispatchStates(new State[9]
+            { State.Move_Walk,    State.Jump,              State.Move_Dush, 
+              State.Attack_Punch, State.Attack_Rush_Three, State.Attack_Rush_Five,
+              State.Guard,        State.Attack_Slam,       State.Attack_Tackle});
 
         //歩く
         stateMachine.AddTransition<StateIdle, StateMoveWalk>((int)State.Move_Walk);
-        stateMachine.GetOrAddState<StateMoveWalk>().SetDispatchStates(new State[7]
-            { State.Move_Walk,State.Jump,State.Move_Dush,State.Attack_Punch,
-              State.Guard,State.Attack_Slam,State.Attack_Tackle});
+        stateMachine.GetOrAddState<StateMoveWalk>().SetDispatchStates(new State[9]
+            { State.Move_Walk,    State.Jump,              State.Move_Dush,
+              State.Attack_Punch, State.Attack_Rush_Three, State.Attack_Rush_Five,
+              State.Guard,        State.Attack_Slam,       State.Attack_Tackle});
 
         //走る
         stateMachine.AddAnyTransition<StateMoveRun>((int)State.Move_Run);
-        stateMachine.GetOrAddState<StateMoveRun>().SetDispatchStates(new State[7]
-            { State.Move_Walk,State.Jump,State.Move_Dush,State.Attack_Punch,
-              State.Guard,State.Attack_Slam,State.Attack_Tackle});
+        stateMachine.GetOrAddState<StateMoveRun>().SetDispatchStates(new State[9]
+            { State.Move_Walk,    State.Jump,              State.Move_Dush,
+              State.Attack_Punch, State.Attack_Rush_Three, State.Attack_Rush_Five,
+              State.Guard,        State.Attack_Slam,       State.Attack_Tackle});
 
         //ガード
         stateMachine.AddAnyTransition<StateGuard>((int)State.Guard);
@@ -116,8 +126,9 @@ public class Player : CharaBase, IReadPlayer
         //ジャンプ
         stateMachine.AddAnyTransition<StateJump>((int)State.Jump);
         stateMachine.GetOrAddState<StateJump>().SetDispatchStates(new State[2]
-            { State.Double_Jump,State.Move_Dush});
+        { State.Double_Jump,State.Move_Dush});
 
+        //ダブルジャンプ
         stateMachine.AddAnyTransition<StateDoubleJump>((int)State.Double_Jump);
         stateMachine.GetOrAddState<StateDoubleJump>().SetDispatchStates(new State[1]
         {
@@ -137,6 +148,18 @@ public class Player : CharaBase, IReadPlayer
         {
             State.None
         });
+        //ラッシュ３連撃
+        stateMachine.AddAnyTransition<StateAttack_Rush_Three>((int)State.Attack_Rush_Three);
+        stateMachine.GetOrAddState<StateAttack_Rush_Three>().SetDispatchStates(new State[1]
+        {
+            State.None
+        });
+        //ラッシュ５連撃
+        stateMachine.AddAnyTransition<StateAttack_Rush_Five>((int)State.Attack_Rush_Five);
+        stateMachine.GetOrAddState<StateAttack_Rush_Five>().SetDispatchStates(new State[1]
+        {
+            State.None
+        });
 
         //叩きつけ
         stateMachine.AddAnyTransition<StateAttack_Slam>((int)State.Attack_Slam);
@@ -144,6 +167,16 @@ public class Player : CharaBase, IReadPlayer
         {
             State.None
         });
+
+        //落下
+        stateMachine.AddAnyTransition<StateFall>((int)State.Fall);
+        stateMachine.GetOrAddState<StateFall>().SetDispatchStates(new State[1]
+        {
+            State.Move_Dush
+        });
+
+        //死亡
+        stateMachine.AddAnyTransition<StatePlayerDead>((int)State.Dead);
 
         //ステートマシンの開始　初期ステートは引数で指定
         stateMachine.Start(stateMachine.GetOrAddState<StateIdle>());
@@ -155,45 +188,72 @@ public class Player : CharaBase, IReadPlayer
 
         //Delayの更新
         DelayTimeUpdate();
+        //無敵の更新
+        UpdateInvincible();
 
         if (IsDead())
         {
-            SoundManager.instance.PlaySe(DownSE,transform.position);
-            BehaviorAnimation.UpdateTrigger(ref animator, "Damage_Dead");
-            if(BehaviorAnimation.IsPlayEnd(ref animator, "Damage_Dead"))
+            if (stateMachine.currentStateKey != (int)State.Dead)
             {
-                SoundManager.instance.StopSe(DownSE);
+                stateMachine.Dispatch((int)State.Dead);
             }
+            stateMachine.Update();
             return;
         }
 
         //TimeScaleが0以下の時は処理を終了
         if (Time.timeScale <= 0) return;
 
-        //FPSカメラの時は、プレイヤーを非表示にする
-        if (FPSCamera.activeSelf)
+        if (!UpdateCharaBase())
         {
-            renderer.enabled = false;
+            if(stateMachine.currentStateKey != (int)State.Idle)
+            {
+                stateMachine.Dispatch((int)State.Idle);
+            }
+            return;
         }
-        else
-        {
-            renderer.enabled = true;
-        }
+
+        //落下状態への遷移
+        StateDispatchFall();
 
         //ステートマシン更新
         stateMachine.Update();
+
+        //地面に着地しているか確認する
+        CheckCollisionLowerObject();
+    }
+
+    private void FixedUpdate()
+    {
+        if (IsDead())
+        {
+            return;
+        }
+
+        //ステートマシン更新
+        stateMachine.FiexdUpdate();
 
         //角度更新
         RotateUpdate();
 
         //位置更新
         PositionUpdate();
+    }
 
+    public bool StateDispatchFall()
+    {
+        if (isGround) return false;
+        if (actor.IVelocity().GetState() != MyUtil.VelocityState.isDown) return false;
 
-        //地面に着地しているか確認する
-        CheckCollisionGround();
+        if(stateMachine.currentStateKey != (int)State.Fall
+            && stateMachine.currentStateKey != (int)State.Jump
+            && stateMachine.currentStateKey != (int)State.Double_Jump)
+        {
+            stateMachine.Dispatch((int)State.Fall);
+            return true;
+        }
 
-        CharaUpdate();
+        return false;
     }
 
     //角度更新
@@ -238,12 +298,9 @@ public class Player : CharaBase, IReadPlayer
         {
             nowTackleDelayTime -= Time.deltaTime;
         }
-
-        UpdateInvincibleTime();
-
     }
 
-    void UpdateInvincibleTime()
+    void UpdateInvincible()
     {
         //無敵時間更新
         if (nowInvincibleTime > 0)
@@ -263,25 +320,11 @@ public class Player : CharaBase, IReadPlayer
         }
         else
         {
-            //renderer.enabled = !renderer.enabled;
+            renderer.enabled = !renderer.enabled;
             nowDrawCancelTime = DrawCancelTimeMax;
         }
     }
 
-    //CharaBaseで定義しているダメージ処理中の関数を上書き
-    override protected bool IsPossibleDamage()
-    {
-        return nowInvincibleTime <= 0 ? true : false;
-    }
-
-    override protected void AddDamageProcess()
-    {
-        nowInvincibleTime = InvincibleTimeMax;
-        nowDrawCancelTime = DrawCancelTimeMax;
-        Debug.Log("通った");
-
-        renderer.enabled = false;
-    }
     /*******************************
     * public
     *******************************/
@@ -353,8 +396,6 @@ public class Player : CharaBase, IReadPlayer
     public float nowTackleDelayTime;
     [Space]
     [Header("「叩きつけステート」")]
-    [Header("アニメーション位置")]
-    [SerializeField] public Transform animTransform;
 
     [Space]
     [Header("初速")]
@@ -365,7 +406,7 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] public float TackleTime;
 
     [Header("プレイヤーのRenderer")]
-    [SerializeField] Renderer renderer;
+    [SerializeField] public Renderer renderer;
 
     [Header("エフェクト")]
     [SerializeField] public Effekseer.EffekseerEmitter effectWind;
@@ -379,21 +420,28 @@ public class Player : CharaBase, IReadPlayer
     [SerializeField] public AudioClip GuardSE;
     [SerializeField] public AudioClip TackleSE;
     [SerializeField] public AudioClip PunchSE;
+    [SerializeField] public AudioClip ExplosionSE;
 
     [SerializeField] public BatteryCountUI batteryCountUI;
 
     public bool isGround;
 
+    public bool isPossibleDush;
+
     public enum State
     {
         //メモリの種類
         None = MemoryType.None,
+        //ダッシュ
         Move_Dush = MemoryType.Dush,
+        Move_Air_Dush = MemoryType.AirDush,
         //ジャンプ
         Jump = MemoryType.Jump,
         Double_Jump = MemoryType.DowbleJump,
         //攻撃
         Attack_Punch = MemoryType.Punch,
+        Attack_Rush_Three = MemoryType.Rush_Three,
+        Attack_Rush_Five = MemoryType.Rush_Five,
         Attack_Slam = MemoryType.Slam,
         Attack_Tackle = MemoryType.Tackle,
         //防御
@@ -403,7 +451,9 @@ public class Player : CharaBase, IReadPlayer
         //移動
         Move_Walk,
         Move_Run,
-        Floating,
+        Fall,
+        //死亡
+        Dead,
     }
 
     public float nowJumpSpeed;
@@ -432,26 +482,54 @@ public class Player : CharaBase, IReadPlayer
     }
 
     /*******************************
+    * override
+    *******************************/
+    override protected bool IsPossibleDamage()
+    {
+        return nowInvincibleTime <= 0 ? true : false;
+    }
+    override protected void AddDamageProcess(int damage)
+    {
+        //hpUIの再生
+        hpUI.Damage(damage);
+
+        //無敵の更新
+        if(!IsDead(damage))
+        {
+            nowInvincibleTime = InvincibleTimeMax;
+            nowDrawCancelTime = DrawCancelTimeMax;
+            renderer.enabled = false;
+        }
+    }
+
+    /*******************************
     * 衝突判定
     *******************************/
-    private void CheckCollisionGround()
+    private void CheckCollisionLowerObject()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
 
         Debug.DrawRay(ray.origin, ray.direction * DirectionCheckHitGround, Color.red);
-        if (Physics.Raycast(ray,out hit, DirectionCheckHitGround)) //速度が0の時に例が0にならないように+RayAdjustしている
+        if (Physics.Raycast(ray,out hit, DirectionCheckHitGround))
         {
             //地面にレイが当たっていて、プレイヤーのVelocityが上昇していない時
-            if (hit.collider.CompareTag("Ground")
-                && actor.IVelocity().GetState() != MyUtil.VelocityState.isUp)
+            switch(hit.transform.tag)
             {
-                isGround = true;
+                case "Ground":
+                    if(actor.IVelocity().GetState() != MyUtil.VelocityState.isUp)
+                    {
+                        isGround = true;
+                        isPossibleDush = true;
+                        gameObject.GetComponent<CapsuleCollider>().material = null;
+                    }
+                    break;
             }
         }
         //何にも当たっていないなら
         else
         {
+            gameObject.GetComponent<CapsuleCollider>().material = physicMaterial;
             isGround = false;
         }
     }
