@@ -68,17 +68,14 @@ public class Lockon : MonoBehaviour
 
     void Start()
     {
-        if (CameraManager.instance.GetCurrentCameraType() == (int)CameraManager.CameraType.FPS)
-        {
-            ScanImg.SetActive(false);
-            PreviewScanImg.SetActive(false);
-            ScanImgAnim = ScanImg.GetComponent<Animator>();
-            PreviewScanImgAnim = PreviewScanImg.GetComponent<Animator>();
-            ScanGetedImg.SetActive(false);
-            PreviewScanGetedImg.SetActive(false);
-            ScanGetedImg.GetComponent<Animator>().speed = 0;
-            PreviewScanGetedImg.GetComponent<Animator>().speed = 0;
-        }
+        ScanImg.SetActive(false);
+        PreviewScanImg.SetActive(false);
+        ScanImgAnim = ScanImg.GetComponent<Animator>();
+        PreviewScanImgAnim = PreviewScanImg.GetComponent<Animator>();
+        ScanGetedImg.SetActive(false);
+        PreviewScanGetedImg.SetActive(false);
+        ScanGetedImg.GetComponent<Animator>().speed = 0;
+        PreviewScanGetedImg.GetComponent<Animator>().speed = 0;
     }
 
     void Update()
