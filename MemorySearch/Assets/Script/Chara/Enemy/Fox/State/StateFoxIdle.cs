@@ -22,10 +22,13 @@ public class StateFoxIdle : State
     protected override void SelectNextState()
     {
         //タックル
-        if(Owner.tackleDelay >= Owner.tackleDelayMax)
+        if(Owner.GetHP() <= Owner.tacklePossibleHpMax)
         {
-            stateMachine.Dispatch((int)EnemyFox.State.Attack_Tackle);
-            return;
+            if (Owner.tackleDelay >= Owner.tackleDelayMax)
+            {
+                stateMachine.Dispatch((int)EnemyFox.State.Attack_Tackle);
+                return;
+            }
         }
 
         //通常攻撃

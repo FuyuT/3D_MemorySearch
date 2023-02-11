@@ -10,13 +10,9 @@ namespace MyUtil
         *******************************/
         static T instance;
 
-        static void Create()
-        {
-            instance = new T();
-        }
-
         private void Awake()
         {
+            Instance();
             if(this != instance)
             {
                 Destroy(this);

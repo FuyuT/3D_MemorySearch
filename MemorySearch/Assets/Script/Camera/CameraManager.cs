@@ -46,7 +46,6 @@ public class CameraManager : MonoBehaviour
     {
         instance = this;
     }
-
     void Start()
     {
         StateMachineInit();

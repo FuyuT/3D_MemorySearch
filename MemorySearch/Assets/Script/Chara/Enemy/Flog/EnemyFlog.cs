@@ -17,6 +17,8 @@ public class EnemyFlog : EnemyBase
     [Header("地面との当たり判定で使用するレイの長さ")]
     [SerializeField] float DirectionCheckHitGround;
 
+    [SerializeField] PhysicMaterial physicMaterial;
+
     private void Awake()
     {
         StateMachineInit();
@@ -257,6 +259,7 @@ public class EnemyFlog : EnemyBase
         //何にも当たっていないなら
         else
         {
+            gameObject.GetComponent<SphereCollider>().material = physicMaterial;
             isGround = false;
         }
     }

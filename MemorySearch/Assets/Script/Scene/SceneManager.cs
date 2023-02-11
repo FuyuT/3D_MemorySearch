@@ -37,7 +37,6 @@ public class SceneManager : MonoBehaviour
 
     private void Awake()
     {
-        ToClear();
         IsGameOver = false;
     }
 

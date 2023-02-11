@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,23 +17,11 @@ public class SearchMemory : MonoBehaviour
     [SerializeField]
     GetMemoryUI getMemoryUI;
 
-    //オプション関連/////////////////////////
-
-    [Header("オプションスライダーX")]
-    [SerializeField] Slider sliderX;
-    [Header("オプションスライダーY")]
-    [SerializeField] Slider sliderY;
-    //オプションの情報を取得
-    [SerializeField] OptionManager optionManager;
-    ///////////////////////////////////////////
 
     //SE関連/////////////////////////
     [SerializeField] AudioClip Successclip;
 
     [SerializeField] AudioClip Missclip;
-
-    [SerializeField] AudioClip Chargeclip;
-
     
     ///////////////////////////////////////////
 
@@ -52,10 +38,6 @@ public class SearchMemory : MonoBehaviour
     //Lockonのスクリプト
     [SerializeField]
     Lockon lockon;
-
-    //ScanMemoryUI
-    [SerializeField]
-    MemoryUI memoryUI;
 
     MemoryType scanMemory;
 
@@ -124,7 +106,6 @@ public class SearchMemory : MonoBehaviour
         {
             isScan = true;
             scanMemory = lockon.GetTarget().GetComponent<EnemyBase>().GetMemory();
-            SoundManager.instance.PlaySe(Chargeclip, transform.position);
         }
     }
 
@@ -165,7 +146,6 @@ public class SearchMemory : MonoBehaviour
     void MissScan()
     {
         isScan = false;
-        SoundManager.instance.StopSe(Chargeclip);
         SoundManager.instance.PlaySe(Missclip, transform.position);
         SearchSlider.value = 0;
     }
@@ -173,7 +153,6 @@ public class SearchMemory : MonoBehaviour
     void SuccessScan()
     {
         //スキャン成功音を流す
-        SoundManager.instance.StopSe(Chargeclip);
         SoundManager.instance.PlaySe(Successclip, transform.position);
 
         //取得したメモリをプレイヤーデータに登録

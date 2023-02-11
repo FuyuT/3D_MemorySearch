@@ -1406,6 +1406,7 @@ MonoBehaviour:
   animator: {fileID: 3832604674891622318}
   animTransform: {fileID: 8780210723891577099}
   DirectionCheckHitGround: 4.5
+  physicMaterial: {fileID: 13400000, guid: e7766fecd6143784fa10e55118c56d74, type: 2}
   searchRange: {fileID: 5778342064349852125}
   attackRange: {fileID: 5778342065819042977}
   moveSpeed: 12
@@ -1417,13 +1418,12 @@ MonoBehaviour:
   projectileSpeed: 3
   projectileDamage: 1
   delayJumpTimeMax: 0.55
-  JumpToTargetPower: 1
+  JumpToTargetPower: 2
   JumpStartSpeed: 5
   JumpDecreaseValue: 0.4
   renderer: {fileID: 4050930009263962949}
   JumpSE: {fileID: 8300000, guid: 95bbc5a004464074e8f92bab10c3c761, type: 3}
   AttackSE: {fileID: 8300000, guid: 6c63ac69b35861a47b1f38a7881c64cf, type: 3}
-  ShotSE: {fileID: 8300000, guid: 8ff67b558bb2cd24db0a0927b534bfc9, type: 3}
   DownSE: {fileID: 8300000, guid: db3feff9c67591143b6d9323368ebeaf, type: 3}
   ExplosionSE: {fileID: 8300000, guid: 15e74fd4a3d9c484bb8ca15a538cdc8d, type: 3}
   effectPlayer: {fileID: 4409214338396621105}

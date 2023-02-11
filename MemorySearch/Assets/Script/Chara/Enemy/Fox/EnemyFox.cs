@@ -181,6 +181,7 @@ public class EnemyFox : EnemyBase
     [SerializeField] public float tackleSpeed; 
     [SerializeField] public float tackleDelay;
     [SerializeField] public float tackleDelayMax;
+    [SerializeField] public int tacklePossibleHpMax;
 
     [HideInInspector]
     public CapsuleCollider capsuleCollider;

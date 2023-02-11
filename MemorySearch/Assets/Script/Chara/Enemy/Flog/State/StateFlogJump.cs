@@ -30,7 +30,8 @@ public class StateFlogJump : State
 
     protected override void OnUpdate()
     {
-        if (Actor.IVelocity().GetState() == MyUtil.VelocityState.isDown)
+        if (Actor.IVelocity().GetState() == MyUtil.VelocityState.isDown
+            && !BehaviorAnimation.IsName(ref Owner.animator, "Jump_Landing"))
         {
             BehaviorAnimation.UpdateTrigger(ref Owner.animator, "Jump_Fall");
         }
@@ -40,7 +41,10 @@ public class StateFlogJump : State
 
     protected override void OnFiexdUpdate()
     {
+        if (BehaviorAnimation.IsName(ref Owner.animator, "Jump_Landing")) return;
+
         Jump();
+        Landing();
     }
 
     void Jump()
@@ -51,9 +55,17 @@ public class StateFlogJump : State
         Actor.IVelocity().AddVelocity(moveVec + new Vector3(0, Owner.nowJumpSpeed, 0));
     }
 
+    void Landing()
+    {
+        if (Owner.nowJumpSpeed < 0 && Owner.isGround)
+        {
+            Owner.animator.SetTrigger("Jump_Landing");
+        }
+    }
 
     protected override void SelectNextState()
     {
+        if (!BehaviorAnimation.IsPlayEnd(ref Owner.animator, "Jump_Landing")) return;
         //ジャンプを終了して待機へ
         if (Owner.nowJumpSpeed < 0 && Owner.isGround)
         {
@@ -69,5 +81,10 @@ public class StateFlogJump : State
 
         //重力の変更
         Actor.IVelocity().SetUseGravity(true);
+
+        Owner.animator.ResetTrigger("Jump_Start");
+        Owner.animator.ResetTrigger("Jump_Fall");
+        Owner.animator.ResetTrigger("Jump_Landing");
+
     }
 }
