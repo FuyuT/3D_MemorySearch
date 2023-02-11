@@ -7,7 +7,7 @@ public class GetBatteryUI : MyUtil.SingletonMonoBehavior<GetBatteryUI>
 {
     protected override bool dontDestroyOnLoad { get{ return true; } }
     [SerializeField]
-    BatteryCountUI BatteryAddtUI;
+    BatteryCountUI BatteryAddUI;
 
     //[SerializeField]
     public Animator Startanimator;
@@ -15,7 +15,7 @@ public class GetBatteryUI : MyUtil.SingletonMonoBehavior<GetBatteryUI>
 
     public void AddBattey(float addCount)
     {
-        BatteryAddtUI.SetBatteryCount(addCount);
+        BatteryAddUI.SetBatteryCount(addCount);
         PlayGetAnim();
     }
 

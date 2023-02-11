@@ -22262,7 +22262,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &916926193
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36186,9 +36186,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae84bd188a02dcd4db727f72153f9c40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StageClip: {fileID: 0}
-  BossClip: {fileID: 0}
-  Player: {fileID: 0}
+  StageClip: {fileID: 8300000, guid: 8176fc157b7d1764cb12ef3e131a8c75, type: 3}
+  BossClip: {fileID: 8300000, guid: 533475c5003b22142b741b5e5a046569, type: 3}
+  Player: {fileID: 355230695}
 --- !u!65 &1396517335
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42552,13 +42552,14 @@ GameObject:
   - component: {fileID: 1658787170}
   - component: {fileID: 1658787172}
   - component: {fileID: 1658787169}
+  - component: {fileID: 1658787173}
   m_Layer: 5
   m_Name: GetBattery
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1658787168
 RectTransform:
   m_ObjectHideFlags: 0
@@ -42651,8 +42652,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7e8ffcaaf75b740bafae87b20744b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BatteryAddtUI: {fileID: 0}
-  Startanimator: {fileID: 0}
+  BatteryAddUI: {fileID: 1658787173}
+  Startanimator: {fileID: 1658787169}
+--- !u!114 &1658787173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658787167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8335ff2be8700484da522537b1ed480a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1658787170}
+  type: 3
 --- !u!1001 &1659615602
 PrefabInstance:
   m_ObjectHideFlags: 0
