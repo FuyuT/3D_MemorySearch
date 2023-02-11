@@ -17,6 +17,7 @@ namespace MyUtil
 
         private void Awake()
         {
+            Instance();
             if(this != instance)
             {
                 Destroy(this);

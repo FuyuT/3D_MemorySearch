@@ -22129,7 +22129,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &916926193
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32938,7 +32938,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2517166737245142209, guid: 8900f09eb2a4de14db6346affba119dd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -571
+      value: -581
       objectReference: {fileID: 0}
     - target: {fileID: 2517166737245142209, guid: 8900f09eb2a4de14db6346affba119dd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -32946,7 +32946,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2517166737245142209, guid: 8900f09eb2a4de14db6346affba119dd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1115
+      value: 721
       objectReference: {fileID: 0}
     - target: {fileID: 2517166737245142209, guid: 8900f09eb2a4de14db6346affba119dd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -42440,8 +42440,9 @@ GameObject:
   - component: {fileID: 1658787170}
   - component: {fileID: 1658787172}
   - component: {fileID: 1658787169}
+  - component: {fileID: 1658787173}
   m_Layer: 5
-  m_Name: GetBattery
+  m_Name: GetBatteryText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42454,7 +42455,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1658787167}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -42463,7 +42464,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -214.9, y: -398.1}
+  m_AnchoredPosition: {x: -214.90002, y: -398.1}
   m_SizeDelta: {x: 219, y: 140.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1658787169
@@ -42507,18 +42508,18 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 15294332f40b5aa48b9e3ffbb495d55d, type: 3}
-    m_FontSize: 40
+    m_FontSize: 50
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 2
-    m_MaxSize: 40
+    m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uFF0B\uFF10.\uFF10"
+  m_Text: "+\uFF10.\uFF10"
 --- !u!222 &1658787171
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42539,8 +42540,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7e8ffcaaf75b740bafae87b20744b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BatteryAddtUI: {fileID: 0}
-  Startanimator: {fileID: 0}
+  BatteryAddtUI: {fileID: 1658787173}
+  Startanimator: {fileID: 1658787169}
+--- !u!114 &1658787173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1658787167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8335ff2be8700484da522537b1ed480a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text: {fileID: 1658787170}
+  type: 3
 --- !u!1001 &1659615602
 PrefabInstance:
   m_ObjectHideFlags: 0

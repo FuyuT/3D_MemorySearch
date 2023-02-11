@@ -52,7 +52,7 @@ public class BatteryItem : MonoBehaviour
         {
             //‡¬ƒRƒXƒg‚ğ‘‰Á‚³‚¹‚é
             DataManager.instance.IPlayerData().AddPossesionCombineCost(batteryPower);
-
+            GetBatteryUI.Instance().AddBattey(batteryPower);
             Destroy(this.gameObject);
         }
     }

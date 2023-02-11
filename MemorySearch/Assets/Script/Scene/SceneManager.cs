@@ -37,7 +37,7 @@ public class SceneManager : MonoBehaviour
 
     private void Awake()
     {
-        ToClear();
+        //ToClear();
         IsGameOver = false;
     }
 
@@ -83,7 +83,6 @@ public class SceneManager : MonoBehaviour
     {
         Time.timeScale = 1.0f;
         FadeManager.Instance.LoadScene("Titel", 1.0f);
-        SoundManager.instance.StopBgm();
     }
 
     public static void ToGame()
