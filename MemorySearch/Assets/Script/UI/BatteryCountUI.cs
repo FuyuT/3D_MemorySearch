@@ -8,6 +8,7 @@ public class BatteryCountUI : MonoBehaviour
         Possesion,
         To,
         Combine,
+        AddAnim,
     }
     /*******************************
     * private
@@ -42,7 +43,14 @@ public class BatteryCountUI : MonoBehaviour
     *******************************/
     public void SetBatteryCount(float count)
     {
-        text.text = ToUpper(count.ToString());
+        if (type == BatteryCountUI.Type.AddAnim)
+        {
+            text.text = ToUpper("Å{" + count.ToString());
+        }
+        else
+        {
+            text.text = ToUpper(count.ToString());
+        }
     }
 
     public void InitToCost(float to)
