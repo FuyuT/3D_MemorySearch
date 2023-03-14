@@ -64,6 +64,7 @@ public class Lockon : MonoBehaviour
         PreviewScanImg.SetActive(false);
         ScanGetedImg.SetActive(false);
         PreviewScanGetedImg.SetActive(false);
+        GetMemoryPreviewImg.GetComponent<Image>().sprite = MemoryPreviewFrameSprite;
     }
 
     void Start()
